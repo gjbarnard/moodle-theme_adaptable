@@ -1,0 +1,97 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_adaptable/headerstyletwo
+
+    Header style two.
+
+    Example context (json):
+    {
+        "headerbg": "",
+        "sitelogo": "",
+        "sitetitle": "Adaptable",
+        "shownavbar": true,
+        "topmenus": "",
+        "navbarsearch": "",
+        "pageheaderoriginal": true,
+        "langmenu": false,
+        "loginoruser": ""
+    }
+}}
+<header id="adaptable-page-header-wrapper" class="stickything"{{{headerbg}}}>
+    <div id="header2" class="above-header container">
+        <div class="row {{^pageheaderoriginal}}justify-content-lg-between{{/pageheaderoriginal}}">
+            <div class="d-none d-lg-block {{#pageheaderoriginal}}col-lg-6{{/pageheaderoriginal}}{{^pageheaderoriginal}}col{{/pageheaderoriginal}}">
+                <div class="d-flex justify-content-start align-items-center h-100 bd-highlight">
+                    {{#sitelogo}}{{{sitelogo}}}{{/sitelogo}}
+                    {{#sitetitle}}{{{sitetitle}}}{{/sitetitle}}
+                    <div id="course-header">
+                        {{{output.course_header}}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="{{#pageheaderoriginal}}col-lg-6{{/pageheaderoriginal}}{{^pageheaderoriginal}}col-lg-auto{{/pageheaderoriginal}} p-0 my-auto">
+                <nav class="navbar navbar-expand btco-hover-menu">
+                    {{#shownavbar}}
+                    <div id="adaptable-page-header-nav-drawer" data-region="drawer-toggle" class="d-lg-none mr-3">
+                        <button id="drawer" aria-expanded="false" aria-controls="nav-drawer" type="button" class="nav-link float-sm-left mr-1" data-side="left">
+                            <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+                            <span class="sr-only">{{#str}}sidepanel{{/str}}</span>
+                        </button>
+                    </div>
+                    {{/shownavbar}}
+
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav ml-auto">
+
+                            {{#pageheaderoriginal}}
+                            <li class="nav-item navbarsearchsocial mx-md-1 my-auto">
+                                {{{navbarsearch}}}
+                            </li>
+                            {{/pageheaderoriginal}}
+
+                            {{#topmenus}}
+                            <li class="my-auto m-1">{{{topmenus}}}</li>
+                            {{/topmenus}}
+
+                            {{! Remove Messages and Notifications icons when no navbar. }}
+                            {{#shownavbar}}
+                            <li id="nav-popover-container" class="my-auto mx-1 d-flex">
+                                {{{output.navbar_plugin_output}}}
+                            </li>
+                            {{/shownavbar}}
+
+                            {{#langmenu}}
+                                {{{langmenu}}}
+                            {{/langmenu}}
+
+                            {{{output.page_heading_menu}}}
+
+                            {{{loginoruser}}}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    {{#shownavbar}}
+        {{> theme_adaptable/headernavbar}}
+    {{/shownavbar}}
+
+</header>

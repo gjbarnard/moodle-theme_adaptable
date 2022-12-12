@@ -1,0 +1,139 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_adaptable/headerstyleone
+
+    Header style one.
+
+    Example context (json):
+    {
+        "headerbg": "",
+        "sitelogo": "",
+        "sitetitle": "Adaptable",
+        "shownavbar": true,
+        "responsivesearchicon": "",
+        "langmenu": false,
+        "loginoruser": "",
+        "menuslinkright": false,
+        "pageheaderoriginal": true,
+        "topmenus": "",
+        "searchandsocialnavbar": "",
+        "searchandsocialnavbarextra": "",
+        "searchandsocialheader": ""
+    }
+}}
+<header id="adaptable-page-header-wrapper"{{{headerbg}}}>
+    <div id="header1" class="above-header stickything">
+        <div class="container">
+            <nav class="navbar navbar-expand btco-hover-menu">
+                {{#shownavbar}}
+                <div id="adaptable-page-header-nav-drawer" data-region="drawer-toggle" class="d-lg-none mr-3">
+                    <button id="drawer" aria-expanded="false" aria-controls="nav-drawer" type="button" class="nav-link float-sm-left mr-1" data-side="left">
+                        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+                        <span class="sr-only">{{#str}}sidepanel{{/str}}</span>
+                    </button>
+                </div>
+                {{/shownavbar}}
+
+                <div class="collapse navbar-collapse">
+                {{^menuslinkright}}
+                <div class="my-auto m-1">{{{topmenus}}}</div>
+                {{/menuslinkright}}
+                    <ul class="navbar-nav ml-auto my-auto">
+                        {{#menuslinkright}}
+                        <li class="my-auto m-1">{{{topmenus}}}</li>
+                        {{/menuslinkright}}
+
+                        {{#searchandsocialnavbar}}
+                        <li class="nav-item navbarsearchsocial mx-md-1 my-auto{{searchandsocialnavbarextra}}">
+                            {{{searchandsocialnavbar}}}
+                        </li>
+                        {{/searchandsocialnavbar}}
+
+                        {{! Remove Messages and Notifications icons when no navbar. }}
+                        {{#shownavbar}}
+                        <li id="nav-popover-container" class="my-auto mx-md-1 d-flex">{{{output.navbar_plugin_output}}}</li>
+                        {{/shownavbar}}
+
+                        {{#langmenu}}
+                        <li class="nav-item dropdown ml-2 my-auto">{{{output.lang_menu}}}</li>
+                        {{/langmenu}}
+
+                        {{{output.page_heading_menu}}}
+
+                        {{{loginoruser}}}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div id="page-header" class="container {{responsiveheader}}">
+        <div class="row d-flex justify-content-start align-items-center h-100 ">
+            {{#pageheaderoriginal}}
+            <div class="col-lg-8 p-0">
+                <div class="bd-highlight d-flex">
+                    {{#sitelogo}}{{{sitelogo}}}{{/sitelogo}}
+                    {{#sitetitle}}{{{sitetitle}}}{{/sitetitle}}
+                </div>
+                <div id="course-header">
+                    {{{output.course_header}}}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                {{#searchandsocialheader}}
+                    {{{searchandsocialheader}}}
+                {{/searchandsocialheader}}
+            </div>
+            {{/pageheaderoriginal}}
+
+            {{^pageheaderoriginal}}
+            <div class="col-lg-8">
+                <div class="d-flex justify-content-between align-items-center h-100 bd-highlight">
+                    {{#sitetitle}}
+                        {{{sitetitle}}}
+                    {{/sitetitle}}
+                    {{#searchandsocialheader}}
+                        {{{searchandsocialheader}}}
+                    {{/searchandsocialheader}}
+                </div>
+            </div>
+            <div class="col-lg-4 p-0">
+                {{#sitelogo}}
+                <div class="d-flex justify-content-end bd-highlight">
+                    {{{sitelogo}}}
+                </div>
+                {{/sitelogo}}
+            </div>
+            {{/pageheaderoriginal}}
+        </div>
+        {{^pageheaderoriginal}}
+        <div class="row">
+            <div class="col-12 p-0 my-auto">
+                <div id="course-header">
+                    {{{output.course_header}}}
+                </div>
+            </div>
+        </div>
+        {{/pageheaderoriginal}}
+    </div>
+
+    {{#shownavbar}}
+        {{> theme_adaptable/headernavbar}}
+    {{/shownavbar}}
+
+</header>
