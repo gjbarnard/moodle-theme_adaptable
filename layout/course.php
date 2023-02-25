@@ -157,6 +157,7 @@ if ($movesidebartofooter) {
                 if (!empty($PAGE->theme->settings->coursepageblocksliderenabled) ) {
                     echo $OUTPUT->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
                 }
+                echo $OUTPUT->context_header();
                 echo $OUTPUT->course_content_header();
                 echo $OUTPUT->main_content();
                 echo $OUTPUT->course_content_footer();

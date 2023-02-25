@@ -1,3 +1,11 @@
+Change Log in version 401.1.0 (2022112301)
+===========================================
+1. Add new 'dimmedtextcolor' setting for the 'dimmed_text' CSS class - #290.
+2. Fix missing log causing JS error on cache purge.
+3. Fix XSS issue.
+4. Add H5P custom CSS support, 'hvpcustomcss' setting on the 'Custom CSS & JS' settings tab, for both core
+   and [mod_hvp](https://moodle.org/plugins/mod_hvp) modules.
+
 Change Log in version 401.0.1 (2022112300)
 ===========================================
 1. Release candidate version for M4.1.
