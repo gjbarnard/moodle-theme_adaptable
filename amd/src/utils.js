@@ -1,5 +1,5 @@
 /* jshint ignore:start */
-define(['jquery'], function($, log) {
+define(["jquery", "core/log"], function($, log) {
 
     "use strict"; // ... jshint ;_;.
     return {

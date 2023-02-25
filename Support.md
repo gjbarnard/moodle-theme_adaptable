@@ -6,7 +6,7 @@ passed the project onto me to manage as its lead.  I will keep the theme alive, 
 willingness to fund my time to do so.  The theme is complex and takes time, skill, knowledge and talent to develop.  This is why
 I'm asking for your financial support in my endeavours.
 
-If you would like to sponsor, get support or fund improvements, then please do get in touch via:
+If you would like to sponsor me, get support or fund improvements, then please do get in touch via:
 
 - gMail eMail | gjbarnard at gMail dt com.
 - My website eMail | contact at gjbarnard dt co dt uk.
