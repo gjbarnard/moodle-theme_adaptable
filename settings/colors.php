@@ -86,6 +86,16 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Dimmed text color.
+    $name = 'theme_adaptable/dimmedtextcolor';
+    $title = get_string('dimmedtextcolor', 'theme_adaptable');
+    $description = get_string('dimmedtextcolordesc', 'theme_adaptable');
+    $default = '#6a737b';
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     // Selection text color.
     $name = 'theme_adaptable/selectiontext';
     $title = get_string('selectiontext', 'theme_adaptable');

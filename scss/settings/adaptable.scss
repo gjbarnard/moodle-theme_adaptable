@@ -1821,7 +1821,7 @@ a.dimmed_text:visited,
 .usersuspended a:visited,
 .dimmed_category,
 .dimmed_category a {
-    color: #999 !important;
+    color: [[setting:dimmedtextcolor]] !important;
 }
 
 .activity img.iconlarge {

@@ -1,5 +1,13 @@
+Change Log in version 311.1.5 (2021081010)
+==========================================
+1. Add new 'dimmedtextcolor' setting for the 'dimmed_text' CSS class - #290.
+2. Fix missing log causing JS error on cache purge.
+3. Fix XSS issue.
+4. Add H5P custom CSS support, 'hvpcustomcss' setting on the 'Custom CSS & JS' settings tab, for both core
+   and [mod_hvp](https://moodle.org/plugins/mod_hvp) modules.
+
 Change Log in version 311.1.4 (2021081009)
-===========================================
+==========================================
 1. Change the following mod icons to Font Awesome 6.2.1 free ones:
      Assign - fa-solid fa-file-pen
      Assignment - fa-solid fa-file-signature

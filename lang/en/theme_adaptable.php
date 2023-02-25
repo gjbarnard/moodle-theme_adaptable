@@ -575,6 +575,9 @@ $string['linkcolordesc'] = 'Set the colour of links in the theme, use html hex c
 $string['linkhover'] = 'Link hover colour';
 $string['linkhoverdesc'] = 'Set the colour of links (on hover) in the theme, use html hex code.';
 
+$string['dimmedtextcolor'] = 'Dimmed text colour';
+$string['dimmedtextcolordesc'] = 'The dimmed text CSS class (dimmed_text) is used by Moodle to indicate when something is disabled / not visible.  To set that colour in the theme, use html hex code.';
+
 $string['backcolor'] = 'Background colour';
 $string['backcolordesc'] = 'Set the background colour.';
 
@@ -1614,12 +1617,15 @@ $string['piwiktrackadmin'] = 'Tracking admins';
 $string['piwiktrackadmindesc'] = 'Enable tracking of admin users (not recommended).';
 
 // Custom CSS and Javascript.
-$string['customcss'] = 'Custom CSS';
-$string['customcssdesc'] = 'Whatever CSS rules you add to this textarea will be reflected in every page, making for easier customization of this theme.';
-
 $string['customcssjssettings'] = 'Custom CSS & JS';
 $string['genericsettingsheading'] = 'Apply your own modifications';
 $string['genericsettingsdescription'] = 'Here you can find various settings to add your own CSS and JavaScript code to the theme.';
+
+$string['customcss'] = 'Custom CSS';
+$string['customcssdesc'] = 'Whatever CSS rules you add to this textarea will be reflected in every page, making for easier customization of this theme.';
+
+$string['hvpcustomcss'] = 'H5P Custom CSS';
+$string['hvpcustomcssdesc'] = 'Custom CSS for the H5P module.';
 
 $string['jssection'] = 'Javascript section';
 $string['jssectiondesc'] = 'Add javascript code to the site.';

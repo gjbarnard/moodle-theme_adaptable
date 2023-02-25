@@ -18,8 +18,9 @@
  * Version details
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @copyright  2023 Gareth J Barnard
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
@@ -33,10 +34,19 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_heading('theme_adaptable_generic', get_string('genericsettingsheading', 'theme_adaptable'),
         format_text(get_string('genericsettingsdescription', 'theme_adaptable'), FORMAT_MARKDOWN)));
 
-    // Custom CSS file.
+    // Custom CSS.
     $name = 'theme_adaptable/customcss';
     $title = get_string('customcss', 'theme_adaptable');
     $description = get_string('customcssdesc', 'theme_adaptable');
+    $default = '';
+    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Custom H5P CSS.
+    $name = 'theme_adaptable/hvpcustomcss';
+    $title = get_string('hvpcustomcss', 'theme_adaptable');
+    $description = get_string('hvpcustomcssdesc', 'theme_adaptable');
     $default = '';
     $setting = new admin_setting_configtextarea($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
