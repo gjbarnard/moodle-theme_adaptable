@@ -40,8 +40,7 @@
 }
 
 // Remove caret from main navbar menu.
-#adaptable-page-header-wrapper #main-navbar .dropdown-toggle::after,
-#adaptable-page-header-wrapper #nav-drawer .dropdown-toggle::after {
+#adaptable-page-header-wrapper #main-navbar .dropdown-toggle::after {
     content: none;
 }
 
@@ -57,17 +56,18 @@
 
 // The sticky class is added to the navbar with JS when it reaches its scroll position.
 #adaptable-page-header-wrapper .adaptable-navbar-sticky {
+    left: 0;
     position: fixed;
     top: 0;
     width: 100%;
 }
 
-// Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+// Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0).
 #adaptable-page-header-wrapper .adaptable-navbar-sticky + .adaptable-navbar-sticky-content-padding {
     padding-top: 60px;
 }
 
-// Page content */
+// Page content.
 #adaptable-page-header-wrapper .adaptable-navbar-sticky-content-padding {
     padding: 16px;
 }
@@ -535,11 +535,6 @@
     margin-right: 0;
 }
 
-
-#adaptable-page-header-wrapper button[aria-controls="nav-drawer"] {
-    font-size: 1.2em;
-}
-
 #adaptable-page-header-wrapper #main-navbar .nav-item .nav-link .fa:not(.sections-menu) {
     margin-right: 2px;
 }
@@ -551,17 +546,6 @@
 
 #adaptable-page-header-wrapper #main-navbar .nav-item i.only {
     padding-right: 0;
-}
-
-#adaptable-page-header-wrapper #adaptable-page-header-nav-drawer button {
-    border: 0;
-    background: none;
-    color: [[setting:headertextcolor]];
-    font-size: 1.5em;
-}
-
-#adaptable-page-header-nav-drawer button {
-    cursor: pointer;
 }
 
 #adaptable-page-header-wrapper .context-header-settings-menu .icon {

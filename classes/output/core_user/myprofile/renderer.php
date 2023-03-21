@@ -586,7 +586,7 @@ class renderer extends \core_user\output\myprofile\renderer {
                     if ((!empty($customcoursesubtitleprofilefield)) && ($formfield->field->shortname == $customcoursesubtitleprofilefield)) {
                         continue;
                     }
-                    if ($formfield->is_visible() and !$formfield->is_empty()) {
+                    if ($formfield->is_visible() && !$formfield->is_empty()) {
                         $node = new node('customfields', 'custom_field_' . $formfield->field->shortname,
                             format_string($formfield->field->name), null, null, $formfield->display_data());
                         $customfieldscat->add_node($node);

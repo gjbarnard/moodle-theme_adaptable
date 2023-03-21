@@ -209,6 +209,12 @@ div.signuppanel h2 {
     background-color: [[setting:headerbkcolor2]];
     width: 100%;
     z-index: 10;
+
+    &.sticky {
+        left: 0;
+        position: fixed;
+        top: 0;
+    }
 }
 
 #page-header {
@@ -910,11 +916,6 @@ input[type="radio"], input[type="checkbox"] {
     transition: all .5s ease-in-out;
 }
 
-#region-main
-.pagelayout-mydashboard #region-main {
-    padding: 0 5px; // Override Boost.
-}
-
 // Lang menu.
 .langmenu {
     a {
@@ -1354,22 +1355,10 @@ div.questionbankwindow.block {
     transition: width .5s ease-in-out;
 }
 
-#block-region-side-post {
-    transition: all .5s ease-in-out;
-}
-
-.flex-row #block-region-side-post {
-    padding-right: 0;
-}
-
 #zoominicon {
     cursor: pointer;
     padding-left: 4px !important;
     padding-right: 4px !important;
-}
-
-#showsidebaricon {
-    display: none;
 }
 
 .fselect #id_courses {

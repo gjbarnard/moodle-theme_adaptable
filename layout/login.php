@@ -31,6 +31,7 @@ defined('MOODLE_INTERNAL') || die;
 global $PAGE, $OUTPUT;
 
 if (!empty($PAGE->theme->settings->loginheader)) {
+    $sidepostdrawer = false;
     require_once(dirname(__FILE__) . '/includes/header.php');
 } else {
     require_once(dirname(__FILE__) . '/includes/noheader.php');

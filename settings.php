@@ -49,6 +49,7 @@ if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/category_headers.php');
     include(dirname(__FILE__) . '/settings/colors.php');
     include(dirname(__FILE__) . '/settings/course_formats.php');
+    include(dirname(__FILE__) . '/settings/course_index.php');
     include(dirname(__FILE__) . '/settings/dash_block_regions.php');
     include(dirname(__FILE__) . '/settings/fonts.php');
     include(dirname(__FILE__) . '/settings/footer.php');

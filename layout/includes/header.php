@@ -59,7 +59,6 @@ if (isset($PAGE->theme->settings->stickynavbar) && $PAGE->theme->settings->stick
 // JS calls.
 $PAGE->requires->js_call_amd('theme_adaptable/adaptable', 'init');
 $PAGE->requires->js_call_amd('theme_adaptable/bsoptions', 'init', $bsoptionsdata);
-$PAGE->requires->js_call_amd('theme_adaptable/drawer', 'init');
 
 // Layout.
 $left = (!right_to_left());  // To know if to add 'pull-right' and 'desktop-first-column' classes in the layout for LTR.
@@ -129,6 +128,41 @@ echo $OUTPUT->doctype();
 // Include header.
 require_once(dirname(__FILE__) . '/head.php');
 
+// TODO to swap the course index / side post block sides.
+$left = $PAGE->theme->settings->blockside;
+
+// If page is Grader report, override blockside setting to align left.
+if (($PAGE->pagetype == "grade-report-grader-index") ||
+    ($PAGE->bodyid == "page-grade-report-grader-index")) {
+    $left = true;
+}
+
+$courseindexheader = false;
+switch ($PAGE->pagelayout) {
+    case 'base':
+    case 'standard':
+    case 'course':
+    case 'coursecategory':
+    case 'incourse':
+    case 'frontpage':
+    case 'admin':
+    case 'mycourses':
+    case 'mydashboard':
+    case 'mypublic':
+    case 'report':
+        require_once(dirname(__FILE__) . '/courseindexheader.php');
+        $courseindexheader = true;
+    break;
+    default:
+        $courseindex = false;
+}
+
+if ($sidepostdrawer) {
+    require_once(dirname(__FILE__) . '/sidepostheader.php');
+} else {
+    $hassidepost = false;
+}
+
 // If it is a mobile and the header is not hidden or it is a desktop there will be a page header.
 $pageheader = 'has-page-header';
 
@@ -141,9 +175,34 @@ $nomobilenavigation = '';
 if (!empty($PAGE->theme->settings->responsivesectionnav)) {
     $nomobilenavigation = 'nomobilenavigation';
 }
+
+$bodyclasses = array();
+$bodyclasses[] = 'theme_adaptable';
+$bodyclasses[] = 'two-column';
+$bodyclasses[] = $setzoom;
+$bodyclasses[] = 'header-'.$adaptableheaderstyle;
+$bodyclasses[] = $pageheader;
+$bodyclasses[] = $hasheaderbg;
+$bodyclasses[] = $nomobilenavigation;
+
+$pageclasses = array();
+$pageclasses[] = $setfull;
+$pageclasses[] = $showiconsclass;
+$pageclasses[] = $standardscreenwidthclass;
+
+if ($courseindexheader) {
+    if ($courseindexopen) {
+        $bodyclasses[] = 'drawer-open-index';
+    }
+}
+
+if (($courseindex) || ($hassidepost)) {
+    $bodyclasses[] = 'uses-drawers';
+    $pageclasses[] = 'drawers';
+}
+
 ?>
-<body <?php echo $OUTPUT->body_attributes(array('theme_adaptable', 'two-column', $setzoom, 'header-'.$adaptableheaderstyle,
-    $pageheader, $hasheaderbg, $nomobilenavigation)); ?>>
+<body <?php echo $OUTPUT->body_attributes($bodyclasses); ?>>
 
 <?php
 echo $OUTPUT->standard_top_of_body_html();
@@ -153,8 +212,23 @@ echo $OUTPUT->standard_top_of_body_html();
 ?>
 
 <div id="page-wrapper">
-    <div id="page" class="<?php echo "$setfull $showiconsclass $standardscreenwidthclass"; ?>">
     <?php
+    if (!empty($courseindexmarkup)) {
+        echo $courseindexmarkup;
+    }
+    if (!empty($sidepostmarkup)) {
+        echo $sidepostmarkup;
+    }
+    ?>
+    <div id="page" class="<?php echo implode(' ', $pageclasses) ?>">
+    <?php
+    if (!empty($courseindextogglemarkup)) {
+        echo $courseindextogglemarkup;
+    }
+    if (!empty($sideposttogglemarkup)) {
+        echo $sideposttogglemarkup;
+    }
+
     echo $OUTPUT->get_alert_messages();
 
     $headercontext = [
@@ -240,10 +314,6 @@ echo $OUTPUT->standard_top_of_body_html();
             'toolsmenu' => ($PAGE->theme->settings->enabletoolsmenus)
         ];
 
-        if ($PAGE->theme->settings->enabletoolsmenus) {
-            $headercontext['shownavbar']['toolsmenudrawer'] = $OUTPUT->tools_menu('tools-menu-drawer');
-        }
-
         $navbareditsettings = $PAGE->theme->settings->editsettingsbutton;
         $headercontext['shownavbar']['showcog'] = true;
         $showeditbuttons = false;
@@ -273,36 +343,6 @@ echo $OUTPUT->standard_top_of_body_html();
         }
 
         if (isloggedin()) {
-            if (!empty($this->page->theme->settings->enableshowhideblocks)) {
-                $zoomside = ((!empty($this->page->theme->settings->blockside)) &&
-                    ($this->page->theme->settings->blockside == 1)) ? 'left' : 'right';
-                $hidetitle = get_string('hideblocks', 'theme_adaptable');
-                $showtitle = get_string('showblocks', 'theme_adaptable');
-                if ($setzoom == 'zoomin') { // Blocks not shown.
-                    $zoominicontitle = $showtitle;
-                    if ($zoomside == 'right') {
-                        $icontype = 'outdent';
-                    } else {
-                        $icontype = 'indent';
-                    }
-                } else {
-                    $zoominicontitle = $hidetitle;
-                    if ($zoomside == 'right') {
-                        $icontype = 'indent';
-                    } else {
-                        $icontype = 'outdent';
-                    }
-                }
-                $headercontext['shownavbar']['showhideblocks'] = true;
-                $headercontext['shownavbar']['showhideblockszoomside'] = $zoomside;
-                $headercontext['shownavbar']['showhideblockszoominicontitle'] = $zoominicontitle;
-                $headercontext['shownavbar']['showhideblockshidetitle'] = $hidetitle;
-                $headercontext['shownavbar']['showhideblocksshowtitle'] = $showtitle;
-                $headercontext['shownavbar']['showhideblocksicontype'] = $icontype;
-                $headercontext['shownavbar']['showhideblockstext'] = ($PAGE->theme->settings->enableshowhideblockstext);
-
-                $PAGE->requires->js_call_amd('theme_adaptable/zoomin', 'init');
-            }
             if ($PAGE->theme->settings->enablezoom) {
                 $headercontext['shownavbar']['enablezoom'] = true;
                 $headercontext['shownavbar']['enablezoomshowtext'] = ($PAGE->theme->settings->enablezoomshowtext);
@@ -382,6 +422,3 @@ echo $OUTPUT->standard_top_of_body_html();
 
         echo $OUTPUT->render_from_template('theme_adaptable/headerstyletwo', $headercontext);
     }
-
-    // Display News Ticker.
-    echo $OUTPUT->get_news_ticker();

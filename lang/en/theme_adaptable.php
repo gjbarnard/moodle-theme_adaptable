@@ -728,12 +728,6 @@ $string['menuhovercolordesc'] = 'Set a main menu hover colour.';
 $string['mobilemenubkcolor'] = 'Mobile menu background colour';
 $string['mobilemenubkcolordesc'] = 'Set the main menu background colour on mobile devices (collapsed).';
 
-$string['mobileslidebartabbkcolor'] = 'Sidebar tab background colour';
-$string['mobileslidebartabbkcolordesc'] = 'The sidebar background colour on mobile devices (collapsed).';
-
-$string['mobileslidebartabiconcolor'] = 'Sidebar tab icon colour';
-$string['mobileslidebartabiconcolordesc'] = 'The sidebar icon colour on mobile devices (collapsed).';
-
 $string['selectiontext'] = 'Selection text colour';
 $string['selectiontextdesc'] = 'Set the text colour when a text in the screen is selected.';
 
@@ -822,6 +816,22 @@ $string['coursesectionactivityquizleftbordercolor'] = 'Quiz activity left border
 $string['coursesectionactivityquizleftbordercolordesc'] = 'Set the colour of the left border.';
 $string['coursesectionactivityquizbgcolor'] = 'Quiz activity background colour';
 $string['coursesectionactivityquizbgcolordesc'] = 'Set the quiz activity background colour.  Type <strong>transparent</strong> in the box for transparency.';
+
+// Course Index.
+$string['courseindexsettings'] = 'Course Index';
+$string['courseindexsettingsheading'] = 'Course index settings';
+$string['courseindexsettingsdesc'] = 'Customize the Course Index.';
+
+$string['courseindexitemcolor'] = 'Item colour';
+$string['courseindexitemcolordesc'] = 'The item colour on the \'Course Index\' in a course.';
+$string['courseindexitemhovercolor'] = 'Item hover colour';
+$string['courseindexitemhovercolordesc'] = 'The item hover colour on the \'Course Index\' in a course.';
+
+$string['courseindexpageitemcolor'] = 'Page item colour';
+$string['courseindexpageitemcolordesc'] = 'The page item colour on the \'Course Index\' in a course.';
+$string['courseindexpageitembgcolor'] = 'Page item background colour';
+$string['courseindexpageitembgcolordesc'] = 'The page item background colour on the \'Course Index\' in a course.';
+
 
 // Social Wall Settings.
 $string['socialwall'] = 'Social wall';
@@ -947,6 +957,12 @@ $string['buttoncolordesc'] = 'The colour of the main buttons used throughout the
 
 $string['buttonhovercolor'] = 'Button hover colour';
 $string['buttonhovercolordesc'] = 'The colour that the button changes to when hovering over the button.';
+
+$string['buttonfocuscolor'] = 'Button focus colour';
+$string['buttonfocuscolordesc'] = 'The colour that the button uses when focusing on the button.';
+
+$string['buttonfocuscoloropacity'] = 'Button focus colour opacity';
+$string['buttonfocuscoloropacitydesc'] = 'The opacity that the button uses for the colour when focusing on the button.';
 
 $string['buttontextcolor'] = 'Button text colour';
 $string['buttontextcolordesc'] = 'The colour of text used on buttons.';
@@ -1119,8 +1135,6 @@ $string['displayloginbutton'] = 'Button';
 $string['displayloginbox'] = 'Login Box';
 $string['displayloginno'] = 'No Login Box';
 
-$string['hideblocks'] = 'Hide blocks';
-$string['showblocks'] = 'Show blocks';
 $string['fullscreen'] = 'Full screen';
 $string['standardview'] = 'Standard view';
 $string['sitelinkslabel'] = 'Site links';

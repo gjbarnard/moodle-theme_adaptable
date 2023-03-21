@@ -29,8 +29,6 @@ namespace theme_adaptable\output;
 
 use theme_boost\output\core_renderer as core_renderer_base;
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * Renderers to align Moodle's HTML with that expected by Bootstrap
  *

@@ -267,10 +267,11 @@ $THEME->blockrtlmanipulations = array(
     'side-post' => 'side-pre'
 );
 
+$THEME->prescsscallback = 'theme_adaptable_pre_scss';
 $THEME->scss = function(theme_config $theme) {
     return theme_adaptable_get_main_scss_content($theme);
 };
 
 $THEME->csspostprocess = 'theme_adaptable_process_customcss';
 $THEME->haseditswitch = false;
-$THEME->usescourseindex = false;
+$THEME->usescourseindex = true;

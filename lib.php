@@ -39,6 +39,29 @@ define('THEME_ADAPTABLE_DEFAULT_NEWSTICKERCOUNT', '1');
 define('THEME_ADAPTABLE_DEFAULT_SLIDERCOUNT', '3');
 
 /**
+ * Gets the pre SCSS for the theme.
+ *
+ * @param theme_config $theme The theme configuration object.
+ * @return string SCSS.
+ */
+function theme_adaptable_pre_scss($theme) {
+    $prescss = '$courseindex-link-color: '.
+        \theme_adaptable\toolbox::get_config_setting('courseindexitemcolor', '#495057', $theme->name).';';
+    $prescss .= '$courseindex-link-hover-color: '.
+        \theme_adaptable\toolbox::get_config_setting('courseindexitemhovercolor', '#e6e6e6', $theme->name).';';
+    $prescss .= '$courseindex-link-color-selected: '.
+        \theme_adaptable\toolbox::get_config_setting('courseindexpageitemcolor', '#ffffff', $theme->name).';';
+    $prescss .= '$courseindex-item-page-bg: '.
+        \theme_adaptable\toolbox::get_config_setting('courseindexpageitembgcolor', '#0f6cbf', $theme->name).';';
+    $prescss .= '$drawer-bg-color: #fff;';  // Currently no setting for 'block region' background.
+    $prescss .= '$input-btn-focus-color: rgba('.
+        \theme_adaptable\toolbox::get_config_setting('buttonfocuscolor', '#0f6cc0', $theme->name).', '.
+        \theme_adaptable\toolbox::get_config_setting('buttonfocuscoloropacity', '0.75', $theme->name).');';
+
+    return $prescss;
+}
+
+/**
  * Returns the main SCSS content.
  *
  * @param theme_config $theme The theme config object.
@@ -231,8 +254,6 @@ function theme_adaptable_process_scss($scss, $theme) {
         '[[setting:menuhovercolor]]' => '#00B3A1',
         '[[setting:menubordercolor]]' => '#00B3A1',
         '[[setting:mobilemenubkcolor]]' => '#F9F9F9',
-        '[[setting:mobileslidebartabbkcolor]]' => '#F9F9F9',
-        '[[setting:mobileslidebartabiconcolor]]' => '#000000',
         '[[setting:navbardropdownborderradius]]' => '0',
         '[[setting:navbardropdownhovercolor]]' => '#EEE',
         '[[setting:navbardropdowntextcolor]]' => '#007',
@@ -775,32 +796,6 @@ function theme_adaptable_remove_site_fullname($heading) {
     $header = preg_replace("/^".$SITE->fullname."/", "", $heading);
 
     return $header;
-}
-
-/**
- * Generate theme grid.
- * @param bool $left
- * @param bool $hassidepost
- */
-function theme_adaptable_grid($left, $hassidepost) {
-    if ($hassidepost) {
-        if ('rtl' === get_string('thisdirection', 'langconfig')) {
-            $left = !$left; // Invert.
-        }
-        $regions = array('content' => 'col-9');
-        $regions['blocks'] = 'col-3';
-        if ($left) {
-            $regions['direction'] = ' flex-row-reverse';
-        } else {
-            $regions['direction'] = ' flex-row';
-        }
-    } else {
-        $regions = array('content' => 'col-12');
-        $regions['direction'] = '';
-        return $regions;
-    }
-
-    return $regions;
 }
 
 /**

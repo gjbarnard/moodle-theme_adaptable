@@ -1172,6 +1172,13 @@ html[xmlns] .slides {
     width: [[setting:fullscreenwidth]];
 }
 
+@media (max-width: 991px) {
+    .fullin.narrow .container,
+    .fullin.standard .container {
+        width: 100%;
+    }
+}
+
 .sbll {
     display: none;
 }
@@ -1185,15 +1192,6 @@ html[xmlns] .slides {
 }
 
 @media (min-width: 992px) {
-    .zoomin #block-region-side-post {
-        display: none;
-        height: 0;
-        margin-left: 0;
-        min-height: 0;
-        overflow: hidden;
-        width: 0;
-    }
-
     .zoomin #region-main-box {
         flex: 0 0 100%;
         max-width: 100%;

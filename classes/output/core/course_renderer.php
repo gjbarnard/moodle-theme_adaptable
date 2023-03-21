@@ -27,8 +27,6 @@
 
 namespace theme_adaptable\output\core;
 
-defined('MOODLE_INTERNAL') || die();
-
 /******************************************************************************************
  *
  * Overridden Core Course Renderer for Adaptable theme
@@ -334,7 +332,7 @@ class course_renderer extends \core_course_renderer {
     public function frontpage_my_courses() {
         global $CFG, $DB;
         $output = '';
-        if (!isloggedin() or isguestuser()) {
+        if (!isloggedin() || isguestuser()) {
             return '';
         }
         // Calls a core renderer method (render_mycourses) to get list of a user's current courses that they are enrolled on.

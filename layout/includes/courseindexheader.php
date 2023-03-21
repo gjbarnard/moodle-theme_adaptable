@@ -15,24 +15,36 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Course Index header.
  *
  * @package    theme_adaptable
- * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
- * @copyright  2015-2019 Fernando Acedo (3-bits.com)
- * @copyright  2017-2019 Manoj Solanki (Coventry University)
+ * @copyright  2022 G J Barnard (http://moodle.org/user/profile.php?id=442195)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
 
-namespace theme_adaptable\output;
+defined('MOODLE_INTERNAL') || die;
 
-/**
- * The core maintenance renderer.
- *
- * @copyright  &copy; 2021-onwards G J Barnard.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
- */
-class core_renderer_maintenance extends \core_renderer_maintenance {
-    use core_renderer_toolbox;
+require_once($CFG->dirroot . '/course/lib.php');
+
+user_preference_allow_ajax_update('drawer-open-index', PARAM_BOOL);
+
+if (isloggedin()) {
+    $courseindexopen = (get_user_preferences('drawer-open-index', true) == true);
+} else {
+    $courseindexopen = false;
 }
+
+$courseindex = core_course_drawer();
+
+if (!$courseindex) {
+    $courseindexopen = false;
+}
+
+$templatecontext = [
+    'courseindexopen' => $courseindexopen,
+    'courseindex' => $courseindex
+];
+
+$courseindexmarkup = $OUTPUT->render_from_template('theme_adaptable/courseindex', $templatecontext);
+$courseindextogglemarkup = $OUTPUT->render_from_template('theme_adaptable/courseindextoggle', $templatecontext);

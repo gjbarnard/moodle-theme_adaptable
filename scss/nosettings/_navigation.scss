@@ -56,11 +56,6 @@ header .nav-item {
     box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
-// Increase width slightly of default nav-drawer.
-[data-region="drawer"] {
-    width: 300px;
-}
-
 // Adjust height according to header style.
 .header-style1 [data-region="drawer"] {
     height: calc(100% - 105px);
@@ -77,9 +72,4 @@ header .nav-item {
         height: calc(100% - 72px);
         top: 72px;
     }
-}
-
-// When the nav-drawer is closed take it out of the dom so it is not read by screenreaders.
-#nav-drawer.closed #nav-drawer-inner {
-    display: none;
 }

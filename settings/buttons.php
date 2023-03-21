@@ -59,6 +59,48 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Buttons focus color.
+    $name = 'theme_adaptable/buttonfocuscolor';
+    $title = get_string('buttonfocuscolor', 'theme_adaptable');
+    $description = get_string('buttonfocuscolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#0F6CC0', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Buttons focus color opacity.
+    $bfcoopactitychoices = array(
+        '0.0' => '0.0',
+        '0.05' => '0.05',
+        '0.1' => '0.1',
+        '0.15' => '0.15',
+        '0.2' => '0.2',
+        '0.25' => '0.25',
+        '0.3' => '0.3',
+        '0.35' => '0.35',
+        '0.4' => '0.4',
+        '0.45' => '0.45',
+        '0.5' => '0.5',
+        '0.55' => '0.55',
+        '0.6' => '0.6',
+        '0.65' => '0.65',
+        '0.7' => '0.7',
+        '0.75' => '0.75',
+        '0.8' => '0.8',
+        '0.85' => '0.85',
+        '0.9' => '0.9',
+        '0.95' => '0.95',
+        '1.0' => '1.0'
+    );
+
+    $name = 'theme_adaptable/buttonfocuscoloropacity';
+    $title = get_string('buttonfocuscoloropacity', 'theme_adaptable');
+    $description = get_string('buttonfocuscoloropacitydesc', 'theme_adaptable');
+    $default = '0.75';
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $bfcoopactitychoices);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     // Buttons text color.
     $name = 'theme_adaptable/buttontextcolor';
     $title = get_string('buttontextcolor', 'theme_adaptable');

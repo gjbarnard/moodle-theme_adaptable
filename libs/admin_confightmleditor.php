@@ -24,8 +24,6 @@
  *
  */
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * @copyright 2015 Jeremy Hopkins (Coventry University)
  * @copyright 2015 Fernando Acedo (3-bits.com)
@@ -68,7 +66,7 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
         $this->rows = $rows;
         $this->cols = $cols;
         $this->filearea = $filearea;
-        $this->nosave = (during_initial_install() or CLI_SCRIPT);
+        $this->nosave = (during_initial_install() || CLI_SCRIPT);
         parent::__construct($name, $visiblename, $description, $defaultsetting, $paramtype);
         editors_head_setup();
     }
@@ -112,7 +110,7 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
         $default = $this->get_defaultsetting();
 
         $defaultinfo = $default;
-        if (!is_null($default) and $default !== '') {
+        if (!is_null($default) && $default !== '') {
             $defaultinfo = "\n".$default;
         }
 
@@ -148,8 +146,8 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
         $mediaoptions = initialise_filepicker($args);
         $mediaoptions->context = $ctx;
         $mediaoptions->client_id = uniqid();
-        $mediaoptions->maxbytes  = $options['maxbytes'];
-        $mediaoptions->areamaxbytes  = $options['areamaxbytes'];
+        $mediaoptions->maxbytes = $options['maxbytes'];
+        $mediaoptions->areamaxbytes = $options['areamaxbytes'];
         $mediaoptions->env = 'editor';
         $mediaoptions->itemid = $draftitemid;
 
@@ -158,8 +156,8 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
         $linkoptions = initialise_filepicker($args);
         $linkoptions->context = $ctx;
         $linkoptions->client_id = uniqid();
-        $linkoptions->maxbytes  = $options['maxbytes'];
-        $linkoptions->areamaxbytes  = $options['areamaxbytes'];
+        $linkoptions->maxbytes = $options['maxbytes'];
+        $linkoptions->areamaxbytes = $options['areamaxbytes'];
         $linkoptions->env = 'editor';
         $linkoptions->itemid = $draftitemid;
 
@@ -196,7 +194,7 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
             return '';
         }
 
-        if ($this->paramtype === PARAM_INT and $data === '') {
+        if ($this->paramtype === PARAM_INT && $data === '') {
             // ... do not complain if '' used instead of 0 !
             $data = 0;
         }
@@ -215,7 +213,7 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
         }
 
         $draftitemidname = sprintf('%s_draftitemid', $this->get_full_name());
-        if (PHPUNIT_TEST or !isset($_REQUEST[$draftitemidname])) {
+        if (PHPUNIT_TEST || !isset($_REQUEST[$draftitemidname])) {
             $draftitemid = 0;
         } else {
             $draftitemid = $_REQUEST[$draftitemidname];

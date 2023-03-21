@@ -54,10 +54,10 @@ if ($ADMIN->fulltree) {
     $description = get_string('frontpagenumbertilesdesc', 'theme_adaptable');
     $choices = array(
         12 => get_string('frontpagetiles1', 'theme_adaptable'),
-        6  => get_string('frontpagetiles2', 'theme_adaptable'),
-        4  => get_string('frontpagetiles3', 'theme_adaptable'),
-        3  => get_string('frontpagetiles4', 'theme_adaptable'),
-        2  => get_string('frontpagetiles6', 'theme_adaptable'),
+        6 => get_string('frontpagetiles2', 'theme_adaptable'),
+        4 => get_string('frontpagetiles3', 'theme_adaptable'),
+        3 => get_string('frontpagetiles4', 'theme_adaptable'),
+        2 => get_string('frontpagetiles6', 'theme_adaptable')
     );
     $setting = new admin_setting_configselect($name, $title, $description, 4, $choices);
     $page->add($setting);

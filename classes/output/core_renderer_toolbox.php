@@ -27,8 +27,6 @@
 
 namespace theme_adaptable\output;
 
-defined('MOODLE_INTERNAL') || die;
-
 use block_contents;
 use context_course;
 use custom_menu;
@@ -458,7 +456,7 @@ trait core_renderer_toolbox {
      * @param block_contents $bc A block_contents object
      */
     public function init_block_hider_js(block_contents $bc) {
-        if (!empty($bc->attributes['id']) and $bc->collapsible != block_contents::NOT_HIDEABLE) {
+        if (!empty($bc->attributes['id']) && $bc->collapsible != block_contents::NOT_HIDEABLE) {
             $config = new stdClass;
             $config->id = $bc->attributes['id'];
             $config->title = strip_tags($bc->title);
@@ -1574,11 +1572,11 @@ EOT;
                 $branchlabel .= $branchtitle;
 
                 if (!empty($this->page->theme->settings->enablehomeredirect)) {
-                    $branchurl   = new moodle_url('/?redirect=0');
+                    $branchurl = new moodle_url('/?redirect=0');
                 } else {
-                    $branchurl   = new moodle_url('/');
+                    $branchurl = new moodle_url('/');
                 }
-                $branchsort  = 9998;
+                $branchsort = 9998;
                 $branch = $menu->add($branchlabel, $branchurl, $branchtitle, $branchsort);
             }
 
@@ -1589,8 +1587,8 @@ EOT;
                     $branchlabel .= '<i class="fa fa-dashboard fa-lg"></i>';
                 }
                 $branchlabel .= $branchtitle;
-                $branchurl   = new moodle_url('/my/index.php');
-                $branchsort  = 9999;
+                $branchurl = new moodle_url('/my/index.php');
+                $branchsort = 9999;
                 $branch = $menu->add($branchlabel, $branchurl, $branchtitle, $branchsort);
             }
 
@@ -1602,8 +1600,8 @@ EOT;
                 }
                 $branchlabel .= $branchtitle;
 
-                $branchurl   = new moodle_url('/calendar/view.php');
-                $branchsort  = 10000;
+                $branchurl = new moodle_url('/calendar/view.php');
+                $branchsort = 10000;
                 $branch = $menu->add($branchlabel, $branchurl, $branchtitle, $branchsort);
             }
 
@@ -1653,8 +1651,8 @@ EOT;
                     }
                     $branchlabel .= $branchtitle;
 
-                    $branchurl   = new moodle_url('#');
-                    $branchsort  = 10001;
+                    $branchurl = new moodle_url('#');
+                    $branchsort = 10001;
 
                     $menudisplayoption = '';
 
@@ -1939,7 +1937,7 @@ EOT;
                         $branchurl = new moodle_url($this->page->theme->settings->$enablehelpsetting,
                             array('helptarget' => $this->page->theme->settings->helptarget));
 
-                        $branchsort  = 10003;
+                        $branchsort = 10003;
                         $branch = $menu->add($branchlabel, $branchurl, $branchtitle, $branchsort);
                     }
                 }
@@ -2157,7 +2155,7 @@ EOT;
     /**
      * Returns html to render tools menu in main navigation bar
      *
-     * @param string $menuid The id to use when creating menu. Used so this can be called for a nav drawer style display.
+     * @param string $menuid The id to use when creating menu.  Used so this could be called for a nav drawer style display.
      *
      *
      * @return string
@@ -3081,7 +3079,7 @@ EOT;
      * @return string HTML fragment
      */
     protected function render_tabobject(\tabobject $tab) {
-        if ($tab->selected or $tab->activated) {
+        if ($tab->selected || $tab->activated) {
             return html_writer::tag('li', html_writer::tag('a', $tab->text,
                 array('class' => 'nav-link active')), array('class' => 'nav-item'));
         } else if ($tab->inactive) {
@@ -3154,29 +3152,6 @@ EOT;
                 throw new coding_exception('Unexpected type of thing (' . get_class($bc) . ') found in list of block contents.');
             }
         }
-        return $output;
-    }
-
-    /**
-     * Get the HTML for blocks in the given region.
-     *
-     * @since Moodle 2.5.1 2.6
-     * @param string $region The region to get HTML for.
-     * @param array $classes Wrapping tag classes.
-     * @param string $tag Wrapping tag.
-     * @param boolean $fakeblocksonly Include fake blocks only.
-     * @return string HTML.
-     */
-    public function blocks($region, $classes = array(), $tag = 'aside', $fakeblocksonly = false) {
-        $output = parent::blocks($region, $classes, $tag, $fakeblocksonly);
-
-        if ((!empty($output)) && ($region == 'side-post')) {
-            $output .= html_writer::tag('div',
-                html_writer::tag('i', '', array('class' => 'fa fa-3x fa-angle-left', 'aria-hidden' => 'true')),
-                array('id' => 'showsidebaricon', 'title' => get_string('sidebaricon', 'theme_adaptable')));
-            $this->page->requires->js_call_amd('theme_adaptable/showsidebar', 'init');
-        }
-
         return $output;
     }
 

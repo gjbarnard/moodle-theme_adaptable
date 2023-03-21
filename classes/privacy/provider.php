@@ -23,8 +23,6 @@
  */
 namespace theme_adaptable\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Provider class.
  *

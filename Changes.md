@@ -1,3 +1,8 @@
+Change Log in version 401.1.1 (2022112302)
+===========================================
+1. Layout style tidy.
+2. Change to using 'Course index' and 'Block drawer'.
+
 Change Log in version 401.1.0 (2022112301)
 ===========================================
 1. Add new 'dimmedtextcolor' setting for the 'dimmed_text' CSS class - #290.

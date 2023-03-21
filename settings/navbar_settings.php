@@ -116,21 +116,6 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
 
-    $name = 'theme_adaptable/enableshowhideblocks';
-    $title = get_string('enableshowhideblocks', 'theme_adaptable');
-    $description = get_string('enableshowhideblocksdesc', 'theme_adaptable');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    $page->add($setting);
-
-    // Show / hide text for the show / hide blocks button.
-    $name = 'theme_adaptable/enableshowhideblockstext';
-    $title = get_string('enableshowhideblockstext', 'theme_adaptable');
-    $description = get_string('enableshowhideblockstextdesc', 'theme_adaptable');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    $page->add($setting);
-
     $name = 'theme_adaptable/enablenavbarwhenloggedout';
     $title = get_string('enablenavbarwhenloggedout', 'theme_adaptable');
     $description = get_string('enablenavbarwhenloggedoutdesc', 'theme_adaptable');

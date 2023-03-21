@@ -28,42 +28,31 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+$sidepostdrawer = true;
+$movesidebartofooter = !empty(($PAGE->theme->settings->coursepagesidebarinfooterenabled)) ? 2 : 1;
+if ((!empty($movesidebartofooter)) && ($movesidebartofooter == 2)) {
+    $sidepostdrawer = false;
+}
+
 // Include header.
 require_once(dirname(__FILE__) . '/includes/header.php');
 
-$left = $PAGE->theme->settings->blockside;
-
-// If page is Grader report, override blockside setting to align left.
-if (($PAGE->pagetype == "grade-report-grader-index") ||
-    ($PAGE->bodyid == "page-grade-report-grader-index")) {
-    $left = true;
-}
-
-$movesidebartofooter = !empty(($PAGE->theme->settings->coursepagesidebarinfooterenabled)) ? true : false;
-$hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
-
 // Definition of block regions for top and bottom.  These are used in potentially retrieving
-// any missing block regions (due to layout changes that may hide blocks).
+// any missing block regions.
 $blocksarray = array (
-        array('settingsname'        => 'coursepageblocklayoutlayouttoprow',
-                'classnamebeginswith' => 'course-top-'),
-        array('settingsname'        => 'coursepageblocklayoutlayoutbottomrow',
-                'classnamebeginswith' => 'course-bottom-')
+    array('settingsname' => 'coursepageblocklayoutlayouttoprow',
+        'classnamebeginswith' => 'course-top-'),
+    array('settingsname' => 'coursepageblocklayoutlayoutbottomrow',
+        'classnamebeginswith' => 'course-bottom-')
 );
-
-if ($movesidebartofooter) {
-    // Side post in the footer so don't adjust the layout but pretend it is not there.
-    $regions = theme_adaptable_grid($left, false);
-} else {
-    $regions = theme_adaptable_grid($left, $hassidepost);
-}
 ?>
 
-<div class="container outercont">
+<div id="maincontainer" class="container outercont">
     <?php
+        echo $OUTPUT->get_news_ticker();
         echo $OUTPUT->page_navbar();
     ?>
-    <div id="page-content" class="row<?php echo $regions['direction'];?>">
+    <div id="page-content" class="row">
         <?php
         // If course page, display course top block region.
         if (!empty($PAGE->theme->settings->coursepageblocksenabled)) {
@@ -75,7 +64,7 @@ if ($movesidebartofooter) {
         }
         ?>
 
-        <div id="region-main-box" class="<?php echo $regions['content'];?>">
+        <div id="region-main-box" class="col-12">
             <section id="region-main">
             <?php
             if (!empty($PAGE->theme->settings->tabbedlayoutcoursepage)) {
@@ -167,7 +156,7 @@ if ($movesidebartofooter) {
 /* Check here if sidebar is configured to be in footer as we want to include
    the sidebar information in the main content. */
 
-if ($movesidebartofooter == false) { ?>
+if ($movesidebartofooter == 1) { ?>
         </section>
     </div>
 <?php }
@@ -182,10 +171,7 @@ if (empty($PAGE->theme->settings->coursepageblocksenabled)) {
     $displayall = true;
 }
 
-if ($movesidebartofooter == false) {
-    if ($hassidepost) {
-        echo $OUTPUT->blocks('side-post', $regions['blocks'].' d-print-none ');
-    }
+if ($movesidebartofooter == 1) {
 
     /* Get any missing blocks from changing layout settings.  E.g. From 4-4-4-4 to 6-6-0-0, to recover
        what was in the last 2 spans that are now 0. */
@@ -201,7 +187,9 @@ if (!empty($PAGE->theme->settings->coursepageblocksenabled)) {
     echo '</div>';
 }
 
-if ($movesidebartofooter) {
+if ($movesidebartofooter == 2) {
+    $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
+
     if ($hassidepost) {
         echo $OUTPUT->blocks('side-post', ' col-12 d-print-none ');
     }
@@ -211,7 +199,7 @@ if ($movesidebartofooter) {
     echo $OUTPUT->get_missing_block_regions($blocksarray, array(), $displayall);
 }
 
-if ($movesidebartofooter) { ?>
+if ($movesidebartofooter == 2) { ?>
         </section>
     </div>
 <?php } ?>

@@ -28,8 +28,6 @@
 
 namespace theme_adaptable\output\core_user\myprofile;
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * myprofile editprofile.
  *
@@ -61,11 +59,11 @@ class editprofile {
         require_once($CFG->dirroot.'/lib/formslib.php');
         $usercontext = \context_user::instance($user->id);
         $editoroptions = array(
-            'maxfiles'   => EDITOR_UNLIMITED_FILES,
-            'maxbytes'   => $CFG->maxbytes,
-            'trusttext'  => false,
+            'maxfiles' => EDITOR_UNLIMITED_FILES,
+            'maxbytes' => $CFG->maxbytes,
+            'trusttext' => false,
             'forcehttps' => false,
-            'context'    => $usercontext
+            'context' => $usercontext
         );
         $user = file_prepare_standard_editor($user, 'description', $editoroptions, $usercontext, 'user', 'profile', 0);
 
@@ -73,9 +71,9 @@ class editprofile {
         $draftitemid = 0;
         $filemanagercontext = $editoroptions['context'];
         $filemanageroptions = array(
-            'maxbytes'       => $CFG->maxbytes,
-            'subdirs'        => 0,
-            'maxfiles'       => 1,
+            'maxbytes' => $CFG->maxbytes,
+            'subdirs' => 0,
+            'maxfiles' => 1,
             'accepted_types' => 'web_image');
         \file_prepare_draft_area($draftitemid, $filemanagercontext->id, 'user', 'newicon', 0, $filemanageroptions);
         $user->imagefile = $draftitemid;
@@ -157,10 +155,10 @@ class editprofile {
                 unset($usernew->createpassword);
                 $usernew = file_postupdate_standard_editor($usernew, 'description', $editoroptions, null, 'user', 'profile', null);
                 $usernew->mnethostid = $CFG->mnet_localhost_id; // Always local user.
-                $usernew->confirmed  = 1;
+                $usernew->confirmed = 1;
                 $usernew->timecreated = time();
                 if ($authplugin->is_internal()) {
-                    if ($createpassword or empty($usernew->newpassword)) {
+                    if ($createpassword || empty($usernew->newpassword)) {
                         $usernew->password = '';
                     } else {
                         $usernew->password = hash_internal_user_password($usernew->newpassword);
@@ -170,7 +168,7 @@ class editprofile {
                 }
                 $usernew->id = user_create_user($usernew, false, false);
 
-                if (!$authplugin->is_internal() and $authplugin->can_change_password() and !empty($usernew->newpassword)) {
+                if (!$authplugin->is_internal() && $authplugin->can_change_password() && !empty($usernew->newpassword)) {
                     if (!$authplugin->user_update_password($usernew, $usernew->newpassword)) {
                         // Do not stop here, we need to finish user creation.
                         debugging(get_string('cannotupdatepasswordonextauth', '', '', $usernew->auth), DEBUG_NONE);
@@ -207,7 +205,7 @@ class editprofile {
                 }
 
                 // Force logout if user just suspended.
-                if (isset($usernew->suspended) and $usernew->suspended and !$user->suspended) {
+                if (isset($usernew->suspended) && $usernew->suspended && !$user->suspended) {
                     \core\session\manager::kill_user_sessions($user->id);
                 }
             }
@@ -255,7 +253,7 @@ class editprofile {
             if ($user->id == $USER->id) {
                 // Override old $USER session variable.
                 foreach ((array)$usernew as $variable => $value) {
-                    if ($variable === 'description' or $variable === 'password') {
+                    if ($variable === 'description' || $variable === 'password') {
                         // These are not set for security nad perf reasons.
                         continue;
                     }

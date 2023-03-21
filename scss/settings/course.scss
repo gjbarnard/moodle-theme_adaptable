@@ -712,7 +712,7 @@ div.fdescription.required {
 .activity_footer,
 .section_footer {
   margin-top: 2em;
-  padding: 1em 0;
+  padding: 1em 15px;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   clear: both;
@@ -928,7 +928,7 @@ li.activity div.actions-right {
 }
 
 .course-content .single-section .section-navigation {
-    padding: .1em;
+    margin-bottom: auto;
 }
 
 // region-main-settings-menu is used on pages other than course pages, but included here to keep the settings together.

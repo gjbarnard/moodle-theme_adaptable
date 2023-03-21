@@ -138,23 +138,5 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Mobile sidebar tab background colour.
-    $name = 'theme_adaptable/mobileslidebartabbkcolor';
-    $title = get_string('mobileslidebartabbkcolor', 'theme_adaptable');
-    $description = get_string('mobileslidebartabbkcolordesc', 'theme_adaptable');
-    $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#F9F9F9', $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    // Mobile sidebar tab icon colour.
-    $name = 'theme_adaptable/mobileslidebartabiconcolor';
-    $title = get_string('mobileslidebartabiconcolor', 'theme_adaptable');
-    $description = get_string('mobileslidebartabiconcolordesc', 'theme_adaptable');
-    $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#000000', $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
     $asettings->add($page);
 }

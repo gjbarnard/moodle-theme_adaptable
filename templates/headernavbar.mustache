@@ -23,49 +23,16 @@
     {
         "disablecustommenu": false,
         "navigationmenudrawer": "",
-        "toolsmenudrawer": true,
         "navigationmenu": "",
         "toolsmenu": false,
         "showcog": true,
         "coursemenucontent": "",
         "othermenucontent": "",
         "pageheadingbutton": "",
-        "showhideblocks": true,
-        "showhideblockszoomside": "",
-        "showhideblockszoominicontitle": "",
-        "showhideblockshidetitle": "",
-        "showhideblocksshowtitle": "",
-        "showhideblocksicontype": "train",
-        "showhideblockstext": true,
-        "showhideblockszoominicontitle": "",
         "enablezoom": true,
         "enablezoomshowtext": true
     }
 }}
-<div id="nav-drawer" data-region="drawer" class="d-print-none moodle-has-zindex closed" aria-hidden="true" tabindex="-1">
-    <div id="nav-drawer-inner">
-        <nav class="list-group">
-            <ul class="list-unstyled components">
-                {{{navigationmenudrawer}}}
-                {{^disablecustommenu}}
-                <li>
-                    {{{output.custom_menu_drawer}}}
-                </li>
-                {{/disablecustommenu}}
-                {{#toolsmenudrawer}}
-                <li>
-                    {{{toolsmenudrawer}}}
-                </li>
-                {{/toolsmenudrawer}}
-            </ul>
-        </nav>
-
-        <nav class="list-group m-t-1">
-            {{{output.context_mobile_settings_menu}}}
-        </nav>
-    </div>
-</div>
-
 <div id="main-navbar" class="d-none d-lg-block">
     <div class="container">
         <div class="navbar navbar-expand btco-hover-menu">
@@ -105,17 +72,6 @@
                     {{{pageheadingbutton}}}
                 </li>
                 {{/pageheadingbutton}}
-
-                {{#showhideblocks}}
-                <li class="nav-item mr-1">
-                    <div id="zoominicon" class="{{showhideblockszoomside}} nav-link" title="{{showhideblockszoominicontitle}}" data-hidetitle="{{showhideblockshidetitle}}" data-showtitle="{{showhideblocksshowtitle}}">
-                        <i class="fa fa-lg fa-{{showhideblocksicontype}}" aria-hidden="true"></i>
-                        {{#showhideblockstext}}
-                        <span class="showhideblocksdesc">{{showhideblockszoominicontitle}}</span>
-                        {{/showhideblockstext}}
-                    </div>
-                </li>
-                {{/showhideblocks}}
 
                 {{#enablezoom}}
                 <li class="nav-item mx-0 hbll">

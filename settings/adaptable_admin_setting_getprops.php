@@ -23,8 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * Get properties class.
  *
@@ -112,7 +110,7 @@ class adaptable_admin_setting_getprops extends admin_setting {
 
         if ($this->saveprops) {
             $returnurl = new moodle_url('/admin/settings.php', array('section' => $this->settingsectionname));
-            $returnbutton = '<div class="singlebutton"><a class="btn btn-default" href="'.$returnurl->out(true).'">'.
+            $returnbutton = '<div class="singlebutton"><a class="btn btn-secondary" href="'.$returnurl->out(true).'">'.
                 $this->returnbuttonname.'</a></div>';
             $return .= $returnbutton;
             $return .= '<div class="well" style="word-break: break-all;">';
@@ -123,14 +121,14 @@ class adaptable_admin_setting_getprops extends admin_setting {
             $propsexporturl = new moodle_url('/admin/settings.php', array('section' => $this->settingsectionname,
                 $this->name.'_saveprops' => 1));
 
-            $propsexportbutton = '<div class="singlebutton"><div><a class="btn btn-default" href="'.$propsexporturl->out(true).'">'.
+            $propsexportbutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="'.$propsexporturl->out(true).'">'.
                 $this->savepropsbuttonname.'</a></div></div>';
             $table = new html_table();
             $table->head = array($this->visiblename, markdown_to_html($this->description));
             $table->colclasses = array('leftalign', 'leftalign');
             $table->id = 'adminprops_'.$this->name;
             $table->attributes['class'] = 'admintable generaltable';
-            $table->data  = array();
+            $table->data = array();
 
             foreach ($this->props as $propname => $propvalue) {
                 $table->data[] = array($propname, '<pre>'.htmlentities($propvalue).'</pre>');

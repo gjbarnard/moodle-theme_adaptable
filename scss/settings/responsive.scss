@@ -49,53 +49,8 @@
         flex: 0 0 100%;
         max-width: 100%;
     }
-    #block-region-side-post {
-        background-color: #fff;
-        min-width: 90%;
-        overflow: hidden;
-        padding: 0;
-        position: fixed;
-        right: -90%;
-        transition: right 0.75s;
-        z-index: 11;
-    }
-    .header-style1 #block-region-side-post {
-        height: calc(100% - 44px);
-        top: 44px;
-    }
-    .header-style1 .pageheadershown #block-region-side-post {
-        height: calc(100% - 104px);
-        top: 104px;
-    }
-    .header-style2 #block-region-side-post {
-        height: calc(100% - 72px);
-        top: 72px;
-    }
     #block-region-side-post .block-controls {
         display: none;
-    }
-    #block-region-side-post.sidebarshown {
-        border-left: 2px solid [[setting:mobileslidebartabbkcolor]];
-        overflow-y: auto;
-        right: 0;
-    }
-    #showsidebaricon {
-        background-color: [[setting:mobileslidebartabbkcolor]];
-        border-bottom: 4px solid [[setting:mobileslidebartabbkcolor]];
-        border-left: 4px solid [[setting:mobileslidebartabbkcolor]];
-        border-radius: 45px 0 0 45px;
-        border-top: 4px solid [[setting:mobileslidebartabbkcolor]];
-        color: [[setting:mobileslidebartabiconcolor]];
-        display: block;
-        padding: 6px;
-        position: fixed;
-        right: 0;
-        top: 305px;
-        transition: right 0.75s;
-        z-index: 11;
-    }
-    .sidebarshown #showsidebaricon {
-        right: 90%;
     }
 }
 
@@ -267,7 +222,7 @@
     }
 
     .has-page-header.page-header-margin.header-style1 #page {
-        margin-top: 40px;
+        margin-top: 41px;
     }
 
     .mobiletheme.page-header-margin.header-style1.has-header-bg .headerbgimage {
@@ -275,7 +230,7 @@
     }
 
     .page-header-margin.header-style2 #page {
-        margin-top: 84px;
+        margin-top: 46px;
     }
 
     // Course activity and section layout updates to remove any extra padding on smaller screens.
@@ -285,11 +240,6 @@
 
     .activity-meta-container {
         margin: 0 0 0 20px;
-    }
-
-    #region-main,
-    .pagelayout-mydashboard #region-main {
-        padding: 0 15px;
     }
 }
 
@@ -669,7 +619,6 @@
     #adaptable-page-header-wrapper .container,
     .container {
         max-width: 100%;
-        width: 724px;
     }
 }
 

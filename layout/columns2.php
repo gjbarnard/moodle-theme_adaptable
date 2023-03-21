@@ -27,27 +27,17 @@
 defined('MOODLE_INTERNAL') || die;
 
 // Include header.
+$sidepostdrawer = true;
 require_once(dirname(__FILE__) . '/includes/header.php');
-
-
-// If page is Grader report don't show side post.
-if (($PAGE->pagetype == "grade-report-grader-index") ||
-    ($PAGE->bodyid == "page-grade-report-grader-index")) {
-    $left = true;
-    $hassidepost = false;
-} else {
-    $left = $PAGE->theme->settings->blockside;
-    $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
-}
-$regions = theme_adaptable_grid($left, $hassidepost);
 ?>
 
-<div class="container outercont">
+<div id="maincontainer" class="container outercont">
     <?php
+        echo $OUTPUT->get_news_ticker();
         echo $OUTPUT->page_navbar();
     ?>
-    <div id="page-content" class="row<?php echo $regions['direction'];?>">
-        <div id="region-main-box" class="<?php echo $regions['content'];?>">
+    <div id="page-content" class="row">
+        <div id="region-main-box" class="col-12">
             <section id="region-main">
                 <?php
                 echo $OUTPUT->get_course_alerts();
@@ -75,12 +65,6 @@ $regions = theme_adaptable_grid($left, $hassidepost);
                 ?>
             </section>
         </div>
-
-        <?php
-        if ($hassidepost) {
-            echo $OUTPUT->blocks('side-post', $regions['blocks'].' d-print-none ');
-        }
-        ?>
     </div>
 </div>
 
