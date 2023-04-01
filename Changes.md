@@ -1,7 +1,7 @@
 Change Log in version 401.1.2 (2022112303)
 ===========================================
 1. Fix 'blockside' setting not being applied to the course index and side post.
-2. Fix 'No nobile navigation' on navbar.
+2. Fix 'No mobile navigation' on navbar.
 
 Change Log in version 401.1.1 (2022112302)
 ===========================================
