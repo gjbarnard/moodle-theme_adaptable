@@ -22,7 +22,7 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
-.popover-region-container {
+.navbar .popover-region-container {
     background-color: #fff;
     border: 1px solid #ddd;
     box-shadow: 5px 5px 15px 1px #000;
@@ -30,7 +30,7 @@
     opacity: 1;
     position: absolute;
     right: 0;
-    top: 30px;
+    top: 40px;
     transition: height 0.25s ease 0s;
     visibility: visible;
     width: 360px;
@@ -72,7 +72,7 @@
 }
 
 @media (min-width: 768px) {
-    .popover-region-container {
+    .navbar .popover-region-container {
         font-size: 125%;
         width: 400px;
     }

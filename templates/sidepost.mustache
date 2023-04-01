@@ -20,17 +20,19 @@
     Adaptable side post.
 
     Context variables required for this template:
-    * courseindexopen - true if the nav drawer should be open on page load
+    * left - true if side post is on the left
+    * sidepostopen - true if the side post should be open on page load
 
     Example context (json):
     {
-        "sidepostopen": true
+        "sidepostopen": true,
+        "left": false
     }
 }}
 {{#hassidepost}}
     {{< theme_boost/drawer }}
         {{$id}}theme_adaptable-drawers-sidepost{{/id}}
-        {{$drawerclasses}}drawer drawer-right{{#sidepostopen}} show{{/sidepostopen}}{{/drawerclasses}}
+        {{$drawerclasses}}drawer drawer-{{#left}}left{{/left}}{{^left}}right{{/left}}{{#sidepostopen}} show{{/sidepostopen}}{{/drawerclasses}}
         {{$drawercontent}}
             <section class="d-print-none" aria-label="{{#str}}blocks{{/str}}">
                 {{{ addblockbutton }}}
@@ -39,8 +41,8 @@
         {{/drawercontent}}
         {{$drawerpreferencename}}drawer-open-block{{/drawerpreferencename}}
         {{$forceopen}}{{#forceblockdraweropen}}1{{/forceblockdraweropen}}{{/forceopen}}
-        {{$drawerstate}}show-drawer-right{{/drawerstate}}
-        {{$tooltipplacement}}left{{/tooltipplacement}}
+        {{$drawerstate}}show-drawer-{{#left}}left{{/left}}{{^left}}right{{/left}}{{/drawerstate}}
+        {{$tooltipplacement}}{{#left}}right{{/left}}{{^left}}left{{/left}}{{/tooltipplacement}}
         {{$drawercloseonresize}}1{{/drawercloseonresize}}
         {{$closebuttontext}}{{#str}}closeblockdrawer, core{{/str}}{{/closebuttontext}}
     {{/ theme_boost/drawer}}

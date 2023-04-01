@@ -21,25 +21,34 @@
 
     Example context (json):
     {
+        "hasmobileprimarynav": true,
         "headerbg": "",
-        "sitelogo": "",
-        "sitetitle": "Adaptable",
-        "shownavbar": true,
-        "responsivesearchicon": "",
         "langmenu": false,
         "loginoruser": "",
         "menuslinkright": false,
+        "mobileprimarynavicon": "Markup",
         "pageheaderoriginal": true,
-        "topmenus": "",
+        "responsivesearchicon": "",
+        "searchandsocialheader": "",
         "searchandsocialnavbar": "",
         "searchandsocialnavbarextra": "",
-        "searchandsocialheader": ""
+        "shownavbar": true,
+        "sitelogo": "",
+        "sitetitle": "Adaptable",
+        "topmenus": ""
     }
 }}
 <header id="adaptable-page-header-wrapper"{{{headerbg}}}>
     <div id="header1" class="above-header stickything">
         <div class="container">
             <nav class="navbar navbar-expand btco-hover-menu">
+                {{#hasmobileprimarynav}}
+                <button class="navbar-toggler nav-link aabtn d-block d-lg-none px-1 my-1 border-0" data-toggler="drawers" data-action="toggle" data-target="theme_adaptable-drawers-primary">
+                    {{{mobileprimarynavicon}}}
+                    <span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
+                </button>
+                {{/hasmobileprimarynav}}
+
                 <div class="collapse navbar-collapse">
                 {{^menuslinkright}}
                 <div class="my-auto m-1">{{{topmenus}}}</div>
@@ -127,3 +136,9 @@
     {{/shownavbar}}
 
 </header>
+
+{{#hasmobileprimarynav}}
+{{< theme_boost/primary-drawer-mobile }}
+    {{$id}}theme_adaptable-drawers-primary{{/id}}
+{{/ theme_boost/primary-drawer-mobile }}
+{{/hasmobileprimarynav}}

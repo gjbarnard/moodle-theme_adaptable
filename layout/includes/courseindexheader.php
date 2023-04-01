@@ -43,7 +43,8 @@ if (!$courseindex) {
 
 $templatecontext = [
     'courseindexopen' => $courseindexopen,
-    'courseindex' => $courseindex
+    'courseindex' => $courseindex,
+    'left' => $left
 ];
 
 $courseindexmarkup = $OUTPUT->render_from_template('theme_adaptable/courseindex', $templatecontext);

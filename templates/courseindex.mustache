@@ -20,23 +20,27 @@
     Adaptable Course Index template.
 
     Context variables required for this template:
+    * courseindex - true if there is a course index
     * courseindexopen - true if the nav drawer should be open on page load
+    * left - true if side post is on the left
 
     Example context (json):
     {
-        "courseindexopen": true
+        "courseindex": true,
+        "courseindexopen": true,
+        "left": false
     }
 }}
 {{#courseindex}}
     {{< theme_boost/drawer }}
         {{$id}}theme_adaptable-drawers-courseindex{{/id}}
-        {{$drawerclasses}}drawer drawer-left{{#courseindexopen}} show{{/courseindexopen}}{{/drawerclasses}}
+        {{$drawerclasses}}drawer drawer-{{#left}}right{{/left}}{{^left}}left{{/left}}{{#courseindexopen}} show{{/courseindexopen}}{{/drawerclasses}}
         {{$drawercontent}}
             {{{courseindex}}}
         {{/drawercontent}}
         {{$drawerpreferencename}}drawer-open-index{{/drawerpreferencename}}
-        {{$drawerstate}}show-drawer-left{{/drawerstate}}
-        {{$tooltipplacement}}right{{/tooltipplacement}}
+        {{$drawerstate}}show-drawer-{{#left}}right{{/left}}{{^left}}left{{/left}}{{/drawerstate}}
+        {{$tooltipplacement}}{{#left}}left{{/left}}{{^left}}right{{/left}}{{/tooltipplacement}}
         {{$closebuttontext}}{{#str}}closecourseindex, core{{/str}}{{/closebuttontext}}
     {{/ theme_boost/drawer}}
 {{/courseindex}}

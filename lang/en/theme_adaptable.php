@@ -156,7 +156,7 @@ $string['themereadme'] = 'Readme';
 
 // Ticker.
 $string['tickersettings'] = 'News ticker';
-$string['tickersettingsheading'] = 'Setup news ticker on front page. See the layout <a href="./../theme/adaptable/pix/layout.png" target="_blank"> here</a>';
+$string['tickersettingsheading'] = 'Setup news ticker on front page.';
 $string['tickerdesc'] = 'Here you can set a news ticker to run across the front page of your Moodle site.
   It is intended as a less intrusive alternative to the slider taking up very little space.
   To setup your ticker simply enter a paragraph list and include any hyperlinks you need to in that text.
@@ -190,7 +190,7 @@ $string['tickerfullscreen'] = 'Full screen width';
 
 // Slideshow.
 $string['slideshowsettings'] = 'Slideshow';
-$string['slideshowsettingsheading'] = 'Customize the carousel on the front page. See the layout <a href="./../theme/adaptable/pix/layout.png" target="_blank"> here</a>';
+$string['slideshowsettingsheading'] = 'Customize the carousel on the front page.';
 $string['slideshowdesc'] = 'Upload the images, add the links and description for the carousel on the front page.';
 
 $string['sliderimage'] = 'Slider picture';
@@ -334,7 +334,7 @@ $string['sidebaricon'] = 'Show / hide the sidebar';
 
 // Marketing Blocks & Info Box.
 $string['marketingsettings'] = 'Marketing blocks';
-$string['marketingsettingsheading'] = 'Customize the marketing blocks that appear on the front page. See the layout <a href="./../theme/adaptable/pix/layout.png" target="_blank"> here</a>';
+$string['marketingsettingsheading'] = 'Customize the marketing blocks that appear on the front page.';
 $string['marketingdesc'] = 'There are two full width info boxes with differing styles you can use.<br>In addition to this there is a layout builder allowing you to decide how many blocks you need and define your own layout.<br>Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
 
 $string['marketingbuilderheading'] = 'Marketing block layout builder';
@@ -375,7 +375,7 @@ $string['static'] = 'Static';
 
 // Footer.
 $string['footersettings'] = 'Footer';
-$string['footersettingsheading'] = 'Set the content that should appear in the footer. See the layout <a href="./../theme/adaptable/pix/layout.png" target="_blank"> here</a> ';
+$string['footersettingsheading'] = 'Set the content that should appear in the footer.';
 
 $string['footerdesc'] = 'Control the content that appears in the 4 footer sections of the page.';
 
@@ -419,7 +419,7 @@ $string['navbarcachetime'] = 'Navbar cache time';
 $string['navbarcachetimedesc'] = 'The number of minutes the navigation bar is cached for.';
 
 $string['navbarmenusettings'] = 'Navbar custom menu';
-$string['navbarmenusettingsheading'] = 'Customize the menu in the navigation bar. See the layout <a href="./../theme/adaptable/pix/layout.png" target="_blank"> here</a>.';
+$string['navbarmenusettingsheading'] = 'Customize the menu in the navigation bar.';
 $string['navbarmenusettingsdesc'] = 'Allows you to add a menu to the navigation bar.';
 
 $string['navbarsettings'] = 'Navbar';
@@ -1024,7 +1024,7 @@ $string['passwordplaceholder'] = 'Password';
 
 // Header.
 $string['headersettings'] = 'Header';
-$string['headersettingsheading'] = 'Customize the header of this theme.  See the layout \'<a href="./../theme/adaptable/pix/layout.png" target="_blank">here</a>\'.';
+$string['headersettingsheading'] = 'Customize the header of this theme.';
 $string['headerdesc'] = 'Upload your logo, set login form in header, adjust titles in header.<br />You can set font size and styles for titles in the \'<a href="./../admin/settings.php?section=theme_adaptable_font">fonts</a>\' settings page.';
 
 $string['headerbgimage'] = 'Background image';
@@ -1117,7 +1117,7 @@ $string['sitetitledefault'] = 'Use Moodle site title (site name)';
 $string['sitetitlecustom'] = 'Use custom site title (enter in the \'sitetitletext\' box below)';
 
 $string['pageheaderlayout'] = 'Header one, page header layout';
-$string['pageheaderlayoutdesc'] = 'The page header layout for header style one.  Note: \'Alternative\' is subject to change without notice and is still in development.';
+$string['pageheaderlayoutdesc'] = 'The page header layout for header style one.';
 $string['pageheaderlayouttwo'] = 'Header two, page header layout';
 $string['pageheaderlayouttwodesc'] = 'The page header layout for header style two.';
 
@@ -1253,7 +1253,7 @@ $string['alertsettings'] = 'Alert Box {$a}';
 $string['alertcount'] = 'Alert count';
 $string['alertcountdesc'] = 'The number of alerts to show in the edit area below.';
 
-$string['alertsettingsheading'] = 'Customize top Alert Box. See the layout <a href="./../theme/adaptable/pix/layout.png" target="_blank"> here</a>';
+$string['alertsettingsheading'] = 'Customize top Alert Box.';
 $string['alertdesc'] = 'Enter and customize a text to be displayed in the top of the site as an alert. It is possible to set more than one alert to target different user types. You also have the option of showing alerts sitewide or on homepages only. <br /><br /><strong>Note:</strong> it is now also possible to display alerts within course pages to warn teachers that courses are hidden.';
 
 // Alerts Types.

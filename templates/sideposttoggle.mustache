@@ -15,33 +15,35 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template theme_adaptable/courseindextoggle
+    @template theme_adaptable/sideposttoggle
 
     Adaptable side post toggle template.
 
     Context variables required for this template:
-    * sidepostopen - true if the drawer should be open on page load
+    * hassidepost - true if there is a side post
+    * left - true if side post is on the left
 
     Example context (json):
     {
-        "sidepostopen": true
+        "hassidepost": true,
+        "left": false
     }
 }}
 <div class="drawer-toggles d-flex">
     {{#hassidepost}}
-    <div class="drawer-toggler drawer-right-toggle ml-auto d-print-none">
+    <div class="drawer-toggler drawer-{{#left}}left{{/left}}{{^left}}right{{/left}}-toggle ml-auto d-print-none">
         <button
             class="btn icon-no-margin"
             data-toggler="drawers"
             data-action="toggle"
             data-target="theme_adaptable-drawers-sidepost"
             data-toggle="tooltip"
-            data-placement="right"
+            data-placement="{{#left}}left{{/left}}{{^left}}right{{/left}}"
             title="{{#str}}opendrawerblocks, core{{/str}}"
         >
             <span class="sr-only">{{#str}}opendrawerblocks, core{{/str}}</span>
-            <span class="dir-rtl-hide">{{#pix}}t/blocks_drawer, core{{/pix}}</span>
-            <span class="dir-ltr-hide">{{#pix}}t/blocks_drawer_rtl, core{{/pix}}</span>
+            <span class="dir-{{#left}}ltr{{/left}}{{^left}}rtl{{/left}}-hide">{{#pix}}t/blocks_drawer, core{{/pix}}</span>
+            <span class="dir-{{#left}}rtl{{/left}}{{^left}}ltr{{/left}}-hide">{{#pix}}t/blocks_drawer_rtl, core{{/pix}}</span>
         </button>
     </div>
     {{/hassidepost}}

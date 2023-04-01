@@ -18,6 +18,7 @@
  * Version details
  *
  * @package   theme_adaptable
+ * @copyright 2023 G J Barnard (http://moodle.org/user/profile.php?id=442195)
  * @copyright 2015-2019 Jeremy Hopkins (Coventry University)
  * @copyright 2015-2019 Fernando Acedo (3-bits.com)
  * @copyright 2017-2019 Manoj Solanki (Coventry University)
@@ -128,7 +129,6 @@ echo $OUTPUT->doctype();
 // Include header.
 require_once(dirname(__FILE__) . '/head.php');
 
-// TODO to swap the course index / side post block sides.
 $left = $PAGE->theme->settings->blockside;
 
 // If page is Grader report, override blockside setting to align left.
@@ -234,6 +234,15 @@ echo $OUTPUT->standard_top_of_body_html();
     $headercontext = [
         'output' => $OUTPUT
     ];
+
+    if (!empty($nomobilenavigation)) {
+        $primary = new theme_adaptable\output\navigation\primary($PAGE);
+        $renderer = $PAGE->get_renderer('core');
+        $primarymenu = $primary->export_for_template($renderer);
+        $headercontext['mobileprimarynav'] = $primarymenu['mobileprimarynav'];
+        $headercontext['mobileprimarynavicon'] = \theme_adaptable\toolbox::getfontawesomemarkup('bars');
+        $headercontext['hasmobileprimarynav'] = true;
+    }
 
     if ((!isloggedin() || isguestuser()) && ($PAGE->pagetype != "login-index")) {
         if ($PAGE->theme->settings->displaylogin != 'no') {

@@ -73,14 +73,12 @@
 }
 
 
-#adaptable-page-header-wrapper .navbar-nav .dropdown li a i,
-#adaptable-page-header-wrapper .above-header a i {
-    margin-right: 2px;
-    text-align: center;
-}
-
-#adaptable-page-header-wrapper .above-header a i {
-    width: 22px;
+#adaptable-page-header-wrapper {
+    .navbar-nav .dropdown li a .icon,
+    .above-header a .icon {
+        margin-right: 2px;
+        text-align: center;
+    }
 }
 
 // New main navbar styling */
@@ -524,10 +522,6 @@
 
     #adaptable-page-header-wrapper .above-header .btco-hover-menu ul ul.dropdown-menu {
         min-width: 60px;
-    }
-
-    #adaptable-page-header-wrapper #header1.above-header .btco-hover-menu ul [id^='langmenu'] {
-        min-width: 135px;
     }
 }
 

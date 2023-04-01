@@ -21,21 +21,23 @@
 
     Example context (json):
     {
+        "hasmobileprimarynav": true,
         "headerbg": "",
-        "sitelogo": "",
-        "sitetitle": "Adaptable",
-        "shownavbar": true,
-        "topmenus": "",
+        "langmenu": "",
+        "loginoruser": "",
+        "mobileprimarynavicon": "Markup",
         "navbarsearch": "",
         "pageheaderoriginal": true,
-        "langmenu": false,
-        "loginoruser": ""
+        "shownavbar": true,
+        "sitelogo": "",
+        "sitetitle": "Adaptable",
+        "topmenus": ""
     }
 }}
 <header id="adaptable-page-header-wrapper" class="stickything"{{{headerbg}}}>
     <div id="header2" class="above-header container">
-        <div class="row {{^pageheaderoriginal}}justify-content-lg-between{{/pageheaderoriginal}}">
-            <div class="d-none d-lg-block {{#pageheaderoriginal}}col-lg-6{{/pageheaderoriginal}}{{^pageheaderoriginal}}col{{/pageheaderoriginal}}">
+        <div class="row{{^pageheaderoriginal}} justify-content-lg-between{{/pageheaderoriginal}}">
+            <div class="d-none d-lg-block{{#pageheaderoriginal}} col-lg-6{{/pageheaderoriginal}}{{^pageheaderoriginal}} col{{/pageheaderoriginal}}">
                 <div class="d-flex justify-content-start align-items-center h-100 bd-highlight">
                     {{#sitelogo}}{{{sitelogo}}}{{/sitelogo}}
                     {{#sitetitle}}{{{sitetitle}}}{{/sitetitle}}
@@ -45,8 +47,14 @@
                 </div>
             </div>
 
-            <div class="{{#pageheaderoriginal}}col-lg-6{{/pageheaderoriginal}}{{^pageheaderoriginal}}col-lg-auto{{/pageheaderoriginal}} p-0 my-auto">
+            <div class="{{#pageheaderoriginal}}col-lg-6 {{/pageheaderoriginal}}{{^pageheaderoriginal}}col-lg-auto {{/pageheaderoriginal}}pr-0 my-auto">
                 <nav class="navbar navbar-expand btco-hover-menu">
+                    {{#hasmobileprimarynav}}
+                    <button class="navbar-toggler nav-link aabtn d-block d-lg-none px-1 my-1 border-0" data-toggler="drawers" data-action="toggle" data-target="theme_adaptable-drawers-primary">
+                        {{{mobileprimarynavicon}}}
+                        <span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
+                    </button>
+                    {{/hasmobileprimarynav}}
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav ml-auto">
 
@@ -86,3 +94,9 @@
     {{/shownavbar}}
 
 </header>
+
+{{#hasmobileprimarynav}}
+{{< theme_boost/primary-drawer-mobile }}
+    {{$id}}theme_adaptable-drawers-primary{{/id}}
+{{/ theme_boost/primary-drawer-mobile }}
+{{/hasmobileprimarynav}}

@@ -49,12 +49,14 @@ if (defined('BEHAT_SITE_RUNNING')) {
 $sidepostcontext = [
     'addblockbutton' => $addblockbutton,
     'hassidepost' => $hassidepost,
+    'left' => $left,
     'sidepostopen' => $sidepostopen,
     'sidepost' => $sideposthtml
 ];
 
 $sideposttogglecontext = [
     'hassidepost' => $hassidepost,
+    'left' => $left,
     'sidepostopen' => $sidepostopen
 ];
 

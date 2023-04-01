@@ -2825,7 +2825,7 @@ EOT;
                 $currentlang = '';
             }
 
-            $this->language = $langmenu->add('<i class="fa fa-globe fa-lg"></i><span class="langdesc">'.$currentlang.'</span>',
+            $this->language = $langmenu->add('<i class="icon fa fa-globe fa-lg"></i><span class="langdesc">'.$currentlang.'</span>',
                 new moodle_url($this->page->url), $strlang, 10000);
 
             foreach ($langs as $langtype => $langname) {

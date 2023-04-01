@@ -20,23 +20,25 @@
     Adaptable Course Index toggle template.
 
     Context variables required for this template:
-    * courseindexopen - true if the drawer should be open on page load
+    * left - true if side post is on the left
+    * courseindex - true if there is a course index
 
     Example context (json):
     {
-        "courseindexopen": true
+        "courseindex": true,
+        "left": false
     }
 }}
 <div class="drawer-toggles d-flex">
     {{#courseindex}}
-    <div class="drawer-toggler drawer-left-toggle open-nav d-print-none">
+    <div class="drawer-toggler drawer-{{#left}}right{{/left}}{{^left}}left{{/left}}-toggle open-nav d-print-none">
         <button
             class="btn icon-no-margin"
             data-toggler="drawers"
             data-action="toggle"
             data-target="theme_adaptable-drawers-courseindex"
             data-toggle="tooltip"
-            data-placement="right"
+            data-placement="{{#left}}left{{/left}}{{^left}}right{{/left}}"
             title="{{#str}}opendrawerindex, core{{/str}}"
         >
         <span class="sr-only">{{#str}}opendrawerindex, core{{/str}}</span>
