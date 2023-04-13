@@ -42,7 +42,25 @@ class primary extends \core\navigation\output\primary {
             $output = $this->page->get_renderer('core');
         }
 
-        $mobileprimarynav = array_merge($this->get_primary_nav(), $this->get_custom_menu($output));
+        $menu = $output->navigation_menu_content();
+        $primarynodes = [];
+        foreach ($menu->get_children() as $node) {
+            $url = $node->get_url();
+            $target = '';
+            if (is_object($url) && (get_class($url) == 'moodle_url')) {
+                $target = $url->get_param('helptarget');
+                if ($target != null) {
+                    $url->remove_params('helptarget');
+                    $node->set_url($url);
+                }
+            }
+            $thenode = $node->export_for_template($output);
+            if (!empty($target)) {
+                $thenode->target = $target;
+            }
+            $primarynodes[] = $thenode;
+        }
+        $mobileprimarynav = array_merge($primarynodes, $this->get_custom_menu($output));
 
         return [
             'mobileprimarynav' => $mobileprimarynav

@@ -1,3 +1,9 @@
+Change Log in version 401.1.3 (2022112304)
+===========================================
+1. Fix 'Not Adaptable my courses and missing help menu's on mobile navigation'.
+2. Fix 'Piwik code is asking for string from local_analytics' - #5.
+3. Fix 'blockicons setting not being applied to the side post drawer'.
+
 Change Log in version 401.1.2 (2022112303)
 ===========================================
 1. Fix 'blockside' setting not being applied to the course index and side post.

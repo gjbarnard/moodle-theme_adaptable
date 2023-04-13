@@ -749,39 +749,27 @@ EOT;
     }
 
     /**
-     * Returns Piwik code if enabled
+     * Returns Piwik code if enabled.
      *
      * @copyright  2016 COMETE-UPO (Universit\E9 Paris Ouest)
      *
      * @return string
      */
     public function get_piwik() {
-        global $DB;
-
-        $enabled = $this->page->theme->settings->piwikenabled;
-        $imagetrack = $this->page->theme->settings->piwikimagetrack;
         $siteurl = $this->page->theme->settings->piwiksiteurl;
         $siteid = $this->page->theme->settings->piwiksiteid;
-        $trackadmin = $this->page->theme->settings->piwiktrackadmin;
-
-        $enabled = $this->page->theme->settings->piwikenabled;
-        $imagetrack = $this->page->theme->settings->piwikimagetrack;
-        $siteurl = $this->page->theme->settings->piwiksiteurl;
-        $siteid = $this->page->theme->settings->piwiksiteid;
-        $trackadmin = $this->page->theme->settings->piwiktrackadmin;
 
         $analytics = '';
-        if ($enabled && !empty($siteurl) && !empty($siteid) && (!is_siteadmin() || $trackadmin)) {
-            if ($imagetrack) {
-                $addition = '<noscript><p><img src="//'.$siteurl.'/piwik.php?idsite='.$siteid.' style="border:0;"/></p></noscript>';
-            } else {
-                $addition = '';
-            }
+        if ($this->page->theme->settings->piwikenabled &&
+            !empty($siteurl) &&
+            !empty($siteid) &&
+            ($this->page->theme->settings->piwiktrackadmin || !is_siteadmin())) {
             // Cleanurl.
             $pageinfo = get_context_info_array($this->page->context->id);
             $trackurl = '';
             // Adds course category name.
             if (isset($pageinfo[1]->category)) {
+                global $DB;
                 if ($category = $DB->get_record('course_categories', array('id' => $pageinfo[1]->category))) {
                     $cats = explode("/", $category->path);
                     foreach (array_filter($cats) as $cat) {
@@ -793,36 +781,39 @@ EOT;
             }
             // Adds course full name.
             if (isset($pageinfo[1]->fullname)) {
-                if (isset($pageinfo[2]->name)) {
-                    $trackurl .= $pageinfo[1]->fullname.'/';
-                } else if ($this->page->user_is_editing()) {
-                    $trackurl .= $pageinfo[1]->fullname.'/'.get_string('edit', 'local_analytics');
-                } else {
-                    $trackurl .= $pageinfo[1]->fullname.'/'.get_string('view', 'local_analytics');
+                $trackurl .= $pageinfo[1]->fullname.'/';
+                if (!isset($pageinfo[2]->name)) {
+                    if ($this->page->user_is_editing()) {
+                        $trackurl .= get_string('edit');
+                    } else {
+                        $trackurl .= get_string('view');
+                    }
                 }
             }
-            // Adds activity name.
+            // Adds module name.
             if (isset($pageinfo[2]->name)) {
-                $trackurl .= $pageinfo[2]->modname.'/'.$pageinfo[2]->name;
+                $trackurl .= get_string('pluginname', 'mod_'.$pageinfo[2]->modname).'/'.$pageinfo[2]->name;
             }
-            $trackurl = '"'.str_replace('"', '\"', $trackurl).'"';
+            $trackurl = mb_ereg_replace('"', '\"', $trackurl);
             // Here we go.
-            $analytics .= '<!-- Start Piwik Code -->'."\n".
-                '<script type="text/javascript">'."\n".
-                '   var _paq = _paq || [];'."\n".
-                '   _paq.push(["setDocumentTitle", '.$trackurl.']);'."\n".
-                '   _paq.push(["trackPageView"]);'."\n".
-                '   _paq.push(["enableLinkTracking"]);'."\n".
-                '   (function() {'."\n".
-                '     var u="//'.$siteurl.'/";'."\n".
-                '     _paq.push(["setTrackerUrl", u+"piwik.php"]);'."\n".
-                '     _paq.push(["setSiteId", '.$siteid.']);'."\n".
-                '     var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];'."\n".
-                '   g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js";s.parentNode.insertBefore(g,s);'."\n".
-                '   })();'."\n".
-                '</script>'.$addition."\n".
-                '<!-- End Piwik Code -->'."\n".
-                '';
+            $analytics .= '<!-- Start Piwik Code -->'.PHP_EOL.
+                '<script type="text/javascript">'.
+                '   var _paq = _paq || [];'.
+                '   _paq.push(["setDocumentTitle", "'.$trackurl.'"]);'.
+                '   _paq.push(["trackPageView"]);'.
+                '   _paq.push(["enableLinkTracking"]);'.
+                '   (function() {'.
+                '     var u="//'.$siteurl.'/";'.
+                '     _paq.push(["setTrackerUrl", u+"piwik.php"]);'.
+                '     _paq.push(["setSiteId", '.$siteid.']);'.
+                '     var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];'.
+                '   g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js";s.parentNode.insertBefore(g,s);'.
+                '   })();'.
+                '</script>'.PHP_EOL;
+            if ($this->page->theme->settings->piwikimagetrack) {
+                $analytics .= '<noscript><p><img src="//'.$siteurl.'/piwik.php?idsite='.$siteid.'" style="border:0;"/></p></noscript>'.PHP_EOL;
+            }
+            $analytics .= '<!-- End Piwik Code -->';
         }
         return $analytics;
     }
@@ -2922,7 +2913,6 @@ EOT;
                 $content .= $this->render_custom_menu_item($menunode, 1, $menuid . $submenucount);
             }
             $content .= '</ul></li>';
-
         } else {
             if (preg_match("/^#+$/", $menunode->get_text())) {
                 // This is a divider.
@@ -2940,15 +2930,18 @@ EOT;
                  * "helptarget", which when equal to "_blank", will create a link with target="_blank" to allow the link to open
                  * in a new window.  This param is removed once checked.
                  */
-                if (is_object($url) && (get_class($url) == 'moodle_url') && ($url->get_param('helptarget') != null)) {
+                $attributes = array(
+                    'title' => $menunode->get_title(),
+                    'class' => $linkclass
+                );
+                if (is_object($url) && (get_class($url) == 'moodle_url')) {
                     $helptarget = $url->get_param('helptarget');
-                    $url->remove_params('helptarget');
-                    $content .= html_writer::link($url, $menunode->get_text(), array('title' => $menunode->get_title(),
-                        'target' => $helptarget, 'class' => $linkclass));
-                } else {
-                    $content .= html_writer::link($url, $menunode->get_text(),
-                        array('title' => $menunode->get_title(), 'class' => $linkclass));
+                    if ($helptarget != null) {
+                        $url->remove_params('helptarget');
+                        $attributes['target'] = $helptarget;
+                    }
                 }
+                $content .= html_writer::link($url, $menunode->get_text(), $attributes);
 
                 $content .= "</li>";
             }

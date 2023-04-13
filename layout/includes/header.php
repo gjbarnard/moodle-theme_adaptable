@@ -28,6 +28,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$bodyclasses = array();
+$bodyclasses[] = 'theme_adaptable';
+$bodyclasses[] = 'two-column';
+
+$pageclasses = array();
+
 $PAGE->set_secondary_navigation(false);
 
 /* Check if this is a course or module page and check setting to hide site title.
@@ -41,10 +47,10 @@ if ( (strstr($PAGE->pagetype, 'course')) ||
 
 // Screen size.
 theme_adaptable_initialise_zoom();
-$setzoom = theme_adaptable_get_zoom();
+$bodyclasses[] = theme_adaptable_get_zoom();
 
 theme_adaptable_initialise_full();
-$setfull = theme_adaptable_get_full();
+$pageclasses[] = theme_adaptable_get_full();
 
 $bsoptionsdata = array('data' => array());
 
@@ -92,6 +98,9 @@ if ((empty($headerbg)) && (!empty($PAGE->theme->settings->headerbgimage))) {
     $headerbg = ' class="headerbgimage" style="background-image: ' .
     'url(\''.$PAGE->theme->setting_file_url('headerbgimage', 'headerbgimage').'\');"';
 }
+if (!empty($headerbg)) {
+    $bodyclasses[] = 'has-header-bg';
+}
 
 /* Choose the header style.  There styles available are:
    "style1"  (original header)
@@ -103,18 +112,18 @@ if (!empty($PAGE->theme->settings->headerstyle)) {
 } else {
     $adaptableheaderstyle = "style1";
 }
+$bodyclasses[] = 'header-'.$adaptableheaderstyle;
 
 // Social icons class.
 $showicons = $PAGE->theme->settings->blockicons;
 if ($showicons == 1) {
-    $showiconsclass = "showblockicons";
-} else {
-    $showiconsclass = " ";
+    $bodyclasses[] = 'showblockicons';
 }
 
-$standardscreenwidthclass = 'standard';
 if (!empty($PAGE->theme->settings->standardscreenwidth)) {
-    $standardscreenwidthclass = $PAGE->theme->settings->standardscreenwidth;
+    $pageclasses[] = $PAGE->theme->settings->standardscreenwidth;
+} else {
+    $pageclasses[] = 'standard';
 }
 
 // HTML header.
@@ -163,33 +172,6 @@ if ($sidepostdrawer) {
     $hassidepost = false;
 }
 
-// If it is a mobile and the header is not hidden or it is a desktop there will be a page header.
-$pageheader = 'has-page-header';
-
-$hasheaderbg = '';
-if (!empty($headerbg)) {
-    $hasheaderbg = 'has-header-bg';
-}
-
-$nomobilenavigation = '';
-if (!empty($PAGE->theme->settings->responsivesectionnav)) {
-    $nomobilenavigation = 'nomobilenavigation';
-}
-
-$bodyclasses = array();
-$bodyclasses[] = 'theme_adaptable';
-$bodyclasses[] = 'two-column';
-$bodyclasses[] = $setzoom;
-$bodyclasses[] = 'header-'.$adaptableheaderstyle;
-$bodyclasses[] = $pageheader;
-$bodyclasses[] = $hasheaderbg;
-$bodyclasses[] = $nomobilenavigation;
-
-$pageclasses = array();
-$pageclasses[] = $setfull;
-$pageclasses[] = $showiconsclass;
-$pageclasses[] = $standardscreenwidthclass;
-
 if ($courseindexheader) {
     if ($courseindexopen) {
         $bodyclasses[] = 'drawer-open-index';
@@ -199,6 +181,12 @@ if ($courseindexheader) {
 if (($courseindex) || ($hassidepost)) {
     $bodyclasses[] = 'uses-drawers';
     $pageclasses[] = 'drawers';
+}
+
+$nomobilenavigation = '';
+if (!empty($PAGE->theme->settings->responsivesectionnav)) {
+    $nomobilenavigation = 'nomobilenavigation';
+    $bodyclasses[] = $nomobilenavigation;
 }
 
 ?>

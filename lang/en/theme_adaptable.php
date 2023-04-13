@@ -509,7 +509,6 @@ $string['navbardropdowntransitiontime'] = 'Navbar transition time';
 $string['navbardropdowntransitiontimedesc'] = 'Navbar transition effect time in seconds.  Provides a fade-in animation effect when hovering over a menu that has sub-menus.';
 
 // This Course menu.
-$string['enablemysitesdesc'] = 'Display a dropdown with the course activities and other options';
 $string['headernavbarthiscourseheading'] = 'This Course Menu';
 $string['headernavbarthiscourseheadingdesc'] = 'In this menu the student can access directly all the course activities and the participants list and their grades.';
 
