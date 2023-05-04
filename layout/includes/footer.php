@@ -55,7 +55,7 @@ if ($PAGE->theme->settings->hidefootersocial == 1) {
             <div class="row">
                 <div class="tool_usertours-resettourcontainer"></div>
                 <?php
-                $footnote = $OUTPUT->get_setting('footnote', 'format_html');
+                $footnote = $OUTPUT->get_setting('footnote', 'format_moodle');
                 if (!empty($footnote)) {
                     if ($PAGE->theme->settings->moodledocs) {
                         $footnoteclass = 'col-md-4';

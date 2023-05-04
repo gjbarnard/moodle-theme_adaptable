@@ -29,6 +29,7 @@ defined('MOODLE_INTERNAL') || die;
 // Include header.
 $sidepostdrawer = true;
 require_once(dirname(__FILE__) . '/includes/header.php');
+$PAGE->set_secondary_navigation(false);
 ?>
 
 <div id="page" class="container-outercont">

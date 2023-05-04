@@ -34,8 +34,9 @@ if (($PAGE->theme->settings->frontpageuserblocksenabled) || (is_siteadmin($USER)
 
 // Let's go to include first the common header file.
 require_once(dirname(__FILE__) . '/includes/header.php');
+$PAGE->set_secondary_navigation(false);
 
-// And now we go to create the main layout.
+echo $OUTPUT->get_news_ticker();
 
 // Let's include the images slider if enabled.
 if (!empty($PAGE->theme->settings->sliderenabled)) {
@@ -50,7 +51,7 @@ if (!empty($PAGE->theme->settings->infobox)) {
         echo '<div id="theinfo" class="container">';
     }
     echo '<div class="row">';
-    echo $OUTPUT->get_setting('infobox', 'format_html');
+    echo $OUTPUT->get_setting('infobox', 'format_moodle');
     echo '</div>';
     echo '</div>';
 }
@@ -77,7 +78,7 @@ if (!empty($PAGE->theme->settings->infobox2)) {
         echo '<div id="theinfo2" class="container">';
     }
     echo '<div class="row">';
-    echo $OUTPUT->get_setting('infobox2', 'format_html');
+    echo $OUTPUT->get_setting('infobox2', 'format_moodle');
     echo '</div>';
     echo '</div>';
 }
@@ -85,7 +86,6 @@ if (!empty($PAGE->theme->settings->infobox2)) {
 // The main content goes here.
 ?>
 <div id="maincontainer" class="container outercont">
-    <?php echo $OUTPUT->get_news_ticker(); ?>
     <div id="page-content" class="row">
         <div id="page-navbar" class="col-12">
             <nav class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></nav>

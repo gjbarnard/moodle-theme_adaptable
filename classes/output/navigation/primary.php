@@ -31,6 +31,18 @@ use renderer_base;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class primary extends \core\navigation\output\primary {
+    /** @var moodle_page $page the moodle page that the navigation belongs to */
+    private $page = null;
+
+    /**
+     * primary constructor.
+     * @param \moodle_page $page
+     */
+    public function __construct($page) {
+        $this->page = $page;
+        parent::__construct($page);
+    }
+
     /**
      * Combine the various menus into a standardized output.
      *

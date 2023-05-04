@@ -34,8 +34,6 @@ $bodyclasses[] = 'two-column';
 
 $pageclasses = array();
 
-$PAGE->set_secondary_navigation(false);
-
 /* Check if this is a course or module page and check setting to hide site title.
    If not one of these pages, by default show it (set $hidesitetitle to false). */
 if ( (strstr($PAGE->pagetype, 'course')) ||
@@ -55,8 +53,7 @@ $pageclasses[] = theme_adaptable_get_full();
 $bsoptionsdata = array('data' => array());
 
 // Main navbar.
-if (isset($PAGE->theme->settings->stickynavbar) && $PAGE->theme->settings->stickynavbar == 1
-    && $PAGE->pagetype != "grade-report-grader-index" && $PAGE->bodyid != "page-grade-report-grader-index") {
+if (isset($PAGE->theme->settings->stickynavbar) && $PAGE->theme->settings->stickynavbar == 1) {
     $fixedheader = true;
     $bsoptionsdata['data']['stickynavbar'] = true;
 } else {
@@ -140,12 +137,6 @@ require_once(dirname(__FILE__) . '/head.php');
 
 $left = $PAGE->theme->settings->blockside;
 
-// If page is Grader report, override blockside setting to align left.
-if (($PAGE->pagetype == "grade-report-grader-index") ||
-    ($PAGE->bodyid == "page-grade-report-grader-index")) {
-    $left = true;
-}
-
 $courseindexheader = false;
 switch ($PAGE->pagelayout) {
     case 'base':
@@ -207,17 +198,6 @@ echo $OUTPUT->standard_top_of_body_html();
     if (!empty($sidepostmarkup)) {
         echo $sidepostmarkup;
     }
-    ?>
-    <div id="page" class="<?php echo implode(' ', $pageclasses) ?>">
-    <?php
-    if (!empty($courseindextogglemarkup)) {
-        echo $courseindextogglemarkup;
-    }
-    if (!empty($sideposttogglemarkup)) {
-        echo $sideposttogglemarkup;
-    }
-
-    echo $OUTPUT->get_alert_messages();
 
     $headercontext = [
         'output' => $OUTPUT
@@ -419,3 +399,13 @@ echo $OUTPUT->standard_top_of_body_html();
 
         echo $OUTPUT->render_from_template('theme_adaptable/headerstyletwo', $headercontext);
     }
+    ?>
+    <div id="page" class="<?php echo implode(' ', $pageclasses) ?>">
+    <?php
+    if (!empty($courseindextogglemarkup)) {
+        echo $courseindextogglemarkup;
+    }
+    if (!empty($sideposttogglemarkup)) {
+        echo $sideposttogglemarkup;
+    }
+    echo $OUTPUT->get_alert_messages();

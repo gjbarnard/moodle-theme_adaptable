@@ -29,6 +29,8 @@ defined('MOODLE_INTERNAL') || die;
 // Include header.
 $sidepostdrawer = true;
 require_once(dirname(__FILE__) . '/includes/header.php');
+// Include secondary navigation.
+require_once(dirname(__FILE__) . '/includes/secondarynav.php');
 ?>
 
 <div id="maincontainer" class="container outercont">
@@ -42,7 +44,13 @@ require_once(dirname(__FILE__) . '/includes/header.php');
                 <?php
                 echo $OUTPUT->get_course_alerts();
                 echo $OUTPUT->course_content_header();
+                if (!empty($secondarynavigation)) {
+                    echo $secondarynavigation;
+                }
                 echo $OUTPUT->activity_header();
+                if (!empty($overflow)) {
+                    echo $overflow;
+                }
                 echo $OUTPUT->main_content();
 
                 if ($PAGE->has_set_url()) {

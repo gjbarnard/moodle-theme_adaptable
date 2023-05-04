@@ -36,6 +36,7 @@ if ((!empty($movesidebartofooter)) && ($movesidebartofooter == 2)) {
 
 // Include header.
 require_once(dirname(__FILE__) . '/includes/header.php');
+$PAGE->set_secondary_navigation(false);
 
 // Definition of block regions for top and bottom.  These are used in potentially retrieving
 // any missing block regions.

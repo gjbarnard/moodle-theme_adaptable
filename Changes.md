@@ -1,3 +1,16 @@
+Change Log in version 401.1.4 (2022112305)
+===========================================
+1. Change HTML based settings to use Moodle format for greater flexibility and don't trust user input!
+2. Fix 'Course index' on the right for the Grader Report.
+3. Fix 'Frontpage ticker location'.
+4. Improvements to the dynamic header functionality.
+5. Improve bsoptions.js.
+6. Reduce page load adjustment issues.
+7. Drawer open button improvement.
+8. Fix drawer position on grader report page.
+9. Add secondary navigation.
+10. Fix 'Use $CFG->themedir break SCSS inclusion' - #273.
+
 Change Log in version 401.1.3 (2022112304)
 ===========================================
 1. Fix 'Not Adaptable my courses and missing help menu's on mobile navigation'.

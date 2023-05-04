@@ -15,18 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 //
 //
-// Adaptable Grade override styles style sheet
+// Adaptable Layout style sheet
 //
 // @package    theme_adaptable
-// @copyright  2021 G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
+// @copyright  2023 G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
-.gradereport-grader-table img {
-    max-width: none;
-}
-
-.path-grade-report-grader #region-main {
-    min-width: auto;
-    overflow-x: scroll;
+@include media-breakpoint-up(lg) {
+    #page.drawers {
+        transition-property: margin-left, margin-right;
+    }
 }

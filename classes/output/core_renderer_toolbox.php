@@ -206,8 +206,10 @@ trait core_renderer_toolbox {
             return $theme->settings->$setting;
         } else if ($format === 'format_text') {
             return format_text($theme->settings->$setting, FORMAT_PLAIN);
+        } else if ($format === 'format_moodle') {
+            return format_text($theme->settings->$setting, FORMAT_MOODLE);
         } else if ($format === 'format_html') {
-            return format_text($theme->settings->$setting, FORMAT_HTML, array('trusted' => true));
+            return format_text($theme->settings->$setting, FORMAT_HTML);
         } else {
             return format_string($theme->settings->$setting);
         }
@@ -1185,7 +1187,7 @@ EOT;
                     $fieldname = $settingname . $blockcount;
                     if (isset($this->page->theme->settings->$fieldname)) {
                         // Add HTML format.
-                        $retval .= $this->get_setting($fieldname, 'format_html');
+                        $retval .= $this->get_setting($fieldname, 'format_moodle');
                     }
                     $retval .= '</div>';
                 }

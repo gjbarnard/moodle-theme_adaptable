@@ -79,7 +79,8 @@ function theme_adaptable_get_main_scss_content($theme) {
 
     $scss .= theme_boost_get_main_scss_content($boosttheme);
 
-    $scss .= file_get_contents($CFG->dirroot.'/theme/adaptable/scss/main.scss');
+    $basedir = (!empty($CFG->themedir)) ? $CFG->themedir : $CFG->dirroot.'/theme';
+    $scss .= file_get_contents($basedir.'/adaptable/scss/main.scss');
 
     $settingssheets = array(
         'adaptable',
@@ -99,7 +100,7 @@ function theme_adaptable_get_main_scss_content($theme) {
 
     $settingsscss = '';
     foreach ($settingssheets as $settingsheet) {
-        $settingsscss .= file_get_contents($CFG->dirroot.'/theme/adaptable/scss/settings/'.$settingsheet.'.scss');
+        $settingsscss .= file_get_contents($basedir.'/adaptable/scss/settings/'.$settingsheet.'.scss');
     }
 
     $scss .= theme_adaptable_process_scss($settingsscss, $theme);
@@ -668,8 +669,10 @@ function theme_adaptable_get_setting($setting, $format = false) {
         return $theme->settings->$setting;
     } else if ($format === 'format_text') {
         return format_text($theme->settings->$setting, FORMAT_PLAIN);
+    } else if ($format === 'format_moodle') {
+        return format_text($theme->settings->$setting, FORMAT_MOODLE);
     } else if ($format === 'format_html') {
-        return format_text($theme->settings->$setting, FORMAT_HTML, array('trusted' => true));
+        return format_text($theme->settings->$setting, FORMAT_HTML);
     } else {
         return format_string($theme->settings->$setting);
     }

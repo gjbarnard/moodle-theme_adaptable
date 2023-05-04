@@ -29,7 +29,6 @@ define(['jquery', 'core/log'], function($, log) {
 
                     // Container.
                     var header = document.getElementById("adaptable-page-header-wrapper");
-                    header.classList.add("sticky");
                     var aboveHeader = document.getElementById("header1");
                     if (!aboveHeader) {
                         aboveHeader = document.getElementById("header2");
@@ -42,6 +41,7 @@ define(['jquery', 'core/log'], function($, log) {
 
                     // Page.
                     var page = document.getElementById("page");
+                    var pageHeader = document.getElementById("page-header");
 
                     // Adjustments.
                     var pageScrollTop = page.scrollTop;
@@ -49,63 +49,76 @@ define(['jquery', 'core/log'], function($, log) {
                     var headerHeight = 0;
                     var headerNoNavbar = 0;
                     var navbarHeight = navbar.getBoundingClientRect().height;
-                    // We only use headerHeight when >= screenmd and the height only valid when window width is such.
-                    if (windowWidth >= screenmd) {
-                        headerHeight = header.getBoundingClientRect().height;
-                        headerNoNavbar = headerHeight - navbarHeight;
-                    }
                     var aboveHeaderHeight = aboveHeader.getBoundingClientRect().height;
 
                     var drawerPaddingTop = 0;
                     var newDrawerPaddingTop = 0;
                     var pageMarginTop = 0;
                     var newPageMarginTop = 0;
+                    var pageHeaderMarginTop = 0;
+                    var newPageHeaderMarginTop = 0;
                     var headerTop = 0;
                     var newHeaderTop = 0;
 
-                    if (windowWidth < screenmd) {
-                        pageScrollTop = aboveHeaderHeight;
-                        headerTop = 0;
-                        pageMarginTop = aboveHeaderHeight;
-                    } else {
-                        if (pageScrollTop > headerNoNavbar) {
-                            pageScrollTop = headerNoNavbar;
-                        }
-                        headerTop = -pageScrollTop;
-                        pageMarginTop = headerHeight - pageScrollTop;
-                    }
-                    page.style.marginTop = pageMarginTop + 'px';
+                    var isFixed = 0;
+                    /* Ok, here's an odd one... desktops need to use the 'inner' variables and mobiles the 'outer'
+                       to be accurate! But... I've (GB) found that the jQuery height and width functions adapt and
+                       report close to correct values regardless of device, so use them instead without complicated
+                       device detection here!  Update: postion:fixed does not work on mobiles at the moment so won't
+                       be for such, left comment for future info. */
 
-                    header.style.top = headerTop + 'px';
-                    if ((courseIndex) || (sidePost)) {
-                        if (windowWidth < screenmd) {
-                            drawerPaddingTop = 0;
+                    /* Top navbar stickyness.
+                    As per above comments, some issues noted with using CSS position: fixed, but these seem to mostly be constrained
+                    to older browsers (inc. mobile browsers). May need to revisit!
+                    https://caniuse.com/#feat=css-fixed */
+                    var stickything = $(".stickything");
+                    var body = $("body");
+                    if (windowWidth < screenmd) {
+                        stickything.addClass("fixed-top");
+                        header.classList.remove("sticky");
+                        body.addClass("page-header-margin");
+                        isFixed = 1;
+                    } else {
+                        stickything.removeClass("fixed-top");
+                        header.classList.add("sticky");
+                        body.removeClass("page-header-margin");
+                    }
+
+                    $(window).resize(function() {
+                        windowWidth = $(window).width();
+                        if (windowWidth < screensm) {
+                            if (currentWindowSize != 1) {
+                                makeNavbarSticky(true);
+                                currentWindowSize = 1;
+                            }
+                        } else if (windowWidth < screenmd) {
+                            if (currentWindowSize != 2) {
+                                makeNavbarSticky(true);
+                                currentWindowSize = 2;
+                            }
                         } else {
-                            drawerPaddingTop = headerHeight - pageScrollTop;
+                            if (currentWindowSize != 3) {
+                                currentWindowSize = 3;
+                            }
+                            // At screenmd and above, window width changes can change the height of the header.
+                            makeNavbarSticky(true);
                         }
-                        if (courseIndex) {
-                            courseIndex.style.paddingTop = drawerPaddingTop + 'px';
-                        }
-                        if (sidePost) {
-                            sidePost.style.paddingTop = drawerPaddingTop + 'px';
-                        }
-                        if ((courseIndex) || (sidePost)) {
-                            if (windowWidth < screensm) {
-                                for (let dt = 0; dt < drawerTogglers.length; dt++) {
-                                    drawerTogglers[dt].style.top = null;
-                                }
-                            } else {
-                                var dtAdditional = 22;
-                                if ((windowWidth >= screensm) && (windowWidth < screenmd)) {
-                                    dtAdditional += aboveHeaderHeight;
-                                }
-                                var dtt = drawerPaddingTop + dtAdditional;
-                                for (let dt = 0; dt < drawerTogglers.length; dt++) {
-                                    drawerTogglers[dt].style.top = dtt + 'px';
-                                }
+                        if (windowWidth < screenmd) {
+                            if (isFixed === 0) {
+                                stickything.addClass("fixed-top");
+                                header.classList.remove("sticky");
+                                body.addClass("page-header-margin");
+                                isFixed = 1;
+                            }
+                        } else {
+                            if (isFixed === 1) {
+                                stickything.removeClass("fixed-top");
+                                header.classList.add("sticky");
+                                body.removeClass("page-header-margin");
+                                isFixed = 0;
                             }
                         }
-                    }
+                    });
 
                     var makeNavbarSticky = function(update = false) {
                         pageScrollTop = page.scrollTop;
@@ -116,12 +129,13 @@ define(['jquery', 'core/log'], function($, log) {
                             }
                             pageScrollTop = aboveHeaderHeight;
                             newHeaderTop = 0;
-                            newPageMarginTop = aboveHeaderHeight;
+                            newPageMarginTop = 0;
+                            newPageHeaderMarginTop = aboveHeaderHeight;
                         } else {
                             if ((!update) && (currentPageScrollTop == headerNoNavbar) && (pageScrollTop >= headerNoNavbar)) {
                                 return;
                             }
-                            if ((headerHeight == 0) && (update)) {
+                            if (update) {
                                 // Just changed from <= screenmd.
                                 headerHeight = header.getBoundingClientRect().height;
                                 navbarHeight = navbar.getBoundingClientRect().height;
@@ -132,31 +146,30 @@ define(['jquery', 'core/log'], function($, log) {
                             }
                             newHeaderTop = -pageScrollTop;
                             newPageMarginTop = headerHeight - pageScrollTop;
+                            newPageHeaderMarginTop = 0;
                         }
                         currentPageScrollTop = pageScrollTop;
 
-                        if (newHeaderTop != headerTop) {
+                        if ((update) || (newHeaderTop != headerTop)) {
                             header.style.top = newHeaderTop + 'px';
                             headerTop = newHeaderTop;
                         }
-                        if (newPageMarginTop != pageMarginTop) {
+                        if ((update) || (newPageMarginTop != pageMarginTop)) {
                             page.style.marginTop = newPageMarginTop + 'px';
                             pageMarginTop = newPageMarginTop;
                         }
+                        if ((update) || (newPageHeaderMarginTop != pageHeaderMarginTop)) {
+                            pageHeader.style.marginTop = newPageHeaderMarginTop + 'px';
+                            pageHeaderMarginTop = newPageHeaderMarginTop;
+                        }
 
                         if ((courseIndex) || (sidePost)) {
-                            if (windowWidth < screensm) {
-                                newDrawerPaddingTop = -1;
-                            } else if (windowWidth < screenmd) {
+                            if (windowWidth < screenmd) {
                                 newDrawerPaddingTop = 0;
                             } else {
                                 newDrawerPaddingTop = headerHeight - pageScrollTop;
                             }
-                            if (newDrawerPaddingTop != drawerPaddingTop) {
-                                // -1 is a bypass latch on the above 'if' between screensm and screenmd changes.
-                                if (newDrawerPaddingTop < 0) {
-                                    newDrawerPaddingTop = 0;
-                                }
+                            if ((update) || (newDrawerPaddingTop != drawerPaddingTop)) {
                                 drawerPaddingTop = newDrawerPaddingTop;
                                 if (courseIndex) {
                                     courseIndex.style.paddingTop = drawerPaddingTop + 'px';
@@ -183,64 +196,10 @@ define(['jquery', 'core/log'], function($, log) {
                             }
                         }
                     };
+                    makeNavbarSticky(true);
 
                     // When the user scrolls the page, execute makeNavbarSticky().
                     page.onscroll = function() {makeNavbarSticky();};
-
-                    var isFixed = 0;
-                    /* Ok, here's an odd one... desktops need to use the 'inner' variables and mobiles the 'outer'
-                       to be accurate! But... I've (GB) found that the jQuery height and width functions adapt and
-                       report close to correct values regardless of device, so use them instead without complicated
-                       device detection here!  Update: postion:fixed does not work on mobiles at the moment so won't
-                       be for such, left comment for future info. */
-
-                    /* Top navbar stickyness.
-                    As per above comments, some issues noted with using CSS position: fixed, but these seem to mostly be constrained
-                    to older browsers (inc. mobile browsers). May need to revisit!
-                    https://caniuse.com/#feat=css-fixed */
-                    var stickything = $(".stickything");
-                    var body = $("body");
-                    if (windowWidth < screenmd) {
-                        stickything.addClass("fixed-top");
-                        body.addClass("page-header-margin");
-                        isFixed = 1;
-                    } else {
-                        stickything.removeClass("fixed-top");
-                        body.removeClass("page-header-margin");
-                    }
-
-                    $(window).resize(function() {
-                        windowWidth = $(window).width();
-                        if (windowWidth < screensm) {
-                            if (currentWindowSize != 1) {
-                                makeNavbarSticky(true);
-                                currentWindowSize = 1;
-                            }
-                        } else if (windowWidth < screenmd) {
-                            if (currentWindowSize != 2) {
-                                makeNavbarSticky(true);
-                                currentWindowSize = 2;
-                            }
-                        } else {
-                            if (currentWindowSize != 3) {
-                                setTimeout(function() { makeNavbarSticky(true); }, 500);
-                                currentWindowSize = 3;
-                            }
-                        }
-                        if (windowWidth < screenmd) {
-                            if (isFixed === 0) {
-                                stickything.addClass("fixed-top");
-                                body.addClass("page-header-margin");
-                                isFixed = 1;
-                            }
-                        } else {
-                            if (isFixed === 1) {
-                                stickything.removeClass("fixed-top");
-                                body.removeClass("page-header-margin");
-                                isFixed = 0;
-                            }
-                        }
-                    });
                 }
 
                 $('.moodlewidth').click(function() {
