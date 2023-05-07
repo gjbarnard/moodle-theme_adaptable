@@ -207,13 +207,13 @@ div.signuppanel h2 {
 // Header.
 #adaptable-page-header-wrapper {
     background-color: [[setting:headerbkcolor2]];
-    width: 100%;
     z-index: 10;
 
     &.sticky {
         left: 0;
         position: fixed;
         top: 0;
+        width: 100%;
     }
 }
 

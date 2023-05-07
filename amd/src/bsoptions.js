@@ -8,6 +8,7 @@ define(['jquery', 'core/log'], function($, log) {
         init: function(data) {
             $(document).ready(function($) {
 
+                var body = $("body");
                 // Get the navbar, if present.
                 var navbar = document.getElementById("main-navbar");
 
@@ -41,7 +42,6 @@ define(['jquery', 'core/log'], function($, log) {
 
                     // Page.
                     var page = document.getElementById("page");
-                    var pageHeader = document.getElementById("page-header");
 
                     // Adjustments.
                     var pageScrollTop = page.scrollTop;
@@ -55,8 +55,6 @@ define(['jquery', 'core/log'], function($, log) {
                     var newDrawerPaddingTop = 0;
                     var pageMarginTop = 0;
                     var newPageMarginTop = 0;
-                    var pageHeaderMarginTop = 0;
-                    var newPageHeaderMarginTop = 0;
                     var headerTop = 0;
                     var newHeaderTop = 0;
 
@@ -71,15 +69,11 @@ define(['jquery', 'core/log'], function($, log) {
                     As per above comments, some issues noted with using CSS position: fixed, but these seem to mostly be constrained
                     to older browsers (inc. mobile browsers). May need to revisit!
                     https://caniuse.com/#feat=css-fixed */
-                    var stickything = $(".stickything");
-                    var body = $("body");
                     if (windowWidth < screenmd) {
-                        stickything.addClass("fixed-top");
                         header.classList.remove("sticky");
                         body.addClass("page-header-margin");
                         isFixed = 1;
                     } else {
-                        stickything.removeClass("fixed-top");
                         header.classList.add("sticky");
                         body.removeClass("page-header-margin");
                     }
@@ -105,14 +99,12 @@ define(['jquery', 'core/log'], function($, log) {
                         }
                         if (windowWidth < screenmd) {
                             if (isFixed === 0) {
-                                stickything.addClass("fixed-top");
                                 header.classList.remove("sticky");
                                 body.addClass("page-header-margin");
                                 isFixed = 1;
                             }
                         } else {
                             if (isFixed === 1) {
-                                stickything.removeClass("fixed-top");
                                 header.classList.add("sticky");
                                 body.removeClass("page-header-margin");
                                 isFixed = 0;
@@ -130,7 +122,6 @@ define(['jquery', 'core/log'], function($, log) {
                             pageScrollTop = aboveHeaderHeight;
                             newHeaderTop = 0;
                             newPageMarginTop = 0;
-                            newPageHeaderMarginTop = aboveHeaderHeight;
                         } else {
                             if ((!update) && (currentPageScrollTop == headerNoNavbar) && (pageScrollTop >= headerNoNavbar)) {
                                 return;
@@ -146,7 +137,6 @@ define(['jquery', 'core/log'], function($, log) {
                             }
                             newHeaderTop = -pageScrollTop;
                             newPageMarginTop = headerHeight - pageScrollTop;
-                            newPageHeaderMarginTop = 0;
                         }
                         currentPageScrollTop = pageScrollTop;
 
@@ -157,10 +147,6 @@ define(['jquery', 'core/log'], function($, log) {
                         if ((update) || (newPageMarginTop != pageMarginTop)) {
                             page.style.marginTop = newPageMarginTop + 'px';
                             pageMarginTop = newPageMarginTop;
-                        }
-                        if ((update) || (newPageHeaderMarginTop != pageHeaderMarginTop)) {
-                            pageHeader.style.marginTop = newPageHeaderMarginTop + 'px';
-                            pageHeaderMarginTop = newPageHeaderMarginTop;
                         }
 
                         if ((courseIndex) || (sidePost)) {
@@ -178,18 +164,13 @@ define(['jquery', 'core/log'], function($, log) {
                                     sidePost.style.paddingTop = drawerPaddingTop + 'px';
                                 }
                                 if ((courseIndex) || (sidePost)) {
-                                    if (windowWidth < screensm) {
+                                    if (windowWidth < screenmd) {
                                         for (let dt = 0; dt < drawerTogglers.length; dt++) {
                                             drawerTogglers[dt].style.top = null;
                                         }
                                     } else {
-                                        var dtAdditional = 22;
-                                        if ((windowWidth >= screensm) && (windowWidth < screenmd)) {
-                                            dtAdditional += aboveHeaderHeight;
-                                        }
-                                        var dtt = drawerPaddingTop + dtAdditional;
                                         for (let dt = 0; dt < drawerTogglers.length; dt++) {
-                                            drawerTogglers[dt].style.top = dtt + 'px';
+                                            drawerTogglers[dt].style.top = (drawerPaddingTop + 22) + 'px';
                                         }
                                     }
                                 }
@@ -203,11 +184,11 @@ define(['jquery', 'core/log'], function($, log) {
                 }
 
                 $('.moodlewidth').click(function() {
-                    if ($('#page').hasClass('fullin') ) {
-                        $('#page').removeClass('fullin');
+                    if (body.hasClass('fullin') ) {
+                        body.removeClass('fullin');
                         M.util.set_user_preference('theme_adaptable_full', 'nofull');
                     } else {
-                        $('#page').addClass('fullin');
+                        body.addClass('fullin');
                         M.util.set_user_preference('theme_adaptable_full', 'fullin');
                     }
                 });

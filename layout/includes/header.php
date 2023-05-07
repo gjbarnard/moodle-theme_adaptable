@@ -48,13 +48,12 @@ theme_adaptable_initialise_zoom();
 $bodyclasses[] = theme_adaptable_get_zoom();
 
 theme_adaptable_initialise_full();
-$pageclasses[] = theme_adaptable_get_full();
+$bodyclasses[] = theme_adaptable_get_full();
 
 $bsoptionsdata = array('data' => array());
 
 // Main navbar.
 if (isset($PAGE->theme->settings->stickynavbar) && $PAGE->theme->settings->stickynavbar == 1) {
-    $fixedheader = true;
     $bsoptionsdata['data']['stickynavbar'] = true;
 } else {
     $bsoptionsdata['data']['stickynavbar'] = false;
@@ -118,9 +117,9 @@ if ($showicons == 1) {
 }
 
 if (!empty($PAGE->theme->settings->standardscreenwidth)) {
-    $pageclasses[] = $PAGE->theme->settings->standardscreenwidth;
+    $bodyclasses[] = $PAGE->theme->settings->standardscreenwidth;
 } else {
-    $pageclasses[] = 'standard';
+    $bodyclasses[] = 'standard';
 }
 
 // HTML header.
@@ -185,9 +184,6 @@ if (!empty($PAGE->theme->settings->responsivesectionnav)) {
 
 <?php
 echo $OUTPUT->standard_top_of_body_html();
-
-// Development or wrong moodle version alert.
-// echo $OUTPUT->get_dev_alert();.
 ?>
 
 <div id="page-wrapper">
@@ -197,6 +193,9 @@ echo $OUTPUT->standard_top_of_body_html();
     }
     if (!empty($sidepostmarkup)) {
         echo $sidepostmarkup;
+    }
+    if (!$bsoptionsdata['data']['stickynavbar']) {
+        echo '<div id="page" class="'.implode(' ', $pageclasses).'">';
     }
 
     $headercontext = [
@@ -383,6 +382,7 @@ echo $OUTPUT->standard_top_of_body_html();
 
         echo $OUTPUT->render_from_template('theme_adaptable/headerstyleone', $headercontext);
     } else if ($adaptableheaderstyle == "style2") {
+        $headercontext['responsiveheader'] = $PAGE->theme->settings->responsiveheader;
         if (!empty($PAGE->theme->settings->pageheaderlayouttwo)) {
             $headercontext['pageheaderoriginal'] = ($PAGE->theme->settings->pageheaderlayouttwo == 'original');
         } else {
@@ -399,9 +399,9 @@ echo $OUTPUT->standard_top_of_body_html();
 
         echo $OUTPUT->render_from_template('theme_adaptable/headerstyletwo', $headercontext);
     }
-    ?>
-    <div id="page" class="<?php echo implode(' ', $pageclasses) ?>">
-    <?php
+    if ($bsoptionsdata['data']['stickynavbar']) {
+        echo '<div id="page" class="'.implode(' ', $pageclasses).'">';
+    }
     if (!empty($courseindextogglemarkup)) {
         echo $courseindextogglemarkup;
     }

@@ -34,9 +34,14 @@ if (empty($CFG->loginhttps)) {
     $wwwroot = str_replace("http://", "https://", $CFG->wwwroot);
 }
 
+$bodyclasses = array();
+$bodyclasses[] = 'theme_adaptable';
+$bodyclasses[] = 'two-column';
 $standardscreenwidthclass = 'standard';
 if (!empty($PAGE->theme->settings->standardscreenwidth)) {
-    $standardscreenwidthclass = $PAGE->theme->settings->standardscreenwidth;
+    $bodyclasses[] = $PAGE->theme->settings->standardscreenwidth;
+} else {
+    $bodyclasses[] = 'standard';
 }
 
 // HTML header.
@@ -50,23 +55,20 @@ echo $OUTPUT->doctype();
 <?php
 
 theme_adaptable_initialise_full();
-$setfull = theme_adaptable_get_full();
+$bodyclasses[] = theme_adaptable_get_full();
 
 // Include header.
 require_once(dirname(__FILE__) . '/head.php');
 ?>
 
-<body <?php echo $OUTPUT->body_attributes(array('two-column')); ?>>
+<body <?php echo $OUTPUT->body_attributes($bodyclasses); ?>>
 
 <?php
 echo $OUTPUT->standard_top_of_body_html();
-
-// Development or wrong moodle version alert.
-// echo $OUTPUT->get_dev_alert();.
 ?>
 
 <div id="page-wrapper">
-    <div id="page" class="container-fluid <?php echo "$setfull $standardscreenwidthclass"; ?>">
+    <div id="page" class="container-fluid">
 
     <?php
     // Display alerts.

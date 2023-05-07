@@ -23,14 +23,20 @@
 //
 
 .drawer-toggles .drawer-toggler {
+    top: calc(50% - 27px);
     z-index: 11;
 }
+
 @media (min-width: 768px) {
     #page.drawers {
         height: 100vh;
-        margin-top: 0;
         padding-left: 2rem;
         padding-right: 2rem;
+
+        #adaptable-page-header-wrapper {
+            margin-left: -2rem;
+            margin-right: -2rem;
+        }
     }
 }
 
@@ -69,4 +75,14 @@
 .drawer-right {
     height: 100vh;
     top: 0;
+}
+
+#page.drawers {
+    margin-top: 0;
+}
+
+@include media-breakpoint-up(lg) {
+    #page.drawers {
+        transition-property: margin-left, margin-right;
+    }
 }

@@ -44,35 +44,6 @@
     content: none;
 }
 
-.adaptable-page-header-wrapper#affix {
-    top: 0;
-    width: 100%;
-    z-index: 1010;
-}
-
-// General menu styling.
-
-// Sticky navbar.
-
-// The sticky class is added to the navbar with JS when it reaches its scroll position.
-#adaptable-page-header-wrapper .adaptable-navbar-sticky {
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-}
-
-// Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0).
-#adaptable-page-header-wrapper .adaptable-navbar-sticky + .adaptable-navbar-sticky-content-padding {
-    padding-top: 60px;
-}
-
-// Page content.
-#adaptable-page-header-wrapper .adaptable-navbar-sticky-content-padding {
-    padding: 16px;
-}
-
-
 #adaptable-page-header-wrapper {
     .navbar-nav .dropdown li a .icon,
     .above-header a .icon {
@@ -193,56 +164,6 @@
     margin-top: 2px;
 }
 
-// New menus styles */
-.newmenus {
-    font-size: [[setting:topmenufontsize]];
-    height: 26px;
-    margin-left: 20px;
-    position: relative;
-}
-
-.newmenus .dropdown-menu .dropdown-menu {
-    left: 100%;
-}
-
-.newmenus .dropdown-toggle {
-    background-color: transparent !important;
-    color: [[setting:headertextcolor]] !important;
-}
-
-.newmenus .dropdown-menu li a {
-    color: [[setting:maincolor]] !important;
-    font-size: 13px;
-    font-weight: 400;
-    padding: 3px 10px;
-}
-
-.newmenus .dropdown-menu li:hover a {
-    background-color: #eee;
-}
-
-.newmenus .dropdown-toggle:hover,
-.newmenus .dropdown-toggle:active,
-.pull-left .usermenu2.nav a:hover {
-    background-color: transparent !important;
-}
-
-.newmenus .dropdown-toggle::after {
-    color: [[setting:headertextcolor]];
-    content: "\f107";
-    font-family: "Font Awesome";
-    font-weight: normal;
-    margin-left: 5px;
-}
-
-.newmenus .dropdown-menu .dropdown-toggle::after {
-    color: transparent;
-}
-
-.menutitle {
-    height: 100%;
-}
-
 // The Overlay (background) */
 .overlaymenu {
     background-color: rgb(0,0,0); // Black fallback color.
@@ -352,10 +273,6 @@
 #region-main-settings-menu .dropdown-menu {
     max-height: calc(100vh - 200px);
     overflow-y: auto;
-}
-
-.adaptable-navbar-sticky #region-main-settings-menu .dropdown-menu {
-    max-height: calc(100vh - 44px);
 }
 
 .dropdown-menu.fade {

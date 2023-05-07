@@ -21,19 +21,20 @@
 
     Example context (json):
     {
+        "coursemenucontent": "",
         "disablecustommenu": false,
+        "enablezoom": true,
+        "enablezoomshowtext": true,
         "navigationmenudrawer": "",
         "navigationmenu": "",
-        "toolsmenu": false,
-        "showcog": true,
-        "coursemenucontent": "",
         "othermenucontent": "",
         "pageheadingbutton": "",
-        "enablezoom": true,
-        "enablezoomshowtext": true
+        "responsiveheader": "d-none d-lg-block",
+        "showcog": true,
+        "toolsmenu": false
     }
 }}
-<div id="main-navbar" class="d-none d-lg-block">
+<div id="main-navbar" class="{{responsiveheader}}">
     <div class="container">
         <div class="navbar navbar-expand btco-hover-menu">
             <nav aria-label="{{#str}}sitelinkslabel, theme_adaptable{{/str}}">

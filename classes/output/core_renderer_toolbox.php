@@ -670,32 +670,6 @@ trait core_renderer_toolbox {
     }
 
     /**
-     * Returns html to render Development version alert message in the header
-     *
-     * @return string
-     */
-    public function get_dev_alert() {
-        global $CFG;
-        $output = '';
-
-        // Development version.
-        if (get_config('theme_adaptable', 'version') < '2019051300') {
-            $output .= '<div id="beta"><h3>';
-            $output .= get_string('beta', 'theme_adaptable');
-            $output .= '</h3></div>';
-        }
-
-        // Deprecated moodle version (< 3.6).
-        if ($CFG->version < 2018120300) {
-            $output .= '<div id="beta"><center><h3>';
-            $output .= get_string('deprecated', 'theme_adaptable');
-            $output .= '</h3></center></div>';
-        }
-
-        return $output;
-    }
-
-    /**
      * Returns Google Analytics code if analytics are enabled
      *
      * @return string
@@ -2770,21 +2744,6 @@ EOT;
             }
         }
         return $hidelinks;
-    }
-
-    /**
-     * Wrap html round custom menu
-     *
-     * @param string $custommenu
-     * @param string $classno
-     *
-     * @return string
-     */
-    public function wrap_custom_menu_top($custommenu, $classno) {
-        $retval = '<div class="dropdown pull-right newmenus newmenu$classno">';
-        $retval .= $custommenu;
-        $retval .= '</div>';
-        return $retval;
     }
 
     /**

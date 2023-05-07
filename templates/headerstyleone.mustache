@@ -28,6 +28,7 @@
         "menuslinkright": false,
         "mobileprimarynavicon": "Markup",
         "pageheaderoriginal": true,
+        "responsiveheader": "d-none d-lg-block",
         "responsivesearchicon": "",
         "searchandsocialheader": "",
         "searchandsocialnavbar": "",
@@ -39,7 +40,7 @@
     }
 }}
 <header id="adaptable-page-header-wrapper"{{{headerbg}}}>
-    <div id="header1" class="above-header stickything">
+    <div id="header1" class="above-header">
         <div class="container">
             <nav class="navbar navbar-expand btco-hover-menu">
                 {{#hasmobileprimarynav}}
@@ -101,7 +102,7 @@
             {{/pageheaderoriginal}}
 
             {{^pageheaderoriginal}}
-            <div class="col-lg-8">
+            <div class="col-8">
                 <div class="d-flex justify-content-between align-items-center h-100 bd-highlight">
                     {{#sitetitle}}
                         {{{sitetitle}}}
@@ -111,7 +112,7 @@
                     {{/searchandsocialheader}}
                 </div>
             </div>
-            <div class="col-lg-4 p-0">
+            <div class="col-4 p-0">
                 {{#sitelogo}}
                 <div class="d-flex justify-content-end bd-highlight">
                     {{{sitelogo}}}

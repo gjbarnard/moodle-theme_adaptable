@@ -1,3 +1,9 @@
+Change Log in version 401.1.5 (2022112306)
+===========================================
+1. Fix zoom after header move in markup.
+2. Fix drawer positions when 'stickynavbar' is off.
+3. Remove setting 'theme_adaptable/showyourprogress' - Thanks to Eric Richer for the patch - #6.
+
 Change Log in version 401.1.4 (2022112305)
 ===========================================
 1. Change HTML based settings to use Moodle format for greater flexibility and don't trust user input!
