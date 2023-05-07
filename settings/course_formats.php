@@ -43,18 +43,6 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, false);
     $page->add($setting);
 
-    // Show Your progress string in the top of the course.
-    $name = 'theme_adaptable/showyourprogress';
-    $title = get_string('showyourprogress', 'theme_adaptable');
-    $description = get_string('showyourprogressdesc', 'theme_adaptable');
-    $radchoices = array(
-        'none' => get_string('hide', 'theme_adaptable'),
-        'inline' => get_string('show', 'theme_adaptable'),
-    );
-    $setting = new admin_setting_configselect($name, $title, $description, 'none', $radchoices);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
     // Course page top slider block region enabled.
     $page->add(new admin_setting_heading('theme_adaptable_newsslider_heading',
         get_string('coursepagenewssliderblockregionheading', 'theme_adaptable'),

@@ -339,7 +339,6 @@ function theme_adaptable_process_scss($scss, $theme) {
         '[[setting:forumheaderbackgroundcolor]]' => '#ffffff',
         '[[setting:forumbodybackgroundcolor]]' => '#ffffff',
         '[[setting:introboxbackgroundcolor]]' => '#ffffff',
-        '[[setting:showyourprogress]]' => 'none',
         '[[setting:tabbedlayoutdashboardcolorselected]]' => '#06c',
         '[[setting:tabbedlayoutdashboardcolorunselected]]' => '#eee',
         '[[setting:tabbedlayoutcoursepagetabcolorselected]]' => '#06c',

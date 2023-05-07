@@ -27,12 +27,6 @@
 
 // Common settings.
 
-// Remove 'Your Progress' in Course page (only 3.6 or lower).
-#completionprogressid {
-    display: [[setting:showyourprogress]];
-    margin-bottom: 15px;
-}
-
 #page-coursetitle h1 {
     font-size: 1.5rem;
     text-align: center;
