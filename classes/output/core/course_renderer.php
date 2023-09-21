@@ -347,59 +347,6 @@ class course_renderer extends \core_course_renderer {
         return $content;
     }
 
-    /**
-     * Frontpage course list
-     *
-     * @return string
-     */
-    public function frontpage_my_courses() {
-        global $CFG, $DB;
-        $output = '';
-        if (!isloggedin() or isguestuser()) {
-            return '';
-        }
-        // Calls a core renderer method (render_mycourses) to get list of a user's current courses that they are enrolled on.
-        $sortedcourses = $this->render_mycourses();
-
-        if (!empty($sortedcourses) || !empty($rcourses) || !empty($rhosts)) {
-            $chelper = new coursecat_helper();
-            if (count($sortedcourses) > $CFG->frontpagecourselimit) {
-                // There are more enrolled courses than we can display, display link to 'My courses'.
-                $totalcount = count($sortedcourses);
-                $courses = array_slice($sortedcourses, 0, $CFG->frontpagecourselimit, true);
-                $chelper->set_courses_display_options(array(
-                        'viewmoreurl' => new moodle_url('/my/'),
-                        'viewmoretext' => new lang_string('mycourses')
-                ));
-            } else {
-                // All enrolled courses are displayed, display link to 'All courses' if there are more courses in system.
-                $chelper->set_courses_display_options(array(
-                        'viewmoreurl' => new moodle_url('/course/index.php'),
-                        'viewmoretext' => new lang_string('fulllistofcourses')
-                ));
-                $totalcount = $DB->count_records('course') - 1;
-            }
-            $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->set_attributes(
-                array('class' => 'frontpage-course-list-enrolled'));
-            $output .= $this->coursecat_courses($chelper, $sortedcourses, $totalcount);
-
-            if (!empty($rcourses)) {
-                $output .= html_writer::start_tag('div', array('class' => 'courses'));
-                foreach ($rcourses as $course) {
-                    $output .= $this->frontpage_remote_course($course);
-                }
-                $output .= html_writer::end_tag('div');
-            } else if (!empty($rhosts)) {
-                $output .= html_writer::start_tag('div', array('class' => 'courses'));
-                foreach ($rhosts as $host) {
-                    $output .= $this->frontpage_remote_host($host);
-                }
-                $output .= html_writer::end_tag('div');
-            }
-        }
-        return $output;
-    }
-
     // New methods added for activity styling below.  Adapted from snap theme by Moodleroooms.
 
     /**

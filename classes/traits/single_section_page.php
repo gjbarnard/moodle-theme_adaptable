@@ -124,7 +124,7 @@ trait single_section_page {
         echo $this->course_activity_clipboard($course, $displaysection);
         if ($showsectionzero) {
             $thissection = $modinfo->get_section_info(0);
-            if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
+            if ($thissection->summary || !empty($modinfo->sections[0]) || $PAGE->user_is_editing()) {
                 echo $this->start_section_list();
                 echo $this->section_header($thissection, $course, true, $displaysection);
                 echo $this->courserenderer->course_section_cm_list($course, $thissection, $displaysection);
@@ -236,7 +236,7 @@ trait single_section_page {
         $numsections = $this->get_num_sections($course);
         while ($section <= $numsections) {
             $thissection = $modinfo->get_section_info($section);
-            $showsection = $thissection->uservisible or !$course->hiddensections;
+            $showsection = $thissection->uservisible || !$course->hiddensections;
             if (($showsection) && ($section != $displaysection) && ($url = course_get_url($course, $section))) {
                 $sectionmenu[$url->out(false)] = $this->shorten_string(get_section_name($course, $section));
             }
@@ -303,7 +303,7 @@ trait single_section_page {
         // FIXME: This is really evil and should by using the navigation API.
         $course = course_get_format($course)->get_course();
         $canviewhidden = has_capability('moodle/course:viewhiddensections', context_course::instance($course->id))
-            or !$course->hiddensections;
+            || !$course->hiddensections;
 
         $links = array('previous' => html_writer::tag('div', '', array('class' => 'previous_section prevnext')),
                 'next' => html_writer::tag('div', '', array('class' => 'next_section prevnext')));

@@ -32,14 +32,14 @@ defined('MOODLE_INTERNAL') || die;
 $plugin->component = 'theme_adaptable';
 
 // Adaptable version date (YYYYMMDDrr where rr is the release number).
-$plugin->version   = 2021081010;
+$plugin->version   = 2021081011;
 
 $plugin->requires  = 2021051700.00; // 3.11 (Build: 20210517).
 
 $plugin->supported = array(311, 311);
 
 // Adaptable version using SemVer (https://semver.org).
-$plugin->release = '311.1.5';
+$plugin->release = '311.1.6';
 
 // Adaptable maturity (do not use ALPHA or BETA versions in production sites).
 $plugin->maturity = MATURITY_STABLE;

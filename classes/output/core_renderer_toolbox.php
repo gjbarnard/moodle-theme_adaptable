@@ -472,7 +472,7 @@ trait core_renderer_toolbox {
      * @param block_contents $bc A block_contents object
      */
     public function init_block_hider_js(block_contents $bc) {
-        if (!empty($bc->attributes['id']) and $bc->collapsible != block_contents::NOT_HIDEABLE) {
+        if (!empty($bc->attributes['id']) && $bc->collapsible != block_contents::NOT_HIDEABLE) {
             $config = new stdClass;
             $config->id = $bc->attributes['id'];
             $config->title = strip_tags($bc->title);
@@ -3094,7 +3094,7 @@ EOT;
      * @return string HTML fragment
      */
     protected function render_tabobject(\tabobject $tab) {
-        if ($tab->selected or $tab->activated) {
+        if ($tab->selected || $tab->activated) {
             return html_writer::tag('li', html_writer::tag('a', $tab->text,
                 array('class' => 'nav-link active')), array('class' => 'nav-item'));
         } else if ($tab->inactive) {

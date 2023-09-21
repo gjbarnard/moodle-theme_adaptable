@@ -112,13 +112,13 @@ class editprofile_form extends \moodleform {
             }
         }
 
-        if ($user and is_mnet_remote_user($user)) {
+        if ($user && is_mnet_remote_user($user)) {
             // Only local accounts can be suspended.
             if ($mform->elementExists('suspended')) {
                 $mform->removeElement('suspended');
             }
         }
-        if ($user and ($user->id == $USER->id or is_siteadmin($user))) {
+        if ($user && ($user->id == $USER->id || is_siteadmin($user))) {
             // Prevent self and admin mess ups.
             if ($mform->elementExists('suspended')) {
                 $mform->hardFreeze('suspended');
@@ -200,7 +200,7 @@ class editprofile_form extends \moodleform {
             $mform->setDefault('city', $CFG->defaultcity);
         }
 
-        if (\core_tag_tag::is_enabled('core', 'user') and empty($USER->newadminuser)) {
+        if (\core_tag_tag::is_enabled('core', 'user') && empty($USER->newadminuser)) {
             $mform->addElement('static', 'moodle_interests', '<h3>'.get_string('interests').'</h3>');
             $mform->addElement('tags', 'interests', get_string('interestslist'),
                 array('itemtype' => 'user', 'component' => 'core'));

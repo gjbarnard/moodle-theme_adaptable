@@ -1,3 +1,7 @@
+Change Log in version 311.1.6 (2021081011)
+==========================================
+1. Fix 'Front Page Course Limited to 20' - ref: https://moodle.org/mod/forum/discuss.php?d=450609.
+
 Change Log in version 311.1.5 (2021081010)
 ==========================================
 1. Add new 'dimmedtextcolor' setting for the 'dimmed_text' CSS class - #290.

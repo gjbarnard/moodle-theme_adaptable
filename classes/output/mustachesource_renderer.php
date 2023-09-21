@@ -24,8 +24,6 @@
 
 namespace theme_adaptable\output;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * The mustache renderer.
  *

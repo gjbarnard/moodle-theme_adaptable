@@ -160,7 +160,7 @@ class editprofile {
                 $usernew->confirmed  = 1;
                 $usernew->timecreated = time();
                 if ($authplugin->is_internal()) {
-                    if ($createpassword or empty($usernew->newpassword)) {
+                    if ($createpassword || empty($usernew->newpassword)) {
                         $usernew->password = '';
                     } else {
                         $usernew->password = hash_internal_user_password($usernew->newpassword);
@@ -170,7 +170,7 @@ class editprofile {
                 }
                 $usernew->id = user_create_user($usernew, false, false);
 
-                if (!$authplugin->is_internal() and $authplugin->can_change_password() and !empty($usernew->newpassword)) {
+                if (!$authplugin->is_internal() && $authplugin->can_change_password() && !empty($usernew->newpassword)) {
                     if (!$authplugin->user_update_password($usernew, $usernew->newpassword)) {
                         // Do not stop here, we need to finish user creation.
                         debugging(get_string('cannotupdatepasswordonextauth', '', '', $usernew->auth), DEBUG_NONE);
@@ -207,7 +207,7 @@ class editprofile {
                 }
 
                 // Force logout if user just suspended.
-                if (isset($usernew->suspended) and $usernew->suspended and !$user->suspended) {
+                if (isset($usernew->suspended) && $usernew->suspended && !$user->suspended) {
                     \core\session\manager::kill_user_sessions($user->id);
                 }
             }
@@ -255,7 +255,7 @@ class editprofile {
             if ($user->id == $USER->id) {
                 // Override old $USER session variable.
                 foreach ((array)$usernew as $variable => $value) {
-                    if ($variable === 'description' or $variable === 'password') {
+                    if ($variable === 'description' || $variable === 'password') {
                         // These are not set for security nad perf reasons.
                         continue;
                     }

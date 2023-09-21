@@ -718,7 +718,7 @@ function theme_adaptable_get_course_activities() {
 
     foreach ($modinfo->cms as $cm) {
         // Exclude activities which are not visible or have no link (=label).
-        if (!$cm->uservisible or !$cm->has_view()) {
+        if (!$cm->uservisible || !$cm->has_view()) {
             continue;
         }
         if (array_key_exists($cm->modname, $modfullnames)) {
