@@ -23,6 +23,7 @@
         "versioninfo": "Release 3.0.3, version 2020073104 on Moodle 3.9.4 (Build: 20210118)",
         "maturity": "Maturity info",
         "maturityalert": "info",
+        "privacynote": "Privacy info",
         "versioncheck": "Not supported on this version of Moodle",
         "tabs": [
          {
@@ -43,11 +44,13 @@
 {{#maturity}}
 <div class="alert alert-{{maturityalert}} mb-3">
 <h3>{{versioninfo}}</h3>
-{{{maturity}}}
+<p>{{{maturity}}}</p>
+{{{privacynote}}}
 </div>
 {{/maturity}}
 {{^maturity}}
 <h3>{{versioninfo}}</h3>
+{{privacynote}}}
 {{/maturity}}
 {{#versioncheck}}
 <div class="alert alert-warning mb-3">

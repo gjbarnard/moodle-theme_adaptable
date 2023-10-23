@@ -1728,7 +1728,23 @@ $string['putpropertiesadded'] = 'Added:';
 $string['putpropertiesignored'] = 'Ignored:';
 
 // Privacy.
-$string['privacy:metadata'] = 'Adaptable do not store any individual user data.';
+$string['privacynote'] = 'Note: The Adaptable theme has settings that pertain to its configuration.  Specific user settings are described in the \'Plugin privacy registry\'.  For the other settings, it is your responsibility to ensure that no user data is entered in any of the free text fields.  Setting a setting will result in that action being logged within the core Moodle logging system against the user whom changed it, this is outside of the themes control, please see the core logging system for privacy compliance for this.  When uploading images, you should avoid uploading images with embedded location data (EXIF GPS) included or other such personal data.  It would be possible to extract any location / personal data from the images.  Please examine the code carefully to be sure that it complies with your interpretation of your privacy laws.  I am not a lawyer and my analysis is based on my interpretation.  If you have any doubt then remove the theme forthwith.';
+$string['privacy:closed'] = 'Closed';
+$string['privacy:open'] = 'Open';
+$string['privacy:nofull'] = 'Not full';
+$string['privacy:fullin'] = 'Full in';
+$string['privacy:metadata:preference:collapseblock'] = 'The state of the blocks on a page.';
+$string['privacy:request:preference:collapseblock'] = 'The user preference "{$a->name}" for block id "{$a->blockid}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the block.';
+$string['privacy:metadata:preference:draweropenindex'] = 'The state of the course index.';
+$string['privacy:request:preference:draweropenindex'] = 'The user preference "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the course index.';
+$string['privacy:metadata:preference:draweropenblock'] = 'The state of the block drawer.';
+$string['privacy:request:preference:draweropenblock'] = 'The user preference "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the block drawer.';
+$string['privacy:metadata:preference:themeadaptablezoom'] = 'The state of the zoom.';
+$string['privacy:request:preference:themeadaptablezoom'] = 'The user preference "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the zoom.';
+$string['privacy:metadata:preference:themeadaptablefull'] = 'The state of the full screen.';
+$string['privacy:request:preference:themeadaptablefull'] = 'The user preference "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the zoom.';
+$string['privacy:metadata:preference:themeadaptablealertkey'] = 'The state of the given alert.';
+$string['privacy:request:preference:themeadaptablealertkey'] = 'The user preference "{$a->name}" for alert id "{$a->alertid}" has the value "{$a->value}" for the given alert, \'undismissable\' or any other \'alertkey\' representing that the alert has been dismissed.';
 
 // Adaptable Tabbed layout changes.
 $string['tabbedlayoutheading'] = 'Adaptable tabbed layout';

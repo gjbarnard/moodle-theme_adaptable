@@ -121,6 +121,7 @@ class theme_adaptable_admin_settingspage_tabs extends theme_boost_admin_settings
                 break;
             }
         }
+        $context['privacynote'] = format_text(get_string('privacynote', 'theme_adaptable'), FORMAT_MARKDOWN);
 
         if ($CFG->branch != $this->mbranch) {
             $context['versioncheck'] = 'Release '.$plugininfo->release.', version '.$plugininfo->version.' is incompatible with Moodle '.$CFG->release;
