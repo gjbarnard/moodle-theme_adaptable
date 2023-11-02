@@ -15,13 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Embedded
  *
  * @package    theme_adaptable
  * @copyright  2015-2016 Jeremy Hopkins (Coventry University)
  * @copyright  2015-2016 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -38,7 +40,7 @@ echo $OUTPUT->doctype() ?>
 <body <?php echo $OUTPUT->body_attributes(); ?>>
 <?php
 echo $OUTPUT->standard_top_of_body_html();
-$fakeblocks = $OUTPUT->blocks('side-pre', array(), 'aside', true);
+$fakeblocks = $OUTPUT->blocks('side-pre', [], 'aside', true);
 $hasfakeblocks = strpos($fakeblocks, 'data-block="_fake"') !== false;
 ?>
 <div id="page-wrapper">
@@ -49,7 +51,7 @@ if ($hasfakeblocks) {
 }
 echo '>';
 if ($hasfakeblocks) {
-    echo '<section class="embedded-blocks" aria-label="'.get_string('blocks').'">';
+    echo '<section class="embedded-blocks" aria-label="' . get_string('blocks') . '">';
     echo $fakeblocks;
     echo '</section>';
 }

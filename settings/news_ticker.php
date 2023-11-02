@@ -15,22 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * News ticker settings.
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @copyright  2023 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 defined('MOODLE_INTERNAL') || die;
 
-// Frontpage Ticker heading.
+// News Ticker heading.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_frontpage_ticker', get_string('frontpagetickersettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_news_ticker', get_string('newstickersettings', 'theme_adaptable'), true);
 
-    $page->add(new admin_setting_heading('theme_adaptable_ticker', get_string('tickersettingsheading', 'theme_adaptable'),
-                    format_text(get_string('tickerdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_ticker',
+        get_string('tickersettingsheading', 'theme_adaptable'),
+        format_text(get_string('tickerdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/enableticker';
     $title = get_string('enableticker', 'theme_adaptable');
@@ -50,10 +55,10 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/tickerwidth';
     $title = get_string('tickerwidth', 'theme_adaptable');
     $description = get_string('tickerwidthdesc', 'theme_adaptable');
-    $options = array(
+    $options = [
         '' => get_string('tickerwidth', 'theme_adaptable'),
-        'width: 100%;' => get_string('tickerfullscreen', 'theme_adaptable')
-    );
+        'width: 100%;' => get_string('tickerfullscreen', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, '', $options);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);

@@ -482,11 +482,6 @@ ul.teachers {
     border-radius: 0 0 0 0;
 }
 
-.showblockicons .block_sitenews .header .title h2:before {
-    content: "\f1ea";
-    font-family: "FontAwesome";
-}
-
 // Lesson Activity.
 #page-mod-lesson-edit .singleselect {
     width: auto;
@@ -1210,10 +1205,14 @@ html[xmlns] .slides {
     display: none;
 }
 
-.fpcombocollapse .fp-chevron:before {
-    content: "\f077";
-}
+.fpcombocollapse {
+    .fp-chevron:before {
+        content: "\f077"; // chevron-up <- chevron-up.
+        font-family: "Font Awesome 6 Free";
+    }
 
-.fpcombocollapse.collapsed .fp-chevron:before {
-    content: "\f078";
+    &.collapsed .fp-chevron:before {
+        content: "\f078"; // chevron-down <- chevron-down.
+        font-family: "Font Awesome 6 Free";
+    }
 }

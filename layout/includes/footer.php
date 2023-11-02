@@ -18,10 +18,12 @@
  * Version details
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015-2017 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015-2017 Fernando Acedo (3-bits.com)
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -33,7 +35,7 @@ echo $OUTPUT->standard_after_main_region_html();
 <footer id="page-footer" class="<?php echo $PAGE->theme->settings->responsivepagefooter?>">
 
 <?php
-echo '<div id="course-footer">'.$OUTPUT->course_footer().'</div>';
+echo '<div id="course-footer">' . $OUTPUT->course_footer() . '</div>';
 
 if ($PAGE->theme->settings->showfooterblocks) {
     echo $OUTPUT->get_footer_blocks();
@@ -55,7 +57,7 @@ if ($PAGE->theme->settings->hidefootersocial == 1) {
             <div class="row">
                 <div class="tool_usertours-resettourcontainer"></div>
                 <?php
-                $footnote = $OUTPUT->get_setting('footnote', 'format_moodle');
+                $footnote = \theme_adaptable\toolbox::get_setting('footnote', 'format_moodle');
                 if (!empty($footnote)) {
                     if ($PAGE->theme->settings->moodledocs) {
                         $footnoteclass = 'col-md-4';
@@ -63,7 +65,7 @@ if ($PAGE->theme->settings->hidefootersocial == 1) {
                         $footnoteclass = 'col-md-8';
                     }
                     $footnoteclass .= ' my-md-0 my-2';
-                    echo '<div class="'.$footnoteclass.'">'.$footnote.'</div>';
+                    echo '<div class="' . $footnoteclass . '">' . $footnote . '</div>';
                 }
                 if ($PAGE->theme->settings->moodledocs) {
                     echo '<div class="col-md-4 my-md-0 my-2 helplink">';
@@ -94,7 +96,7 @@ if ($PAGE->theme->settings->hidefootersocial == 1) {
 $templatecontext = [
     'topmargin' => ($PAGE->theme->settings->stickynavbar ? '35px' : '0'),
     'savetext' => get_string('savebuttontext', 'theme_adaptable'),
-    'discardtext' => get_string('discardbuttontext', 'theme_adaptable')
+    'discardtext' => get_string('discardbuttontext', 'theme_adaptable'),
 ];
 if (strstr($PAGE->pagetype, 'admin-setting')) {
     if ($PAGE->theme->settings->enablesavecanceloverlay) {
@@ -114,8 +116,8 @@ if (!empty($PAGE->theme->settings->jssectionrestrictedprofilefield)) {
     $setvalue = $fields[1];
 
     // Get user profile field (if it exists).
-    require_once($CFG->dirroot.'/user/profile/lib.php');
-    require_once($CFG->dirroot.'/user/lib.php');
+    require_once($CFG->dirroot . '/user/profile/lib.php');
+    require_once($CFG->dirroot . '/user/lib.php');
     profile_load_data($USER);
     $ftype = "profile_field_$ftype";
     if (isset($USER->$ftype)) {
@@ -123,7 +125,6 @@ if (!empty($PAGE->theme->settings->jssectionrestrictedprofilefield)) {
             // Match between user profile field value and value in setting.
 
             if (!empty($PAGE->theme->settings->jssectionrestricteddashboardonly)) {
-
                 // If this is set to restrict to dashboard only, check if we are on dashboard page.
                 if ($PAGE->has_set_url()) {
                     $url = $PAGE->url;
@@ -134,7 +135,7 @@ if (!empty($PAGE->theme->settings->jssectionrestrictedprofilefield)) {
                 // In practice, $url should always be valid.
                 if ($url !== null) {
                     // Check if this is the dashboard page.
-                    if (strstr ($url->raw_out(), '/my/')) {
+                    if (strstr($url->raw_out(), '/my/')) {
                         echo $PAGE->theme->settings->jssectionrestricted;
                     }
                 }

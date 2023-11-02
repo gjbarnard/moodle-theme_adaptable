@@ -1,3 +1,31 @@
+//
+// This file is part of Adaptable theme for moodle
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+//
+//
+// Adaptable Bootstrap opt in functions JS file
+//
+// @package    theme_adaptable
+// @copyright  2015-2019 Jeremy Hopkins (Coventry University)
+// @copyright  2015-2019 Fernando Acedo (3-bits.com)
+// @copyright  2018-2019 Manoj Solanki (Coventry University)
+// @copyright  2019 G J Barnard
+//               {@link https://moodle.org/user/profile.php?id=442195}
+//               {@link https://gjbarnard.co.uk}
+// @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+
 /* jshint ignore:start */
 define(['jquery', 'core/log'], function($, log) {
     "use strict"; // ...jshint ;_; !!!
@@ -12,7 +40,7 @@ define(['jquery', 'core/log'], function($, log) {
                 // Get the navbar, if present.
                 var navbar = document.getElementById("main-navbar");
 
-                if (data.stickynavbar && navbar !== null) {
+                if (data.stickynavbar) {
                     /* New way to handle sticky navbar requirement.
                        Simply taken from https://www.w3schools.com/howto/howto_js_navbar_sticky.asp. */
 
@@ -48,7 +76,10 @@ define(['jquery', 'core/log'], function($, log) {
                     var currentPageScrollTop = pageScrollTop;
                     var headerHeight = 0;
                     var headerNoNavbar = 0;
-                    var navbarHeight = navbar.getBoundingClientRect().height;
+                    var navbarHeight = 0;
+                    if (navbar !== null) {
+                        navbarHeight = navbar.getBoundingClientRect().height;
+                    }
                     var aboveHeaderHeight = aboveHeader.getBoundingClientRect().height;
 
                     var drawerPaddingTop = 0;
@@ -129,7 +160,9 @@ define(['jquery', 'core/log'], function($, log) {
                             if (update) {
                                 // Just changed from <= screenmd.
                                 headerHeight = header.getBoundingClientRect().height;
-                                navbarHeight = navbar.getBoundingClientRect().height;
+                                if (navbar !== null) {
+                                    navbarHeight = navbar.getBoundingClientRect().height;
+                                } // Else will never change from 0 at init!
                                 headerNoNavbar = headerHeight - navbarHeight;
                             }
                             if (pageScrollTop > headerNoNavbar) {

@@ -15,13 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Columns two
  *
  * @package    theme_adaptable
  * @copyright  2015-2016 Jeremy Hopkins (Coventry University)
  * @copyright  2015-2016 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -62,8 +64,10 @@ require_once(dirname(__FILE__) . '/includes/secondarynav.php');
                 // Display course page block activity bottom region if this is a mod page of type where you're viewing
                 // a section, page or book (chapter).
                 if (!empty($PAGE->theme->settings->coursepageblockactivitybottomenabled)) {
-                    if ( stristr ($currenturl, "mod/page/view") ||
-                        stristr ($currenturl, "mod/book/view") ) {
+                    if (
+                        stristr($currenturl, "mod/page/view") ||
+                        stristr($currenturl, "mod/book/view")
+                    ) {
                         echo $OUTPUT->get_block_regions('customrowsetting', 'course-section-', '12-0-0-0');
                     }
                 }

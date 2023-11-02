@@ -15,25 +15,51 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Fonts
  *
  * @package   theme_adaptable
- * @copyright 2020-2021 G J Barnard.
- * @copyright 2015-2018 Jeremy Hopkins (Coventry University)
- * @copyright 2015-2018 Fernando Acedo (3-bits.com)
- * @copyright 2017-2018 Manoj Solanki (Coventry University)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015-2018 Jeremy Hopkins (Coventry University)
+ * @copyright  2015-2018 Fernando Acedo (3-bits.com)
+ * @copyright  2017-2018 Manoj Solanki (Coventry University)
+ * @copyright  2020 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Fonts Section.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_font', get_string('fontsettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_font', get_string('fontsettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_font', get_string('fontsettingsheading', 'theme_adaptable'),
-        format_text(get_string('fontdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_font',
+        get_string('fontsettingsheading', 'theme_adaptable'),
+        format_text(get_string('fontdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
+
+    // Font Awesome 6 Free.
+    $name = 'theme_adaptable/fav';
+    $title = get_string('fav', 'theme_adaptable');
+    $description = get_string('favdesc', 'theme_adaptable');
+    $default = 0;
+    $choices = [
+        0 => new \lang_string('favoff', 'theme_adaptable'),
+        2 => new \lang_string('fa6name', 'theme_adaptable'),
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $setting->set_updatedcallback('purge_all_caches');
+    $page->add($setting);
+
+    // Font Awesome 6 Free v4 shims.
+    $name = 'theme_adaptable/faiv';
+    $title = get_string('faiv', 'theme_adaptable');
+    $description = get_string('faivdesc', 'theme_adaptable');
+    $default = false;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $setting->set_updatedcallback('purge_all_caches');
+    $page->add($setting);
 
     // Fonts heading.
     $name = 'theme_adaptable/settingsfonts';
@@ -44,7 +70,7 @@ if ($ADMIN->fulltree) {
     // Google fonts.
     $name = 'theme_adaptable/googlefonts';
     $title = get_string('googlefonts', 'theme_adaptable');
-    $description = get_string('googlefontsdesc', 'theme_adaptable');
+    $description = get_string('googlefontsdesc', 'theme_adaptable', 'https://www.google.com/fonts');
     $default = false;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
@@ -63,7 +89,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('fontsubset', 'theme_adaptable');
     $description = get_string('fontsubsetdesc', 'theme_adaptable');
     $default = '';
-    $setting = new admin_setting_configmulticheckbox($name, $title, $description, $default, array(
+    $setting = new admin_setting_configmulticheckbox($name, $title, $description, $default, [
         'latin-ext' => "Latin Extended",
         'cyrillic' => "Cyrillic",
         'cyrillic-ext' => "Cyrillic Extended",
@@ -75,8 +101,8 @@ if ($ADMIN->fulltree) {
         'japanese' => "Japanese",
         'korean' => "Korean",
         'tamil' => "Tamil",
-        'thai' => "Thai"
-    ));
+        'thai' => "Thai",
+    ]);
     $page->add($setting);
 
     // Main Font size.

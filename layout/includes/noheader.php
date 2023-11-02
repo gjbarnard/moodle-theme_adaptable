@@ -15,17 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * No header
  *
- * @package   theme_adaptable
- * @copyright 2019 G J Barnard (http://moodle.org/user/profile.php?id=442195)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @package    theme_adaptable
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die();
-
-$PAGE->set_secondary_navigation(false);
 
 // Set HTTPS if needed.
 if (empty($CFG->loginhttps)) {
@@ -34,7 +33,7 @@ if (empty($CFG->loginhttps)) {
     $wwwroot = str_replace("http://", "https://", $CFG->wwwroot);
 }
 
-$bodyclasses = array();
+$bodyclasses = [];
 $bodyclasses[] = 'theme_adaptable';
 $bodyclasses[] = 'two-column';
 $standardscreenwidthclass = 'standard';

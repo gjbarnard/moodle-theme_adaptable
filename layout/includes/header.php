@@ -15,29 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Header
  *
- * @package   theme_adaptable
- * @copyright 2023 G J Barnard (http://moodle.org/user/profile.php?id=442195)
- * @copyright 2015-2019 Jeremy Hopkins (Coventry University)
- * @copyright 2015-2019 Fernando Acedo (3-bits.com)
- * @copyright 2017-2019 Manoj Solanki (Coventry University)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @package    theme_adaptable
+ * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
+ * @copyright  2015-2019 Fernando Acedo (3-bits.com)
+ * @copyright  2017-2019 Manoj Solanki (Coventry University)
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$bodyclasses = array();
+$bodyclasses = [];
 $bodyclasses[] = 'theme_adaptable';
 $bodyclasses[] = 'two-column';
 
-$pageclasses = array();
+$pageclasses = [];
 
 /* Check if this is a course or module page and check setting to hide site title.
    If not one of these pages, by default show it (set $hidesitetitle to false). */
-if ( (strstr($PAGE->pagetype, 'course')) ||
-     (strstr($PAGE->pagetype, 'mod')) && ($this->page->course->id > 1) ) {
+if (
+    (strstr($PAGE->pagetype, 'course')) ||
+     (strstr($PAGE->pagetype, 'mod')) && ($this->page->course->id > 1)
+) {
     $hidesitetitle = !empty(($PAGE->theme->settings->coursepageheaderhidesitetitle)) ? true : false;
 } else {
     $hidesitetitle = false;
@@ -50,7 +53,7 @@ $bodyclasses[] = theme_adaptable_get_zoom();
 theme_adaptable_initialise_full();
 $bodyclasses[] = theme_adaptable_get_full();
 
-$bsoptionsdata = array('data' => array());
+$bsoptionsdata = ['data' => []];
 
 // Main navbar.
 if (isset($PAGE->theme->settings->stickynavbar) && $PAGE->theme->settings->stickynavbar == 1) {
@@ -68,9 +71,10 @@ $left = (!right_to_left());  // To know if to add 'pull-right' and 'desktop-firs
 
 // Navbar Menu.
 $shownavbar = false;
-if ((isloggedin() && !isguestuser()) ||
-    (!empty($PAGE->theme->settings->enablenavbarwhenloggedout)) ) {
-
+if (
+    (isloggedin() && !isguestuser()) ||
+    (!empty($PAGE->theme->settings->enablenavbarwhenloggedout))
+) {
     // Show navbar unless disabled by config.
     if (empty($PAGE->layout_options['nonavbar'])) {
         $shownavbar = true;
@@ -78,21 +82,18 @@ if ((isloggedin() && !isguestuser()) ||
 }
 // Load header background image if it exists.
 $headerbg = '';
-if (!empty($PAGE->theme->settings->categoryhavecustomheader)) {
-    $currenttopcat = \theme_adaptable\toolbox::get_current_top_level_catetgory();
-    if (!empty($currenttopcat)) {
-        $categoryheaderbgimageset = 'categoryheaderbgimage'.$currenttopcat;
-        if (!empty($PAGE->theme->settings->$categoryheaderbgimageset)) {
-            $headerbg = ' class="headerbgimage" style="background-image: ' .
-            'url(\''.$PAGE->theme->setting_file_url($categoryheaderbgimageset, $categoryheaderbgimageset).'\');"';
-        }
-    }
+
+$localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+if (is_object($localtoolbox)) {
+    $themesettings = \theme_adaptable\toolbox::get_settings();
+    ['currenttopcat' => $currenttopcat, 'headerbg' => $headerbg] = $localtoolbox->get_category_header($themesettings, $PAGE);
 } else {
     $currenttopcat = false;
 }
+
 if ((empty($headerbg)) && (!empty($PAGE->theme->settings->headerbgimage))) {
     $headerbg = ' class="headerbgimage" style="background-image: ' .
-    'url(\''.$PAGE->theme->setting_file_url('headerbgimage', 'headerbgimage').'\');"';
+    'url(\'' . $PAGE->theme->setting_file_url('headerbgimage', 'headerbgimage') . '\');"';
 }
 if (!empty($headerbg)) {
     $bodyclasses[] = 'has-header-bg';
@@ -108,11 +109,10 @@ if (!empty($PAGE->theme->settings->headerstyle)) {
 } else {
     $adaptableheaderstyle = "style1";
 }
-$bodyclasses[] = 'header-'.$adaptableheaderstyle;
+$bodyclasses[] = 'header-' . $adaptableheaderstyle;
 
-// Social icons class.
-$showicons = $PAGE->theme->settings->blockicons;
-if ($showicons == 1) {
+// Block icons class.
+if ($PAGE->theme->settings->blockicons == 1) {
     $bodyclasses[] = 'showblockicons';
 }
 
@@ -151,7 +151,7 @@ switch ($PAGE->pagelayout) {
     case 'report':
         require_once(dirname(__FILE__) . '/courseindexheader.php');
         $courseindexheader = true;
-    break;
+        break;
     default:
         $courseindex = false;
 }
@@ -195,11 +195,11 @@ echo $OUTPUT->standard_top_of_body_html();
         echo $sidepostmarkup;
     }
     if (!$bsoptionsdata['data']['stickynavbar']) {
-        echo '<div id="page" class="'.implode(' ', $pageclasses).'">';
+        echo '<div id="page" class="' . implode(' ', $pageclasses) . '">';
     }
 
     $headercontext = [
-        'output' => $OUTPUT
+        'output' => $OUTPUT,
     ];
 
     if (!empty($nomobilenavigation)) {
@@ -217,7 +217,7 @@ echo $OUTPUT->standard_top_of_body_html();
                 'displayloginbox' => ($PAGE->theme->settings->displaylogin == 'box') ? true : false,
                 'output' => $OUTPUT,
                 'token' => s(\core\session\manager::get_login_token()),
-                'url' => new moodle_url('/login/index.php')
+                'url' => new moodle_url('/login/index.php'),
             ];
             if (!$loginformcontext['displayloginbox']) {
                 $authsequence = get_enabled_auth_plugins(); // Get all auths.
@@ -230,8 +230,8 @@ echo $OUTPUT->standard_top_of_body_html();
                     }
                 }
             }
-            $headercontext['loginoruser'] = '<li class="nav-item">'.
-                $OUTPUT->render_from_template('theme_adaptable/headerloginform', $loginformcontext).'</li>';
+            $headercontext['loginoruser'] = '<li class="nav-item">' .
+                $OUTPUT->render_from_template('theme_adaptable/headerloginform', $loginformcontext) . '</li>';
         } else {
             $headercontext['loginoruser'] = '';
         }
@@ -240,8 +240,8 @@ echo $OUTPUT->standard_top_of_body_html();
         // Only used when user is logged in and not on the secure layout.
         if ((isloggedin()) && ($PAGE->pagelayout != 'secure')) {
             // User icon.
-            $userpic = $OUTPUT->user_picture($USER, array('link' => false, 'visibletoscreenreaders' => false,
-                'size' => 35, 'class' => 'userpicture'));
+            $userpic = $OUTPUT->user_picture($USER, ['link' => false, 'visibletoscreenreaders' => false,
+                'size' => 35, 'class' => 'userpicture', ]);
             // User name.
             $username = format_string(fullname($USER));
 
@@ -266,7 +266,7 @@ echo $OUTPUT->standard_top_of_body_html();
                 'userprofilemenu' => $OUTPUT->user_profile_menu(),
             ];
             $usermenu = $OUTPUT->render_from_template('theme_adaptable/usermenu', $usermenucontext);
-            $headercontext['loginoruser'] = '<li class="nav-item dropdown ml-3 ml-md-2 mr-2 mr-md-0">'.$usermenu.'</li>';
+            $headercontext['loginoruser'] = '<li class="nav-item dropdown ml-3 ml-md-2 mr-2 mr-md-0">' . $usermenu . '</li>';
         } else {
             $headercontext['loginoruser'] = '';
         }
@@ -287,7 +287,7 @@ echo $OUTPUT->standard_top_of_body_html();
             'navigationmenu' => $OUTPUT->navigation_menu('main-navigation'),
             'navigationmenudrawer' => $OUTPUT->navigation_menu('main-navigation-drawer'),
             'output' => $OUTPUT,
-            'toolsmenu' => ($PAGE->theme->settings->enabletoolsmenus)
+            'toolsmenu' => $OUTPUT->tools_menu(),
         ];
 
         $navbareditsettings = $PAGE->theme->settings->editsettingsbutton;
@@ -310,11 +310,13 @@ echo $OUTPUT->standard_top_of_body_html();
            dashboard page. Checking if the cog is being displayed above to figure out if it still needs to
            show (when there is no cog). Also show mod pages (e.g. Forum, Lesson) as these sometimes have
            a button for a specific purpose. */
-        if (($showeditbuttons) ||
+        if (
+            ($showeditbuttons) ||
             (($headercontext['shownavbar']['showcog']) &&
             ((empty($headercontext['shownavbar']['coursemenucontent'])) &&
             (empty($headercontext['shownavbar']['othermenucontent'])))) ||
-            (strstr($PAGE->pagetype, 'mod-'))) {
+            (strstr($PAGE->pagetype, 'mod-'))
+        ) {
             $headercontext['shownavbar']['pageheadingbutton'] = $OUTPUT->page_heading_button();
         }
 
@@ -346,38 +348,38 @@ echo $OUTPUT->standard_top_of_body_html();
                 $headersocialcontext = [
                     'classes' => $PAGE->theme->settings->responsivesocial,
                     'pageheaderoriginal' => $headercontext['pageheaderoriginal'],
-                    'output' => $OUTPUT
+                    'output' => $OUTPUT,
                 ];
                 $headercontext['searchandsocialheader'] = $OUTPUT->render_from_template('theme_adaptable/headersocial', $headersocialcontext);
-            break;
+                break;
             case 'searchmobilenav':
                 $headercontext['searchandsocialnavbar'] = $OUTPUT->search_box();
                 $headercontext['searchandsocialnavbarextra'] = ' d-md-block d-lg-none my-auto';
                 $headersearchcontext = [
                     'pagelayout' => ($headercontext['pageheaderoriginal']) ? 'pagelayoutoriginal' : 'pagelayoutalternative',
-                    'search' => $OUTPUT->search_box()
+                    'search' => $OUTPUT->search_box(),
                 ];
                 $headercontext['searchandsocialheader'] = $OUTPUT->render_from_template('theme_adaptable/headersearch', $headersearchcontext);
-            break;
+                break;
             case 'searchheader':
                 $headersearchcontext = [
                     'pagelayout' => ($headercontext['pageheaderoriginal']) ? 'pagelayoutoriginal' : 'pagelayoutalternative',
-                    'search' => $OUTPUT->search_box()
+                    'search' => $OUTPUT->search_box(),
                 ];
                 $headercontext['searchandsocialheader'] = $OUTPUT->render_from_template('theme_adaptable/headersearch', $headersearchcontext);
-            break;
+                break;
             case 'searchnavbar':
                 $headercontext['searchandsocialnavbar'] = $OUTPUT->search_box();
-            break;
+                break;
             case 'searchnavbarsocialheader':
                 $headercontext['searchandsocialnavbar'] = $OUTPUT->search_box();
                 $headersocialcontext = [
                     'classes' => $PAGE->theme->settings->responsivesocial,
                     'pageheaderoriginal' => $headercontext['pageheaderoriginal'],
-                    'output' => $OUTPUT
+                    'output' => $OUTPUT,
                 ];
                 $headercontext['searchandsocialheader'] = $OUTPUT->render_from_template('theme_adaptable/headersocial', $headersocialcontext);
-            break;
+                break;
         }
 
         echo $OUTPUT->render_from_template('theme_adaptable/headerstyleone', $headercontext);
@@ -400,7 +402,7 @@ echo $OUTPUT->standard_top_of_body_html();
         echo $OUTPUT->render_from_template('theme_adaptable/headerstyletwo', $headercontext);
     }
     if ($bsoptionsdata['data']['stickynavbar']) {
-        echo '<div id="page" class="'.implode(' ', $pageclasses).'">';
+        echo '<div id="page" class="' . implode(' ', $pageclasses) . '">';
     }
     if (!empty($courseindextogglemarkup)) {
         echo $courseindextogglemarkup;

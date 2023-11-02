@@ -15,24 +15,28 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Block regions
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Frontpage Block Regions Section.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_frontpage_block_regions',
-        get_string('frontpageblockregionsettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage(
+        'theme_adaptable_frontpage_block_regions',
+        get_string('frontpageblockregionsettings', 'theme_adaptable')
+    );
 
-    $page->add(new admin_setting_heading('theme_adaptable_marketing', get_string('blocklayoutbuilder', 'theme_adaptable'),
-        format_text(get_string('blocklayoutbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_marketing',
+        get_string('blocklayoutbuilder', 'theme_adaptable'),
+        format_text(get_string('blocklayoutbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/frontpageblocksenabled';
     $title = get_string('frontpageblocksenabled', 'theme_adaptable');
@@ -42,11 +46,18 @@ if ($ADMIN->fulltree) {
 
     // Block region builder.
     $noregions = 20; // Number of block regions defined in config.php.
-    list('imgblder' => $imgblder, 'totalblocks' => $totalblocks) = \theme_adaptable\toolbox::admin_settings_layout_builder(
-        $page, 'blocklayoutlayoutrow', $bootstrap12defaults, $bootstrap12);
+    ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = \theme_adaptable\toolbox::admin_settings_layout_builder(
+        $page,
+        'blocklayoutlayoutrow',
+        $bootstrap12defaults,
+        $bootstrap12
+    );
 
-    $page->add(new admin_setting_heading('theme_adaptable_blocklayoutcheck', get_string('layoutcheck', 'theme_adaptable'),
-        format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_blocklayoutcheck',
+        get_string('layoutcheck', 'theme_adaptable'),
+        format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $checkcountcolor = '#00695C';
     if ($totalblocks > $noregions) {

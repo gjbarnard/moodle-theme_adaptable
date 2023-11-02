@@ -115,7 +115,8 @@
     padding: .3rem 0.65rem;
 }
 
-#adaptable-page-header-wrapper .above-header .nav-link > i,
+#adaptable-page-header-wrapper .above-header .nav-link > .fa,
+#adaptable-page-header-wrapper .above-header .nav-link > .fas,
 #adaptable-page-header-wrapper .above-header .navbar-nav > li > a {
     color: [[setting:headertextcolor]];
 }

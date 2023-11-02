@@ -15,23 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Navbar styles
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Header Navbar.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_navbar_styles', get_string('navbarstyles', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_navbar_styles', get_string('navbarstyles', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_navbar_styles', get_string('navbarstylesheading', 'theme_adaptable'),
-        format_text(get_string('navbarstylesdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_navbar_styles',
+        get_string('navbarstylesheading', 'theme_adaptable'),
+        format_text(get_string('navbarstylesdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Main menu background color.
     $name = 'theme_adaptable/menubkcolor';

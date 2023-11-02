@@ -20,7 +20,7 @@
  * @package    theme_adaptable
  * @category   test
  * @copyright  &copy; 2020 G J Barnard.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
@@ -32,7 +32,7 @@ require_once(__DIR__ . '/../../../../../auth/tests/behat/behat_auth.php');
  * @package    theme_adaptable
  * @category   test
  * @copyright  &copy; 2020 G J Barnard.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class behat_theme_adaptable_behat_auth extends behat_auth {
     /**
@@ -45,6 +45,6 @@ class behat_theme_adaptable_behat_auth extends behat_auth {
 
         // Click on logout link in user menu on the navbar.
         $this->execute('behat_general::i_click_on', ['#usermenu', 'css_element']);
-        $this->execute('behat_general::i_click_on_in_the', array(get_string('logout'), 'link', '#usermenu-dropdown', "css_element"));
+        $this->execute('behat_general::i_click_on_in_the', [get_string('logout'), 'link', '#usermenu-dropdown', "css_element"]);
     }
 }

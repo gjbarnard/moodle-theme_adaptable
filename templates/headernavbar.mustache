@@ -31,7 +31,7 @@
         "pageheadingbutton": "",
         "responsiveheader": "d-none d-lg-block",
         "showcog": true,
-        "toolsmenu": false
+        "toolsmenu": ""
     }
 }}
 <div id="main-navbar" class="{{responsiveheader}}">
@@ -43,9 +43,7 @@
                     {{^disablecustommenu}}
                         {{{output.custom_menu}}}
                     {{/disablecustommenu}}
-                    {{#toolsmenu}}
-                        {{{output.tools_menu}}}
-                    {{/toolsmenu}}
+                    {{{toolsmenu}}}
                 </ul>
             </nav>
 

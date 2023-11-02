@@ -21,41 +21,44 @@
  * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
  * @copyright  2015-2019 Fernando Acedo (3-bits.com)
  * @copyright  2017-2019 Manoj Solanki (Coventry University)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once(__DIR__.'/libs/admin_confightmleditor.php');
-require_once(__DIR__.'/lib.php');
+require_once(__DIR__ . '/libs/admin_confightmleditor.php');
+require_once(__DIR__ . '/lib.php');
 
 $settings = null;
 $ADMIN->add('themes', new admin_category('theme_adaptable', get_string('configtitle', 'theme_adaptable')));
 
 // Adaptable theme settings page.
-$asettings = new theme_adaptable_admin_settingspage_tabs('themesettingadaptable',
+$asettings = new theme_adaptable_admin_settingspage_tabs(
+    'themesettingadaptable',
     get_string('configtabtitle', 'theme_adaptable'),
-    401
+    402
 );
 if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/array_definitions.php');
     include(dirname(__FILE__) . '/settings/information.php');
-    include(dirname(__FILE__) . '/settings/alert_box.php');
+    include(dirname(__FILE__) . '/settings/alerts.php');
     include(dirname(__FILE__) . '/settings/analytics.php');
     include(dirname(__FILE__) . '/settings/block_regions.php');
     include(dirname(__FILE__) . '/settings/block_settings.php');
     include(dirname(__FILE__) . '/settings/buttons.php');
     include(dirname(__FILE__) . '/settings/category_headers.php');
     include(dirname(__FILE__) . '/settings/colors.php');
-    include(dirname(__FILE__) . '/settings/course_formats.php');
+    include(dirname(__FILE__) . '/settings/courses.php');
     include(dirname(__FILE__) . '/settings/course_index.php');
     include(dirname(__FILE__) . '/settings/dash_block_regions.php');
     include(dirname(__FILE__) . '/settings/fonts.php');
     include(dirname(__FILE__) . '/settings/footer.php');
     include(dirname(__FILE__) . '/settings/frontpage_courses.php');
     include(dirname(__FILE__) . '/settings/frontpage_slider.php');
-    include(dirname(__FILE__) . '/settings/frontpage_ticker.php');
+    include(dirname(__FILE__) . '/settings/news_ticker.php');
     include(dirname(__FILE__) . '/settings/header.php');
     include(dirname(__FILE__) . '/settings/header_menus.php');
     include(dirname(__FILE__) . '/settings/header_social.php');
@@ -65,7 +68,8 @@ if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/login.php');
     include(dirname(__FILE__) . '/settings/marketing_blocks.php');
     include(dirname(__FILE__) . '/settings/navbar_settings.php');
-    include(dirname(__FILE__) . '/settings/header_navbar_menu.php');
+    include(dirname(__FILE__) . '/settings/navbar_mycourses.php');
+    include(dirname(__FILE__) . '/settings/navbar_tools_menu.php');
     include(dirname(__FILE__) . '/settings/navbar_links.php');
     include(dirname(__FILE__) . '/settings/navbar_styles.php');
     include(dirname(__FILE__) . '/settings/print.php');

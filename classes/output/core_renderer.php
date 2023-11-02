@@ -21,8 +21,10 @@
  * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
  * @copyright  2015-2019 Fernando Acedo (3-bits.com)
  * @copyright  2017-2019 Manoj Solanki (Coventry University)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2021 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 namespace theme_adaptable\output;
@@ -30,12 +32,7 @@ namespace theme_adaptable\output;
 use theme_boost\output\core_renderer as core_renderer_base;
 
 /**
- * Renderers to align Moodle's HTML with that expected by Bootstrap
- *
- * Note: This class is required to avoid inheriting Boost's core_renderer
- *
- * @copyright Copyright (c) 2017 Manoj Solanki (Coventry University)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Core Renderer
  */
 class core_renderer extends core_renderer_base {
     use core_renderer_toolbox;

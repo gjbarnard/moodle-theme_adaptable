@@ -21,8 +21,10 @@
 // @copyright  2015-2019 Jeremy Hopkins (Coventry University)
 // @copyright  2015-2019 Fernando Acedo (3-bits.com)
 // @copyright  2018-2019 Manoj Solanki (Coventry University)
-//
-// @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+// @copyright  2019 G J Barnard
+//               {@link https://moodle.org/user/profile.php?id=442195}
+//               {@link https://gjbarnard.co.uk}
+// @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
 
 /* jshint ignore:start */
 define(['jquery', 'core/log'], function($, log) {
@@ -35,24 +37,6 @@ define(['jquery', 'core/log'], function($, log) {
             $(document).ready(function($) {
 
                 log.debug('Adaptable AMD init');
-
-                /* Dismiss Alerts
-                   Bootstrap will close the alert because it spots the data-dismiss="alert" attribute
-                   Here we also handle the alert close event. We have added two custom tags data-alertindex
-                   and data-alertkey. e.g Alert1  has alertindex1. The alertkey value identifies the
-                   alert content, since Alert1 (2 and 3) will be reused. We use a YUI function to set
-                   the user preference for the key to the last dismissed key for the alertindex.
-                   alertkey undismissable is a special case for "loginas" alert which shouldn't really
-                   be permanently dismissed.
-                   Justin 2015/12/05. */
-
-                $('.close').click(function() {
-                    var alertindex = $(this).data('alertindex');
-                    var alertkey = $(this).data('alertkey');
-                    if (alertkey != 'undismissable' && alertkey != 'undefined' && alertkey) {
-                        M.util.set_user_preference('theme_adaptable_alertkey' + alertindex, alertkey);
-                    }
-                });
 
                 // Breadcrumb.
                 $(".breadcrumb li:not(:last-child) span").not('.separator').addClass('');

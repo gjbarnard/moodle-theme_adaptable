@@ -15,31 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Navbar tools menu
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 defined('MOODLE_INTERNAL') || die;
 
 // Settings for tools menus.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_header_navbar_menu', get_string('navbarmenusettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_navbar_tools_menu', get_string('toolsmenu', 'theme_adaptable'), true);
 
-    $page->add(new admin_setting_heading('theme_adaptable_toolsmenu', get_string('toolsmenu', 'theme_adaptable'),
-        format_text(get_string('toolsmenudesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
-
-    $page->add(new admin_setting_heading('theme_adaptable_toolsmenu', get_string('toolsmenuheading', 'theme_adaptable'),
-        format_text(get_string('toolsmenuheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
-
-    $name = 'theme_adaptable/disablecustommenu';
-    $title = get_string('disablecustommenu', 'theme_adaptable');
-    $description = get_string('disablecustommenudesc', 'theme_adaptable');
-    $setting = new admin_setting_configcheckbox($name, $title, $description, false, true, false);
-    $page->add($setting);
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_toolsmenu',
+        get_string('toolsmenu', 'theme_adaptable'),
+        format_text(get_string('toolsmenuheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/enabletoolsmenus';
     $title = get_string('enabletoolsmenus', 'theme_adaptable');
@@ -63,9 +56,10 @@ if ($ADMIN->fulltree) {
     }
 
     for ($toolsmenusindex = 1; $toolsmenusindex <= $toolsmenuscount; $toolsmenusindex++) {
-        $page->add(new admin_setting_heading('theme_adaptable_menus' . $toolsmenusindex,
-            get_string('toolsmenuheading', 'theme_adaptable') . $toolsmenusindex,
-            format_text(get_string('toolsmenudesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+        $page->add(new admin_setting_heading(
+            'theme_adaptable_menus' . $toolsmenusindex,
+            get_string('toolsmenuheadingindex', 'theme_adaptable', $toolsmenusindex), ''
+        ));
 
         $name = 'theme_adaptable/toolsmenu' . $toolsmenusindex . 'title';
         $title = get_string('toolsmenutitle', 'theme_adaptable') . ' ' . $toolsmenusindex;

@@ -29,7 +29,7 @@
 }}
 {{#displayloginbox}}
 <form id="pre-login-form" class="form-inline my-2 my-lg-0" action="{{{url}}}" method="post">
-    <input type="hidden" name="logintoken" value="{{token}}"/>
+    <input type="hidden" name="logintoken" value="{{token}}">
     <input type="text" name="username" placeholder="{{#str}}loginplaceholder, theme_adaptable{{/str}}" size="11">
     <input type="password" name="password" placeholder="{{#str}}passwordplaceholder, theme_adaptable{{/str}}" size="11">
     <button class="btn-login" type="submit">{{#str}}logintextbutton, theme_adaptable{{/str}}</button>

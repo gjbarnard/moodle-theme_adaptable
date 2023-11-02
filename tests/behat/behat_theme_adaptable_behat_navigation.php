@@ -18,24 +18,23 @@
  * Overrides for behat navigation.
  * @author    Marcus Green derived from code by Guy Thomas
  * @copyright Copyright (c) 2017 Blackboard Inc.
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
 
-use Behat\Mink\Exception\ExpectationException as ExpectationException;
+use Behat\Mink\Exception\ExpectationException;
 
-require_once (__DIR__ . '/../../../../lib/tests/behat/behat_navigation.php');
+require_once(__DIR__ . '/../../../../lib/tests/behat/behat_navigation.php');
 
 /**
  * Overrides to make behat navigation work with adapt.
  *
  * @author    Marcus Green derived from Snap theme
  * @copyright Titus Learning 2020
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class behat_theme_adaptable_behat_navigation extends behat_navigation {
-
     /**
      * Open an assignment or resource based on title.
      *
@@ -152,7 +151,8 @@ class behat_theme_adaptable_behat_navigation extends behat_navigation {
         // Now select the link.
         // The CSS path is always present, with or without JS.
         $xpath = "//div[@id='usermenu-dropdown']";
-        $this->execute('behat_general::i_click_on_in_the',
+        $this->execute(
+            'behat_general::i_click_on_in_the',
             [$nodetext, "link", $xpath, "xpath_element"]
         );
     }

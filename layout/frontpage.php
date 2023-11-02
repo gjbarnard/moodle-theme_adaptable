@@ -15,53 +15,61 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Frontpage
  *
  * @package    theme_adaptable
  * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
  * @copyright  2015-2019 Fernando Acedo (3-bits.com)
  * @copyright  2017-2019 Manoj Solanki (Coventry University)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 $sidepostdrawer = false;
-if (($PAGE->theme->settings->frontpageuserblocksenabled) || (is_siteadmin($USER))) {
+if ((\theme_adaptable\toolbox::get_setting('frontpageuserblocksenabled')) || (is_siteadmin($USER))) {
     $sidepostdrawer = true;
 }
 
 // Let's go to include first the common header file.
 require_once(dirname(__FILE__) . '/includes/header.php');
-$PAGE->set_secondary_navigation(false);
+// Include secondary navigation.
+require_once(dirname(__FILE__) . '/includes/secondarynav.php');
+
+if (!empty($secondarynavigation)) {
+    echo $secondarynavigation;
+}
+if (!empty($overflow)) {
+    echo $overflow;
+}
 
 echo $OUTPUT->get_news_ticker();
 
-// Let's include the images slider if enabled.
-if (!empty($PAGE->theme->settings->sliderenabled)) {
-    echo $OUTPUT->get_frontpage_slider();
-}
+// Slider.
+echo $OUTPUT->get_frontpage_slider();
 
 // And let's show Infobox 1 if enabled.
-if (!empty($PAGE->theme->settings->infobox)) {
-    if (!empty($PAGE->theme->settings->infoboxfullscreen)) {
+if (!empty(\theme_adaptable\toolbox::get_setting('infobox'))) {
+    if (!empty(\theme_adaptable\toolbox::get_setting('infoboxfullscreen'))) {
         echo '<div id="theinfo">';
     } else {
         echo '<div id="theinfo" class="container">';
     }
     echo '<div class="row">';
-    echo $OUTPUT->get_setting('infobox', 'format_moodle');
+    echo \theme_adaptable\toolbox::get_setting('infobox', 'format_moodle');
     echo '</div>';
     echo '</div>';
 }
 
 // If Marketing Blocks are enabled then let's show them.
-if (!empty($PAGE->theme->settings->frontpagemarketenabled)) {
+if (!empty(\theme_adaptable\toolbox::get_setting('frontpagemarketenabled'))) {
     echo $OUTPUT->get_marketing_blocks();
 }
 
-if (!empty($PAGE->theme->settings->frontpageblocksenabled)) { ?>
+if (!empty(\theme_adaptable\toolbox::get_setting('frontpageblocksenabled'))) { ?>
     <div id="frontblockregion" class="container">
         <div class="row">
             <?php echo $OUTPUT->get_block_regions(); ?>
@@ -71,14 +79,14 @@ if (!empty($PAGE->theme->settings->frontpageblocksenabled)) { ?>
 }
 
 // And finally let's show the Infobox 2 if enabled.
-if (!empty($PAGE->theme->settings->infobox2)) {
-    if (!empty($PAGE->theme->settings->infoboxfullscreen)) {
+if (!empty(\theme_adaptable\toolbox::get_setting('infobox2'))) {
+    if (!empty(\theme_adaptable\toolbox::get_setting('infoboxfullscreen'))) {
         echo '<div id="theinfo2">';
     } else {
         echo '<div id="theinfo2" class="container">';
     }
     echo '<div class="row">';
-    echo $OUTPUT->get_setting('infobox2', 'format_moodle');
+    echo \theme_adaptable\toolbox::get_setting('infobox2', 'format_moodle');
     echo '</div>';
     echo '</div>';
 }
@@ -105,12 +113,12 @@ if (!empty($PAGE->theme->settings->infobox2)) {
 <?php
 // Let's show the hidden blocks region ONLY for administrators.
 if (is_siteadmin()) {
-?>
+    ?>
     <div class="hidden-blocks">
         <div class="row">
 
         <?php
-        if (!empty($PAGE->theme->settings->coursepageblocksliderenabled) ) {
+        if (!empty($PAGE->theme->settings->coursepageblocksliderenabled)) {
             echo $OUTPUT->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
         }
 

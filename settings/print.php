@@ -15,31 +15,34 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Print
  *
  * @package    theme_adaptable
- * @copyright  &copy; 2020 G J Barnard.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2020 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Print settings.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_print', get_string('printsettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_print', get_string('printsettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_print', get_string('printsettingsheading', 'theme_adaptable'),
-        format_text(get_string('printsettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_print',
+        get_string('printsettingsheading', 'theme_adaptable'),
+        format_text(get_string('printsettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/printpageorientation';
     $title = get_string('printpageorientation', 'theme_adaptable');
     $description = get_string('printpageorientationdesc', 'theme_adaptable');
-    $choices = array(
+    $choices = [
         'landscape' => get_string('landscape', 'theme_adaptable'),
-        'portrait' => get_string('portrait', 'theme_adaptable')
-    );
+        'portrait' => get_string('portrait', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'landscape', $choices);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);

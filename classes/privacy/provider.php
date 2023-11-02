@@ -21,7 +21,7 @@
  *
  * @package    theme_adaptable
  * @copyright  2019 Manoj Solanki (Coventry University)
- * @copyright  2023 G J Barnard.
+ * @copyright  2023 G J Barnard
  * @author     G J Barnard -
  *               {@link https://moodle.org/user/profile.php?id=442195}
  *               {@link https://gjbarnard.co.uk}
@@ -139,6 +139,7 @@ class provider implements
                     ])
                 );
             } else if (preg_match('/(?<=theme_adaptable_alertkey)\d*/', $name, $matches)) {
+                // Now in local_adaptable - left here to report old alerts.
                 if (!empty($matches[0])) {
                     $alertid = $matches[0];
 

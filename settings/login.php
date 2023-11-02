@@ -21,18 +21,22 @@
  * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
  * @copyright  2015-2019 Fernando Acedo (3-bits.com)
  * @copyright  2017-2019 Manoj Solanki (Coventry University)
- * @copyright  2019 G J Barnard (http://moodle.org/user/profile.php?id=442195)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 defined('MOODLE_INTERNAL') || die;
 
 // Login page heading.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_login', get_string('loginsettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_login', get_string('loginsettings', 'theme_adaptable'), true);
 
-    $page->add(new admin_setting_heading('theme_adaptable_login', get_string('loginsettingsheading', 'theme_adaptable'),
-        format_text(get_string('logindesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_login',
+        get_string('loginsettingsheading', 'theme_adaptable'),
+        format_text(get_string('logindesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Login page background image.
     $name = 'theme_adaptable/loginbgimage';
@@ -47,17 +51,21 @@ if ($ADMIN->fulltree) {
     $title = get_string('loginbgstyle', 'theme_adaptable');
     $description = get_string('loginbgstyledesc', 'theme_adaptable');
     $default = 'cover';
-    $setting = new admin_setting_configselect($name, $title, $description, $default,
-        array(
+    $setting = new admin_setting_configselect(
+        $name,
+        $title,
+        $description,
+        $default,
+        [
             'cover' => get_string('stylecover', 'theme_adaptable'),
-            'stretch' => get_string('stylestretch', 'theme_adaptable')
-        )
+            'stretch' => get_string('stylestretch', 'theme_adaptable'),
+        ]
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
     // Login page background opacity.
-    $opactitychoices = array(
+    $opactitychoices = [
         '0.0' => '0.0',
         '0.1' => '0.1',
         '0.2' => '0.2',
@@ -68,8 +76,8 @@ if ($ADMIN->fulltree) {
         '0.7' => '0.7',
         '0.8' => '0.8',
         '0.9' => '0.9',
-        '1.0' => '1.0'
-    );
+        '1.0' => '1.0',
+    ];
 
     $name = 'theme_adaptable/loginbgopacity';
     $title = get_string('loginbgopacity', 'theme_adaptable');
@@ -83,22 +91,22 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/loginheader';
     $title = get_string('loginheader', 'theme_adaptable');
     $description = get_string('loginheaderdesc', 'theme_adaptable');
-    $radchoices = array(
+    $radchoices = [
         0 => get_string('hide', 'theme_adaptable'),
         1 => get_string('show', 'theme_adaptable'),
-    );
-    $setting = new admin_setting_configselect($name, $title, $description, 1, $radchoices);
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, 0, $radchoices);
     $page->add($setting);
 
     // Login page footer.
     $name = 'theme_adaptable/loginfooter';
     $title = get_string('loginfooter', 'theme_adaptable');
     $description = get_string('loginfooterdesc', 'theme_adaptable');
-    $radchoices = array(
+    $radchoices = [
         0 => get_string('hide', 'theme_adaptable'),
         1 => get_string('show', 'theme_adaptable'),
-    );
-    $setting = new admin_setting_configselect($name, $title, $description, 1, $radchoices);
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, 0, $radchoices);
     $page->add($setting);
 
     // Top text.

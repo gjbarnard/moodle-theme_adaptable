@@ -18,21 +18,18 @@
  * Forum post renderable.
  *
  * @package    theme_adaptable
- * @copyright  2020 Gareth J Barnard
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2023 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 namespace theme_adaptable\output\mod_forum\emaildigestfull;
 
 /**
  * Forum post renderable.
- *
- * @copyright  2020 Gareth J Barnard
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class renderer_textemail extends \mod_forum\output\emaildigestfull\renderer_textemail {
-
     /**
      * Display a forum post in the relevant context.
      *
@@ -44,12 +41,12 @@ class renderer_textemail extends \mod_forum\output\emaildigestfull\renderer_text
         $data = $post->export_for_template($this, false);
 
         $templatename = $this->forum_post_template();
-        $themeoverride = \theme_adaptable\toolbox::apply_template_override('mod_forum/'.$templatename, $data);
+        $themeoverride = \theme_adaptable\toolbox::apply_template_override('mod_forum/' . $templatename, $data);
         if ($themeoverride !== false) {
             $output = $themeoverride;
         } else {
             // Use core mechanism.
-            $output = $this->render_from_template('mod_forum/'.$templatename, $data);
+            $output = $this->render_from_template('mod_forum/' . $templatename, $data);
         }
 
         return $output;

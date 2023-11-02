@@ -15,21 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   theme_adaptable
- * @copyright  &copy; 2020 G J Barnard.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    theme_adaptable
+ * @copyright  2020 G J Barnard
+ * @author     G J Barnard -
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * @package   theme_adaptable
- * @copyright  &copy; 2020 G J Barnard.
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Admin settings page tabs.
  */
 class theme_adaptable_admin_settingspage_tabs extends theme_boost_admin_settingspage_tabs {
-
     /** @var int The branch this Adaptable is for. */
     protected $mbranch;
 
@@ -38,16 +37,14 @@ class theme_adaptable_admin_settingspage_tabs extends theme_boost_admin_settings
      *
      * @param string $name The internal name for this external page. Must be unique amongst ALL part_of_admin_tree objects.
      * @param string $visiblename The displayed name for this external page. Usually obtained through get_string().
-     * @param string $version The version info.
      * @param int $mbranch The branch this Adaptable is for.
-     * @param int $aversion Adaptable version.
      * @param mixed $req_capability The role capability/permission a user must have to access this external page. Defaults to 'moodle/site:config'.
      * @param boolean $hidden Is this external page hidden in admin tree block? Default false.
      * @param stdClass $context The context the page relates to.
      */
-    public function __construct($name, $visiblename, $mbranch, $req_capability = 'moodle/site:config', $hidden = false, $context = NULL) {
+    public function __construct($name, $visiblename, $mbranch, $reqcapability = 'moodle/site:config', $hidden = false, $context = null) {
         $this->mbranch = $mbranch;
-        return parent::__construct($name, $visiblename, $req_capability, $hidden, $context);
+        return parent::__construct($name, $visiblename, $reqcapability, $hidden, $context);
     }
 
     /**
@@ -59,7 +56,7 @@ class theme_adaptable_admin_settingspage_tabs extends theme_boost_admin_settings
         global $CFG, $OUTPUT;
 
         $activetab = optional_param('activetab', '', PARAM_TEXT);
-        $context = array('tabs' => array());
+        $context = ['tabs' => []];
         $havesetactive = false;
 
         foreach ($this->get_tabs() as $tab) {
@@ -73,12 +70,17 @@ class theme_adaptable_admin_settingspage_tabs extends theme_boost_admin_settings
                 $active = true;
             }
 
-            $context['tabs'][] = array(
+            $disabled = false;
+            if ($tab instanceof theme_adaptable_admin_settingspage) {
+                $disabled = $tab->get_disabled();
+            }
+            $context['tabs'][] = [
                 'name' => $tab->name,
                 'displayname' => $tab->visiblename,
                 'html' => $tab->output_html(),
                 'active' => $active,
-            );
+                'disabled' => $disabled,
+            ];
         }
 
         if (empty($context['tabs'])) {
@@ -93,12 +95,14 @@ class theme_adaptable_admin_settingspage_tabs extends theme_boost_admin_settings
             $plugininfo->version = $plugininfo->versiondisk;
         }
 
-        $context['versioninfo'] = get_string('versioninfo', 'theme_adaptable',
-            array(
+        $context['versioninfo'] = get_string(
+            'versioninfo',
+            'theme_adaptable',
+            [
                 'moodle' => $CFG->release,
                 'release' => $plugininfo->release,
-                'version' => $plugininfo->version
-            )
+                'version' => $plugininfo->version,
+            ]
         );
 
         if (!empty($plugininfo->maturity)) {
@@ -106,35 +110,34 @@ class theme_adaptable_admin_settingspage_tabs extends theme_boost_admin_settings
                 case MATURITY_ALPHA:
                     $context['maturity'] = get_string('versionalpha', 'theme_adaptable');
                     $context['maturityalert'] = 'danger';
-                break;
+                    break;
                 case MATURITY_BETA:
                     $context['maturity'] = get_string('versionbeta', 'theme_adaptable');
                     $context['maturityalert'] = 'danger';
-                break;
+                    break;
                 case MATURITY_RC:
                     $context['maturity'] = get_string('versionrc', 'theme_adaptable');
                     $context['maturityalert'] = 'warning';
-                break;
+                    break;
                 case MATURITY_STABLE:
                     $context['maturity'] = get_string('versionstable', 'theme_adaptable');
                     $context['maturityalert'] = 'info';
-                break;
+                    break;
             }
         }
-        $context['privacynote'] = format_text(get_string('privacynote', 'theme_adaptable'), FORMAT_MARKDOWN);
+        $context['privacynote'] = format_text(get_string('privacy:note', 'theme_adaptable'), FORMAT_MARKDOWN);
 
         if ($CFG->branch != $this->mbranch) {
-            $context['versioncheck'] = 'Release '.$plugininfo->release.', version '.$plugininfo->version.' is incompatible with Moodle '.$CFG->release;
+            $context['versioncheck'] = 'Release ' . $plugininfo->release . ', version ' . $plugininfo->version . ' is incompatible with Moodle ' . $CFG->release;
             $context['versioncheck'] .= ', please get the correct version from ';
             $context['versioncheck'] .= '<a href="https://moodle.org/plugins/theme_adaptable" target="_blank">Moodle.org</a>.  ';
             $context['versioncheck'] .= 'If none is available, then please consider supporting the theme by funding it.  ';
             $context['versioncheck'] .= 'Please contact me via \'gjbarnard at gmail dot com\' or my ';
-            $context['versioncheck'] .= '<a href="http://moodle.org/user/profile.php?id=442195">Moodle dot org profile</a>.  ';
-            $context['versioncheck'] .= 'This is my <a href="http://about.me/gjbarnard">\'Web profile\'</a> if you want ';
+            $context['versioncheck'] .= '<a href="https://moodle.org/user/profile.php?id=442195">Moodle dot org profile</a>.  ';
+            $context['versioncheck'] .= 'This is my <a href="https://about.me/gjbarnard">\'Web profile\'</a> if you want ';
             $context['versioncheck'] .= 'to know more about me.';
         }
 
         return $OUTPUT->render_from_template('theme_adaptable/adaptable_admin_setting_tabs', $context);
     }
-
 }

@@ -20,17 +20,16 @@
  * @package    theme_adaptable
  * @copyright  &copy; 2018 G J Barnard.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 /**
  * Toolbox unit tests for the Adaptable theme.
  * @group theme_adaptable
  * @copyright Copyright (c) 2017 Manoj Solanki (Coventry University)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class theme_adaptable_toolbox_test extends advanced_testcase {
-
     protected function setUp(): void {
         $this->resetAfterTest(true);
 

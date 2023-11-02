@@ -17,13 +17,14 @@
 /**
  * Version details
  *
- * @package   theme_adaptable
- * @copyright 2015-2019 Jeremy Hopkins (Coventry University)
- * @copyright 2015-2019 Fernando Acedo (3-bits.com)
- * @copyright 2017-2019 Manoj Solanki (Coventry University)
- * @copyright 2019-onwards G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @package    theme_adaptable
+ * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
+ * @copyright  2015-2019 Fernando Acedo (3-bits.com)
+ * @copyright  2017-2019 Manoj Solanki (Coventry University)
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -32,19 +33,19 @@ defined('MOODLE_INTERNAL') || die;
 $plugin->component = 'theme_adaptable';
 
 // Adaptable version date (YYYYMMDDrr where rr is the release number).
-$plugin->version = 2022112306;
+$plugin->version = 2023092500;
 
-$plugin->requires = 2022112800.00; // 4.1 (Build: 20221128).
+$plugin->requires = 2023042400.00; // 4.2 (Build: 20230424).
 
-$plugin->supported = array(401, 401);
+$plugin->supported = [402, 402];
 
 // Adaptable version using SemVer (https://semver.org).
-$plugin->release = '401.1.5';
+$plugin->release = '402.0.1';
 
 // Adaptable maturity (do not use ALPHA or BETA versions in production sites).
-$plugin->maturity = MATURITY_STABLE;
+$plugin->maturity = MATURITY_RC;
 
 // Adaptable dependencies (Only Boost as it's the parent theme).
-$plugin->dependencies = array(
-    'theme_boost' => 2022112800
-);
+$plugin->dependencies = [
+    'theme_boost' => 2023042400,
+];

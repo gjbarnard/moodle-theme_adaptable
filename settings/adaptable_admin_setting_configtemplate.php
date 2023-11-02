@@ -18,19 +18,16 @@
  * Template admin setting.
  *
  * @package    theme_adaptable
- * @copyright  2020 Gareth J Barnard
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2020 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 /**
  * Template admin setting.
- *
- * @package    theme_adaptable
- * @copyright  2020 Gareth J Barnard
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class adaptable_admin_setting_configtemplate extends admin_setting_configtextarea {
-
     /**
      * @var $templatename The name of the template.
      */
@@ -49,8 +46,15 @@ class adaptable_admin_setting_configtemplate extends admin_setting_configtextare
      * @param string $rows The number of rows to make the editor
      */
     public function __construct(
-        $name, $visiblename, $description, $defaultsetting, $templatename,
-        $paramtype=PARAM_RAW, $cols='60', $rows='8') {
+        $name,
+        $visiblename,
+        $description,
+        $defaultsetting,
+        $templatename,
+        $paramtype = PARAM_RAW,
+        $cols = '60',
+        $rows = '8'
+    ) {
         $this->rows = $rows;
         $this->cols = $cols;
 
@@ -69,13 +73,13 @@ class adaptable_admin_setting_configtemplate extends admin_setting_configtextare
      * @param string $query
      * @return string XHTML string for the editor
      */
-    public function output_html($data, $query='') {
+    public function output_html($data, $query = '') {
         global $OUTPUT, $PAGE;
 
         $default = $this->get_defaultsetting();
         $defaultinfo = $default;
         if (!is_null($default) && $default !== '') {
-            $defaultinfo = "\n".$default;
+            $defaultinfo = "\n" . $default;
         }
 
         $context = (object) [
@@ -112,16 +116,16 @@ class adaptable_admin_setting_configtemplate extends admin_setting_configtextare
 
             $context = (object) [
                 'templatepreview' => $mustacherenderer->render_from_template($overridetemplate, $data),
-                'templateoverridden' => $templateoverridden
+                'templateoverridden' => $templateoverridden,
             ];
             $element .= $OUTPUT->render_from_template('theme_adaptable/adaptable_admin_setting_configtemplate', $context);
         } else {
-            $context = array();
+            $context = [];
             $element .= $OUTPUT->render_from_template('theme_adaptable/adaptable_admin_setting_configtemplate_nopreview', $context);
         }
 
         $context = (object) [
-            'templatesource' => $originalsource
+            'templatesource' => $originalsource,
         ];
         $element .= $OUTPUT->render_from_template('theme_adaptable/adaptable_admin_setting_configtemplate_source', $context);
 

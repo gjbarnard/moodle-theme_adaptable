@@ -25,9 +25,10 @@ use renderer_base;
  *
  * @package    theme_adaptable
  * @category   navigation
- * @copyright  &copy; 2023-onwards G J Barnard.  Based upon work done by Peter Dias.
- * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
  * @copyright  2021 onwards Peter Dias
+ * @copyright  2023 G J Barnard.  Based upon work done by Peter Dias.
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class primary extends \core\navigation\output\primary {
@@ -75,7 +76,7 @@ class primary extends \core\navigation\output\primary {
         $mobileprimarynav = array_merge($primarynodes, $this->get_custom_menu($output));
 
         return [
-            'mobileprimarynav' => $mobileprimarynav
+            'mobileprimarynav' => $mobileprimarynav,
         ];
     }
 }

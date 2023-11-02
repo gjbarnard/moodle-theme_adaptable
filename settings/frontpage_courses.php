@@ -15,35 +15,36 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Frontpage courses
  *
  * @package    theme_adaptable
  * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
  * @copyright  2015-2019 Fernando Acedo (3-bits.com)
  * @copyright  2017-2019 Manoj Solanki (Coventry University)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Frontpage courses section.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_frontpage_courses', get_string('frontpagecoursesettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_frontpage_courses', get_string('frontpagecoursesettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_frontpage_courses',
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_frontpage_courses',
         get_string('frontpagesettingsheading', 'theme_adaptable'),
-        format_text(get_string('frontpagedesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+        format_text(get_string('frontpagedesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/frontpagerenderer';
     $title = get_string('frontpagerenderer', 'theme_adaptable');
     $description = get_string('frontpagerendererdesc', 'theme_adaptable');
-    $choices = array(
+    $choices = [
         1 => get_string('frontpagerendereroption1', 'theme_adaptable'),
         2 => get_string('frontpagerendereroption2', 'theme_adaptable'),
         3 => get_string('frontpagerendereroption3', 'theme_adaptable'),
-        4 => get_string('frontpagerendereroption4', 'theme_adaptable')
-    );
+        4 => get_string('frontpagerendereroption4', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 2, $choices);
     $page->add($setting);
 
@@ -52,13 +53,13 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/frontpagenumbertiles';
     $title = get_string('frontpagenumbertiles', 'theme_adaptable');
     $description = get_string('frontpagenumbertilesdesc', 'theme_adaptable');
-    $choices = array(
+    $choices = [
         12 => get_string('frontpagetiles1', 'theme_adaptable'),
         6 => get_string('frontpagetiles2', 'theme_adaptable'),
         4 => get_string('frontpagetiles3', 'theme_adaptable'),
         3 => get_string('frontpagetiles4', 'theme_adaptable'),
-        2 => get_string('frontpagetiles6', 'theme_adaptable')
-    );
+        2 => get_string('frontpagetiles6', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 4, $choices);
     $page->add($setting);
 
@@ -99,11 +100,16 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/enableavailablecourses';
     $title = get_string('enableavailablecourses', 'theme_adaptable');
     $description = get_string('enableavailablecoursesdesc', 'theme_adaptable');
-    $setting = new admin_setting_configselect($name, $title, $description, 0,
-        array(
+    $setting = new admin_setting_configselect(
+        $name,
+        $title,
+        $description,
+        0,
+        [
             'inherit' => get_string('show'),
-            'none' => get_string('hide')
-        ));
+            'none' => get_string('hide'),
+        ]
+    );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 

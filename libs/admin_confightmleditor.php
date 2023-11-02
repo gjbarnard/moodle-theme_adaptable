@@ -15,30 +15,26 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Config HTML editor
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @copyright  2020 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 /**
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
  * Class to configure html editor for admin settings allowing use of repositories.
  *
  * TODO: Does not remove old files when no longer in use!  No separate file area for each setting.
  *
  * Special thanks to Iban Cardona i Subiela (http://icsbcn.blogspot.com.es/2015/03/use-image-repository-in-theme-settings.html)
  * This post laid the ground work for most of the code featured in this file.
- *
  */
 class adaptable_setting_confightmleditor extends admin_setting_configtext {
-
     /** @var int number of rows */
     private $rows;
 
@@ -60,9 +56,16 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
      * @param int $rows
      * @param string $filearea
      */
-    public function __construct($name, $visiblename, $description, $defaultsetting,
-            $paramtype = PARAM_RAW, $cols = '60', $rows= '8',
-            $filearea = 'adaptablemarkettingimages') {
+    public function __construct(
+        $name,
+        $visiblename,
+        $description,
+        $defaultsetting,
+        $paramtype = PARAM_RAW,
+        $cols = '60',
+        $rows = '8',
+        $filearea = 'adaptablemarkettingimages'
+    ) {
         $this->rows = $rows;
         $this->cols = $cols;
         $this->filearea = $filearea;
@@ -78,7 +81,7 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
      * @return array
      */
     private function get_options(context_user $ctx) {
-        $default = array();
+        $default = [];
         $default['noclean'] = false;
         $default['context'] = $ctx;
         $default['maxbytes'] = 0;
@@ -99,7 +102,7 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
      * @param string $query
      * @return string XHTML string for the editor
      */
-    public function output_html($data, $query='') {
+    public function output_html($data, $query = '') {
         if (PHPUNIT_TEST) {
             $userid = 2;  // Admin user.
         } else {
@@ -111,7 +114,7 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
 
         $defaultinfo = $default;
         if (!is_null($default) && $default !== '') {
-            $defaultinfo = "\n".$default;
+            $defaultinfo = "\n" . $default;
         }
 
         $ctx = context_user::instance($userid);
@@ -119,15 +122,21 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
         $options = $this->get_options($ctx);
         $draftitemid = file_get_unused_draft_itemid();
         $component = is_null($this->plugin) ? 'core' : $this->plugin;
-        $data = file_prepare_draft_area($draftitemid, $options['context']->id,
-            $component, $this->get_full_name().'_draftitemid',
-            $draftitemid, $options, $data);
+        $data = file_prepare_draft_area(
+            $draftitemid,
+            $options['context']->id,
+            $component,
+            $this->get_full_name() . '_draftitemid',
+            $draftitemid,
+            $options,
+            $data
+        );
 
-        $fpoptions = array();
+        $fpoptions = [];
         $args = new stdClass();
 
         // Need these three to filter repositories list.
-        $args->accepted_types = array('web_image');
+        $args->accepted_types = ['web_image'];
         $args->return_types = $options['return_types'];
         $args->context = $ctx;
         $args->env = 'filepicker';
@@ -142,7 +151,7 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
         $imageoptions->itemid = $draftitemid;
 
         // Moodlemedia plugin.
-        $args->accepted_types = array('video', 'audio');
+        $args->accepted_types = ['video', 'audio'];
         $mediaoptions = initialise_filepicker($args);
         $mediaoptions->context = $ctx;
         $mediaoptions->client_id = uniqid();
@@ -167,14 +176,21 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
 
         $editor->use_editor($this->get_id(), $options, $fpoptions);
 
-        return format_admin_setting($this, $this->visiblename,
-        '<div class="form-textarea">
-         <textarea rows="'. $this->rows .'" cols="'. $this->cols .'" id="'. $this->get_id() .'" name="'.$this->get_full_name()
-         .'"spellcheck="true">'. s($data) .'
+        return format_admin_setting(
+            $this,
+            $this->visiblename,
+            '<div class="form-textarea">
+         <textarea rows="' . $this->rows . '" cols="' . $this->cols . '" id="' . $this->get_id() . '" name="' . $this->get_full_name()
+            . '"spellcheck="true">' . s($data) . '
          </textarea>
          </div>
-        <input value="'.$draftitemid.'" name="'.$this->get_full_name().'_draftitemid" type="hidden" />',
-        $this->description, true, '', $defaultinfo, $query);
+        <input value="' . $draftitemid . '" name="' . $this->get_full_name() . '_draftitemid" type="hidden" />',
+            $this->description,
+            true,
+            '',
+            $defaultinfo,
+            $query
+        );
     }
 
     /**
@@ -223,31 +239,38 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
         $draftfiles = $fs->get_area_files($options['context']->id, 'user', 'draft', $draftitemid, 'id');
         foreach ($draftfiles as $file) {
             if (!$file->is_directory()) {
-                $strtosearch = "$wwwroot/draftfile.php/".$options['context']->id."/user/draft/$draftitemid/".$file->get_filename();
+                $urlfilename = rawurlencode($file->get_filename());
+                $strtosearch = "$wwwroot/draftfile.php/" . $options['context']->id . "/user/draft/$draftitemid/" . $urlfilename;
                 if (stripos($data, $strtosearch) !== false) {
-                    $filerecord = array(
+                    $filerecord = [
                         'contextid' => context_system::instance()->id,
                         'component' => $component,
                         'filearea' => $this->filearea,
                         'filename' => $file->get_filename(),
                         'filepath' => '/',
                         'itemid' => 0,
-                        'timemodified' => time()
-                    );
-                    if (!$filerec = $fs->get_file($filerecord['contextid'],
-                                                  $filerecord['component'],
-                                                  $filerecord['filearea'],
-                                                  $filerecord['itemid'],
-                                                  $filerecord['filepath'],
-                                                  $filerecord['filename'])) {
+                        'timemodified' => time(),
+                    ];
+                    if (
+                        !$filerec = $fs->get_file(
+                            $filerecord['contextid'],
+                            $filerecord['component'],
+                            $filerecord['filearea'],
+                            $filerecord['itemid'],
+                            $filerecord['filepath'],
+                            $filerecord['filename']
+                        )
+                    ) {
                         $filerec = $fs->create_file_from_storedfile($filerecord, $file);
                     }
-                    $url = moodle_url::make_pluginfile_url($filerec->get_contextid(),
-                                                           $filerec->get_component(),
-                                                           $filerec->get_filearea(),
-                                                           $filerec->get_itemid(),
-                                                           $filerec->get_filepath(),
-                                                           $filerec->get_filename());
+                    $url = moodle_url::make_pluginfile_url(
+                        $filerec->get_contextid(),
+                        $filerec->get_component(),
+                        $filerec->get_filearea(),
+                        $filerec->get_itemid(),
+                        $filerec->get_filepath(),
+                        $filerec->get_filename()
+                    );
                     $data = str_ireplace($strtosearch, $url, $data);
                     $hasfiles = true;
                 }

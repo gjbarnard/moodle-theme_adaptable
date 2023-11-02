@@ -15,23 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Header social
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Social links.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_social', get_string('socialsettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_social', get_string('socialsettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_social', get_string('socialheading', 'theme_adaptable'),
-    format_text(get_string('socialtitledesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_social',
+        get_string('socialheading', 'theme_adaptable'),
+        format_text(get_string('socialtitledesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/socialsize';
     $title = get_string('socialsize', 'theme_adaptable');

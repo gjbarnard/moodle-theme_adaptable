@@ -17,21 +17,18 @@
 /**
  * Adaptable theme.
  * @package    theme_adaptable
- * @copyright  &copy; 2021-onwards G J Barnard.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2021 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later,
  */
 
 namespace theme_adaptable;
 
 /**
  * Setting that displays markdown files.  Based on admin_setting_description in adminlib.php.
- *
- * @copyright  &copy; 2021-onwards G J Barnard.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class admin_setting_markdown extends \admin_setting {
-
     /** @var string Filename */
     private $filename;
 
@@ -85,7 +82,7 @@ class admin_setting_markdown extends \admin_setting {
      * @param string $query
      * @return string Returns an HTML string
      */
-    public function output_html($data, $query='') {
+    public function output_html($data, $query = '') {
         global $CFG, $OUTPUT;
 
         $context = new \stdClass();
@@ -93,11 +90,11 @@ class admin_setting_markdown extends \admin_setting {
         $context->description = $this->description;
 
         if (file_exists("{$CFG->dirroot}/theme/adaptable/{$this->filename}")) {
-            $filecontents = file_get_contents($CFG->dirroot.'/theme/adaptable/'.$this->filename);
+            $filecontents = file_get_contents($CFG->dirroot . '/theme/adaptable/' . $this->filename);
         } else if (!empty($CFG->themedir) && file_exists("{$CFG->themedir}/adaptable/{$this->filename}")) {
-            $filecontents = file_get_contents($CFG->themedir.'/adaptable/'.$this->filename);
+            $filecontents = file_get_contents($CFG->themedir . '/adaptable/' . $this->filename);
         } else {
-            $filecontents = 'admin_setting_markdown -> file not found: '.$this->filename;
+            $filecontents = 'admin_setting_markdown -> file not found: ' . $this->filename;
         }
         $context->markdown = format_text($filecontents, FORMAT_MARKDOWN);
 

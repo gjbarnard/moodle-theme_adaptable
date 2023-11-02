@@ -26,7 +26,13 @@
     max-width: none;
 }
 
-.path-grade-report-grader #region-main {
-    min-width: auto;
-    overflow-x: scroll;
+.path-grade-report-grader {
+    #maincontainer {
+        max-width: none;
+        width: auto;
+    }
+
+    .secondary-navigation .moremenu .nav {
+        margin: 0;
+    }
 }

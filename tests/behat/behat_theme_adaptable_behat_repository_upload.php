@@ -20,14 +20,14 @@
  * @package    theme_adaptable
  * @category   test
  * @copyright  2019 Michael Hawkins (copied from theme_clasic)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
 
 require_once(__DIR__ . '/../../../../repository/upload/tests/behat/behat_repository_upload.php');
 
-use Behat\Mink\Exception\ExpectationException as ExpectationException;
+use Behat\Mink\Exception\ExpectationException;
 
 /**
  * Override definitions for the upload repository type for the Adaptable theme.
@@ -35,10 +35,9 @@ use Behat\Mink\Exception\ExpectationException as ExpectationException;
  * @package    theme_adaptable
  * @category   test
  * @copyright  2019 Michael Hawkins (copied from theme_clasic)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class behat_theme_adaptable_behat_repository_upload extends behat_repository_upload {
-
     /**
      * Gets the NodeElement for filepicker of filemanager moodleform element.
      *

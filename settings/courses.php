@@ -15,27 +15,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Courses
  *
  * @package    theme_adaptable
  * @copyright  2015 Jeremy Hopkins (Coventry University)
  * @copyright  2015-2017 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 defined('MOODLE_INTERNAL') || die;
 
-// Course Formats.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_course', get_string('coursesettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_course', get_string('coursesettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_course', get_string('coursesettingsheading', 'theme_adaptable'),
-        format_text(get_string('coursesettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_course',
+        get_string('coursesettingsheading', 'theme_adaptable'),
+        format_text(get_string('coursesettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Course page, wide layout by moving sidebar to bottom.
-    $page->add(new admin_setting_heading('coursepagesidebarinfooterenabledsection',
+    $page->add(new admin_setting_heading(
+        'coursepagesidebarinfooterenabledsection',
         get_string('coursepagesidebarinfooterenabledsection', 'theme_adaptable'),
-        format_text(get_string('coursepagesidebarinfooterenabledsectiondesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+        format_text(get_string('coursepagesidebarinfooterenabledsectiondesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/coursepagesidebarinfooterenabled';
     $title = get_string('coursepagesidebarinfooterenabled', 'theme_adaptable');
@@ -43,10 +46,19 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, false);
     $page->add($setting);
 
+    // Activity navigation.
+    $name = 'theme_adaptable/courseactivitynavigationenabled';
+    $title = get_string('courseactivitynavigationenabled', 'theme_adaptable');
+    $description = get_string('courseactivitynavigationenableddesc', 'theme_adaptable');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
+    $page->add($setting);
+
     // Course page top slider block region enabled.
-    $page->add(new admin_setting_heading('theme_adaptable_newsslider_heading',
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_newsslider_heading',
         get_string('coursepagenewssliderblockregionheading', 'theme_adaptable'),
-        format_text(get_string('coursepagenewssliderblockregionheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+        format_text(get_string('coursepagenewssliderblockregionheadingdesc', 'theme_adaptable', 'https://moodle.org/plugins/block_news_slider'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/coursepageblocksliderenabled';
     $title = get_string('coursepageblocksliderenabled', 'theme_adaptable');
@@ -55,9 +67,11 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Activity end block region.
-    $page->add(new admin_setting_heading('theme_adaptable_activity_bottom_heading',
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_activity_bottom_heading',
         get_string('coursepageactivitybottomblockregionheading', 'theme_adaptable'),
-        format_text(get_string('coursepageactivitybottomblockregionheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+        format_text(get_string('coursepageactivitybottomblockregionheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/coursepageblockactivitybottomenabled';
     $title = get_string('coursepageblockactivitybottomenabled', 'theme_adaptable');
@@ -67,8 +81,11 @@ if ($ADMIN->fulltree) {
 
     // Course block layout settings.
     get_string('coursepageblockregionsettings', 'theme_adaptable');
-    $page->add(new admin_setting_heading('theme_adaptable_heading', get_string('coursepageblocklayoutbuilder', 'theme_adaptable'),
-                    format_text(get_string('coursepageblocklayoutbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_heading',
+        get_string('coursepageblocklayoutbuilder', 'theme_adaptable'),
+        format_text(get_string('coursepageblocklayoutbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Course page top / bottom block regions enabled.
     $name = 'theme_adaptable/coursepageblocksenabled';
@@ -102,7 +119,7 @@ if ($ADMIN->fulltree) {
     }
 
     if ($courseformatsetting != '0-0-0-0') {
-        $imgblder .= '<img src="'.$imgpath.$courseformatsetting.'.png" style="padding-top: 5px">';
+        $imgblder .= '<img src="' . $imgpath . $courseformatsetting . '.png" style="padding-top: 5px">';
     }
 
     $vals = explode('-', $courseformatsetting);
@@ -118,8 +135,8 @@ if ($ADMIN->fulltree) {
         $mktcountcolor = '#D7542A';
     }
     $mktcountmsg = '<span style="color: ' . $checkcountcolor . '; margin-bottom: 20px;">';
-    $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable').'<strong>'.$noregions.'</strong>';
-    $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable').'<strong>'.$totalblocks.'/'.$noregions.'</strong></span>.';
+    $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
+    $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong></span>.';
 
     $page->add(new admin_setting_heading('theme_adaptable_courselayouttopblockscount', '', $mktcountmsg));
 
@@ -147,7 +164,7 @@ if ($ADMIN->fulltree) {
     }
 
     if ($courseformatsetting != '0-0-0-0') {
-        $imgblder .= '<img src="'.$imgpath.$courseformatsetting.'.png" style="padding-top: 5px">';
+        $imgblder .= '<img src="' . $imgpath . $courseformatsetting . '.png" style="padding-top: 5px">';
     }
 
     $vals = explode('-', $courseformatsetting);
@@ -164,8 +181,8 @@ if ($ADMIN->fulltree) {
         $mktcountcolor = '#D7542A';
     }
     $mktcountmsg = '<span style="color: ' . $checkcountcolor . '">';
-    $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable').'<strong>'.$noregions.'</strong>';
-    $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable').'<strong>'.$totalblocks.'/'.$noregions.'</strong></span>.';
+    $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
+    $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong></span>.';
 
     $page->add(new admin_setting_heading('theme_adaptable_courselayoutbottomblockscount', '', $mktcountmsg));
 
@@ -438,79 +455,10 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // SocialWall course format heading.
-    $name = 'theme_adaptable/socialwall';
-    $heading = get_string('socialwall', 'theme_adaptable');
-    $setting = new admin_setting_heading($name, $heading, '');
-    $page->add($setting);
-
-    // Socialwall background color.
-    $name = 'theme_adaptable/socialwallbackgroundcolor';
-    $title = get_string('socialwallbackgroundcolor', 'theme_adaptable');
-    $description = get_string('socialwallbackgroundcolordesc', 'theme_adaptable');
-    $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    // Social Wall section border color.
-    $name = 'theme_adaptable/socialwallbordercolor';
-    $title = get_string('socialwallbordercolor', 'theme_adaptable');
-    $description = get_string('socialwallbordercolordesc', 'theme_adaptable');
-    $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#B9B9B9', $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    // Social Wall section border style.
-    $name = 'theme_adaptable/socialwallbordertopstyle';
-    $title = get_string('socialwallbordertopstyle', 'theme_adaptable');
-    $description = get_string('socialwallbordertopstyledesc', 'theme_adaptable');
-    $radchoices = $borderstyles;
-    $setting = new admin_setting_configselect($name, $title, $description, 'solid', $radchoices);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    // Social Wall section border width.
-    $name = 'theme_adaptable/socialwallborderwidth';
-    $title = get_string('socialwallborderwidth', 'theme_adaptable');
-    $description = get_string('socialwallborderwidthdesc', 'theme_adaptable');
-    $radchoices = $from0to12px;
-    $setting = new admin_setting_configselect($name, $title, $description, '2px', $radchoices);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    // Social Wall section border radius.
-    $name = 'theme_adaptable/socialwallsectionradius';
-    $title = get_string('socialwallsectionradius', 'theme_adaptable');
-    $description = get_string('socialwallsectionradiusdesc', 'theme_adaptable');
-    $radchoices = $from0to12px;
-    $setting = new admin_setting_configselect($name, $title, $description, '6px', $radchoices);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    // Social Wall action link color.
-    $name = 'theme_adaptable/socialwallactionlinkcolor';
-    $title = get_string('socialwallactionlinkcolor', 'theme_adaptable');
-    $description = get_string('socialwallactionlinkcolordesc', 'theme_adaptable');
-    $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#51666C', $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    // Social Wall hover link color.
-    $name = 'theme_adaptable/socialwallactionlinkhovercolor';
-    $title = get_string('socialwallactionlinkhovercolor', 'theme_adaptable');
-    $description = get_string('socialwallactionlinkhovercolordesc', 'theme_adaptable');
-    $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#009688', $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
     // One Topic course format heading.
     $name = 'theme_adaptable/onetopicheading';
     $heading = get_string('onetopicheading', 'theme_adaptable');
-    $description = get_string('onetopicdesc', 'theme_adaptable');
+    $description = get_string('onetopicdesc', 'theme_adaptable', 'https://moodle.org/plugins/format_onetopic');
     $setting = new admin_setting_heading($name, $heading, $description);
     $page->add($setting);
 

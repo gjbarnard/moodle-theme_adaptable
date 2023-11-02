@@ -10,8 +10,8 @@ If you would like to sponsor me, get support or fund improvements, then please d
 
 - gMail eMail | gjbarnard at gMail dt com.
 - My website eMail | contact at gjbarnard dt co dt uk.
-- GitLab | Please outline your issue / improvement on '[Adaptable issues](https://gitlab.com/jezhops/moodle-theme_adaptable/-/issues)'.
-- @gjbarnard | '[Twitter](https://twitter.com/gjbarnard)'.
+- GitHub | Please outline your issue / improvement on '[Adaptable issues](https://github.com/gjbarnard/moodle-theme_adaptable/issues'.
+- @gjbarnard | [X](https://x.com/gjbarnard).
 
 Bespoke work
 ------------
@@ -29,7 +29,7 @@ below).  Otherwise, the Moodle '[Themes](https://moodle.org/mod/forum/view.php?i
 Adaptable can be obtained from:
 
 * [Moodle.org](https://moodle.org/plugins/theme_adaptable).
-* [GitLab](https://gitlab.com/jezhops/moodle-theme_adaptable/-/releases).
+* [GitHub](https://github.com/gjbarnard/moodle-theme_adaptable/releases).
 
 You have all the rights granted to you by the GPLv3 license.  If you are unsure about anything, then the
 FAQ - [GPL FAQ](https://www.gnu.org/licenses/gpl-faq.html) - is a good place to look.
@@ -37,15 +37,15 @@ FAQ - [GPL FAQ](https://www.gnu.org/licenses/gpl-faq.html) - is a good place to 
 If you reuse any of the code then I kindly ask that you make reference to the theme.
 
 If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
-[GitLab](https://gitlab.com/jezhops/moodle-theme_adaptable) and doing a 'Pull Request' so that the rest of the Moodle community
+[GitHub](https://github.com/gjbarnard/moodle-theme_adaptable/) and doing a 'Pull Request' so that the rest of the Moodle community
 benefits.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 4.1 version 2022112800.00 (Build: 20221128) and above within the MOODLE_401_STABLE branch until the
+This version works with Moodle 4.2 version 2023042400.00 (Build: 20230424) and above within the MOODLE_402_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/401/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/402/en/Installing_Moodle)'.
 
 Known issues
 ================
@@ -58,7 +58,7 @@ the major release of Moodle you are using.  It is essential that you are operati
 this is because the theme relies on core functionality that is out of its control.
 
 If you think you've discovered a genuine bug with the theme then please look at the Moodle Themes forum first to see if it
-has already been repoted.  Secondly, look at [GitLab](https://gitlab.com/jezhops/moodle-theme_adaptable/-/issues).
+has already been repoted.  Secondly, look at [GitHub](https://github.com/gjbarnard/moodle-theme_adaptable/issues).
 
 I operate a policy that I will fix all genuine issues in 'my' (not other developers of the theme) code, when fully described and
 replicatable.
@@ -68,12 +68,12 @@ version.php file / or the top of the 'Information' settings tab.  Other version 
 theme name and version also helps.  A screen shot can be really useful in visualising the issue along with any files you
 consider to be relevant.
 
-You can use either the '[Themes forum](https://moodle.org/mod/forum/view.php?id=46)' or '[GitLab](https://gitlab.com/jezhops/moodle-theme_adaptable/-/issues)'.
+You can use either the '[Themes forum](https://moodle.org/mod/forum/view.php?id=46)' or '[GitHub](https://github.com/gjbarnard/moodle-theme_adaptable/issues)'.
 
 Currently developed and maintained by
 =====================================
 G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
 
 - Moodle profile | [Moodle.org](http://moodle.org/user/profile.php?id=442195)
-- @gjbarnard | [Twitter](https://twitter.com/gjbarnard).
-- Web profile | [About.me](http://about.me/gjbarnard)
+- @gjbarnard | [X](https://twitter.com/gjbarnard).
+- Web profile | [gjbarnard.co.uk](https://gjbarnard.co.uk)
