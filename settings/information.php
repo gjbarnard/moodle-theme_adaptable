@@ -15,12 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Information.
+ *
+ * Exam rules: You may look up for inspiration, down in desperation but
+ *             not sideways for information.
  *
  * @package    theme_adaptable
- * @copyright  2021 Gareth J Barnard
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2021 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -29,8 +33,10 @@ use theme_adaptable\admin_setting_markdown;
 
 // Information Section.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_information',
-        get_string('settingsinformation', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage(
+        'theme_adaptable_information',
+        get_string('settingsinformation', 'theme_adaptable')
+    );
 
     // Support.md.
     $name = 'theme_adaptable/themesupport';

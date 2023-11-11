@@ -18,13 +18,13 @@
  * Overrides for behat navigation.
  * @author    Marcus Green
  * @copyright Titus Learning 2020
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
 
-use Behat\Mink\Exception\ExpectationException as ExpectationException,
-    Behat\Mink\Element\NodeElement as NodeElement;
+use Behat\Mink\Exception\ExpectationException,
+    Behat\Mink\Element\NodeElement;
 
 require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
 require_once(__DIR__ . '/../../../../lib/tests/behat/behat_permissions.php');
@@ -34,7 +34,7 @@ require_once(__DIR__ . '/../../../../lib/tests/behat/behat_permissions.php');
  *
  * @author    Marcus Green
  * @copyright Titus Learning 2020
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class behat_theme_adaptable_behat_permissions extends behat_permissions {
     public function i_set_the_following_system_permissions_of_role($rolename, $table) {
@@ -44,7 +44,7 @@ class behat_theme_adaptable_behat_permissions extends behat_permissions {
             $rolename = "editingteacher";
         }
         // Find role by name.
-        $roleid = $DB->get_field('role', 'id', array('shortname' => strtolower($rolename)), MUST_EXIST);
+        $roleid = $DB->get_field('role', 'id', ['shortname' => strtolower($rolename)], MUST_EXIST);
         // Spawn a new system context instance.
         $systemcontext = context_system::instance();
         /* Add capabilities to role given the table of capabilities.
@@ -55,14 +55,14 @@ class behat_theme_adaptable_behat_permissions extends behat_permissions {
                 throw new ExpectationException($msg, $this->getSession());
             }
 
-            list($capability, $permission) = $row;
+            [$capability, $permission] = $row;
 
             // Skip the headers row if it was provided.
             if (strtolower($capability) == 'capability' || strtolower($capability) == 'capabilities') {
                 continue;
             }
             // Checking the permission value.
-            $permissionconstant = 'CAP_'. strtoupper($permission);
+            $permissionconstant = 'CAP_' . strtoupper($permission);
             if (!defined($permissionconstant)) {
                 throw new ExpectationException(
                     'The provided permission value "' . $permission . '" is not valid. Use Inherit, Allow, Prevent or Prohibited',
@@ -72,13 +72,16 @@ class behat_theme_adaptable_behat_permissions extends behat_permissions {
 
             // Converting from permission to constant value.
             $permissionvalue = constant($permissionconstant);
-            \assign_capability($capability, $permissionvalue,
-                $roleid, $systemcontext->id, true);
-
+            \assign_capability(
+                $capability,
+                $permissionvalue,
+                $roleid,
+                $systemcontext->id,
+                true
+            );
         }
         $systemcontext->mark_dirty();
         accesslib_clear_role_cache($roleid);
-
     }
     /**
      * Overrides system capabilities at category, course and module levels.
@@ -93,26 +96,25 @@ class behat_theme_adaptable_behat_permissions extends behat_permissions {
             $rolename = "editingteacher";
         }
         // Find role by name.
-        $roleid = $DB->get_field('role', 'id', array('shortname' => strtolower($rolename)), MUST_EXIST);
+        $roleid = $DB->get_field('role', 'id', ['shortname' => strtolower($rolename)], MUST_EXIST);
         // Spawn a new system context instance.
         $systemcontext = context_system::instance();
         /* Add capabilities to role given the table of capabilities.
            Using getRows() as we are not sure if tests writers will add the header. */
         foreach ($table->getRows() as $key => $row) {
-
             if (count($row) !== 2) {
                 $msg = 'You should specify a table with capability/permission columns';
                 throw new ExpectationException($msg, $this->getSession());
             }
 
-            list($capability, $permission) = $row;
+            [$capability, $permission] = $row;
 
             // Skip the headers row if it was provided.
             if (strtolower($capability) == 'capability' || strtolower($capability) == 'capabilities') {
                 continue;
             }
             // Checking the permission value.
-            $permissionconstant = 'CAP_'. strtoupper($permission);
+            $permissionconstant = 'CAP_' . strtoupper($permission);
             if (!defined($permissionconstant)) {
                 throw new ExpectationException(
                     'The provided permission value "' . $permission . '" is not valid. Use Inherit, Allow, Prevent or Prohibited',
@@ -123,12 +125,16 @@ class behat_theme_adaptable_behat_permissions extends behat_permissions {
             // Converting from permission to constant value.
             $permissionvalue = constant($permissionconstant);
 
-            \assign_capability($capability, $permissionvalue,
-                $roleid, $systemcontext->id, true);
+            \assign_capability(
+                $capability,
+                $permissionvalue,
+                $roleid,
+                $systemcontext->id,
+                true
+            );
             $systemcontext->mark_dirty();
 
             accesslib_clear_role_cache($roleid);
-
         }
     }
 }

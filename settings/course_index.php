@@ -18,20 +18,26 @@
  * Course index settings
  *
  * @package    theme_adaptable
- * @copyright  2022 Gareth J Barnard
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2022 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Course index.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_course_index',
-        get_string('courseindexsettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage(
+        'theme_adaptable_course_index',
+        get_string('courseindexsettings', 'theme_adaptable')
+    );
 
-    $page->add(new admin_setting_heading('theme_adaptable_courseindex', get_string('courseindexsettingsheading', 'theme_adaptable'),
-        format_text(get_string('courseindexsettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_courseindex',
+        get_string('courseindexsettingsheading', 'theme_adaptable'),
+        format_text(get_string('courseindexsettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Item.
     $name = 'theme_adaptable/courseindexitemcolor';

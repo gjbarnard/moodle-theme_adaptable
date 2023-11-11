@@ -15,22 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Marketing blocks
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 defined('MOODLE_INTERNAL') || die;
 
 // Marketing blocks section.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_frontpage_blocks', get_string('frontpageblocksettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_frontpage_blocks', get_string('frontpageblocksettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_marketing', get_string('marketingsettingsheading', 'theme_adaptable'),
-        format_text(get_string('marketingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_marketing',
+        get_string('marketingsettingsheading', 'theme_adaptable'),
+        format_text(get_string('marketingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/infobox';
     $title = get_string('infobox', 'theme_adaptable');
@@ -59,6 +61,17 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
 
+    $name = 'theme_adaptable/marketingvisible';
+    $title = get_string('marketingvisible', 'theme_adaptable');
+    $description = get_string('marketingvisibledesc', 'theme_adaptable');
+    $options = [
+        1 => get_string('marketingvisibleloggedout', 'theme_adaptable'),
+        2 => get_string('marketingvisibleloggedin', 'theme_adaptable'),
+        3 => get_string('marketingvisibleloggedinout', 'theme_adaptable'),
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, 3, $options);
+    $page->add($setting);
+
     $name = 'theme_adaptable/frontpagemarketoption';
     $title = get_string('frontpagemarketoption', 'theme_adaptable');
     $description = get_string('frontpagemarketoptiondesc', 'theme_adaptable');
@@ -66,16 +79,25 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, 'covtiles', $choices);
     $page->add($setting);
 
-    $page->add(new admin_setting_heading('theme_adaptable_marketingbuilder',
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_marketingbuilder',
         get_string('marketingbuilderheading', 'theme_adaptable'),
-        format_text(get_string('marketingbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+        format_text(get_string('marketingbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Marketing block region builder.
-    list('imgblder' => $imgblder, 'totalblocks' => $totalblocks) = \theme_adaptable\toolbox::admin_settings_layout_builder(
-        $page, 'marketlayoutrow', $marketingfooterbuilderdefaults, $bootstrap12);
+    ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = \theme_adaptable\toolbox::admin_settings_layout_builder(
+        $page,
+        'marketlayoutrow',
+        $marketingfooterbuilderdefaults,
+        $bootstrap12
+    );
 
-    $page->add(new admin_setting_heading('theme_adaptable_blocklayoutcheck', get_string('layoutcheck', 'theme_adaptable'),
-        format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_blocklayoutcheck',
+        get_string('layoutcheck', 'theme_adaptable'),
+        format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $page->add(new admin_setting_heading('theme_adaptable_layoutbuilder', '', $imgblder));
 
@@ -83,8 +105,11 @@ if ($ADMIN->fulltree) {
     $blkcontmsg .= $totalblocks;
     $blkcontmsg .= get_string('layoutaddcontentdesc2', 'theme_adaptable');
 
-    $page->add(new admin_setting_heading('theme_adaptable_blocklayoutaddcontent', get_string('layoutaddcontent', 'theme_adaptable'),
-        format_text($blkcontmsg, FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_blocklayoutaddcontent',
+        get_string('layoutaddcontent', 'theme_adaptable'),
+        format_text($blkcontmsg, FORMAT_MARKDOWN)
+    ));
 
 
     for ($i = 1; $i <= $totalblocks; $i++) {

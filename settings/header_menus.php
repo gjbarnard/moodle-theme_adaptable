@@ -15,26 +15,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Header menus
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_menus', get_string('menusettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_menus', get_string('menusettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_menus', get_string('menusheading', 'theme_adaptable'),
-        format_text(get_string('menustitledesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_menus',
+        get_string('menusheading', 'theme_adaptable'),
+        format_text(get_string('menustitledesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Settings for top header menus.
-    $page->add(new admin_setting_heading('theme_adaptable_menus_visibility',
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_menus_visibility',
         get_string('menusheadingvisibility', 'theme_adaptable'),
-        format_text(get_string('menusheadingvisibilitydesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+        format_text(get_string('menusheadingvisibilitydesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/enablemenus';
     $title = get_string('enablemenus', 'theme_adaptable');
@@ -102,9 +106,11 @@ if ($ADMIN->fulltree) {
     }
 
     for ($topmenusindex = 1; $topmenusindex <= $topmenuscount; $topmenusindex++) {
-        $page->add(new admin_setting_heading('theme_adaptable_menus' . $topmenusindex,
+        $page->add(new admin_setting_heading(
+            'theme_adaptable_menus' . $topmenusindex,
             get_string('newmenuheading', 'theme_adaptable') . $topmenusindex,
-            format_text(get_string('menusdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+            format_text(get_string('menusdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+        ));
 
         $name = 'theme_adaptable/newmenu' . $topmenusindex . 'title';
         $title = get_string('newmenutitle', 'theme_adaptable');

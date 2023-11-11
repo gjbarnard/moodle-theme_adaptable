@@ -20,14 +20,14 @@
  * @package    theme_adaptable
  * @author     Marcus Green
  * @copyright  Titus 2020
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
 
 require_once(__DIR__ . '/../../../../mod/quiz/tests/behat/behat_mod_quiz.php');
 
-use Behat\Gherkin\Node\TableNode as TableNode;
+use Behat\Gherkin\Node\TableNode;
 
 /**
  * Step definitions related to mod_quiz overrides for the adaptable theme.
@@ -37,10 +37,9 @@ use Behat\Gherkin\Node\TableNode as TableNode;
  * @category   test
  * @author     Marcus Green
  * @copyright  Titus 2020
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class behat_theme_adaptable_behat_mod_quiz extends behat_mod_quiz {
-
     /**
      * Adds a question to the existing quiz with filling the form.
      * The form for creating a question should be on one page.
@@ -60,8 +59,8 @@ class behat_theme_adaptable_behat_mod_quiz extends behat_mod_quiz {
 
         $this->execute("behat_navigation::i_navigate_to_in_current_page_administration", $editquiz);
 
-        $this->execute("behat_general::i_click_on", array($menuxpath, "xpath_element"));
-        $this->execute("behat_general::i_click_on", array($itemxpath, "xpath_element"));
+        $this->execute("behat_general::i_click_on", [$menuxpath, "xpath_element"]);
+        $this->execute("behat_general::i_click_on", [$itemxpath, "xpath_element"]);
 
         $this->finish_adding_question($questiontype, $questiondata);
     }

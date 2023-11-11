@@ -17,14 +17,16 @@
 /**
  * Adaptable theme.
  *
- * @package     theme_adaptable
- * @copyright   2023 Gareth J Barnard
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    theme_adaptable
+ * @copyright  2023 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
-if (file_exists($CFG->dirroot.'/h5p/classes/output/renderer.php')) {
+if (file_exists($CFG->dirroot . '/h5p/classes/output/renderer.php')) {
     if (method_exists(\core_h5p\output\renderer::class, 'h5p_alter_styles')) {
         /**
          * Class theme_adaptable_core_h5p_renderer.
@@ -33,8 +35,8 @@ if (file_exists($CFG->dirroot.'/h5p/classes/output/renderer.php')) {
          *      https://github.com/sarjona/h5pmods-moodle-plugin.
          *
          * @package     theme_adaptable
-         * @copyright   2023 Gareth J Barnard
-         * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+         * @copyright   2023 G J Barnard
+         * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
          */
         class theme_adaptable_core_h5p_renderer extends \core_h5p\output\renderer {
             use \theme_adaptable\hvp_toolbox;

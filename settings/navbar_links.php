@@ -15,36 +15,42 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Navbar links
  *
  * @package    theme_adaptable
  * @copyright  2019 Jeremy Hopkins (Coventry University)
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Navbar links.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_navbar_links', get_string('navbarlinkssettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_navbar_links', get_string('navbarlinkssettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_navbar', get_string('navbarlinksettingsheading', 'theme_adaptable'),
-        format_text(get_string('navbarlinksettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_navbar',
+        get_string('navbarlinksettingsheading', 'theme_adaptable'),
+        format_text(get_string('navbarlinksettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Help section.
-    $page->add(new admin_setting_heading('theme_adaptable_help_heading',
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_help_heading',
         get_string('headernavbarhelpheading', 'theme_adaptable'),
-        format_text(get_string('headernavbarhelpheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+        format_text(get_string('headernavbarhelpheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/helptarget';
     $title = get_string('helptarget', 'theme_adaptable');
     $description = get_string('helptargetdesc', 'theme_adaptable');
-    $choices = array(
+    $choices = [
         '_blank' => get_string('targetnewwindow', 'theme_adaptable'),
-        '_self' => get_string('targetsamewindow', 'theme_adaptable')
-    );
+        '_self' => get_string('targetsamewindow', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, '_blank', $choices);
     $page->add($setting);
 
@@ -60,22 +66,22 @@ if ($ADMIN->fulltree) {
 
     for ($helpcount = 1; $helpcount <= $helplinkscount; $helpcount++) {
         // Enable help link.
-        $name = 'theme_adaptable/enablehelp'.$helpcount;
-        $title = get_string('enablehelp', 'theme_adaptable', array('number' => $helpcount));
-        $description = get_string('enablehelpdesc', 'theme_adaptable', array('number' => $helpcount));
+        $name = 'theme_adaptable/enablehelp' . $helpcount;
+        $title = get_string('enablehelp', 'theme_adaptable', ['number' => $helpcount]);
+        $description = get_string('enablehelpdesc', 'theme_adaptable', ['number' => $helpcount]);
         $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_URL);
         $page->add($setting);
 
         // Help link title.
-        $name = 'theme_adaptable/helplinktitle'.$helpcount;
-        $title = get_string('helplinktitle', 'theme_adaptable', array('number' => $helpcount));
-        $description = get_string('helplinktitledesc', 'theme_adaptable', array('number' => $helpcount));
+        $name = 'theme_adaptable/helplinktitle' . $helpcount;
+        $title = get_string('helplinktitle', 'theme_adaptable', ['number' => $helpcount]);
+        $description = get_string('helplinktitledesc', 'theme_adaptable', ['number' => $helpcount]);
         $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_TEXT);
         $page->add($setting);
 
-        $name = 'theme_adaptable/helpprofilefield'.$helpcount;
-        $title = get_string('helpprofilefield', 'theme_adaptable', array('number' => $helpcount));
-        $description = get_string('helpprofilefielddesc', 'theme_adaptable', array('number' => $helpcount));
+        $name = 'theme_adaptable/helpprofilefield' . $helpcount;
+        $title = get_string('helpprofilefield', 'theme_adaptable', ['number' => $helpcount]);
+        $description = get_string('helpprofilefielddesc', 'theme_adaptable', ['number' => $helpcount]);
         $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_RAW);
         $page->add($setting);
     }

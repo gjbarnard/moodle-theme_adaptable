@@ -21,9 +21,10 @@
  *
  * @package    theme_adaptable
  * @copyright  2017 Manoj Solanki (Coventry University)
- * @author     2019 G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -36,16 +37,17 @@ if ((!empty($movesidebartofooter)) && ($movesidebartofooter == 2)) {
 
 // Include header.
 require_once(dirname(__FILE__) . '/includes/header.php');
-$PAGE->set_secondary_navigation(false);
+// Include secondary navigation.
+require_once(dirname(__FILE__) . '/includes/secondarynav.php');
 
 // Definition of block regions for top and bottom.  These are used in potentially retrieving
 // any missing block regions.
-$blocksarray = array (
-    array('settingsname' => 'coursepageblocklayoutlayouttoprow',
-        'classnamebeginswith' => 'course-top-'),
-    array('settingsname' => 'coursepageblocklayoutlayoutbottomrow',
-        'classnamebeginswith' => 'course-bottom-')
-);
+$blocksarray = [
+    ['settingsname' => 'coursepageblocklayoutlayouttoprow',
+        'classnamebeginswith' => 'course-top-', ],
+    ['settingsname' => 'coursepageblocklayoutlayoutbottomrow',
+        'classnamebeginswith' => 'course-bottom-', ],
+];
 ?>
 
 <div id="maincontainer" class="container outercont">
@@ -72,18 +74,20 @@ $blocksarray = array (
                 // Use Adaptable tabbed layout.
                 $currentpage = theme_adaptable_get_current_page();
 
-                $taborder = explode ('-', $PAGE->theme->settings->tabbedlayoutcoursepage);
+                $taborder = explode('-', $PAGE->theme->settings->tabbedlayoutcoursepage);
                 $count = 0;
 
                 echo '<main id="coursetabcontainer" class="tabcontentcontainer">';
 
                 $sectionid = optional_param('sectionid', 0, PARAM_INT);
                 $section = optional_param('section', 0, PARAM_INT);
-                if ((!empty($PAGE->theme->settings->tabbedlayoutcoursepagelink)) &&
-                    (($sectionid) || ($section))) {
+                if (
+                    (!empty($PAGE->theme->settings->tabbedlayoutcoursepagelink)) &&
+                    (($sectionid) || ($section))
+                ) {
                     global $COURSE;
-                    $courseurl = new moodle_url('/course/view.php', array('id' => $COURSE->id));
-                    echo '<div class="linktab"><a href="'.$courseurl->out(true).'"><i class="fa fa-th-large"></i></a></div>';
+                    $courseurl = new moodle_url('/course/view.php', ['id' => $COURSE->id]);
+                    echo '<div class="linktab"><a href="' . $courseurl->out(true) . '"><i class="fa fa-th-large"></i></a></div>';
                 }
 
                 foreach ($taborder as $tabnumber) {
@@ -97,8 +101,10 @@ $blocksarray = array (
 
                     $checkedstatus = '';
 
-                    if (($count == 0 && $currentpage == 'coursepage') ||
-                        ($currentpage != 'coursepage' && $tabnumber == 0)) {
+                    if (
+                        ($count == 0 && $currentpage == 'coursepage') ||
+                        ($currentpage != 'coursepage' && $tabnumber == 0)
+                    ) {
                             $checkedstatus = 'checked';
                     }
 
@@ -110,25 +116,31 @@ $blocksarray = array (
 
                     echo  '<input id="' . $tabname . '" type="radio" name="tabs" class="coursetab" ' .
                     $checkedstatus . ' >' .
-                    '<label for="' . $tabname . '" class="coursetab" ' . $extrastyles . '>' . $tablabel .'</label>';
+                    '<label for="' . $tabname . '" class="coursetab" ' . $extrastyles . '>' . $tablabel . '</label>';
 
                     $count++;
                 }
 
                 /* Basic array used by appropriately named blocks below (e.g. course-tab-one).  All this is to re-use existing
                    functionality and the non-use of numbers in block region names. */
-                $wordtonumber = array (1 => 'one', 2 => 'two');
+                $wordtonumber = [1 => 'one', 2 => 'two'];
 
                 foreach ($taborder as $tabnumber) {
                     if ($tabnumber == 0) {
                         echo '<section id="adaptable-course-tab-content" class="adaptable-tab-section tab-panel">';
 
                         echo $OUTPUT->get_course_alerts();
-                        if (!empty($PAGE->theme->settings->coursepageblocksliderenabled) ) {
+                        if (!empty($PAGE->theme->settings->coursepageblocksliderenabled)) {
                             echo $OUTPUT->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
                         }
 
                         echo $OUTPUT->course_content_header();
+                        if (!empty($secondarynavigation)) {
+                            echo $secondarynavigation;
+                        }
+                        if (!empty($overflow)) {
+                            echo $overflow;
+                        }
                         echo $OUTPUT->main_content();
                         echo $OUTPUT->course_content_footer();
 
@@ -136,19 +148,28 @@ $blocksarray = array (
                     } else {
                         echo '<section id="adaptable-course-tab-' . $tabnumber . '" class="adaptable-tab-section tab-panel">';
 
-                        echo $OUTPUT->get_block_regions('customrowsetting', 'course-tab-' . $wordtonumber[$tabnumber] . '-',
-                        '12-0-0-0');
+                        echo $OUTPUT->get_block_regions(
+                            'customrowsetting',
+                            'course-tab-' . $wordtonumber[$tabnumber] . '-',
+                            '12-0-0-0'
+                        );
                         echo '</section>';
                     }
                 }
                 echo '</main>';
             } else {
                 echo $OUTPUT->get_course_alerts();
-                if (!empty($PAGE->theme->settings->coursepageblocksliderenabled) ) {
+                if (!empty($PAGE->theme->settings->coursepageblocksliderenabled)) {
                     echo $OUTPUT->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
                 }
                 echo $OUTPUT->context_header();
                 echo $OUTPUT->course_content_header();
+                if (!empty($secondarynavigation)) {
+                    echo $secondarynavigation;
+                }
+                if (!empty($overflow)) {
+                    echo $overflow;
+                }
                 echo $OUTPUT->main_content();
                 echo $OUTPUT->course_content_footer();
             }
@@ -173,7 +194,6 @@ if (empty($PAGE->theme->settings->coursepageblocksenabled)) {
 }
 
 if ($movesidebartofooter == 1) {
-
     /* Get any missing blocks from changing layout settings.  E.g. From 4-4-4-4 to 6-6-0-0, to recover
        what was in the last 2 spans that are now 0. */
     echo $OUTPUT->get_missing_block_regions($blocksarray, 'col-12', $displayall);
@@ -197,7 +217,7 @@ if ($movesidebartofooter == 2) {
 
     /* Get any missing blocks from changing layout settings.  E.g. From 4-4-4-4 to 6-6-0-0, to recover
        what was in the last 2 spans that are now 0. */
-    echo $OUTPUT->get_missing_block_regions($blocksarray, array(), $displayall);
+    echo $OUTPUT->get_missing_block_regions($blocksarray, [], $displayall);
 }
 
 if ($movesidebartofooter == 2) { ?>
@@ -217,8 +237,8 @@ if (!empty($PAGE->theme->settings->tabbedlayoutcoursepagetabpersistencetime)) {
     $tabbedlayoutcoursepagetabpersistencetime = 30;
 }
 if (!empty($PAGE->theme->settings->tabbedlayoutcoursepage)) {
-    $PAGE->requires->js_call_amd('theme_adaptable/utils', 'init', array('currentpage' => $currentpage,
-    'tabpersistencetime' => $tabbedlayoutcoursepagetabpersistencetime));
+    $PAGE->requires->js_call_amd('theme_adaptable/utils', 'init', ['currentpage' => $currentpage,
+    'tabpersistencetime' => $tabbedlayoutcoursepagetabpersistencetime, ]);
 
     echo '<noscript><style>label.coursetab { display: block !important; }</style><noscript>';
 }

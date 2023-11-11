@@ -19,10 +19,10 @@
  *
  * @package     theme_adaptable
  * @copyright   2013 Julian Ridden
- * @copyright   2014 Gareth J Barnard, David Bezemer
+ * @copyright   2014 G J Barnard, David Bezemer
  * @copyright   2015 Jeremy Hopkins (Coventry University)
  * @copyright   2015 Fernando Acedo (3-bits.com)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 /**
@@ -45,10 +45,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugins = array(
-    'adaptable' => array('files' => array('adaptable_v2_1_1_2.js')),
-    'easing' => array('files' => array('jquery-easing-min.js')),
-    'flexslider' => array('files' => array('jquery-flexslider-min.js')),
-    'pace' => array('files' => array('pace-min.js')),
-    'ticker' => array('files' => array('tickerme.js'))
-);
+$plugins = [
+    'adaptable' => ['files' => ['adaptable_v2_1_1_2.js']],
+    'easing' => ['files' => ['jquery-easing-min.js']],
+    'flexslider' => ['files' => ['jquery-flexslider-min.js']],
+    'pace' => ['files' => ['pace-min.js']],
+    'ticker' => ['files' => ['tickerme.js']],
+];

@@ -15,23 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Colors
  *
  * @package    theme_adaptable
  * @copyright  2015-2016 Jeremy Hopkins (Coventry University)
  * @copyright  2015-2016 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Colors section.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_color', get_string('colorsettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_color', get_string('colorsettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_color', get_string('colorsettingsheading', 'theme_adaptable'),
-        format_text(get_string('colordesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_color',
+        get_string('colorsettingsheading', 'theme_adaptable'),
+        format_text(get_string('colordesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Main colors heading.
     $name = 'theme_adaptable/settingsmaincolors';

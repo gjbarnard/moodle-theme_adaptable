@@ -17,9 +17,11 @@
 /**
  * Adaptable theme.
  *
- * @package     theme_adaptable
- * @copyright   2023 Gareth J Barnard
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    theme_adaptable
+ * @copyright  2023 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 namespace theme_adaptable;
 
@@ -28,10 +30,6 @@ namespace theme_adaptable;
  *
  * See: https://tracker.moodle.org/browse/MDL-69087 and
  *      https://github.com/sarjona/h5pmods-moodle-plugin.
- *
- * @package     theme_adaptable
- * @copyright   2023 Gareth J Barnard
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 trait hvp_toolbox {
     /**
@@ -42,12 +40,12 @@ trait hvp_toolbox {
      * @param string $embedtype How the H5P is displayed.
      */
     protected function ahvp_alter_styles(&$styles, $libraries, $embedtype) {
-        $content = theme_adaptable_get_setting('hvpcustomcss');
+        $content = \theme_adaptable\toolbox::get_setting('hvpcustomcss');
         if (!empty($content)) {
-            $styles[] = (object) array(
+            $styles[] = (object) [
                 'path' => $this->get_style_url($content),
-                'version' => ''
-            );
+                'version' => '',
+            ];
         }
     }
 
@@ -63,7 +61,9 @@ trait hvp_toolbox {
 
         $syscontext = \context_system::instance();
         $itemid = md5($content);
-        return \moodle_url::make_file_url("$CFG->wwwroot/pluginfile.php",
-            "/$syscontext->id/theme_adaptable/hvp/$itemid/themehvp.css");
+        return \moodle_url::make_file_url(
+            "$CFG->wwwroot/pluginfile.php",
+            "/$syscontext->id/theme_adaptable/hvp/$itemid/themehvp.css"
+        );
     }
 }

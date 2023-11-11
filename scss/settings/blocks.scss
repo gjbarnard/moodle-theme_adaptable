@@ -132,13 +132,12 @@
 // Block content.
 .block > .content,
 #dockeditempanel .dockeditempanel_bd {
-    border-width: [[setting:blockmainbordertop]] [[setting:blockmainborderright]] [[setting:blockmainborderbottom]] [[setting:blockmainborderleft]];
     border-color: [[setting:blockbordercolor]];
+    border-radius: [[setting:blockmaintopradius]] [[setting:blockmaintopradius]] [[setting:blockmainbottomradius]] [[setting:blockmainbottomradius]];
     border-style: [[setting:blockmainbordertopstyle]];
-    padding: 10px 5px;
+    border-width: [[setting:blockmainbordertop]] [[setting:blockmainborderright]] [[setting:blockmainborderbottom]] [[setting:blockmainborderleft]];
     font-weight: normal;
-    background: [[setting:blockbackgroundcolor]];
-    border-radius: [[setting:blockmaintopradius]] [[setting:blockmaintopradius]] [[setting:blockmainbottomradius]] [[setting:blockmainbottomradius]];    
+    padding: 10px 5px;
 }
 
 #dockeditempanel .dockeditempanel_bd  {

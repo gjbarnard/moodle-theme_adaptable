@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Analytics
  *
  * @package    theme_adaptable
  * @copyright  2015-2016 Jeremy Hopkins (Coventry University)
@@ -23,18 +23,20 @@
  * @copyright  2015 David Bezemer <info@davidbezemer.nl>, www.davidbezemer.nl
  * @copyright  2016 COMETE (Paris Ouest University)
  * @author     David Bezemer <info@davidbezemer.nl>, Bas Brands <bmbrands@gmail.com>, Gavin Henrick <gavin@lts.ie>, COMETE
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Analytics section.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_analytics', get_string('analyticssettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_analytics', get_string('analyticssettings', 'theme_adaptable'), true);
 
-    $page->add(new admin_setting_heading('theme_adaptable_analytics', get_string('analyticssettingsheading', 'theme_adaptable'),
-        format_text(get_string('analyticssettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_analytics',
+        get_string('analyticssettingsheading', 'theme_adaptable'),
+        format_text(get_string('analyticssettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Google Analytics Section.
     $name = 'theme_adaptable/googleanalyticssettings';
@@ -72,7 +74,7 @@ if ($ADMIN->fulltree) {
         $alertcount = THEME_ADAPTABLE_DEFAULT_ANALYTICSCOUNT;
     }
 
-    for ($analyticsindex = 1; $analyticsindex <= $analyticscount; $analyticsindex ++) {
+    for ($analyticsindex = 1; $analyticsindex <= $analyticscount; $analyticsindex++) {
         $name = 'theme_adaptable/analyticstext' . $analyticsindex;
         $title = get_string('analyticstext', 'theme_adaptable');
         $description = get_string('analyticstextdesc', 'theme_adaptable');

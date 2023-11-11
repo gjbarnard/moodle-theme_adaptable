@@ -15,23 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Buttons
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Buttons Section.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_buttons', get_string('buttonsettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_buttons', get_string('buttonsettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_header', get_string('buttonsettingsheading', 'theme_adaptable'),
-    format_text(get_string('buttondesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_header',
+        get_string('buttonsettingsheading', 'theme_adaptable'),
+        format_text(get_string('buttondesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/buttonradius';
     $title = get_string('buttonradius', 'theme_adaptable');
@@ -69,7 +71,7 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Buttons focus color opacity.
-    $bfcoopactitychoices = array(
+    $bfcoopactitychoices = [
         '0.0' => '0.0',
         '0.05' => '0.05',
         '0.1' => '0.1',
@@ -90,8 +92,8 @@ if ($ADMIN->fulltree) {
         '0.85' => '0.85',
         '0.9' => '0.9',
         '0.95' => '0.95',
-        '1.0' => '1.0'
-    );
+        '1.0' => '1.0',
+    ];
 
     $name = 'theme_adaptable/buttonfocuscoloropacity';
     $title = get_string('buttonfocuscoloropacity', 'theme_adaptable');
@@ -231,7 +233,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/buttonloginheight';
     $title = get_string('buttonloginheight', 'theme_adaptable');
     $description = get_string('buttonloginheightdesc', 'theme_adaptable');
-    $radchoices = array(
+    $radchoices = [
         '16px' => "16px",
         '18px' => "18px",
         '20px' => "20px",
@@ -242,7 +244,7 @@ if ($ADMIN->fulltree) {
         '30px' => "30px",
         '32px' => "32px",
         '34px' => "34px",
-    );
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, '24px', $radchoices);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -259,11 +261,11 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/buttondropshadow';
     $title = get_string('buttondropshadow', 'theme_adaptable');
     $description = get_string('buttondropshadowdesc', 'theme_adaptable');
-    $shadowchoices = array (
+    $shadowchoices = [
         '0' => get_string('none', 'theme_adaptable'),
         '-1px' => get_string('slight', 'theme_adaptable'),
-        '-2px' => get_string('standard', 'theme_adaptable')
-    );
+        '-2px' => get_string('standard', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, '0', $shadowchoices);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);

@@ -15,28 +15,44 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Frontpage slider
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
 defined('MOODLE_INTERNAL') || die;
 
 // Frontpage Slider.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_frontpage_slider', get_string('frontpageslidersettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_frontpage_slider', get_string('frontpageslidersettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_slideshow', get_string('slideshowsettingsheading', 'theme_adaptable'),
-        format_text(get_string('slideshowdesc', 'theme_adaptable').
-        get_string('slideroption2snippet', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_slideshow',
+        get_string('slideshowsettingsheading', 'theme_adaptable'),
+        format_text(
+            get_string('slideshowdesc', 'theme_adaptable'),
+            FORMAT_MARKDOWN
+        )
+    ));
 
     $name = 'theme_adaptable/sliderenabled';
     $title = get_string('sliderenabled', 'theme_adaptable');
     $description = get_string('sliderenableddesc', 'theme_adaptable');
     $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $page->add($setting);
+
+    $name = 'theme_adaptable/slidervisible';
+    $title = get_string('slidervisible', 'theme_adaptable');
+    $description = get_string('slidervisibledesc', 'theme_adaptable');
+    $options = [
+        1 => get_string('slidervisibleloggedout', 'theme_adaptable'),
+        2 => get_string('slidervisibleloggedin', 'theme_adaptable'),
+        3 => get_string('slidervisibleloggedinout', 'theme_adaptable'),
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, 3, $options);
     $page->add($setting);
 
     $name = 'theme_adaptable/sliderfullscreen';

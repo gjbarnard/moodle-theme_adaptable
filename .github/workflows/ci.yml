@@ -12,6 +12,8 @@ jobs:
         env:
           MYSQL_USER: 'root'
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+          MYSQL_CHARACTER_SET_SERVER: "utf8mb4"
+          MYSQL_COLLATION_SERVER: "utf8mb4_unicode_ci"
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 3
@@ -19,16 +21,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - php: 7.4
-            moodle-branch: 'MOODLE_401_STABLE'
-            database: mariadb
-          - php: 8.0
-            # The following line is only needed if you're going to run php8 jobs and your
-            # plugin needs xmlrpc services.
-            extensions: xmlrpc-beta
-            moodle-branch: 'MOODLE_401_STABLE'
-            database: mariadb
+        php: ['7.4', '8.0']
+        moodle-branch: ['MOODLE_401_STABLE']
+        database: [mariadb]
 
     steps:
       - name: Check out repository code
@@ -46,7 +41,7 @@ jobs:
 
       - name: Initialise moodle-plugin-ci
         run: |
-          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
+          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
           echo $(cd ci/bin; pwd) >> $GITHUB_PATH
           echo $(cd ci/vendor/bin; pwd) >> $GITHUB_PATH
           sudo locale-gen en_AU.UTF-8

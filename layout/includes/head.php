@@ -17,10 +17,11 @@
 /**
  * Head
  *
- * @package   theme_adaptable
- * @copyright 2020 G J Barnard (http://moodle.org/user/profile.php?id=442195)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @package    theme_adaptable
+ * @copyright  2020 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -56,38 +57,38 @@ $siteurl = new moodle_url('');
     if (!empty($PAGE->theme->settings->googlefonts)) {
         $fontssubset = '';
 
-        $fontsettings = array('fontname', 'fontheadername', 'fonttitlename');
-        $fontstoload = array();
+        $fontsettings = ['fontname', 'fontheadername', 'fonttitlename'];
+        $fontstoload = [];
         foreach ($fontsettings as $fontsetting) {
             switch ($PAGE->theme->settings->$fontsetting) {
                 case 'sans-serif':
-                break;
+                    break;
                 default:
                     // Google font name.
                     $fontname = str_replace(" ", "+", $PAGE->theme->settings->$fontsetting);
                     if (!in_array($fontname, $fontstoload)) {
                         $fontstoload[] = $fontname;
                     }
-                break;
+                    break;
             }
         }
 
         if (!empty($fontstoload)) {
             // Get the Google Font weights.
-            $fontweight = ':'.$PAGE->theme->settings->fontweight.','.$PAGE->theme->settings->fontweight.'i';
-            $fontheaderweight = ':'.$PAGE->theme->settings->fontheaderweight.','.$PAGE->theme->settings->fontheaderweight.'i';
-            $fonttitleweight = ':'.$PAGE->theme->settings->fonttitleweight.','.$PAGE->theme->settings->fonttitleweight.'i';
+            $fontweight = ':' . $PAGE->theme->settings->fontweight . ',' . $PAGE->theme->settings->fontweight . 'i';
+            $fontheaderweight = ':' . $PAGE->theme->settings->fontheaderweight . ',' . $PAGE->theme->settings->fontheaderweight . 'i';
+            $fonttitleweight = ':' . $PAGE->theme->settings->fonttitleweight . ',' . $PAGE->theme->settings->fonttitleweight . 'i';
 
             // Get the Google fonts subset.
             if (!empty($PAGE->theme->settings->fontsubset)) {
-                $fontssubset = '&subset='.$PAGE->theme->settings->fontsubset;
+                $fontssubset = '&subset=' . $PAGE->theme->settings->fontsubset;
             }
 
             // Load Google fonts.
             echo '<!-- Load Google Fonts -->';
             foreach ($fontstoload as $googlefontname) {
                 echo '<link href="https://fonts.googleapis.com/css?family=';
-                echo $googlefontname.$fontweight.$fontssubset;
+                echo $googlefontname . $fontweight . $fontssubset;
                 echo '" rel="stylesheet" type="text/css">';
             }
         }

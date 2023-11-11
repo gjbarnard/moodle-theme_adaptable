@@ -1,3 +1,38 @@
+Change Log in version 401.1.7 (2022112308)
+===========================================
+1.  Add 'courseactivitynavigationenabled' setting in 'Courses' tab (changed from 'Course Formats') to turn on / off activity
+    navigation.  Disabled by default.
+2.  Fix "Spelling mistakes in 'theme_adaptable | responsivesectionnav'" - #14.
+3.  Fix 'Front Page Course Limited to 20' - ref: https://moodle.org/mod/forum/discuss.php?d=450609.
+4.  Fix 'Option to default right drawer to open for guests' - #16.
+5.  Removed social wall format (https://moodle.org/plugins/format_socialwall/versions) as last known version was for Moodle 3.3.
+6.  Add theme version of FontAwesome 6.4.2 from Foundation theme.
+7.  Fix 'Dragging a block results in an unknown block region error'.
+8.  Fix 'Grader report headings not sticky' - ref: https://moodle.org/mod/forum/discuss.php?d=451315S.
+9.  Add the ability to show the marketing blocks when 'Logged out', 'Logged in' or 'Logged in or out',
+    'marketingvisible' setting.
+10. Improved alert dismissal functionality.  The alert key only needs to change when the content does not.
+11. Corrected alert information that incorrectly stated that it was possible to restrict alerts to the front page.
+12. Move the 'Alerts', 'Category Headers', 'Login', 'My courses', 'News ticker', 'Tools menu', 'Tracking' and 'User profile'
+    functionality to a separate 'Local Adaptable' plugin that will be available to sponsors only.  This has been an
+    extremely difficult decision to make, however with the continued lack of support I consider that I have been
+    left with no choice and thus have targetted functionality unlikely to be used by small installations.
+
+Change Log in version 401.1.6 (2022112307)
+===========================================
+1. Fix as much as possible URL's in strings - ref: https://moodle.org/mod/forum/discuss.php?d=446353.
+2. Fix long student names in the grade book - ref: https://moodle.org/mod/forum/discuss.php?d=447234.
+3. Fix 'Sidebars cannot be closed with sticky navbar' - ref: https://github.com/gjb2048/moodle-theme_adaptable/issues/8.
+4. Fix 'columns1 layout issue' - ref: https://moodle.org/mod/forum/discuss.php?d=446487#p1800161.
+5. Fix 'Block marketing - images' - #12.
+6. Fix 'Missing content region on dashboard'.
+7. Add link in the navbar to the 'My courses' page, with setting 'enablemycourses', not to be confused with the 'My courses' menu 'enablemysites'.
+8. Fix margin on 'Course overview' block has header buttons not lining up, fix is good but may impact on other unknown elements as removed style is too global in effect.
+9. Put back activity navigation.
+10. Add new setting 'slidervisible' to state when the slider should be shown, being one of 'Logged out', 'Logged in' or 'Logged in or out'.
+11. Re-fix use of $CFG->themedir for when it exists but Adaptable is still in the basedir - #273.
+12. Fix header search area too large.
+
 Change Log in version 401.1.5 (2022112306)
 ===========================================
 1. Fix zoom after header move in markup.

@@ -18,20 +18,18 @@
  * The mustache renderer.
  *
  * @package    theme_adaptable
- * @copyright  2020 Gareth J Barnard
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2020 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 namespace theme_adaptable\output;
 
 /**
  * The mustache renderer.
- *
- * @copyright  &copy; 2020-onwards G J Barnard.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class mustache_renderer extends \core_renderer {
-
     /**
      * @var Mustache_Loader $stringloader The mustache string loader.
      */

@@ -15,22 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Login
  *
- * @package   theme_adaptable
- * @copyright 2015-2016 Jeremy Hopkins (Coventry University)
- * @copyright 2015-2016 Fernando Acedo (3-bits.com)
- * @copyright 2019 G J Barnard (http://moodle.org/user/profile.php?id=442195)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @package    theme_adaptable
+ * @copyright  2015-2016 Jeremy Hopkins (Coventry University)
+ * @copyright  2015-2016 Fernando Acedo (3-bits.com)
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Include header.
-global $PAGE, $OUTPUT;
+global $OUTPUT;
 
-if (!empty($PAGE->theme->settings->loginheader)) {
+$logincontent = '<div class="login-wrapper"><div class="login-container">';
+$logincontent .= $OUTPUT->main_content();
+$logincontent .= '</div></div>';
+
+$result = $OUTPUT->generate_login($logincontent);
+
+if (!empty($result->header)) {
     $sidepostdrawer = false;
     require_once(dirname(__FILE__) . '/includes/header.php');
 } else {
@@ -40,39 +47,12 @@ $PAGE->set_secondary_navigation(false);
 
 echo '<div class="container outercont">';
     echo $OUTPUT->page_navbar();
-    ?>
+?>
     <div id="page-content" class="row">
         <div id="region-main-box" class="col-12">
             <section id="region-main">
             <?php
-
-            $logintextboxtop = $OUTPUT->get_setting('logintextboxtop', 'format_moodle');
-            $logintextboxbottom = $OUTPUT->get_setting('logintextboxbottom', 'format_moodle');
-            $logintextstartwrapper = '';
-            $logintextendwrapper = '';
-            if ((!empty($logintextboxtop)) || (!empty($logintextboxbottom))) {
-                $logintextstartwrapper = '<div class="row justify-content-center"><div class="col-xl-6 col-sm-8">'.
-                    '<div class="card"><div class="card-block">';
-                $logintextendwrapper = '</div></div></div></div>';
-            }
-
-            if (!empty($logintextboxtop)) {
-                echo $logintextstartwrapper;
-                echo $logintextboxtop;
-                echo $logintextendwrapper;
-            }
-
-            echo '<div class="login-wrapper"><div class="login-container">';
-            echo $OUTPUT->main_content();
-            echo '</div></div>';
-
-            if (!empty($logintextboxbottom)) {
-                echo '<div class="my-1 my-sm-5"></div>';
-                echo $logintextstartwrapper;
-                echo $logintextboxbottom;
-                echo $logintextendwrapper;
-            }
-
+            echo $logincontent;
             ?>
             </section>
         </div>
@@ -81,7 +61,7 @@ echo '<div class="container outercont">';
 
 <?php
 // Include footer.
-if (!empty($PAGE->theme->settings->loginfooter)) {
+if (!empty($result->header)) {
     require_once(dirname(__FILE__) . '/includes/footer.php');
 } else {
     require_once(dirname(__FILE__) . '/includes/nofooter.php');

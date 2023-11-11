@@ -15,23 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Header
  *
  * @package    theme_adaptable
  * @copyright  2015 Jeremy Hopkins (Coventry University)
  * @copyright  2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Header heading.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_header', get_string('headersettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_header', get_string('headersettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_header', get_string('headersettingsheading', 'theme_adaptable'),
-    format_text(get_string('headerdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_header',
+        get_string('headersettingsheading', 'theme_adaptable'),
+        format_text(get_string('headerdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Header image.
     $name = 'theme_adaptable/headerbgimage'; // TODO - served by 'theme_adaptable_pluginfile'?
@@ -44,11 +46,11 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/displaylogin';
     $title = get_string('displaylogin', 'theme_adaptable');
     $description = get_string('displaylogindesc', 'theme_adaptable');
-    $choices = array(
+    $choices = [
         'button' => get_string('displayloginbutton', 'theme_adaptable'),
         'box' => get_string('displayloginbox', 'theme_adaptable'),
-        'no' => get_string('displayloginno', 'theme_adaptable')
-    );
+        'no' => get_string('displayloginno', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'button', $choices);
     $page->add($setting);
 
@@ -93,11 +95,11 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/sitetitle';
     $title = get_string('sitetitle', 'theme_adaptable');
     $description = get_string('sitetitledesc', 'theme_adaptable');
-    $radchoices = array(
+    $radchoices = [
         'disabled' => get_string('sitetitleoff', 'theme_adaptable'),
         'default' => get_string('sitetitledefault', 'theme_adaptable'),
-        'custom' => get_string('sitetitlecustom', 'theme_adaptable')
-    );
+        'custom' => get_string('sitetitlecustom', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'default', $radchoices);
     $page->add($setting);
 
@@ -113,11 +115,11 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/enableheading';
     $title = get_string('enableheading', 'theme_adaptable');
     $description = get_string('enableheadingdesc', 'theme_adaptable');
-    $radchoices = array(
+    $radchoices = [
         'fullname' => get_string('coursetitlefullname', 'theme_adaptable'),
         'shortname' => get_string('coursetitleshortname', 'theme_adaptable'),
-        'off' => get_string('hide')
-    );
+        'off' => get_string('hide'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'fullname', $radchoices);
     $page->add($setting);
 
@@ -125,11 +127,11 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/breadcrumbdisplay';
     $title = get_string('breadcrumbdisplay', 'theme_adaptable');
     $description = get_string('breadcrumbdisplaydesc', 'theme_adaptable');
-    $radchoices = array(
+    $radchoices = [
         'breadcrumb' => get_string('breadcrumb', 'theme_adaptable'),
         'fullname' => get_string('coursetitlefullname', 'theme_adaptable'),
-        'shortname' => get_string('coursetitleshortname', 'theme_adaptable')
-    );
+        'shortname' => get_string('coursetitleshortname', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'breadcrumb', $radchoices);
     $page->add($setting);
 
@@ -144,17 +146,17 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/breadcrumbhome';
     $title = get_string('breadcrumbhome', 'theme_adaptable');
     $description = get_string('breadcrumbhomedesc', 'theme_adaptable');
-    $radchoices = array(
+    $radchoices = [
         'text' => get_string('breadcrumbhometext', 'theme_adaptable'),
-        'icon' => get_string('breadcrumbhomeicon', 'theme_adaptable')
-    );
+        'icon' => get_string('breadcrumbhomeicon', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'icon', $radchoices);
     $page->add($setting);
 
     // Breadcrumb separator.
     $name = 'theme_adaptable/breadcrumbseparator';
     $title = get_string('breadcrumbseparator', 'theme_adaptable');
-    $description = get_string('breadcrumbseparatordesc', 'theme_adaptable');
+    $description = get_string('breadcrumbseparatordesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free');
     $setting = new admin_setting_configtext($name, $title, $description, 'angle-right');
     $page->add($setting);
 
@@ -162,14 +164,14 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/headersearchandsocial';
     $title = get_string('headersearchandsocial', 'theme_adaptable');
     $description = get_string('headersearchandsocialdesc', 'theme_adaptable');
-    $choices = array(
+    $choices = [
         'none' => get_string('headersearchandsocialnone', 'theme_adaptable'),
         'searchmobilenav' => get_string('headersearchandsocialsearchmobilenav', 'theme_adaptable'),
         'searchheader' => get_string('headersearchandsocialsearchheader', 'theme_adaptable'),
         'socialheader' => get_string('headersearchandsocialsocialheader', 'theme_adaptable'),
         'searchnavbar' => get_string('headersearchandsocialsearchnavbar', 'theme_adaptable'),
         'searchnavbarsocialheader' => get_string('headersearchandsocialsearchnavbarsocialheader', 'theme_adaptable'),
-    );
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'searchmobilenav', $choices);
     $page->add($setting);
 
@@ -190,18 +192,20 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Header style section.
-    $page->add(new admin_setting_heading('theme_adaptable_headerstyle_heading',
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_headerstyle_heading',
         get_string('headerstyleheading', 'theme_adaptable'),
-        format_text(get_string('headerstyleheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+        format_text(get_string('headerstyleheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Adaptable header style selection.
     $name = 'theme_adaptable/headerstyle';
     $title = get_string('headerstyle', 'theme_adaptable');
     $description = get_string('headerstyledesc', 'theme_adaptable');
-    $radchoices = array(
+    $radchoices = [
         'style1' => get_string('headerstyle1', 'theme_adaptable'),
-        'style2' => get_string('headerstyle2', 'theme_adaptable')
-    );
+        'style2' => get_string('headerstyle2', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'style1', $radchoices);
     $page->add($setting);
 
@@ -209,10 +213,10 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/pageheaderlayout';
     $title = get_string('pageheaderlayout', 'theme_adaptable');
     $description = get_string('pageheaderlayoutdesc', 'theme_adaptable');
-    $radchoices = array(
+    $radchoices = [
         'original' => get_string('pageheaderoriginal', 'theme_adaptable'),
-        'alternative' => get_string('pageheaderalternative', 'theme_adaptable')
-    );
+        'alternative' => get_string('pageheaderalternative', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'original', $radchoices);
     $page->add($setting);
 
@@ -220,10 +224,10 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/pageheaderlayouttwo';
     $title = get_string('pageheaderlayouttwo', 'theme_adaptable');
     $description = get_string('pageheaderlayouttwodesc', 'theme_adaptable');
-    $radchoices = array(
+    $radchoices = [
         'original' => get_string('pageheaderoriginal', 'theme_adaptable'),
-        'nosearch' => get_string('pageheadernosearch', 'theme_adaptable')
-    );
+        'nosearch' => get_string('pageheadernosearch', 'theme_adaptable'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'original', $radchoices);
     $page->add($setting);
 

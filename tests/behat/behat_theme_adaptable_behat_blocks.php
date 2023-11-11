@@ -17,13 +17,13 @@
 /**
  * Overrides for behat blocks.
  * @copyright Copyright (c) 2020 Titus
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
 
-use Behat\Mink\Exception\ExpectationException as ExpectationException,
-    Behat\Mink\Element\NodeElement as NodeElement;
+use Behat\Mink\Exception\ExpectationException,
+    Behat\Mink\Element\NodeElement;
 
 require_once(__DIR__ . '/../../../../blocks/tests/behat/behat_blocks.php');
 
@@ -31,10 +31,9 @@ require_once(__DIR__ . '/../../../../blocks/tests/behat/behat_blocks.php');
  * Overrides to make behat block steps work with adaptable.
  *
  * @copyright Copyright (c) 2020 Titus.
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class behat_theme_adaptable_behat_blocks extends behat_blocks {
-
     /**
      * Adds the selected block. Editing mode must be previously enabled.
      *
@@ -42,14 +41,16 @@ class behat_theme_adaptable_behat_blocks extends behat_blocks {
      * @return void
      */
     public function i_add_the_block($blockname) {
-        $this->execute('behat_forms::i_set_the_field_to',
-                array("bui_addblock", $this->escape($blockname))
+        $this->execute(
+            'behat_forms::i_set_the_field_to',
+            ["bui_addblock", $this->escape($blockname)]
         );
 
         // If we are running without javascript we need to submit the form.
         if (!$this->running_javascript()) {
-            $this->execute('behat_general::i_click_on_in_the',
-                    array(get_string('go'), "button", "#add_block", "css_element")
+            $this->execute(
+                'behat_general::i_click_on_in_the',
+                [get_string('go'), "button", "#add_block", "css_element"]
             );
         }
     }

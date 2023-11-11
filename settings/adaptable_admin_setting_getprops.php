@@ -18,20 +18,16 @@
  * Get properties setting.
  *
  * @package    theme_adaptable
- * @copyright  &copy; 2018 G J Barnard.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2018 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 /**
  * Get properties class.
- *
- * @package   theme_adaptable
- * @copyright &copy; 2018 G J Barnard.
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class adaptable_admin_setting_getprops extends admin_setting {
-
     /** @var string Store properties. */
     private $props;
 
@@ -59,8 +55,16 @@ class adaptable_admin_setting_getprops extends admin_setting {
      * @param string $savepropsbuttonname Save properties button name
      * @param string $saveprops Save properties
      */
-    public function __construct($name, $heading, $information, $props, $settingsectionname,
-        $returnbuttonname, $savepropsbuttonname, $saveprops) {
+    public function __construct(
+        $name,
+        $heading,
+        $information,
+        $props,
+        $settingsectionname,
+        $returnbuttonname,
+        $savepropsbuttonname,
+        $saveprops
+    ) {
         $this->nosave = true;
         $this->props = $props;
         $this->returnbuttonname = $returnbuttonname;
@@ -105,33 +109,33 @@ class adaptable_admin_setting_getprops extends admin_setting {
      *
      * @return string Returns an HTML string
      */
-    public function output_html($data, $query='') {
+    public function output_html($data, $query = '') {
         $return = '';
 
         if ($this->saveprops) {
-            $returnurl = new moodle_url('/admin/settings.php', array('section' => $this->settingsectionname));
-            $returnbutton = '<div class="singlebutton"><a class="btn btn-secondary" href="'.$returnurl->out(true).'">'.
-                $this->returnbuttonname.'</a></div>';
+            $returnurl = new moodle_url('/admin/settings.php', ['section' => $this->settingsectionname]);
+            $returnbutton = '<div class="singlebutton"><a class="btn btn-secondary" href="' . $returnurl->out(true) . '">' .
+                $this->returnbuttonname . '</a></div>';
             $return .= $returnbutton;
             $return .= '<div class="well" style="word-break: break-all;">';
             $return .= json_encode($this->props, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS);
             $return .= '</div>';
             $return .= $returnbutton;
         } else {
-            $propsexporturl = new moodle_url('/admin/settings.php', array('section' => $this->settingsectionname,
-                $this->name.'_saveprops' => 1));
+            $propsexporturl = new moodle_url('/admin/settings.php', ['section' => $this->settingsectionname,
+                $this->name . '_saveprops' => 1, ]);
 
-            $propsexportbutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="'.$propsexporturl->out(true).'">'.
-                $this->savepropsbuttonname.'</a></div></div>';
+            $propsexportbutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' . $propsexporturl->out(true) . '">' .
+                $this->savepropsbuttonname . '</a></div></div>';
             $table = new html_table();
-            $table->head = array($this->visiblename, markdown_to_html($this->description));
-            $table->colclasses = array('leftalign', 'leftalign');
-            $table->id = 'adminprops_'.$this->name;
+            $table->head = [$this->visiblename, markdown_to_html($this->description)];
+            $table->colclasses = ['leftalign', 'leftalign'];
+            $table->id = 'adminprops_' . $this->name;
             $table->attributes['class'] = 'admintable generaltable';
-            $table->data = array();
+            $table->data = [];
 
             foreach ($this->props as $propname => $propvalue) {
-                $table->data[] = array($propname, '<pre>'.htmlentities($propvalue).'</pre>');
+                $table->data[] = [$propname, '<pre>' . htmlentities($propvalue) . '</pre>'];
             }
             $return .= $propsexportbutton;
             $return .= html_writer::table($table);

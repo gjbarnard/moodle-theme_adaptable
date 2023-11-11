@@ -18,7 +18,7 @@
  * Overrides for behat authentication.
  * @author    Marcus Green
  * @copyright Titus Learning
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
@@ -29,7 +29,7 @@ require_once(__DIR__ . '/../../../../auth/tests/behat/behat_auth.php');
  * Overrides for behat authentication.
  * @author    Marcus Green
  * @copyright Titus Learning
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class behat_theme_adaptable_behat_auth extends behat_auth {
     public function i_log_out() {

@@ -15,13 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Dashboard
  *
  * @package    theme_adaptable
  * @copyright  2015-2016 Jeremy Hopkins (Coventry University)
  * @copyright  2015-2017 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2019 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -29,7 +31,8 @@ defined('MOODLE_INTERNAL') || die;
 // Include header.
 $sidepostdrawer = true;
 require_once(dirname(__FILE__) . '/includes/header.php');
-$PAGE->set_secondary_navigation(false);
+// Include secondary navigation.
+require_once(dirname(__FILE__) . '/includes/secondarynav.php');
 
 // Set layout.
 $dashblocksposition = (!empty($PAGE->theme->settings->dashblocksposition)) ? $PAGE->theme->settings->dashblocksposition : 'abovecontent';
@@ -45,18 +48,19 @@ if (!empty($PAGE->theme->settings->dashblocksenabled)) {
 <div id="maincontainer" class="container outercont">
     <?php
     echo $OUTPUT->get_news_ticker();
-    if ( (!empty($PAGE->theme->settings->dashblocksenabled)) &&
-         (empty($PAGE->theme->settings->tabbedlayoutdashboard)) && ($dashblocksposition == 'abovecontent') ) {
+    if (
+        (!empty($PAGE->theme->settings->dashblocksenabled)) &&
+         (empty($PAGE->theme->settings->tabbedlayoutdashboard)) && ($dashblocksposition == 'abovecontent')
+    ) {
         echo $dashblocklayoutlayoutrow;
     } ?>
     <div id="page-content" class="row">
         <?php
         if (!empty($PAGE->theme->settings->tabbedlayoutdashboard)) {
-
-            $showtabs = array (0 => true, 1 => true, 2 => true);
+            $showtabs = [0 => true, 1 => true, 2 => true];
             // Get any custom user profile field restriction for tab 1 and 2. (e.g. showtab1=false).
-            require_once($CFG->dirroot.'/user/profile/lib.php');
-            require_once($CFG->dirroot.'/user/lib.php');
+            require_once($CFG->dirroot . '/user/profile/lib.php');
+            require_once($CFG->dirroot . '/user/lib.php');
             profile_load_data($USER);
 
             if (!empty($PAGE->theme->settings->tabbedlayoutdashboardtab1condition)) {
@@ -89,7 +93,7 @@ if (!empty($PAGE->theme->settings->dashblocksenabled)) {
                 }
             }
 
-            $taborder = explode ('-', $PAGE->theme->settings->tabbedlayoutdashboard);
+            $taborder = explode('-', $PAGE->theme->settings->tabbedlayoutdashboard);
             $count = 0;
             echo '<div id="region-main-box" class="col-12">';
             echo '<section id="region-main">';
@@ -109,25 +113,31 @@ if (!empty($PAGE->theme->settings->dashblocksenabled)) {
 
                     echo '<input id="' . $tabname . '" type="radio" name="tabs" class="dashboardtab" ' .
                         ($count == 0 ? ' checked ' : '') . '>' .
-                        '<label for="' . $tabname . '" class="dashboardtab">' . $tablabel .'</label>';
+                        '<label for="' . $tabname . '" class="dashboardtab">' . $tablabel . '</label>';
                         $count++;
                 }
             }
 
             // Basic array used by appropriately named blocks below (e.g. course-tab-one).  All this is due to the re-use of
             // existing functionality and non-use of numbers in block region names.
-            $wordtonumber = array (1 => 'one', 2 => 'two');
+            $wordtonumber = [1 => 'one', 2 => 'two'];
             foreach ($taborder as $tabnumber) {
                 if ($tabnumber == 0) {
                     echo '<section id="adaptable-dashboard-tab-content" class="adaptable-tab-section tab-panel">';
 
-                    if ( (!empty($PAGE->theme->settings->dashblocksenabled)) && ($dashblocksposition == 'abovecontent') ) {
+                    if ((!empty($PAGE->theme->settings->dashblocksenabled)) && ($dashblocksposition == 'abovecontent')) {
                         echo $dashblocklayoutlayoutrow;
                     }
                     echo $OUTPUT->course_content_header();
+                    if (!empty($secondarynavigation)) {
+                        echo $secondarynavigation;
+                    }
+                    if (!empty($overflow)) {
+                        echo $overflow;
+                    }
                     echo $OUTPUT->main_content();
                     echo $OUTPUT->course_content_footer();
-                    if ( (!empty($PAGE->theme->settings->dashblocksenabled)) && ($dashblocksposition == 'belowcontent') ) {
+                    if ((!empty($PAGE->theme->settings->dashblocksenabled)) && ($dashblocksposition == 'belowcontent')) {
                         echo $dashblocklayoutlayoutrow;
                     }
 
@@ -149,9 +159,15 @@ if (!empty($PAGE->theme->settings->dashblocksenabled)) {
         <div id="region-main-box" class="col-12">
             <section id="region-main">
             <?php
-                echo $OUTPUT->course_content_header();
-                echo $OUTPUT->main_content();
-                echo $OUTPUT->course_content_footer();
+            echo $OUTPUT->course_content_header();
+            if (!empty($secondarynavigation)) {
+                echo $secondarynavigation;
+            }
+            if (!empty($overflow)) {
+                echo $overflow;
+            }
+            echo $OUTPUT->main_content();
+            echo $OUTPUT->course_content_footer();
             ?>
             </section>
         </div>
@@ -161,15 +177,17 @@ if (!empty($PAGE->theme->settings->dashblocksenabled)) {
     </div>
 
 <?php
-if ( (!empty($PAGE->theme->settings->dashblocksenabled)) && (empty($PAGE->theme->settings->tabbedlayoutdashboard))
-        && ($dashblocksposition == 'belowcontent') ) {
+if (
+    (!empty($PAGE->theme->settings->dashblocksenabled)) && (empty($PAGE->theme->settings->tabbedlayoutdashboard))
+        && ($dashblocksposition == 'belowcontent')
+) {
     echo $dashblocklayoutlayoutrow;
 }
 ?>
 
 <?php
 if (is_siteadmin()) {
-?>
+    ?>
     <div class="hidden-blocks">
         <div class="row">
             <h3><?php echo get_string('frnt-footer', 'theme_adaptable') ?></h3>

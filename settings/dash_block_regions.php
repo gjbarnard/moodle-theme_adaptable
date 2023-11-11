@@ -18,22 +18,25 @@
  * This displays block region settings for the dashboard page.
  *
  * @package    theme_adaptable
- * @copyright 2017 Manoj Solanki (Coventry University)
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2017 Manoj Solanki (Coventry University)
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-// Frontpage Block Regions Section.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_dash_block_regions',
-        get_string('dashboardblockregionsettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage(
+        'theme_adaptable_dash_block_regions',
+        get_string('dashboardblockregionsettings', 'theme_adaptable')
+    );
 
-    $page->add(new admin_setting_heading('theme_adaptable_heading', get_string('dashblocklayoutbuilder', 'theme_adaptable'),
-        format_text(get_string('dashblocklayoutbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_heading',
+        get_string('dashblocklayoutbuilder', 'theme_adaptable'),
+        format_text(get_string('dashblocklayoutbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $name = 'theme_adaptable/dashblocksenabled';
     $title = get_string('dashblocksenabled', 'theme_adaptable');
@@ -51,11 +54,18 @@ if ($ADMIN->fulltree) {
 
     // Dashboard block region builder.
     $noregions = 20; // Number of block regions defined in config.php.
-    list('imgblder' => $imgblder, 'totalblocks' => $totalblocks) = \theme_adaptable\toolbox::admin_settings_layout_builder(
-        $page, 'dashblocklayoutlayoutrow', $bootstrap12defaults, $bootstrap12);
+    ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = \theme_adaptable\toolbox::admin_settings_layout_builder(
+        $page,
+        'dashblocklayoutlayoutrow',
+        $bootstrap12defaults,
+        $bootstrap12
+    );
 
-    $page->add(new admin_setting_heading('theme_adaptable_blocklayoutcheck', get_string('layoutcheck', 'theme_adaptable'),
-        format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_blocklayoutcheck',
+        get_string('layoutcheck', 'theme_adaptable'),
+        format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     $checkcountcolor = '#00695C';
     if ($totalblocks > $noregions) {

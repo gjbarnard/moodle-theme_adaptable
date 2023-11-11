@@ -15,24 +15,28 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Custom CSS
  *
  * @package    theme_adaptable
  * @copyright  2015 Jeremy Hopkins (Coventry University)
  * @copyright  2015 Fernando Acedo (3-bits.com)
- * @copyright  2023 Gareth J Barnard
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2023 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 // Custom CSS and JS section.
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_generic', get_string('customcssjssettings', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_generic', get_string('customcssjssettings', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_generic', get_string('genericsettingsheading', 'theme_adaptable'),
-        format_text(get_string('genericsettingsdescription', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_generic',
+        get_string('genericsettingsheading', 'theme_adaptable'),
+        format_text(get_string('genericsettingsdescription', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Custom CSS.
     $name = 'theme_adaptable/customcss';

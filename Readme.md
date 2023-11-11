@@ -131,13 +131,6 @@ Translation:
 - GermÃ¡n Valero (EspaÃ±ol - MÃ©xico)
 - Jordi Rodilla (CatalÃ   - Andorra)
 
-
-Contributions
-=============
-You are welcome to collaborate in the project. You can fix bugs, add new features or help in the translation to your language.
-See CONTRIBUTING.txt for more information
-
-
 Licenses
 ========
 Adaptable is licensed under:

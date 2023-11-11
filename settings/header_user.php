@@ -15,31 +15,33 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Header user
  *
  * @package    theme_adaptable
- * @copyright 2015 Jeremy Hopkins (Coventry University)
- * @copyright 2015 Fernando Acedo (3-bits.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * @copyright  2015 Jeremy Hopkins (Coventry University)
+ * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $page = new admin_settingpage('theme_adaptable_usernav', get_string('usernav', 'theme_adaptable'));
+    $page = new theme_adaptable_admin_settingspage('theme_adaptable_usernav', get_string('usernav', 'theme_adaptable'));
 
-    $page->add(new admin_setting_heading('theme_adaptable_usernav', get_string('usernavheading', 'theme_adaptable'),
-           format_text(get_string('usernavdesc', 'theme_adaptable'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_usernav',
+        get_string('usernavheading', 'theme_adaptable'),
+        format_text(get_string('usernavdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+    ));
 
     // Position of the username.
     $name = 'theme_adaptable/usernameposition';
     $title = get_string('usernameposition', 'theme_adaptable');
     $description = get_string('usernamepositiondesc', 'theme_adaptable');
-    $poschoices = array(
+    $poschoices = [
         'left' => get_string('left', 'editor'),
-        'right' => get_string('right', 'editor')
-    );
+        'right' => get_string('right', 'editor'),
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, 'left', $poschoices);
     $page->add($setting);
 
@@ -141,7 +143,7 @@ if ($ADMIN->fulltree) {
     // Enable My Feedback.
     $name = 'theme_adaptable/enablefeed';
     $title = get_string('enablefeed', 'theme_adaptable');
-    $description = get_string('enablefeeddesc', 'theme_adaptable');
+    $description = get_string('enablefeeddesc', 'theme_adaptable', 'https://moodle.org/plugins/report_myfeedback');
     $default = false;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
@@ -149,7 +151,7 @@ if ($ADMIN->fulltree) {
     // Enable Accessibility Tool.
     $name = 'theme_adaptable/enableaccesstool';
     $title = get_string('enableaccesstool', 'theme_adaptable');
-    $description = get_string('enableaccesstooldesc', 'theme_adaptable');
+    $description = get_string('enableaccesstooldesc', 'theme_adaptable', 'https://github.com/sharpchi/moodle-local_accessibilitytool');
     $default = false;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
