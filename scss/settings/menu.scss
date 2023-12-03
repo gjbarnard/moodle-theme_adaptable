@@ -136,7 +136,6 @@
 }
 
 #adaptable-page-header-wrapper .nav-link {
-    color: inherit;
     padding: .1rem .2rem .1rem .2rem;
 }
 
@@ -319,6 +318,9 @@
 .dropdown-submenu > a
 #adaptable-page-header-wrapper .dropdown-menu li a {
     color: [[setting:navbardropdowntextcolor]];
+    .icon {
+        color: $dropdown-color;
+    }
 }
 
 .dropdown-item:hover > a,

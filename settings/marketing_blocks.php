@@ -61,6 +61,17 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
 
+    $name = 'theme_adaptable/marketingvisible';
+    $title = get_string('marketingvisible', 'theme_adaptable');
+    $description = get_string('marketingvisibledesc', 'theme_adaptable');
+    $options = [
+        1 => get_string('marketingvisibleloggedout', 'theme_adaptable'),
+        2 => get_string('marketingvisibleloggedin', 'theme_adaptable'),
+        3 => get_string('marketingvisibleloggedinout', 'theme_adaptable'),
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, 3, $options);
+    $page->add($setting);
+
     $name = 'theme_adaptable/frontpagemarketoption';
     $title = get_string('frontpagemarketoption', 'theme_adaptable');
     $description = get_string('frontpagemarketoptiondesc', 'theme_adaptable');

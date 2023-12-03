@@ -27,7 +27,7 @@
 // @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
 
 /* jshint ignore:start */
-define(['jquery', 'core/log'], function($, log) {
+define(['jquery', 'theme_adaptable/util', 'core/log'], function($, AdaptableUtil, log) {
     "use strict"; // ...jshint ;_; !!!
 
     log.debug('Adaptable Bootstrap AMD opt in functions');
@@ -219,10 +219,10 @@ define(['jquery', 'core/log'], function($, log) {
                 $('.moodlewidth').click(function() {
                     if (body.hasClass('fullin') ) {
                         body.removeClass('fullin');
-                        M.util.set_user_preference('theme_adaptable_full', 'nofull');
+                        AdaptableUtil.setUserPreference('theme_adaptable_full', 'nofull');
                     } else {
                         body.addClass('fullin');
-                        M.util.set_user_preference('theme_adaptable_full', 'fullin');
+                        AdaptableUtil.setUserPreference('theme_adaptable_full', 'fullin');
                     }
                 });
 

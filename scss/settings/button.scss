@@ -64,7 +64,6 @@ td.submit input,
 div.discussionsubscription > a.discussiontoggle,
 .btn-outline-secondary,
 .paging-morelink a,
-.btn-link,
 a#adaptable-message-user-button,
 
 // Add Restrictions Dialogue.
@@ -131,7 +130,6 @@ a.submit:hover,
 .submitbutton:hover,
 .nav-pills > .active > a:hover, .nav-pills > .active > a:focus,
 .btn-outline-secondary:hover,
-.btn-link:hover,
 div.discussionsubscription > a.discussiontoggle:hover,
 a#adaptable-message-user-button:hover,
 
@@ -392,26 +390,40 @@ a.btn[data-toggle="popover"] {
 
 // .btn-link styles.
 .btn-link {
-    background-color: transparent;
-    color: [[setting:linkcolor]] !important;
+    background-color: [[setting:buttoncolor]];
     box-shadow: none;
+    color: [[setting:buttontextcolor]];
+
+    &:hover,
+    :focus {
+        background-color: [[setting:buttonhovercolor]];
+        color: [[setting:buttontextcolor]];
+    }
+
+    &.add-sections,
+    &.section-modchooser-link {
+        background-color: transparent;
+        color: [[setting:linkcolor]];
+
+        &:hover,
+        :focus {
+            background-color: transparent;
+            color: [[setting:linkhover]];
+        }
+    }
+
+    &.text-reset {
+        color: [[setting:buttontextcolor]] !important;
+    }
+
+    .icon {
+        margin-right: 0;
+    }
+
+    .menu-action-text .icon {
+        margin-top: 8px;
+    }
 }
-
-.btn-link:hover,
-.btn-link:focus {
-    background-color: transparent !important;
-    color: [[setting:linkhover]] !important;
-}
-
-.btn-link .icon {
-    margin-right: 0;
-}
-
-.btn-link .menu-action-text .icon {
-    margin-top: 8px;
-}
-
-
 
 .discussiontoggle {
     padding: 10px;

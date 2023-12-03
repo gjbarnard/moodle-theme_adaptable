@@ -184,13 +184,16 @@ trait core_renderer_toolbox {
      */
     public function block(block_contents $bc, $region) {
         $bc = clone($bc); // Avoid messing up the object passed in.
-        if (empty($bc->blockinstanceid) || !strip_tags($bc->title)) {
+        $skiptitle = strip_tags($bc->title);
+        if (empty($bc->blockinstanceid) || !$skiptitle) {
             $bc->collapsible = block_contents::NOT_HIDEABLE;
+        } else {
+            global $USER;
+            $USER->adaptable_user_pref['block' . $bc->blockinstanceid . 'hidden'] = PARAM_BOOL;
         }
         if (!empty($bc->blockinstanceid)) {
             $bc->attributes['data-instanceid'] = $bc->blockinstanceid;
         }
-        $skiptitle = strip_tags($bc->title);
         if ($bc->blockinstanceid && !empty($skiptitle)) {
             $bc->attributes['aria-labelledby'] = 'instance-' . $bc->blockinstanceid . '-header';
         } else if (!empty($bc->arialabel)) {
@@ -234,7 +237,6 @@ trait core_renderer_toolbox {
 
         $output .= $skipdest;
 
-        $this->init_block_hider_js($bc);
         return $output;
     }
 
@@ -264,15 +266,27 @@ trait core_renderer_toolbox {
 
         $output = '';
         if ($title || $controlshtml) {
+
+            $collapse = '';
+            if (isset($bc->attributes['id']) && $bc->collapsible != block_contents::NOT_HIDEABLE) {
+                $collapse =
+                    html_writer::tag('div', '', [
+                        'id' => 'instance-'.$bc->blockinstanceid.'-action',
+                        'class' => 'block-action block-collapsible',
+                        'data-instanceid' => $bc->blockinstanceid,
+                        'title' => get_string('blockshowhide', 'theme_adaptable'),
+                    ]);
+                $this->page->requires->js_call_amd('theme_adaptable/collapseblock');
+            }
+
             $output .=
                 html_writer::tag(
                     'div',
-                    html_writer::tag(
+                    $collapse . html_writer::tag(
                         'div',
-                        html_writer::tag('div', '', ['class' => 'block_action']) . $title .
-                            html_writer::tag('div', $controlshtml, ['class' => 'block-controls float-right']),
+                        html_writer::tag('div', '', ['class' => 'block_action']) . $title,
                         ['class' => 'title']
-                    ),
+                    ). html_writer::tag('div', $controlshtml, ['class' => 'block-controls']),
                     ['class' => 'header']
                 );
         }
@@ -323,25 +337,6 @@ trait core_renderer_toolbox {
             $output .= html_writer::tag('div', $bc->annotation, ['class' => 'blockannotation']);
         }
         return $output;
-    }
-
-    /**
-     * Calls the JS require function to hide a block.
-     *
-     * @param block_contents $bc A block_contents object
-     */
-    public function init_block_hider_js(block_contents $bc) {
-        if (!empty($bc->attributes['id']) && $bc->collapsible != block_contents::NOT_HIDEABLE) {
-            $config = new stdClass();
-            $config->id = $bc->attributes['id'];
-            $config->title = strip_tags($bc->title);
-            $config->preference = 'block' . $bc->blockinstanceid . 'hidden';
-            $config->tooltipVisible = get_string('hideblocka', 'access', $config->title);
-            $config->tooltipHidden = get_string('showblocka', 'access', $config->title);
-
-            $this->page->requires->js_init_call('M.util.init_block_hider', [$config]);
-            user_preference_allow_ajax_update($config->preference, PARAM_BOOL);
-        }
     }
 
     /**
@@ -785,6 +780,17 @@ trait core_renderer_toolbox {
      * @return string Markup.
      */
     public function get_marketing_blocks($layoutrow = 'marketlayoutrow', $settingname = 'market') {
+        $visiblestate = 3;
+        if (!empty($this->page->theme->settings->marketingvisible)) {
+            $visiblestate = $this->page->theme->settings->marketingvisible;
+        }
+        if ($visiblestate != 3) {
+            $loggedin = isloggedin();
+            if ((($visiblestate == 1) && ($loggedin)) || (($visiblestate == 2) && (!$loggedin))) {
+                return '';
+            }
+        }
+
         $fields = [];
         $blockcount = 0;
 
@@ -1293,7 +1299,7 @@ trait core_renderer_toolbox {
                     $branchlabel = '';
                     $branchtitle = get_string('thiscourse', 'theme_adaptable');
                     if ($navbardisplayicons) {
-                        $branchlabel .= '<i class="fa fa-sitemap fa-lg"></i><span class="menutitle">';
+                        $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('sitemap', ['fa-lg']).'<span class="menutitle">';
                     }
                     $branchlabel .= $branchtitle;
                     if ($navbardisplayicons) {
@@ -1302,7 +1308,7 @@ trait core_renderer_toolbox {
 
                     // Check the option of displaying a sub-menu arrow symbol.
                     if (!empty($this->page->theme->settings->navbardisplaysubmenuarrow)) {
-                        $branchlabel .= ' &nbsp;<i class="fa fa-caret-down"></i>';
+                        $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('caret-down', ['ml-1']);
                     }
 
                     $branchurl = $this->page->url;
@@ -1318,7 +1324,8 @@ trait core_renderer_toolbox {
                     $branchmenusort = 10000;
                     if ($this->page->theme->settings->displayparticipants) {
                         $branchtitle = get_string('people', 'theme_adaptable');
-                        $branchlabel = '<i class="icon fa fa-users mr-2"></i>' . $branchtitle;
+                        $branchlabel = \theme_adaptable\toolbox::getfontawesomemarkup(
+                            'users', ['icon', 'mr-2'], [], '', $branchtitle) . $branchtitle;
                         $branchurl = new moodle_url('/user/index.php', ['id' => $this->page->course->id]);
                         $branch->add($branchlabel, $branchurl, $branchtitle, $branchmenusort);
                     }
@@ -1326,7 +1333,7 @@ trait core_renderer_toolbox {
                     // Display Grades.
                     if ($this->page->theme->settings->displaygrades) {
                         $branchtitle = get_string('grades');
-                        $branchlabel = $this->pix_icon('i/grades', '', '') . $branchtitle;
+                        $branchlabel = $this->pix_icon('i/grades', $branchtitle, '') . $branchtitle;
                         $branchurl = new moodle_url('/grade/report/index.php', ['id' => $this->page->course->id]);
                         $branchmenusort++;
                         $branch->add($branchlabel, $branchurl, $branchtitle, $branchmenusort);
@@ -1335,7 +1342,7 @@ trait core_renderer_toolbox {
                     // Kaltura video gallery.
                     if (\theme_adaptable\toolbox::kalturaplugininstalled()) {
                         $branchtitle = get_string('nav_mediagallery', 'local_kalturamediagallery');
-                        $branchlabel = $this->pix_icon('media-gallery', '', 'local_kalturamediagallery') . $branchtitle;
+                        $branchlabel = $this->pix_icon('media-gallery', $branchtitle, 'local_kalturamediagallery') . $branchtitle;
                         $branchurl = new moodle_url(
                             '/local/kalturamediagallery/index.php',
                             ['courseid' => $this->page->course->id]
@@ -1348,7 +1355,7 @@ trait core_renderer_toolbox {
                     if (get_config('core_competency', 'enabled')) {
                         if ($this->page->theme->settings->enablecompetencieslink) {
                             $branchtitle = get_string('competencies', 'competency');
-                            $branchlabel = $this->pix_icon('i/competencies', '', '') . $branchtitle;
+                            $branchlabel = $this->pix_icon('i/competencies', $branchtitle, '') . $branchtitle;
                             $branchurl = new moodle_url(
                                 '/admin/tool/lp/coursecompetencies.php',
                                 ['courseid' => $this->page->course->id]
@@ -1362,7 +1369,7 @@ trait core_renderer_toolbox {
                     $data = theme_adaptable_get_course_activities();
                     foreach ($data as $modname => $modfullname) {
                         if ($modname === 'resources') {
-                            $icon = $this->pix_icon('monologo', '', 'mod_page');
+                            $icon = $this->pix_icon('monologo', get_string('pluginname', 'mod_page'), 'mod_page');
                             $branchmenusort++;
                             $branch->add(
                                 $icon . $modfullname,
@@ -1371,7 +1378,7 @@ trait core_renderer_toolbox {
                                 $branchmenusort
                             );
                         } else {
-                            $icon = $this->pix_icon('monologo', '', $modname);
+                            $icon = $this->pix_icon('monologo', get_string('pluginname', 'mod_'.$modname), $modname);
                             $branchmenusort++;
                             $branch->add(
                                 $icon . $modfullname,
@@ -1461,7 +1468,8 @@ trait core_renderer_toolbox {
 
         if (!empty($sectionsformnenu)) { // Rare but possible!
             $branchtitle = get_string('sections', 'theme_adaptable');
-            $branchlabel = '<i class="icon sections-menu fa fa-list-ol fa-lg"></i>' . $branchtitle;
+            $branchlabel = \theme_adaptable\toolbox::getfontawesomemarkup(
+                'list-ol', ['icon', 'fa-lg'], [], '', $branchtitle) . $branchtitle;
             $branch = $menu->add($branchlabel, null, $branchtitle, 100003);
 
             foreach ($sectionsformnenu as $sectionformenu) {

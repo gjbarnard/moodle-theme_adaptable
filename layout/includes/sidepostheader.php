@@ -26,8 +26,6 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-user_preference_allow_ajax_update('drawer-open-block', PARAM_BOOL);
-
 if (isloggedin()) {
     $sidepostopen = (get_user_preferences('drawer-open-block', true) == true);
 } else {

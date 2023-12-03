@@ -1,3 +1,12 @@
+Change Log in version 403.0.1 (2023111800)
+===========================================
+1. Release candidate for Moodle 4.3.
+
+Change Log in version 402.0.2 (2023092501)
+===========================================
+1. Add the ability to show the marketing blocks when 'Logged out', 'Logged in' or 'Logged in or out',
+   'marketingvisible' setting.
+
 Change Log in version 402.0.1 (2023092500)
 ===========================================
 1. Removed social wall format (https://moodle.org/plugins/format_socialwall/versions) as last known version was for Moodle 3.3.

@@ -517,6 +517,27 @@ function theme_adaptable_set_tilesshowallcontacts($css, $display) {
 }
 
 /**
+ * Get the current user preferences that are available
+ *
+ * @return array[]
+ */
+function theme_adaptable_user_preferences(): array {
+    return [
+        'drawer-open-block' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => false,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+        'drawer-open-index' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => true,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+    ];
+}
+/**
  * Get the user preference for the zoom (show / hide block) function.
  */
 function theme_adaptable_get_zoom() {
@@ -528,7 +549,8 @@ function theme_adaptable_get_zoom() {
  * @return void
  */
 function theme_adaptable_initialise_zoom() {
-    user_preference_allow_ajax_update('theme_adaptable_zoom', PARAM_TEXT);
+    global $USER;
+    $USER->adaptable_user_pref['theme_adaptable_zoom'] = PARAM_TEXT;
 }
 
 /**
@@ -537,7 +559,8 @@ function theme_adaptable_initialise_zoom() {
  */
 function theme_adaptable_initialise_full() {
     if (\theme_adaptable\toolbox::get_setting('enablezoom')) {
-        user_preference_allow_ajax_update('theme_adaptable_full', PARAM_TEXT);
+        global $USER;
+        $USER->adaptable_user_pref['theme_adaptable_full'] = PARAM_TEXT;
     }
 }
 

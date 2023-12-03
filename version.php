@@ -33,19 +33,19 @@ defined('MOODLE_INTERNAL') || die;
 $plugin->component = 'theme_adaptable';
 
 // Adaptable version date (YYYYMMDDrr where rr is the release number).
-$plugin->version = 2023092500;
+$plugin->version = 2023111800;
 
-$plugin->requires = 2023042400.00; // 4.2 (Build: 20230424).
+$plugin->requires = 2023100900.00; // 4.3 (Build: 20231009).
 
-$plugin->supported = [402, 402];
+$plugin->supported = [403, 403];
 
 // Adaptable version using SemVer (https://semver.org).
-$plugin->release = '402.0.1';
+$plugin->release = '403.0.1';
 
 // Adaptable maturity (do not use ALPHA or BETA versions in production sites).
 $plugin->maturity = MATURITY_RC;
 
 // Adaptable dependencies (Only Boost as it's the parent theme).
 $plugin->dependencies = [
-    'theme_boost' => 2023042400,
+    'theme_boost' => 2023100900,
 ];

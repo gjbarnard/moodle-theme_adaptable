@@ -340,6 +340,12 @@ $string['marketingsettings'] = 'Marketing blocks';
 $string['marketingsettingsheading'] = 'Customize the marketing blocks that appear on the front page.';
 $string['marketingdesc'] = 'There are two full width info boxes with differing styles you can use.<br>In addition to this there is a layout builder allowing you to decide how many blocks you need and define your own layout.<br>Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
 
+$string['marketingvisible'] = 'Show the marketing blocks when';
+$string['marketingvisibledesc'] = 'Show the marketing blocks when \'Logged out\', \'Logged in\' or \'Logged in or out\'.';
+$string['marketingvisibleloggedout'] = 'Logged out';
+$string['marketingvisibleloggedin'] = 'Logged in';
+$string['marketingvisibleloggedinout'] = 'Logged in or out';
+
 $string['marketingbuilderheading'] = 'Marketing block layout builder';
 $string['marketingbuilderdesc'] = 'Use the tool below to setup your marketing blocks. Once defined the block settings will appear further down the page.';
 
@@ -1134,6 +1140,7 @@ $string['enableshowhideblocks'] = 'Enable Show Hide Blocks';
 $string['enableshowhideblocksdesc'] = 'Allows users to show / hide all blocks.';
 $string['enableshowhideblockstext'] = 'Show text for Show Hide Blocks';
 $string['enableshowhideblockstextdesc'] = 'Shows the text beside the button.';
+$string['blockshowhide'] = 'Show / hide the block';
 
 $string['enablenavbarwhenloggedout'] = 'Enable navbar when logged out';
 $string['enablenavbarwhenloggedoutdesc'] = 'Shows the navbar even when logged out.  Limited to help and tools menu only.';

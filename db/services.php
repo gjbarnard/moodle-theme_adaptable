@@ -35,6 +35,15 @@ $functions = [
         'loginrequired' => false,
         'ajax' => true,
     ],
+    'theme_adaptable_user_set_user_preferences' => [
+        'classname' => 'theme_adaptable\output\external',
+        'methodname' => 'set_user_preferences',
+        'description' => 'Set user preferences.',
+        'type' => 'write',
+        'capabilities' => 'moodle/site:config',
+        'loginrequired' => false,
+        'ajax' => true,
+    ],
 ];
 
 $services = [

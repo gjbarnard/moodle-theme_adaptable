@@ -39,7 +39,7 @@ $ADMIN->add('themes', new admin_category('theme_adaptable', get_string('configti
 $asettings = new theme_adaptable_admin_settingspage_tabs(
     'themesettingadaptable',
     get_string('configtabtitle', 'theme_adaptable'),
-    402
+    403
 );
 if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/array_definitions.php');
