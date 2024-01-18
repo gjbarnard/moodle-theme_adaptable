@@ -1,4 +1,4 @@
-Change Log in version 403.0.2 (2023111801)
+Change Log in version 403.1.0 (2023111801)
 ===========================================
 1. Fix 'Grade report scrolling', ref: https://moodle.org/mod/forum/discuss.php?d=453194#p1821224.
 2. Tidy up header logic in relation to titles.
