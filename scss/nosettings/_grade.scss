@@ -35,4 +35,12 @@
     .secondary-navigation .moremenu .nav {
         margin: 0;
     }
+
+    .gradeparent tr.heading {
+        top: 0;
+    }
+
+    &.hasstickyfooter .gradeparent tr.lastrow {
+        bottom: -1px;
+    }
 }

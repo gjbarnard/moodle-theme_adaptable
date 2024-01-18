@@ -33,5 +33,5 @@ namespace theme_adaptable\output;
  * The core maintenance renderer.
  */
 class core_renderer_maintenance extends \core_renderer_maintenance {
-    use core_renderer_toolbox;
+    use core_renderer_toolbox, core_renderer_layout;
 }

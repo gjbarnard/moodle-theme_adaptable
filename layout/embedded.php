@@ -28,38 +28,4 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-echo $OUTPUT->doctype() ?>
-<html <?php echo $OUTPUT->htmlattributes(); ?>>
-<head>
-    <title><?php echo $OUTPUT->page_title(); ?></title>
-    <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
-    <?php echo $OUTPUT->standard_head_html() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-
-<body <?php echo $OUTPUT->body_attributes(); ?>>
-<?php
-echo $OUTPUT->standard_top_of_body_html();
-$fakeblocks = $OUTPUT->blocks('side-pre', [], 'aside', true);
-$hasfakeblocks = strpos($fakeblocks, 'data-block="_fake"') !== false;
-?>
-<div id="page-wrapper">
-<?php
-echo '<div id="page"';
-if ($hasfakeblocks) {
-    echo ' class="has-fake-blocks"';
-}
-echo '>';
-if ($hasfakeblocks) {
-    echo '<section class="embedded-blocks" aria-label="' . get_string('blocks') . '">';
-    echo $fakeblocks;
-    echo '</section>';
-}
-?>
-        <section class="embedded-main">
-            <?php echo $OUTPUT->main_content(); ?>
-        </section>
-    </div>
-</div>
-<?php
-require_once(dirname(__FILE__) . '/includes/nofooter.php');
+echo $OUTPUT->embedded_layout();

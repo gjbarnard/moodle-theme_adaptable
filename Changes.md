@@ -1,3 +1,15 @@
+Change Log in version 403.0.2 (2023111801)
+===========================================
+1. Fix 'Grade report scrolling', ref: https://moodle.org/mod/forum/discuss.php?d=453194#p1821224.
+2. Tidy up header logic in relation to titles.
+3. Navbar and breadcrumb tidy.
+4. Fix 'error: class constructors must be invoked with 'new'' - ref: https://moodle.org/mod/forum/discuss.php?d=453804.
+5. Add 'buttontexthovercolor' setting to fix button hovers.
+6. Fix header search icon.
+7. Add 'headerbgimagetextcolour' and 'headertextcolor2' to fix lower header text colours.
+8. Fix position of '#savediscardsection'.
+9. Refactored layouts as a progressional aim towards use of templating to a greater extent.
+
 Change Log in version 403.0.1 (2023111800)
 ===========================================
 1. Release candidate for Moodle 4.3.

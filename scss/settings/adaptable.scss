@@ -86,16 +86,6 @@ a:focus {
     outline-offset: -2px;
 }
 
-// Lists.
-#adaptable-page-header-wrapper {
-    .dropdown-menu > li > a:hover,
-    .dropdown-menu > li > a:focus,
-    .dropdown-submenu:hover > a,
-    .dropdown-submenu:focus > a {
-        background-image: none;
-    }
-}
-
 // Text Selection.
 ::selection,
 ::-moz-selection {
@@ -203,6 +193,7 @@ div.signuppanel h2 {
 // Header.
 #adaptable-page-header-wrapper {
     background-color: [[setting:headerbkcolor2]];
+    color: [[setting:headertextcolor2]];
     z-index: 10;
 
     &.sticky {
@@ -211,6 +202,14 @@ div.signuppanel h2 {
         top: 0;
         width: 100%;
         z-index: $zindex-sticky;
+    }
+
+    // Lists.
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus,
+    .dropdown-submenu:hover > a,
+    .dropdown-submenu:focus > a {
+        background-image: none;
     }
 }
 
@@ -683,56 +682,41 @@ langmenu a:hover {
 }
 
 .breadcrumb {
-    background: none !important;
-    background-color: [[setting:breadcrumb]] !important;
-    padding: 5px;
-}
-
-.breadcrumb li {
-    margin: 5px 0;
-    text-shadow: none;
-}
-
-.breadcrumb li span a {
-    text-decoration: none;
-}
-
-.breadcrumb li span.divider {
-    display: none !important;
-}
-
-.breadcrumb > a {
-    display: inline-block;
-    margin: 5px 0;
-}
-
-.breadcrumb .fa {
-    display: inline;
-    margin: 12px 0;
+    background-color: [[setting:breadcrumb]];
+    padding: 0 10px;
+    li {
+        margin: 5px 0;
+        text-shadow: none;
+        span {
+            a {
+                text-decoration: none;
+            }
+            &.divider {
+                border-bottom: 0 solid [[setting:maincolor]];
+                display: none !important;
+            }
+        }
+        a.firstli {
+            padding-left: 15px;
+            padding-right: 20px;
+        }
+    }
+    > a {
+        display: inline-block;
+        margin: 5px 0;
+    }
+    ul i,
+    li.lastli span {
+        color: [[setting:breadcrumbtextcolor]];
+        text-decoration: none;
+    }
 }
 
 .separator {
     margin: 9px;
-}
-
-.separator i {
-    margin-left: 5px;
-}
-
-.breadcrumb ul i,
-.breadcrumb li.lastli span {
-    color: [[setting:breadcrumbtextcolor]];
-    text-decoration: none;
-}
-
-.breadcrumb li a.firstli {
-    padding-left: 15px;
-    padding-right: 20px;
-}
-
-.breadcrumb li span.divider {
-    border-bottom: 0 solid [[setting:maincolor]];
-    display: none !important;
+    i {
+        margin-left: 5px;
+    }
 }
 
 .breadcrumb-button {
@@ -1314,10 +1298,10 @@ button.search-box__button {
 }
 
 .search-box__button:hover {
-    background: [[setting:buttonhovercolor]];
+    background-color: [[setting:buttonhovercolor]];
     border: 1px solid rgba(#000, .05);
     box-shadow: 1px 1px 2px rgba(255, 255, 255, .2);
-    color: [[setting:buttontextcolor]];
+    color: [[setting:buttontexthovercolor]];
     opacity: 0.9;
     text-decoration: none;
     text-shadow: -1px -1px 0 [[setting:buttonhovercolor]];
@@ -1873,13 +1857,44 @@ a.dimmed_text:visited,
 #savediscardsection {
     background-color: #eee;
     filter: alpha(opacity=80);
-    min-width: 100%;
     min-height: 30px;
     opacity: 0.8;
     padding: 10px;
     position: fixed; // For IE8 and earlier.
     top: 10px;
     width: 100%;
+}
+
+@media (min-width: 992px) {
+    #page.drawers {
+        #savediscardsection {
+            margin-left: -1.25rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        &.show-drawer-left,
+        &.show-drawer-right {
+            #savediscardsection {
+                min-width: auto;
+            }
+        }
+        &.show-drawer-left {
+            #savediscardsection {
+                margin-left: 0;
+                width: calc(100% - #{$drawer-left-width});
+            }
+        }
+        &.show-drawer-right {
+            #savediscardsection {
+                width: calc(100% - #{$drawer-right-width});
+            }
+        }
+        &.show-drawer-left.show-drawer-right {
+            #savediscardsection {
+                width: calc(100% - #{$drawer-left-width} - #{$drawer-right-width});
+            }
+        }
+    }
 }
 
 img.smallicon {

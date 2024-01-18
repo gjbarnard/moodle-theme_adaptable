@@ -14,112 +14,189 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Adaptable theme.
+ * Foundation theme.
  *
- * @module     theme_adaptable/icon_system_fontawesome
- * @copyright  2023 G J Barnard
+ * An Icon System implementation for FontAwesome based on core/icon_system_fontawesome by
+ * Damyon Wiese.
+ *
+ * @module theme_adaptable/icon_system_fontawesome
+ * @copyright  2017 Damyon Wiese
+ * @copyright  2023 G J Barnard.
+ * @author     G J Barnard -
  *               {@link https://moodle.org/user/profile.php?id=442195}
  *               {@link https://gjbarnard.co.uk}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-define(['core/icon_system', 'jquery', 'core/ajax', 'core/mustache', 'core/localstorage', 'core/url'],
-function(IconSystem, $, Ajax, Mustache, LocalStorage, Url) {
+import {call as fetchMany} from 'core/ajax';
+import LocalStorage from 'core/localstorage';
+import IconSystem from 'core/icon_system';
+import * as Mustache from 'core/mustache';
+import * as Config from 'core/config';
+import * as Url from 'core/url';
 
-    var staticMap = null;
-    var fetchMap = null;
+/**
+ * An set of properties for an icon.
+ * @typedef {object} IconProperties
+ * @property {array} attributes
+ * @private
+ */
+
+/**
+ * The FontAwesome icon system.
+ */
+export default class IconSystemFontawesome extends IconSystem {
+    /**
+     * @var {Map} staticMap A map of icon names to FA Icon.
+     * @private
+     */
+    static staticMap = null;
 
     /**
-     * IconSystemFontawesome
+     * @var {Promise} fetchPromise The promise used when fetching the result
+     * @private
      */
-    var IconSystemFontawesome = function() {
-        IconSystem.apply(this, arguments);
-    };
-    IconSystemFontawesome.prototype = Object.create(IconSystem.prototype);
+    static fetchPromise = null;
+
+    /**
+     * @var {string} cacheKey The key used to store the icon map in LocalStorage.
+     * @private
+     */
+    static cacheKey = `core_iconsystem/theme/${Config.theme}/core/iconmap-fontawesome`;
 
     /**
      * Prefetch resources so later calls to renderIcon can be resolved synchronously.
      *
-     * @method init
-     * @return {Promise}
+     * @returns {Promise<IconSystemFontawesome>}
      */
-    IconSystemFontawesome.prototype.init = function() {
-        if (staticMap) {
-            return $.when(this);
+    init() {
+        if (IconSystemFontawesome.staticMap) {
+            return Promise.resolve(this);
         }
 
-        var map = LocalStorage.get('theme_adaptable/iconmap-fontawesome');
+        if (this.getMapFromCache()) {
+            return Promise.resolve(this);
+        }
+
+        if (IconSystemFontawesome.fetchPromise) {
+            return IconSystemFontawesome.fetchPromise;
+        }
+
+        return this.fetchMapFromServer();
+    }
+
+    /**
+     * Get the icon map from LocalStorage.
+     *
+     * @private
+     * @returns {Map}
+     */
+    getMapFromCache() {
+        const map = LocalStorage.get(IconSystemFontawesome.cacheKey);
         if (map) {
-            map = JSON.parse(map);
+            IconSystemFontawesome.staticMap = new Map(JSON.parse(map));
         }
+        return IconSystemFontawesome.staticMap;
+    }
 
-        if (map) {
-            staticMap = map;
-            return $.when(this);
-        }
+    /**
+     * Fetch the map data from the server.
+     *
+     * @private
+     * @returns {Promise}
+     */
+    _fetchMapFromServer() {
+        return fetchMany([{
+            methodname: 'theme_foundation_output_load_fontawesome_icon_map',
+            args: {
+            },
+        }], true, false, false, 0, Config.themerev)[0];
+    }
 
-        if (fetchMap === null) {
-            fetchMap = Ajax.call([{
-                methodname: 'theme_adaptable_output_load_fontawesome_icon_map',
-                args: []
-            }], true, false)[0];
-        }
+    /**
+     * Fetch the map data from the server.
+     *
+     * @returns {Promise<IconSystemFontawesome>}
+     * @private
+     */
+    async fetchMapFromServer() {
+        IconSystemFontawesome.fetchPromise = (async () => {
+            const mapData = await this._fetchMapFromServer();
 
-        return fetchMap.then(function(map) {
-            staticMap = {};
-            $.each(map, function(index, value) {
-                staticMap[value.component + '/' + value.pix] = value.to;
-            });
-            LocalStorage.set('theme_adaptable/iconmap-fontawesome', JSON.stringify(staticMap));
+            IconSystemFontawesome.staticMap = new Map(Object.entries(mapData).map(([, value]) => ([
+                `${value.component}/${value.pix}`,
+                value.to,
+            ])));
+            LocalStorage.set(
+                IconSystemFontawesome.cacheKey,
+                JSON.stringify(Array.from(IconSystemFontawesome.staticMap.entries())),
+            );
+
             return this;
-        }.bind(this));
-    };
+        })();
+
+        return IconSystemFontawesome.fetchPromise;
+    }
 
     /**
      * Render an icon.
      *
-     * @param {String} key
-     * @param {String} component
-     * @param {String} title
-     * @param {String} template
-     * @return {String}
-     * @method renderIcon
+     * @param {string} key
+     * @param {string} component
+     * @param {string} title
+     * @param {string} template
+     * @return {string} The rendered HTML content
      */
-    IconSystemFontawesome.prototype.renderIcon = function(key, component, title, template) {
-        var mappedIcon = staticMap[component + '/' + key];
-        var unmappedIcon = false;
-        if (typeof mappedIcon === "undefined") {
-            var url = Url.imageUrl(key, component);
+    renderIcon(key, component, title, template) {
+        const iconKey = `${component}/${key}`;
+        const mappedIcon = IconSystemFontawesome.staticMap.get(iconKey);
+        const unmappedIcon = this.getUnmappedIcon(mappedIcon, key, component, title);
 
-            unmappedIcon = {
-                attributes: [
-                    {name: 'src', value: url},
-                    {name: 'alt', value: title},
-                    {name: 'title', value: title}
-                ]
-            };
-        }
-
-        var context = {
-            key: mappedIcon,
-            title: title,
+        const context = {
+            title,
+            unmappedIcon,
             alt: title,
-            unmappedIcon: unmappedIcon
+            key: mappedIcon,
         };
 
-        return Mustache.render(template, context);
-    };
+        if (typeof title === "undefined" || title === '') {
+            context['aria-hidden'] = true;
+        }
+
+        return Mustache.render(template, context).trim();
+    }
+
+    /**
+     * Get the unmapped icon content, if the icon is not mapped.
+     *
+     * @param {IconProperties} mappedIcon
+     * @param {string} key
+     * @param {string} component
+     * @param {string} title
+     * @returns {IconProperties|null}
+     * @private
+     */
+    getUnmappedIcon(mappedIcon, key, component, title) {
+        if (mappedIcon) {
+            return null;
+        }
+
+        return {
+            attributes: [
+                {name: 'src', value: Url.imageUrl(key, component)},
+                {name: 'alt', value: title},
+                {name: 'title', value: title}
+            ],
+        };
+    }
 
     /**
      * Get the name of the template to pre-cache for this icon system.
      *
-     * @return {String}
+     * @return {string}
      * @method getTemplateName
      */
-    IconSystemFontawesome.prototype.getTemplateName = function() {
+    getTemplateName() {
         return 'theme_adaptable/pix_icon_fontawesome';
-    };
-
-    return IconSystemFontawesome; // @alias module:theme_adaptable/icon_system_fontawesome
-
-});
+    }
+}

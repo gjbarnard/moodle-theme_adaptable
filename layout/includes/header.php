@@ -35,17 +35,6 @@ $bodyclasses[] = 'two-column';
 
 $pageclasses = [];
 
-/* Check if this is a course or module page and check setting to hide site title.
-   If not one of these pages, by default show it (set $hidesitetitle to false). */
-if (
-    (strstr($PAGE->pagetype, 'course')) ||
-     (strstr($PAGE->pagetype, 'mod')) && ($this->page->course->id > 1)
-) {
-    $hidesitetitle = !empty(($PAGE->theme->settings->coursepageheaderhidesitetitle)) ? true : false;
-} else {
-    $hidesitetitle = false;
-}
-
 // Screen size.
 theme_adaptable_initialise_zoom();
 $bodyclasses[] = theme_adaptable_get_zoom();
@@ -122,16 +111,6 @@ if (!empty($PAGE->theme->settings->standardscreenwidth)) {
     $bodyclasses[] = 'standard';
 }
 
-// HTML header.
-echo $OUTPUT->doctype();
-?>
-<html <?php echo $OUTPUT->htmlattributes(); ?>>
-<head>
-    <title><?php echo $OUTPUT->page_title(); ?></title>
-    <link rel="icon" href="<?php echo $OUTPUT->favicon(); ?>" />
-
-<?php
-// Include header.
 require_once(dirname(__FILE__) . '/head.php');
 
 $left = $PAGE->theme->settings->blockside;
@@ -272,6 +251,16 @@ echo $OUTPUT->standard_top_of_body_html();
         }
     }
 
+    /* Check if this is a course or module page and check setting to hide site title.
+       If not one of these pages, by default show it (set $hidesitetitle to false). */
+    if (
+        (strstr($PAGE->pagetype, 'course')) ||
+        (strstr($PAGE->pagetype, 'mod')) && ($this->page->course->id != SITEID)
+    ) {
+        $hidesitetitle = !empty(($PAGE->theme->settings->coursepageheaderhidesitetitle)) ? true : false;
+    } else {
+        $hidesitetitle = false;
+    }
     if (!$hidesitetitle) {
         $headercontext['sitelogo'] = $OUTPUT->get_logo($currenttopcat, $shownavbar);
         $headercontext['sitetitle'] = $OUTPUT->get_title($currenttopcat);

@@ -26,13 +26,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// Set HTTPS if needed.
-if (empty($CFG->loginhttps)) {
-    $wwwroot = $CFG->wwwroot;
-} else {
-    $wwwroot = str_replace("http://", "https://", $CFG->wwwroot);
-}
-
 $bodyclasses = [];
 $bodyclasses[] = 'theme_adaptable';
 $bodyclasses[] = 'two-column';
@@ -42,16 +35,6 @@ if (!empty($PAGE->theme->settings->standardscreenwidth)) {
 } else {
     $bodyclasses[] = 'standard';
 }
-
-// HTML header.
-echo $OUTPUT->doctype();
-?>
-<html <?php echo $OUTPUT->htmlattributes(); ?>>
-<head>
-    <title><?php echo $OUTPUT->page_title(); ?></title>
-    <link rel="icon" href="<?php echo $OUTPUT->favicon(); ?>" />
-
-<?php
 
 theme_adaptable_initialise_full();
 $bodyclasses[] = theme_adaptable_get_full();

@@ -42,6 +42,19 @@
     text-shadow: none;
 }
 
+.btn {
+    &.btn-icon {
+        @include hover-focus {
+            background-color: [[setting:buttonhovercolor]];
+            color: [[setting:buttontexthovercolor]];
+        }
+    }
+    // Caret.
+    .caret {
+        border-top-color: [[setting:buttontextcolor]] !important;
+    }
+}
+
 // Primary button.
 .btn-primary,
 .backup-restore .singlebutton button[type="submit"],
@@ -90,7 +103,7 @@ a#adaptable-message-user-button,
 .btn-primary:hover {
     background-color: [[setting:buttonhovercolor]] !important;
     text-decoration: none !important;
-    color: [[setting:buttontextcolor]] !important;
+    color: [[setting:buttontexthovercolor]] !important;
 }
 
 // Secondary button.
@@ -143,7 +156,7 @@ a#adaptable-message-user-button:hover,
     background-position: 0 -100%;
     background-color: [[setting:buttonhovercolor]] !important;
     text-decoration: none !important;
-    color: [[setting:buttontextcolor]] !important;
+    color: [[setting:buttontexthovercolor]] !important;
 }
 
 input[type="submit"]:focus,
@@ -154,7 +167,7 @@ a.submit:focus, #notice .singlebutton + .singlebutton input:focus,
     background-color: [[setting:buttonhovercolor]] !important;
     background-position: 0 -100%;
     text-decoration: none !important;
-    color: [[setting:buttontextcolor]] !important;
+    color: [[setting:buttontexthovercolor]] !important;
 }
 
 button.close {
@@ -226,7 +239,7 @@ input#id_submitbutton2[disabled],
 td.submit input[disabled] {
     background-image: none;
     background-color: [[setting:buttonhovercolor]] !important;
-    color: [[setting:buttontextcolor]] !important;
+    color: [[setting:buttontexthovercolor]] !important;
     box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
 }
 
@@ -346,11 +359,6 @@ button[name="resetbutton"]:hover,
     border: none;
 }
 
-// Caret.
-.btn .caret {
-    border-top-color: [[setting:buttontextcolor]] !important;
-}
-
 // Message Drawer styles (moodle 3.6 and higher).
 
 // Hide messages drawer unused buttons.
@@ -389,26 +397,27 @@ a.btn[data-toggle="popover"] {
 }
 
 // .btn-link styles.
-.btn-link {
+.btn-link,
+a.btn-link {
     background-color: [[setting:buttoncolor]];
     box-shadow: none;
-    color: [[setting:buttontextcolor]];
+    color: [[setting:buttontextcolor]] !important;
 
     &:hover,
     :focus {
         background-color: [[setting:buttonhovercolor]];
-        color: [[setting:buttontextcolor]];
+        color: [[setting:buttontexthovercolor]] !important;
     }
 
     &.add-sections,
     &.section-modchooser-link {
         background-color: transparent;
-        color: [[setting:linkcolor]];
+        color: [[setting:linkcolor]] !important;
 
         &:hover,
         :focus {
             background-color: transparent;
-            color: [[setting:linkhover]];
+            color: [[setting:linkhover]] !important;
         }
     }
 

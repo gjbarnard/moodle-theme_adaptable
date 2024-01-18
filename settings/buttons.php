@@ -61,6 +61,15 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Buttons text hover color.
+    $name = 'theme_adaptable/buttontexthovercolor';
+    $title = get_string('buttontexthovercolor', 'theme_adaptable');
+    $description = get_string('buttontexthovercolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#eeeeee', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     // Buttons focus color.
     $name = 'theme_adaptable/buttonfocuscolor';
     $title = get_string('buttonfocuscolor', 'theme_adaptable');

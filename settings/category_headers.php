@@ -105,6 +105,25 @@ if ($ADMIN->fulltree) {
             $setting = new admin_setting_configstoredfile($name, $title, $description, 'categoryheaderbgimage' . $customheaderid);
             $page->add($setting);
 
+            // Background image text colour.
+            $name = 'theme_adaptable/categoryheaderbgimagetextcolour' . $customheaderid;
+            $title = get_string('categoryheaderbgimagetextcolour', 'theme_adaptable', ['id' => $customheaderid,
+                'name' => $catinfo['name'], ]);
+            $previewconfig = null;
+            if (empty($catinfo['children'])) {
+                $description = get_string('categoryheaderbgimagetextcolourdesc', 'theme_adaptable', ['id' => $customheaderid,
+                    'name' => $catinfo['name'], ]);
+            } else {
+                $description = get_string(
+                    'categoryheaderbgimagetextcolourdescchildren',
+                    'theme_adaptable',
+                    ['id' => $customheaderid, 'name' => $catinfo['name'], 'children' => $childrentext]
+                );
+            }
+            $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+            $setting->set_updatedcallback('theme_reset_all_caches');
+            $page->add($setting);
+
             // Logo.
             $name = 'theme_adaptable/categoryheaderlogo' . $customheaderid;
             $title = get_string('categoryheaderlogo', 'theme_adaptable', ['id' => $customheaderid,

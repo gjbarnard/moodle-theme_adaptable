@@ -79,6 +79,7 @@
 
 #page.drawers {
     margin-top: 0;
+    overflow-y: auto;
 }
 
 @include media-breakpoint-up(lg) {

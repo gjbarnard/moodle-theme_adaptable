@@ -18,7 +18,7 @@
  * Head
  *
  * @package    theme_adaptable
- * @copyright  2020 G J Barnard
+ * @copyright  2020, 2024 G J Barnard
  *               {@link https://moodle.org/user/profile.php?id=442195}
  *               {@link https://gjbarnard.co.uk}
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -26,73 +26,68 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// HTML head.
-echo $OUTPUT->standard_head_html();
+$headcontext = new stdClass;
+$headcontext->output = $OUTPUT;
+$headcontext->sitefullname = $SITE->fullname;
+$headcontext->pagetitle = $OUTPUT->page_title();
 $siteurl = new moodle_url('');
-?>
-    <!-- CSS print media -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+$headcontext->siteurl = $siteurl->out();
+$headcontext->maincolor = $PAGE->theme->settings->maincolor;
 
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" value="summary">
-    <meta name="twitter:site" value="<?php echo $SITE->fullname; ?>" />
-    <meta name="twitter:title" value="<?php echo $OUTPUT->page_title(); ?>" />
+if (!empty($PAGE->theme->settings->googlefonts)) {
+    // Select fonts used.
+    $fontssubset = '';
+    if (!empty($PAGE->theme->settings->fontsubset)) {
+        // Get the Google fonts subset.
+        $fontssubset = '&subset='.$PAGE->theme->settings->fontsubset;
+    }
 
-    <!-- Open Graph data -->
-    <meta property="og:title" content="<?php echo $OUTPUT->page_title(); ?>" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="<?php echo $siteurl->out(); ?>" />
-    <meta name="og:site_name" value="<?php echo $SITE->fullname; ?>" />
+    if (!empty($PAGE->theme->settings->fontname)) {
+        switch ($PAGE->theme->settings->fontname) {
+            case 'default':
+            case 'sans-serif':
+                // Use 'sans-serif'.
+            break;
 
-    <!-- Chrome, Firefox OS and Opera on Android topbar color -->
-    <meta name="theme-color" content="<?php echo $PAGE->theme->settings->maincolor; ?>" />
-
-    <!-- Windows Phone topbar color -->
-    <meta name="msapplication-navbutton-color" content="<?php echo $PAGE->theme->settings->maincolor; ?>" />
-
-    <!-- iOS Safari topbar color -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="<?php echo $PAGE->theme->settings->maincolor; ?>" />
-
-    <?php
-    if (!empty($PAGE->theme->settings->googlefonts)) {
-        $fontssubset = '';
-
-        $fontsettings = ['fontname', 'fontheadername', 'fonttitlename'];
-        $fontstoload = [];
-        foreach ($fontsettings as $fontsetting) {
-            switch ($PAGE->theme->settings->$fontsetting) {
-                case 'sans-serif':
-                    break;
-                default:
-                    // Google font name.
-                    $fontname = str_replace(" ", "+", $PAGE->theme->settings->$fontsetting);
-                    if (!in_array($fontname, $fontstoload)) {
-                        $fontstoload[] = $fontname;
-                    }
-                    break;
-            }
-        }
-
-        if (!empty($fontstoload)) {
-            // Get the Google Font weights.
-            $fontweight = ':' . $PAGE->theme->settings->fontweight . ',' . $PAGE->theme->settings->fontweight . 'i';
-            $fontheaderweight = ':' . $PAGE->theme->settings->fontheaderweight . ',' . $PAGE->theme->settings->fontheaderweight . 'i';
-            $fonttitleweight = ':' . $PAGE->theme->settings->fonttitleweight . ',' . $PAGE->theme->settings->fonttitleweight . 'i';
-
-            // Get the Google fonts subset.
-            if (!empty($PAGE->theme->settings->fontsubset)) {
-                $fontssubset = '&subset=' . $PAGE->theme->settings->fontsubset;
-            }
-
-            // Load Google fonts.
-            echo '<!-- Load Google Fonts -->';
-            foreach ($fontstoload as $googlefontname) {
-                echo '<link href="https://fonts.googleapis.com/css?family=';
-                echo $googlefontname . $fontweight . $fontssubset;
-                echo '" rel="stylesheet" type="text/css">';
-            }
+            default:
+                // Get the Google main font.
+                $fontname = str_replace(" ", "+", $PAGE->theme->settings->fontname);
+                $fontweight = ':'.$PAGE->theme->settings->fontweight.','.$PAGE->theme->settings->fontweight.'i';
+                $headcontext->fontname = $fontname.$fontweight.$fontssubset;
+            break;
         }
     }
-    ?>
-</head>
-<?php
+
+    if (!empty($PAGE->theme->settings->fontheadername)) {
+        switch ($PAGE->theme->settings->fontheadername) {
+            case 'default':
+            case 'sans-serif':
+                // Use 'sans-serif'.
+            break;
+
+            default:
+                // Get the Google header font.
+                $fontheadername = str_replace(" ", "+", $PAGE->theme->settings->fontheadername);
+                $fontheaderweight = ':'.$PAGE->theme->settings->fontheaderweight.','.$PAGE->theme->settings->fontheaderweight.'i';
+                $headcontext->fontheadername = $fontheadername.$fontheaderweight.$fontssubset;
+            break;
+        }
+    }
+
+    if (!empty($PAGE->theme->settings->fonttitlename)) {
+        switch ($PAGE->theme->settings->fonttitlename) {
+            case 'default':
+            case 'sans-serif':
+                // Use 'sans-serif'.
+            break;
+
+            default:
+                // Get the Google title font.
+                $fonttitlename = str_replace(" ", "+", $PAGE->theme->settings->fonttitlename);
+                $fonttitleweight = ':'.$PAGE->theme->settings->fonttitleweight.','.$PAGE->theme->settings->fonttitleweight.'i';
+                $headcontext->fonttitlename = $fonttitlename.$fonttitleweight.$fontssubset;
+            break;
+        }
+    }
+}
+echo $OUTPUT->render_from_template('theme_adaptable/head', $headcontext);
