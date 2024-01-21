@@ -703,21 +703,6 @@ function theme_adaptable_page_init(moodle_page $page) {
 }
 
 /**
- * Strip full site title from header
- * @param string $heading
- */
-function theme_adaptable_remove_site_fullname($heading) {
-    global $SITE, $PAGE;
-    if (strpos($PAGE->pagetype, 'course-view-') === 0) {
-        return $heading;
-    }
-
-    $header = preg_replace("/^" . $SITE->fullname . "/", "", $heading);
-
-    return $header;
-}
-
-/**
  *
  * Get the current page to allow us to check if the block is allowed to display.
  *

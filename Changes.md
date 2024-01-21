@@ -1,3 +1,17 @@
+Change Log in version 403.1.1 (2023111802)
+===========================================
+1. Put the course title back in the header.
+2. New setting 'headertitle' replaces 'sitetitle'.
+3. New CSS id 'headertitle' replaces 'sitetitle', now 'sitetitle' is on the actual site title for styling purposes.
+4. New setting 'responsiveheadertitle' replaces 'responsivecoursetitle' / 'responsivesitetitle'.
+5. New setting 'coursepageheaderhidetitle' replaces 'coursepageheaderhidesitetitle'.
+6. Fix 'Wrong context for theme_adaptable/savediscard'.
+7. Remove call to 'context_header' so that the course title is not duplicated on the page.
+8. Improved header logic.  On a course page then if the course title is set to show 'enablecoursetitle' then it is
+   shown with the 'categoryheadercustomtitleX' if there is one.  If not then the site title will show if 'sitetitle'
+   is set and with 'categoryheadercustomtitleX' if there is one.  On a site page, then just the 'sitetitle' logic.
+9. Fix 'Module menu delete item hover colour'.
+
 Change Log in version 403.1.0 (2023111801)
 ===========================================
 1. Fix 'Grade report scrolling', ref: https://moodle.org/mod/forum/discuss.php?d=453194#p1821224.

@@ -1044,8 +1044,11 @@ $string['coursetitleshortname'] = 'Course short name / code';
 $string['pageheaderheight'] = 'Page header height';
 $string['pageheaderheightdesc'] = 'Set the height of the main header area (containing logo and titles).';
 
+$string['coursepageheaderhidetitle'] = 'Hide header title on course pages';
+$string['coursepageheaderhidetitledesc'] = 'Hide header title, logo and search bar on course pages.  Use this along with page header height setting to show a smaller header on course related pages.';
+
 $string['coursepageheaderhidesitetitle'] = 'Hide site title on course pages';
-$string['coursepageheaderhidesitetitledesc'] = 'Hide site title, logo and search bar on course pages. Use this along with page header height setting to show a smaller header on course-related pages.';
+$string['coursepageheaderhidesitetitledesc'] = 'DEPRECATED, use \'coursepageheaderhidetitle\' instead.';
 
 $string['breadcrumb'] = 'Breadcrumb';
 $string['breadcrumbtitle'] = 'Breadcrumb course name';
@@ -1323,8 +1326,11 @@ $string['responsivesocialdesc'] = 'What sized screens would you like social icon
 $string['responsivecoursetitle'] = 'Course / site title';
 $string['responsivecoursetitledesc'] = 'DEPRECATED, use \'responsivesitetitle\' instead.';
 
+$string['responsiveheadertitle'] = 'Header title';
+$string['responsiveheadertitledesc'] = 'What sized screens would you like the header title to be displayed on?';
+
 $string['responsivesitetitle'] = 'Site title';
-$string['responsivesitetitledesc'] = 'What sized screens would you like the site title to be displayed on?';
+$string['responsivesitetitledesc'] = 'DEPRECATED, use \'responsiveheadertitle\' instead.';
 
 $string['responsivesectionnav'] = 'Activity / section navigation';
 $string['responsivesectionnavdesc'] = 'Show / hide the the <strong>text</strong> for "prev" "next" activity / section navigation on small screens.  By default we hide this text on smaller screens so only the icons for <prev> <next> links display and not the full section / activity name.';

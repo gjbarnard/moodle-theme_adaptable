@@ -87,6 +87,18 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Course page header title.
+    $name = 'theme_adaptable/coursepageheaderhidetitle';
+    $title = get_string('coursepageheaderhidetitle', 'theme_adaptable');
+    $description = get_string('coursepageheaderhidetitledesc', 'theme_adaptable');
+    $existing = get_config('theme_adaptable', 'coursepageheaderhidesitetitle');
+    if (!empty($existing)) {
+        $default = $existing;
+    } else {
+        $default = false;
+    }
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
     $name = 'theme_adaptable/coursepageheaderhidesitetitle';
     $title = get_string('coursepageheaderhidesitetitle', 'theme_adaptable');
     $description = get_string('coursepageheaderhidesitetitledesc', 'theme_adaptable');

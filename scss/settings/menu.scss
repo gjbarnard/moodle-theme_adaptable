@@ -312,6 +312,16 @@
     color: [[setting:navbardropdowntexthovercolor]];
 }
 
+// Add dropdown menu items styles for each theme color (mantainning default hover colour for contrast).
+@each $color, $value in $theme-colors {
+    .dropdown-item.text-#{$color} {
+        color: $value;
+        &:hover {
+            color: [[setting:navbardropdowntexthovercolor]] !important; /* stylelint-disable-line declaration-no-important */
+        }
+    }
+}
+
 .dropdown-item:focus-within a {
     color: [[setting:navbardropdowntexthovercolor]];
 }

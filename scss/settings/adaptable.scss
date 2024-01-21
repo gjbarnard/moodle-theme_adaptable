@@ -237,15 +237,15 @@ div.signuppanel h2 {
     margin: 5px 15px 10px 0;
 }
 
-#sitetitle,
-#sitetitle a,
-#sitetitle p,
-#sitetitle h1,
-#sitetitle h2,
-#sitetitle h3,
-#sitetitle h4,
-#sitetitle h5,
-#sitetitle h6 {
+#headertitle,
+#headertitle a,
+#headertitle p,
+#headertitle h1,
+#headertitle h2,
+#headertitle h3,
+#headertitle h4,
+#headertitle h5,
+#headertitle h6 {
     color: [[setting:fonttitlecolor]];
 
     font-family: [[setting:fonttitlename]], sans-serif;
@@ -2112,12 +2112,17 @@ img.smallicon {
     color: #000 !important;
 
 }
-// Danger icon.
-.text-danger,
+
+.text-danger .icon,
 .notconnected,
 .que .validationerror,
 .text-error {
     color: [[setting:dangericoncolor]] !important;
+}
+
+.notconnected,
+.que .validationerror,
+.text-error {
     margin-right: 1px !important;
     margin-top: 8px !important;
 }

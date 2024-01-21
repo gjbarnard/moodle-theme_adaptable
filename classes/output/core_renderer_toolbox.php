@@ -1565,49 +1565,90 @@ trait core_renderer_toolbox {
      * @return string Markup.
      */
     public function get_title($currenttopcat) {
-        global $SITE;
-        $titlemarkup = '';
-        $responsivesitetitle = $this->page->theme->settings->responsivesitetitle;
+        $themesettings = \theme_adaptable\toolbox::get_settings();
 
+        $titlemarkup = '';
         $categoryheadercustomtitle = '';
-        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
-        if (is_object($localtoolbox)) {
-            $categoryheadercustomtitle = $localtoolbox->get_title($currenttopcat, $categoryheadercustomtitle, $this->page->theme->settings);
+
+        // If course id is not the site id then we display course title.
+        if ($this->page->course->id != SITEID) {
+            $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+            if (is_object($localtoolbox)) {
+                $categoryheadercustomtitle = $localtoolbox->get_title($currenttopcat, $categoryheadercustomtitle, $themesettings);
+            }
+
+            $coursetitle = $this->get_course_title();
+            if (!empty($coursetitle)) {
+                $titlemarkup .= '<div id="headertitle" class="bd-highlight pt-2 ' . $themesettings->responsiveheadertitle . '">';
+                $titlemarkup .= '<h1>';
+                if (!empty($categoryheadercustomtitle)) {
+                     $titlemarkup .= '<span id="categorytitle">' . format_string($categoryheadercustomtitle) . '</span><br>';
+                }
+                $titlemarkup .= '<span id="coursetitle">' . $coursetitle . '</span>';
+                $titlemarkup .= '</h1>';
+                $titlemarkup .= '</div>';
+            }
         }
 
-        if (!empty($categoryheadercustomtitle)) {
-            $titlemarkup .= '<div id="sitetitle" class="bd-highlight pt-2 ' . $responsivesitetitle . '">';
-            $titlemarkup .= '<h1>' . format_string($categoryheadercustomtitle) . '</h1>';
-            $titlemarkup .= '</div>';
-        } else {
-            switch ($this->page->theme->settings->sitetitle) {
-                case 'default':
-                    $sitetitle = $SITE->fullname;
-                    $titlemarkup .= '<div id="sitetitle" class="bd-highlight pt-2 ' . $responsivesitetitle . '"><h1>'
-                        . format_string($sitetitle) . '</h1></div>';
-                    break;
-                case 'custom':
-                    // Custom site title.
-                    if (!empty($this->page->theme->settings->sitetitletext)) {
-                        $header = theme_adaptable_remove_site_fullname($this->page->theme->settings->sitetitletext);
-                        $sitetitlehtml = $this->page->theme->settings->sitetitletext;
-                        $header = format_string($header);
-                        $this->page->set_heading($header);
-
-                        $titlemarkup .= '<div id="sitetitle" class="bd-highlight pt-2 ' . $responsivesitetitle . '">'
-                            . format_text($sitetitlehtml, FORMAT_HTML) . '</div>';
-                    }
+        // If the course id is the site id or we're on a course and there is no title then we display the site title.
+        if (($this->page->course->id == SITEID) || (empty($titlemarkup))) {
+            $sitetitle = $this->get_site_title();
+            if (empty($sitetitle)) {
+                if (!empty($categoryheadercustomtitle)) {
+                    $titlemarkup .= '<div id="headertitle" class="bd-highlight pt-2 ' . $themesettings->responsiveheadertitle . '">';
+                    $titlemarkup .= '<h1><span id="categorytitle">' . format_string($categoryheadercustomtitle) . '</span></h1>';
+                    $titlemarkup .= '</div>';
+                }
+            } else {
+                $titlemarkup .= '<div id="headertitle" class="bd-highlight pt-2 ' . $themesettings->responsiveheadertitle . '">';
+                $titlemarkup .= '<h1>';
+                $titlemarkup .= '<span id="sitetitle">' . $sitetitle . '</span>';
+                if (!empty($categoryheadercustomtitle)) {
+                     $titlemarkup .= '<br><span id="categorytitle">' . format_string($categoryheadercustomtitle) . '</span>';
+                }
+                $titlemarkup .= '</h1>';
+                $titlemarkup .= '</div>';
             }
         }
 
         return $titlemarkup;
     }
 
-    public function context_header($headerinfo = null, $headinglevel = 1) : string {
-        global $COURSE;
-        $coursetitle = '';
+    protected function get_site_title() {
+        global $SITE;
 
-        switch ($this->page->theme->settings->enablecoursetitle) {
+        $sitetitle = '';
+        $themesettings = \theme_adaptable\toolbox::get_settings();
+
+        switch ($themesettings->sitetitle) {
+            case 'default':
+                $sitetitle = format_string($SITE->fullname);
+                break;
+            case 'custom':
+                // Custom site title.
+                if (!empty($themesettings->sitetitletext)) {
+                    $header = $themesettings->sitetitletext;
+                    if (strpos($this->page->pagetype, 'course-view-') !== 0) {
+                        $header = preg_replace("/^" . $SITE->fullname . "/", "", $header);
+                    }
+                    $header = format_string($header);
+                    $this->page->set_heading($header);
+
+                    $sitetitle = format_text($themesettings->sitetitletext, FORMAT_HTML);
+                }
+                break;
+        }
+
+        return $sitetitle;
+    }
+
+    protected function get_course_title() {
+        global $COURSE;
+
+        $coursetitle = '';
+        $themesettings = \theme_adaptable\toolbox::get_settings();
+
+        switch ($themesettings->enablecoursetitle) {
             case 'fullname':
                 // Full Course Name.
                 $coursetitle = $COURSE->fullname;
@@ -1619,20 +1660,34 @@ trait core_renderer_toolbox {
                 break;
         }
 
-        // Pre-process to avoid any filter issue.
-        $coursetitle = format_string($coursetitle);
+        if (!empty($coursetitle)) {
+            // Pre-process to avoid any filter issue.
+            $coursetitle = format_string($coursetitle);
 
-        $coursetitlemaxwidth =
-            (!empty($this->page->theme->settings->coursetitlemaxwidth) ? $this->page->theme->settings->coursetitlemaxwidth : 0);
-        // Check max width of course title and trim if appropriate.
-        if (($coursetitlemaxwidth > 0) && ($coursetitle <> '')) {
-            if (strlen($coursetitle) > $coursetitlemaxwidth) {
-                $coursetitle = \core_text::substr($coursetitle, 0, $coursetitlemaxwidth) . " ...";
+            $coursetitlemaxwidth =
+                (!empty($themesettings->coursetitlemaxwidth) ? $themesettings->coursetitlemaxwidth : 0);
+            // Check max width of course title and trim if appropriate.
+            if (($coursetitlemaxwidth > 0) && ($coursetitle <> '')) {
+                if (strlen($coursetitle) > $coursetitlemaxwidth) {
+                    $coursetitle = \core_text::substr($coursetitle, 0, $coursetitlemaxwidth) . " ...";
+                }
             }
         }
 
+        return $coursetitle;
+    }
+
+    /**
+     * Currently not called, but will leave for reference!
+     *
+     * @param array $headerinfo Array of things, see parent.
+     * @param int $headinglevel Heading level, see parent.
+     *
+     * @return string Markup.
+     */
+    public function context_header($headerinfo = null, $headinglevel = 1) : string {
         $headerinfo = [];
-        $headerinfo['heading'] = $coursetitle;
+        $headerinfo['heading'] = $this->get_course_title();
         return parent::context_header($headerinfo, $headinglevel);
     }
 

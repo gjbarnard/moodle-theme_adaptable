@@ -250,16 +250,16 @@ trait core_renderer_layout {
         }
 
         /* Check if this is a course or module page and check setting to hide site title.
-           If not one of these pages, by default show it (set $hidesitetitle to false). */
+           If not one of these pages, by default show it (set $hideheadertitle to false). */
         if ((strstr($this->page->pagetype, 'course')) ||
             (strstr($this->page->pagetype, 'mod')) && ($this->page->course->id != SITEID)) {
-            $hidesitetitle = !empty(($themesettings->coursepageheaderhidesitetitle)) ? true : false;
+            $hideheadertitle = !empty(($themesettings->coursepageheaderhidetitle)) ? true : false;
         } else {
-            $hidesitetitle = false;
+            $hideheadertitle = false;
         }
-        if (!$hidesitetitle) {
-            $headercontext['sitelogo'] = $this->get_logo($currenttopcat, $shownavbar);
-            $headercontext['sitetitle'] = $this->get_title($currenttopcat);
+        if (!$hideheadertitle) {
+            $headercontext['headerlogo'] = $this->get_logo($currenttopcat, $shownavbar);
+            $headercontext['headertitle'] = $this->get_title($currenttopcat);
         }
 
         $headercontext['headerbg'] = $headerbg;
@@ -613,7 +613,7 @@ trait core_renderer_layout {
                     'savetext' => get_string('savebuttontext', 'theme_adaptable'),
                     'discardtext' => get_string('discardbuttontext', 'theme_adaptable'),
                 ];
-                $context->savediscard = $this->render_from_template('theme_adaptable/savediscard', $templatecontext);
+                $context->savediscard = $this->render_from_template('theme_adaptable/savediscard', $savediscardcontext);
             }
         }
 
@@ -873,7 +873,6 @@ trait core_renderer_layout {
             if (!empty($themesettings->coursepageblocksliderenabled)) {
                 echo $this->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
             }
-            echo $this->context_header();
             echo $this->course_content_header();
             if (!empty($secondarynavigation)) {
                 echo $secondarynavigation;
