@@ -36,61 +36,65 @@
 }}
 <div id="main-navbar" class="{{responsiveheader}}">
     <div class="container">
-        <div class="navbar navbar-expand btco-hover-menu">
-            <nav aria-label="{{#str}}sitelinkslabel, theme_adaptable{{/str}}">
-                <ul class="navbar-nav">
-                    {{{navigationmenu}}}
-                    {{^disablecustommenu}}
-                        {{{output.custom_menu}}}
-                    {{/disablecustommenu}}
-                    {{{toolsmenu}}}
-                </ul>
-            </nav>
+        <div class="row">
+            <div class="col-12 p-0">
+                <div class="navbar navbar-expand btco-hover-menu">
+                    <nav aria-label="{{#str}}sitelinkslabel, theme_adaptable{{/str}}">
+                        <ul class="navbar-nav">
+                            {{{navigationmenu}}}
+                            {{^disablecustommenu}}
+                                {{{output.custom_menu}}}
+                            {{/disablecustommenu}}
+                            {{{toolsmenu}}}
+                        </ul>
+                    </nav>
 
-            <ul class="navbar-nav ml-auto d-flex flex-wrap">
-                {{#showcog}}
-                {{#coursemenucontent}}
-                <li class="nav-item mr-2">
-                    <div class="context-header-settings-menu">
-                        {{{coursemenucontent}}}
-                    </div>
-                </li>
-                {{/coursemenucontent}}
+                    <ul class="navbar-nav ml-auto d-flex flex-wrap">
+                        {{#showcog}}
+                        {{#coursemenucontent}}
+                        <li class="nav-item mr-2">
+                            <div class="context-header-settings-menu">
+                                {{{coursemenucontent}}}
+                            </div>
+                        </li>
+                        {{/coursemenucontent}}
 
-                {{#othermenucontent}}
-                <li class="nav-item mr-2">
-                    <div id="region-main-settings-menu" class="region-main-settings-menu">
-                        {{{othermenucontent}}}
-                    </div>
-                </li>
-                {{/othermenucontent}}
-                {{/showcog}}
+                        {{#othermenucontent}}
+                        <li class="nav-item mr-2">
+                            <div id="region-main-settings-menu" class="region-main-settings-menu">
+                                {{{othermenucontent}}}
+                            </div>
+                        </li>
+                        {{/othermenucontent}}
+                        {{/showcog}}
 
-                {{#pageheadingbutton}}
-                <li id="editingbutton" class="nav-item mx-0 my-auto">
-                    {{{pageheadingbutton}}}
-                </li>
-                {{/pageheadingbutton}}
+                        {{#pageheadingbutton}}
+                        <li id="editingbutton" class="nav-item mx-0 my-auto">
+                            {{{pageheadingbutton}}}
+                        </li>
+                        {{/pageheadingbutton}}
 
-                {{#enablezoom}}
-                <li class="nav-item mx-0 hbll">
-                    <a class="nav-link moodlewidth" href="javascript:void(0);" title="{{#str}}fullscreen, theme_adaptable{{/str}}">
-                        <i class="fa fa-expand fa-lg" aria-hidden="true"></i>
-                        {{#enablezoomshowtext}}
-                        <span class="zoomdesc">{{#str}}fullscreen, theme_adaptable{{/str}}</span>
-                        {{/enablezoomshowtext}}
-                    </a>
-                </li>
-                <li class="nav-item mx-0 sbll">
-                    <a class="nav-link moodlewidth" href="javascript:void(0);" title="{{#str}}standardview, theme_adaptable{{/str}}">
-                        <i class="fa fa-compress fa-lg" aria-hidden="true"></i>
-                        {{#enablezoomshowtext}}
-                        <span class="zoomdesc">{{#str}}standardview, theme_adaptable{{/str}}</span>
-                        {{/enablezoomshowtext}}
-                    </a>
-                </li>
-                {{/enablezoom}}
-            </ul>
+                        {{#enablezoom}}
+                        <li class="nav-item mx-0 hbll">
+                            <a class="nav-link moodlewidth" href="javascript:void(0);" title="{{#str}}fullscreen, theme_adaptable{{/str}}">
+                                <i class="fa fa-expand fa-lg" aria-hidden="true"></i>
+                                {{#enablezoomshowtext}}
+                                <span class="zoomdesc">{{#str}}fullscreen, theme_adaptable{{/str}}</span>
+                                {{/enablezoomshowtext}}
+                            </a>
+                        </li>
+                        <li class="nav-item mx-0 sbll">
+                            <a class="nav-link moodlewidth" href="javascript:void(0);" title="{{#str}}standardview, theme_adaptable{{/str}}">
+                                <i class="fa fa-compress fa-lg" aria-hidden="true"></i>
+                                {{#enablezoomshowtext}}
+                                <span class="zoomdesc">{{#str}}standardview, theme_adaptable{{/str}}</span>
+                                {{/enablezoomshowtext}}
+                            </a>
+                        </li>
+                        {{/enablezoom}}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

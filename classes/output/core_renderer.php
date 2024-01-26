@@ -35,5 +35,5 @@ use theme_boost\output\core_renderer as core_renderer_base;
  * Core Renderer
  */
 class core_renderer extends core_renderer_base {
-    use core_renderer_toolbox;
+    use core_renderer_toolbox, core_renderer_layout;
 }

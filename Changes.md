@@ -1,3 +1,26 @@
+Change Log in version 402.1.0 (2023092501)
+===========================================
+1. Add the ability to show the marketing blocks when 'Logged out', 'Logged in' or 'Logged in or out',
+   'marketingvisible' setting.
+2. Tidy up header logic in relation to titles.
+3. Navbar and breadcrumb tidy.
+4. Add 'buttontexthovercolor' setting to fix button hovers.
+5. Fix header search icon.
+6. Add 'headerbgimagetextcolour' and 'headertextcolor2' to fix lower header text colours.
+7. Fix position of '#savediscardsection'.
+8. Refactored layouts as a progressional aim towards use of templating to a greater extent.
+9. Put the course title back in the header.
+10. New setting 'headertitle' replaces 'sitetitle'.
+11. New CSS id 'headertitle' replaces 'sitetitle', now 'sitetitle' is on the actual site title for styling purposes.
+12. New setting 'responsiveheadertitle' replaces 'responsivecoursetitle' / 'responsivesitetitle'.
+13. New setting 'coursepageheaderhidetitle' replaces 'coursepageheaderhidesitetitle'.
+14. Fix 'Wrong context for theme_adaptable/savediscard'.
+15. Remove call to 'context_header' so that the course title is not duplicated on the page.
+16. Improved header logic.  On a course page then if the course title is set to show 'enablecoursetitle' then it is
+    shown with the 'categoryheadercustomtitleX' if there is one.  If not then the site title will show if 'sitetitle'
+    is set and with 'categoryheadercustomtitleX' if there is one.  On a site page, then just the 'sitetitle' logic.
+17. Fix 'Module menu delete item hover colour'.
+
 Change Log in version 402.0.1 (2023092500)
 ===========================================
 1. Removed social wall format (https://moodle.org/plugins/format_socialwall/versions) as last known version was for Moodle 3.3.

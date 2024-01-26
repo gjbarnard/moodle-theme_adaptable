@@ -340,6 +340,12 @@ $string['marketingsettings'] = 'Marketing blocks';
 $string['marketingsettingsheading'] = 'Customize the marketing blocks that appear on the front page.';
 $string['marketingdesc'] = 'There are two full width info boxes with differing styles you can use.<br>In addition to this there is a layout builder allowing you to decide how many blocks you need and define your own layout.<br>Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
 
+$string['marketingvisible'] = 'Show the marketing blocks when';
+$string['marketingvisibledesc'] = 'Show the marketing blocks when \'Logged out\', \'Logged in\' or \'Logged in or out\'.';
+$string['marketingvisibleloggedout'] = 'Logged out';
+$string['marketingvisibleloggedin'] = 'Logged in';
+$string['marketingvisibleloggedinout'] = 'Logged in or out';
+
 $string['marketingbuilderheading'] = 'Marketing block layout builder';
 $string['marketingbuilderdesc'] = 'Use the tool below to setup your marketing blocks. Once defined the block settings will appear further down the page.';
 
@@ -612,6 +618,9 @@ $string['headerbkcolor2desc'] = 'Set the lower header background colour.  Note t
 
 $string['headertextcolor'] = 'Header text and link colour';
 $string['headertextcolordesc'] = 'Set the header text and link colour.';
+
+$string['headertextcolor2'] = 'Bottom header text colour';
+$string['headertextcolor2desc'] = 'Set the bottom header text colour.';
 
 $string['blockheadercolor'] = 'Block header font colour';
 $string['blockheadercolordesc'] = 'Set the block header font colour.';
@@ -936,8 +945,11 @@ $string['buttonradiusdesc'] = 'Higher radius = curved buttons, lower radius = sq
 $string['buttoncolor'] = 'Button colour';
 $string['buttoncolordesc'] = 'The colour of the main buttons used throughout the site.';
 
-$string['buttonhovercolor'] = 'Button hover colour';
-$string['buttonhovercolordesc'] = 'The colour that the button changes to when hovering over the button.';
+$string['buttonhovercolor'] = 'Button background hover colour';
+$string['buttonhovercolordesc'] = 'The colour that the button background changes to when hovering over the button.';
+
+$string['buttontexthovercolor'] = 'Button text hover colour';
+$string['buttontexthovercolordesc'] = 'The colour that the button text changes to when hovering over the button.';
 
 $string['buttonfocuscolor'] = 'Button focus colour';
 $string['buttonfocuscolordesc'] = 'The colour that the button uses when focusing on the button.';
@@ -1011,11 +1023,14 @@ $string['headerdesc'] = 'Upload your logo, set login form in header, adjust titl
 $string['headerbgimage'] = 'Background image';
 $string['headerbgimagedesc'] = 'Set a background image in the header. Minimum size is 1600x180px (1900x180px recommended). The image cover the full header. You can add a colour in \'Top header background colour\' or use <i>transparent</i> to show the background image. In that case, modify the text colour to get displayed correctly over the image.';
 
-$string['enableheading'] = 'Header course title';
-$string['enableheadingdesc'] = 'Set the mode to display the course title in the header when the default Moodle site title is enabled.';
+$string['headerbgimagetextcolour'] = 'Background image text colour';
+$string['headerbgimagetextcolourdesc'] = 'If you have a background image, then use this setting to set the colour of the text that is placed upon it.';
 
-$string['breadcrumbdisplay'] = 'Breadcrumb display';
-$string['breadcrumbdisplaydesc'] = 'Set the display of what should be in the breadcrumb area in a course.';
+$string['enableheading'] = 'Header course title';
+$string['enableheadingdesc'] = 'DEPRECATED, use \'enablecoursetitle\' instead.';
+
+$string['enablecoursetitle'] = 'Course title';
+$string['enablecoursetitledesc'] = 'Set the mode to display the course title.';
 
 $string['sitetitlecoursesdisabled'] = 'Disabled - only show course titles in course pages';
 $string['sitetitlecoursesenabled'] = 'Enabled - show site title and course titles in course pages';
@@ -1023,18 +1038,24 @@ $string['sitetitlecoursesenabled'] = 'Enabled - show site title and course title
 $string['coursetitlemaxwidth'] = 'Course title maximum length';
 $string['coursetitlemaxwidthdesc'] = 'Set the maximum number of characters of the course title area.';
 
+$string['coursetitlefullname'] = 'Course full name';
+$string['coursetitleshortname'] = 'Course short name / code';
+
 $string['pageheaderheight'] = 'Page header height';
 $string['pageheaderheightdesc'] = 'Set the height of the main header area (containing logo and titles).';
 
+$string['coursepageheaderhidetitle'] = 'Hide header title on course pages';
+$string['coursepageheaderhidetitledesc'] = 'Hide header title, logo and search bar on course pages.  Use this along with page header height setting to show a smaller header on course related pages.';
+
 $string['coursepageheaderhidesitetitle'] = 'Hide site title on course pages';
-$string['coursepageheaderhidesitetitledesc'] = 'Hide site title, logo and search bar on course pages. Use this along with page header height setting to show a smaller header on course-related pages.';
+$string['coursepageheaderhidesitetitledesc'] = 'DEPRECATED, use \'coursepageheaderhidetitle\' instead.';
 
 $string['breadcrumb'] = 'Breadcrumb';
 $string['breadcrumbtitle'] = 'Breadcrumb course name';
 $string['breadcrumbtitledesc'] = 'Set the mode to display the course title in the breadcrumb.';
 
-$string['coursetitlefullname'] = 'Course full name';
-$string['coursetitleshortname'] = 'Course short name / code';
+$string['breadcrumbdisplay'] = 'Breadcrumb display';
+$string['breadcrumbdisplaydesc'] = 'Set the display of what should be in the breadcrumb area.';
 
 $string['headerstyleheading'] = 'Header style settings';
 $string['headerstyleheadingdesc'] = 'Adaptable supports two header styles, the original three row header and a newer simplified two row header.<br/>Be aware that if you switch to the newer two row header you will <strong>NOT</strong> be able to:<br /><ol><li>Show social icons in the header.</li><li>Display the site logo on mobile devices.</li></ol>';
@@ -1302,7 +1323,13 @@ $string['responsivesocial'] = 'Social icons';
 $string['responsivesocialdesc'] = 'What sized screens would you like social icons to be displayed on?';
 
 $string['responsivecoursetitle'] = 'Course / site title';
-$string['responsivecoursetitledesc'] = 'What sized screens would you like the site / course titles to be displayed on?';
+$string['responsivecoursetitledesc'] = 'DEPRECATED, use \'responsivesitetitle\' instead.';
+
+$string['responsiveheadertitle'] = 'Header title';
+$string['responsiveheadertitledesc'] = 'What sized screens would you like the header title to be displayed on?';
+
+$string['responsivesitetitle'] = 'Site title';
+$string['responsivesitetitledesc'] = 'DEPRECATED, use \'responsiveheadertitle\' instead.';
 
 $string['responsivesectionnav'] = 'Activity / section navigation';
 $string['responsivesectionnavdesc'] = 'Show / hide the the <strong>text</strong> for "prev" "next" activity / section navigation on small screens.  By default we hide this text on smaller screens so only the icons for <prev> <next> links display and not the full section / activity name.';
@@ -1840,6 +1867,9 @@ $string['categoryheaderheaderdescchildren'] = 'Set the settings for the top leve
 $string['categoryheaderbgimage'] = 'Category \'{$a->name}\' with id \'{$a->id}\' background image';
 $string['categoryheaderbgimagedesc'] = 'Set a background image for the top level category \'{$a->name}\' with id \'{$a->id}\' in the header.  Minimum size is 1600x180px (1900x180px recommended).  The image will cover the full header.';
 $string['categoryheaderbgimagedescchildren'] = 'Set a background image for the top level category \'{$a->name}\' with id \'{$a->id}\' and its children \'{$a->children}\' in the header.  Minimum size is 1600x180px (1900x180px recommended).  The image will cover the full header.';
+$string['categoryheaderbgimagetextcolour'] = 'Category \'{$a->name}\' with id \'{$a->id}\' background image text colour';
+$string['categoryheaderbgimagetextcolourdesc'] = 'Set a background image text colour for the top level category \'{$a->name}\' with id \'{$a->id}\' in the header.';
+$string['categoryheaderbgimagetextcolourdescchildren'] = 'Set a background image text colour for the top level category \'{$a->name}\' with id \'{$a->id}\' and its children \'{$a->children}\' in the header.';
 $string['categoryheaderlogo'] = 'Category \'{$a->name}\' with id \'{$a->id}\' logo';
 $string['categoryheaderlogodesc'] = 'Set a logo for the top level category \'{$a->name}\' with id \'{$a->id}\' in the header.  Recommended size is 200px by 80px.';
 $string['categoryheaderlogodescchildren'] = 'Set a logo for the top level category \'{$a->name}\' with id \'{$a->id}\' and its children \'{$a->children}\' in the header.  Recommended size is 200px by 80px.';

@@ -285,7 +285,7 @@ if ($ADMIN->fulltree) {
 
     // Fonts and Google ones.
     $fontlist = [
-        'sans-serif' => new lang_string('fontdefault', 'theme_adaptable'),
+        'default' => new lang_string('fontdefault', 'theme_adaptable'),
         'ABeeZee' => 'ABeeZee',
         'Abel' => 'Abel',
         'Abhaya Libre' => 'Abhaya Libre',
