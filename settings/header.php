@@ -36,10 +36,19 @@ if ($ADMIN->fulltree) {
     ));
 
     // Header image.
-    $name = 'theme_adaptable/headerbgimage'; // TODO - served by 'theme_adaptable_pluginfile'?
+    $name = 'theme_adaptable/headerbgimage';
     $title = get_string('headerbgimage', 'theme_adaptable');
     $description = get_string('headerbgimagedesc', 'theme_adaptable');
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'headerbgimage');
+    $page->add($setting);
+
+    // Header image text colour.
+    $name = 'theme_adaptable/headerbgimagetextcolour';
+    $title = get_string('headerbgimagetextcolour', 'theme_adaptable');
+    $description = get_string('headerbgimagetextcolourdesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
     // Select type of login.
@@ -78,6 +87,18 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Course page header title.
+    $name = 'theme_adaptable/coursepageheaderhidetitle';
+    $title = get_string('coursepageheaderhidetitle', 'theme_adaptable');
+    $description = get_string('coursepageheaderhidetitledesc', 'theme_adaptable');
+    $existing = get_config('theme_adaptable', 'coursepageheaderhidesitetitle');
+    if (!empty($existing)) {
+        $default = $existing;
+    } else {
+        $default = false;
+    }
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
     $name = 'theme_adaptable/coursepageheaderhidesitetitle';
     $title = get_string('coursepageheaderhidesitetitle', 'theme_adaptable');
     $description = get_string('coursepageheaderhidesitetitledesc', 'theme_adaptable');
@@ -123,6 +144,31 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, 'fullname', $radchoices);
     $page->add($setting);
 
+    // Display Course title.
+    $name = 'theme_adaptable/enablecoursetitle';
+    $title = get_string('enablecoursetitle', 'theme_adaptable');
+    $description = get_string('enablecoursetitledesc', 'theme_adaptable');
+    $radchoices = [
+        'fullname' => get_string('coursetitlefullname', 'theme_adaptable'),
+        'shortname' => get_string('coursetitleshortname', 'theme_adaptable'),
+        'off' => get_string('hide'),
+    ];
+    $existing = get_config('theme_adaptable', 'enableheading');
+    if (!empty($existing)) {
+        $default = $existing;
+    } else {
+        $default = 'fullname';
+    }
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $radchoices);
+    $page->add($setting);
+
+    // Course Title Maximum Width.
+    $name = 'theme_adaptable/coursetitlemaxwidth';
+    $title = get_string('coursetitlemaxwidth', 'theme_adaptable');
+    $description = get_string('coursetitlemaxwidthdesc', 'theme_adaptable');
+    $setting = new admin_setting_configtext($name, $title, $description, '20', PARAM_INT);
+    $page->add($setting);
+
     // Display Breadcrumb or Course title where the breadcrumb normally is.
     $name = 'theme_adaptable/breadcrumbdisplay';
     $title = get_string('breadcrumbdisplay', 'theme_adaptable');
@@ -133,13 +179,6 @@ if ($ADMIN->fulltree) {
         'shortname' => get_string('coursetitleshortname', 'theme_adaptable'),
     ];
     $setting = new admin_setting_configselect($name, $title, $description, 'breadcrumb', $radchoices);
-    $page->add($setting);
-
-    // Course Title Maximum Width.
-    $name = 'theme_adaptable/coursetitlemaxwidth';
-    $title = get_string('coursetitlemaxwidth', 'theme_adaptable');
-    $description = get_string('coursetitlemaxwidthdesc', 'theme_adaptable');
-    $setting = new admin_setting_configtext($name, $title, $description, '20', PARAM_INT);
     $page->add($setting);
 
     // Breadcrumb home.

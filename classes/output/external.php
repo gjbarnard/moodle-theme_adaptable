@@ -26,17 +26,13 @@
 
 namespace theme_adaptable\output;
 
-use core_external\external_api;
-use core_external\external_function_parameters;
-use core_external\external_multiple_structure;
-use core_external\external_single_structure;
-use core_external\external_value;
+use external_function_parameters;
 use core\external\output\icon_system\load_fontawesome_map;
 
 /**
  * Adaptable theme.
  */
-class external extends external_api {
+class external extends \external_api {
     /**
      * Returns description of load_icon_map() parameters.
      *

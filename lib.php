@@ -104,6 +104,7 @@ function theme_adaptable_get_main_scss_content($theme) {
         'button',
         'course',
         'extras',
+        'header',
         'login',
         'menu',
         'responsive',
@@ -182,6 +183,7 @@ function theme_adaptable_process_scss($scss, $theme) {
         '[[setting:buttoncolor]]' => '#51666C',
         '[[setting:buttontextcolor]]' => '#ffffff',
         '[[setting:buttonhovercolor]]' => '#009688',
+        '[[setting:buttontexthovercolor]]' => '#eeeeee',
         '[[setting:buttoncolorscnd]]' => '#51666C',
         '[[setting:buttontextcolorscnd]]' => '#ffffff',
         '[[setting:buttonhovercolorscnd]]' => '#009688',
@@ -211,7 +213,9 @@ function theme_adaptable_process_scss($scss, $theme) {
         '[[setting:footerlinkcolor]]' => '#ffffff',
         '[[setting:headerbkcolor]]' => '#00796B',
         '[[setting:headerbkcolor2]]' => '#009688',
+        '[[setting:headerbgimagetextcolour]]' => '#ffffff',
         '[[setting:headertextcolor]]' => '#ffffff',
+        '[[setting:headertextcolor2]]' => '#ffffff',
         '[[setting:msgbadgecolor]]' => '#E53935',
         '[[setting:blockbackgroundcolor]]' => '#FFFFFF',
         '[[setting:blockheaderbackgroundcolor]]' => '#FFFFFF',
@@ -673,21 +677,6 @@ function theme_adaptable_page_init(moodle_page $page) {
         require_once($CFG->dirroot . "/local/accessibilitytool/lib.php");
         local_accessibilitytool_page_init($page);
     }
-}
-
-/**
- * Strip full site title from header
- * @param string $heading
- */
-function theme_adaptable_remove_site_fullname($heading) {
-    global $SITE, $PAGE;
-    if (strpos($PAGE->pagetype, 'course-view-') === 0) {
-        return $heading;
-    }
-
-    $header = preg_replace("/^" . $SITE->fullname . "/", "", $heading);
-
-    return $header;
 }
 
 /**

@@ -75,6 +75,10 @@
     transition: all [[setting:navbardropdowntransitiontime]];
 }
 
+#adaptable-page-header-wrapper #main-navbar .navbar-nav {
+    margin-left: -[[setting:menufontpadding]];
+}
+
 #adaptable-page-header-wrapper .dropdown-menu ul {
     margin: 0;
     padding: 0;
@@ -308,6 +312,16 @@
     color: [[setting:navbardropdowntexthovercolor]];
 }
 
+// Add dropdown menu items styles for each theme color (mantainning default hover colour for contrast).
+@each $color, $value in $theme-colors {
+    .dropdown-item.text-#{$color} {
+        color: $value;
+        &:hover {
+            color: [[setting:navbardropdowntexthovercolor]] !important; /* stylelint-disable-line declaration-no-important */
+        }
+    }
+}
+
 .dropdown-item:focus-within a {
     color: [[setting:navbardropdowntexthovercolor]];
 }
@@ -446,8 +460,13 @@
     margin-right: 0;
 }
 
-#adaptable-page-header-wrapper #main-navbar .nav-item .nav-link .fa:not(.sections-menu) {
-    margin-right: 2px;
+#adaptable-page-header-wrapper #main-navbar .nav-item {
+    .nav-link .fa:not(.sections-menu) {
+        margin-right: 2px;
+    }
+    &:first-of-type .nav-link .fa:not(.sections-menu) {
+        margin-left: 2px;
+    }
 }
 
 #adaptable-page-header-wrapper #main-navbar .nav-item .fa-circle {

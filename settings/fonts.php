@@ -79,7 +79,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/fontname';
     $title = get_string('fontname', 'theme_adaptable');
     $description = get_string('fontnamedesc', 'theme_adaptable');
-    $default = 'sans-serif';
+    $default = 'default';
     $setting = new admin_setting_configselect($name, $title, $description, $default, $fontlist);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -157,7 +157,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/fontheadername';
     $title = get_string('fontheadername', 'theme_adaptable');
     $description = get_string('fontheadernamedesc', 'theme_adaptable');
-    $default = 'sans-serif';
+    $default = 'default';
     $setting = new admin_setting_configselect($name, $title, $description, $default, $fontlist);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -182,7 +182,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/fonttitlename';
     $title = get_string('fonttitlename', 'theme_adaptable');
     $description = get_string('fonttitlenamedesc', 'theme_adaptable');
-    $default = 'sans-serif';
+    $default = 'default';
     $setting = new admin_setting_configselect($name, $title, $description, $default, $fontlist);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);

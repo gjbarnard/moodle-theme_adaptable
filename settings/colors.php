@@ -178,6 +178,15 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Bottom header text color.
+    $name = 'theme_adaptable/headertextcolor2';
+    $title = get_string('headertextcolor2', 'theme_adaptable');
+    $description = get_string('headertextcolor2desc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     // Market blocks colors heading.
     $name = 'theme_adaptable/settingsmarketingcolors';
     $heading = get_string('settingsmarketingcolors', 'theme_adaptable');

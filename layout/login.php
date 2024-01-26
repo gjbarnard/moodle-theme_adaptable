@@ -28,41 +28,4 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-// Include header.
-global $OUTPUT;
-
-$logincontent = '<div class="login-wrapper"><div class="login-container">';
-$logincontent .= $OUTPUT->main_content();
-$logincontent .= '</div></div>';
-
-$result = $OUTPUT->generate_login($logincontent);
-
-if (!empty($result->header)) {
-    $sidepostdrawer = false;
-    require_once(dirname(__FILE__) . '/includes/header.php');
-} else {
-    require_once(dirname(__FILE__) . '/includes/noheader.php');
-}
-$PAGE->set_secondary_navigation(false);
-
-echo '<div class="container outercont">';
-    echo $OUTPUT->page_navbar();
-?>
-    <div id="page-content" class="row">
-        <div id="region-main-box" class="col-12">
-            <section id="region-main">
-            <?php
-            echo $logincontent;
-            ?>
-            </section>
-        </div>
-    </div>
-</div>
-
-<?php
-// Include footer.
-if (!empty($result->header)) {
-    require_once(dirname(__FILE__) . '/includes/footer.php');
-} else {
-    require_once(dirname(__FILE__) . '/includes/nofooter.php');
-}
+echo $OUTPUT->login_layout();
