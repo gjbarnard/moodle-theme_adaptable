@@ -1,3 +1,8 @@
+Change Log in version 402.1.1 (2023092502)
+===========================================
+1. Fix '$OUTPUT is null' - ref: https://moodle.org/mod/forum/discuss.php?d=453194#p1827606.
+2. Fix missing calls to 'user_preference_allow_ajax_update' as in M4.3 they are deprecated.
+
 Change Log in version 402.1.0 (2023092501)
 ===========================================
 1. Add the ability to show the marketing blocks when 'Logged out', 'Logged in' or 'Logged in or out',
