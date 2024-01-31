@@ -1,3 +1,7 @@
+Change Log in version 403.1.2 (2023111803)
+===========================================
+1. Fix '$OUTPUT is null' - ref: https://moodle.org/mod/forum/discuss.php?d=453194#p1827606.
+
 Change Log in version 403.1.1 (2023111802)
 ===========================================
 1. Put the course title back in the header.

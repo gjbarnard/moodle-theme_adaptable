@@ -10,7 +10,7 @@ If you would like to sponsor me, get support or fund improvements, then please d
 
 - gMail eMail | gjbarnard at gMail dt com.
 - My website eMail | contact at gjbarnard dt co dt uk.
-- GitHub | Please outline your issue / improvement on '[Adaptable issues](https://github.com/gjbarnard/moodle-theme_adaptable/issues'.
+- GitHub | Please outline your issue / improvement on '[Adaptable issues](https://github.com/gjbarnard/moodle-theme_adaptable/issues)'.
 - @gjbarnard | [X](https://x.com/gjbarnard).
 
 Bespoke work

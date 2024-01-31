@@ -1306,7 +1306,7 @@ trait core_renderer_layout {
         echo '<div id="region-main-box" class="col-12">';
         echo '<section id="region-main">';
         echo $this->get_course_alerts();
-        echo $OUTPUT->course_content_header();
+        echo $this->course_content_header();
         if (!empty($secondarynavigation)) {
             echo $secondarynavigation;
         }
