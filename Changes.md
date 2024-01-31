@@ -1,3 +1,8 @@
+Change Log in version 401.1.9 (2022112310)
+===========================================
+1. Fix '$OUTPUT is null' - ref: https://moodle.org/mod/forum/discuss.php?d=453194#p1827606.
+2. Fix missing calls to 'user_preference_allow_ajax_update' as in M4.3 they are deprecated.
+
 Change Log in version 401.1.8 (2022112309)
 ===========================================
 1. Fix external_api unit test failure - M4.1 only - #19.
