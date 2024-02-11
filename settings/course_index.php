@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 
 // Course index.
 if ($ADMIN->fulltree) {
-    $page = new theme_adaptable_admin_settingspage(
+    $page = new \theme_adaptable\admin_settingspage(
         'theme_adaptable_course_index',
         get_string('courseindexsettings', 'theme_adaptable')
     );

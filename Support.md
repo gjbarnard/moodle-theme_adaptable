@@ -1,7 +1,7 @@
 The Adaptable story
 ===================
 Adaptable is based upon the popular BCU theme, developed for Coventry University.  Since the main developer decided to leave the
-project, I (Gareth) was asked to assist in maintainance and improvements.  Coventry University has now moved away from Moodle and
+project, I (Gareth) was asked to assist in maintenance and improvements.  Coventry University has now moved away from Moodle and
 passed the project onto me to manage as its lead.  I will keep the theme alive, maintained and supported for as long as there is a
 willingness to fund my time to do so.  The theme is complex and takes time, skill, knowledge and talent to develop.  This is why
 I'm asking for your financial support in my endeavours.

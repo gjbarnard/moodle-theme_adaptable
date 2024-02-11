@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die;
 
 // User profile.
 if ($ADMIN->fulltree) {
-    $page = new theme_adaptable_admin_settingspage(
+    $page = new \theme_adaptable\admin_settingspage(
         'theme_adaptable_user',
         get_string('usersettings', 'theme_adaptable'),
         true

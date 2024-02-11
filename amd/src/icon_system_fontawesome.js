@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Foundation theme.
+ * Adaptable theme.
  *
  * An Icon System implementation for FontAwesome based on core/icon_system_fontawesome by
  * Damyon Wiese.
@@ -107,7 +107,7 @@ export default class IconSystemFontawesome extends IconSystem {
      */
     _fetchMapFromServer() {
         return fetchMany([{
-            methodname: 'theme_foundation_output_load_fontawesome_icon_map',
+            methodname: 'theme_adaptable_output_load_fontawesome_icon_map',
             args: {
             },
         }], true, false, false, 0, Config.themerev)[0];

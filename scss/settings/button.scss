@@ -26,8 +26,7 @@
 //
 
 // Default style for all the buttons.
-.btn,
-.btn a {
+.btn {
     background-image: none;
     border-color: #e6e6e6 #e6e6e6 #bfbfbf;
     border-bottom-color: #b3b3b3;
@@ -40,9 +39,7 @@
     padding: 6px 12px 6px;
     text-align: center;
     text-shadow: none;
-}
 
-.btn {
     &.btn-icon {
         @include hover-focus {
             background-color: [[setting:buttonhovercolor]];
@@ -402,6 +399,9 @@ a.btn-link {
     background-color: [[setting:buttoncolor]];
     box-shadow: none;
     color: [[setting:buttontextcolor]] !important;
+    a {
+        color: [[setting:buttontextcolor]] !important;
+    }
 
     &:hover,
     :focus {
