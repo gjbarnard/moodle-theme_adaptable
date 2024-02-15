@@ -1,3 +1,14 @@
+Change Log in version 401.1.10 (2022112311)
+===========================================
+1. Fix missing logo in alternative header for header style one.
+2. Fix jssection setting value causing breakage.
+3. Fix jssectionrestricted setting value not in nofooter layout.
+4. Deprecated 'jssection' and 'jssectionrestricted' settings, please copy values to 'customjs' and 'customjsrestricted'
+   with any 'script' tags removed.
+5. Separated 'Custom CSS and JS' into two separate settings tabs, 'Custom CSS' and 'Custom JS', the latter is now in the
+   'Local Adaptable' plugin.
+6. Fix 'btn a' style.
+
 Change Log in version 401.1.9 (2022112310)
 ===========================================
 1. Fix '$OUTPUT is null' - ref: https://moodle.org/mod/forum/discuss.php?d=453194#p1827606.

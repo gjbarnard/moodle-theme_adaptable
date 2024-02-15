@@ -1671,7 +1671,7 @@ trait core_renderer_toolbox {
                 (!empty($themesettings->coursetitlemaxwidth) ? $themesettings->coursetitlemaxwidth : 0);
             // Check max width of course title and trim if appropriate.
             if (($coursetitlemaxwidth > 0) && ($coursetitle <> '')) {
-                if (strlen($coursetitle) > $coursetitlemaxwidth) {
+                if (\core_text::strlen($coursetitle) > $coursetitlemaxwidth) {
                     $coursetitle = \core_text::substr($coursetitle, 0, $coursetitlemaxwidth) . " ...";
                 }
             }

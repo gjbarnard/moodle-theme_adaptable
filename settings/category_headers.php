@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 
 // Category headers heading.
 if ($ADMIN->fulltree) {
-    $page = new theme_adaptable_admin_settingspage(
+    $page = new \theme_adaptable\admin_settingspage(
         'theme_adaptable_categoryheaders',
         get_string('categoryheaderssettings', 'theme_adaptable'),
         true

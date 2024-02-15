@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die;
 
 // Frontpage Block Regions Section.
 if ($ADMIN->fulltree) {
-    $page = new theme_adaptable_admin_settingspage(
+    $page = new \theme_adaptable\admin_settingspage(
         'theme_adaptable_frontpage_block_regions',
         get_string('frontpageblockregionsettings', 'theme_adaptable')
     );
