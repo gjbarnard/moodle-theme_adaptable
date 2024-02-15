@@ -26,7 +26,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$page = new theme_adaptable_admin_settingspage('theme_adaptable_importexport', get_string('properties', 'theme_adaptable'));
+$page = new \theme_adaptable\admin_settingspage('theme_adaptable_importexport', get_string('properties', 'theme_adaptable'));
 if ($ADMIN->fulltree) {
     if (file_exists("{$CFG->dirroot}/theme/adaptable/settings/adaptable_admin_setting_getprops.php")) {
         require_once($CFG->dirroot . '/theme/adaptable/settings/adaptable_admin_setting_getprops.php');

@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die;
 
 // Header Navbar.
 if ($ADMIN->fulltree) {
-    $page = new theme_adaptable_admin_settingspage(
+    $page = new \theme_adaptable\admin_settingspage(
         'theme_adaptable_navbar_mycourses',
         get_string('navbarmycourses', 'theme_adaptable'),
         true

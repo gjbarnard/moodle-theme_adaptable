@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die;
 
 // Login page heading.
 if ($ADMIN->fulltree) {
-    $page = new theme_adaptable_admin_settingspage('theme_adaptable_login', get_string('loginsettings', 'theme_adaptable'), true);
+    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_login', get_string('loginsettings', 'theme_adaptable'), true);
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_login',

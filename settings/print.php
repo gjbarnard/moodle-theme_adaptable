@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 
 // Print settings.
 if ($ADMIN->fulltree) {
-    $page = new theme_adaptable_admin_settingspage('theme_adaptable_print', get_string('printsettings', 'theme_adaptable'));
+    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_print', get_string('printsettings', 'theme_adaptable'));
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_print',

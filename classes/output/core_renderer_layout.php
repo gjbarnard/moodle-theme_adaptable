@@ -622,33 +622,10 @@ trait core_renderer_layout {
             }
         }
 
-        $context->jssection = $themesettings->jssection;
-
-        // Conditional javascript based on a user profile field.
-        if (!empty($themesettings->jssectionrestrictedprofilefield)) {
-            // Get custom profile field setting. (e.g. faculty=fbl).
-            $fields = explode('=', $themesettings->jssectionrestrictedprofilefield);
-            $ftype = $fields[0];
-            $setvalue = $fields[1];
-
-            // Get user profile field (if it exists).
-            require_once($CFG->dirroot . '/user/profile/lib.php');
-            require_once($CFG->dirroot . '/user/lib.php');
-            profile_load_data($USER);
-            $ftype = "profile_field_$ftype";
-            if (isset($USER->$ftype)) {
-                if ($USER->$ftype == $setvalue) {
-                    // Match between user profile field value and value in setting.
-
-                    if (!empty($themesettings->jssectionrestricteddashboardonly)) {
-                        // If this is set to restrict to dashboard only, check if we are on dashboard page.
-                        if ($this->page->pagelayout == 'mydashboard') {
-                            $context->jssectionrestricted = $themesettings->jssectionrestricted;
-                        }
-                    } else {
-                        $context->jssectionrestricted = $themesettings->jssectionrestricted;
-                    }
-                }
+        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        if (is_object($localtoolbox)) {
+            if (method_exists($localtoolbox, 'supported_methods')) { // TODO - Temporary until such time as not.
+                $context->customjs = $localtoolbox->get_custom_js($themesettings, $this->page, $this);
             }
         }
 
@@ -660,7 +637,10 @@ trait core_renderer_layout {
 
         $context = new stdClass;
         $context->output = $this;
-        $context->jssection = $themesettings->jssection;
+        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        if (is_object($localtoolbox)) {
+            $context->customjs = $localtoolbox->get_custom_js($themesettings, $this->page, $this);
+        }
 
         echo $this->render_from_template('theme_adaptable/nofooter', $context);
     }

@@ -65,5 +65,18 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     // Automatic 'Purge all caches'....
     purge_all_caches();
 
+    // Method check after purge to reload updated local_toolbox if needed.
+    $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+    if (is_object($localtoolbox)) {
+        if (method_exists($localtoolbox, 'supported_methods')) {
+            // Method check.  Will throw upgrade_exception if one or more are missing.
+            $methods = ['get_custom_js'];
+            $unsupportedmethods = $localtoolbox->supported_methods($methods, '401.0.4 - 2023102203');
+            if (!empty($unsupportedmethods)) {
+                echo $unsupportedmethods;
+            }
+        }
+    }
+
     return true;
 }

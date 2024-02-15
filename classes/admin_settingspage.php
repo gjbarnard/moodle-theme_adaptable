@@ -23,12 +23,12 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace theme_adaptable;
 
 /**
  * Adaptable admin_settingpage
  */
-class theme_adaptable_admin_settingspage extends admin_settingpage {
+class admin_settingspage extends \admin_settingpage {
     /** @var boolean disabled. */
     private $disabled = false;
 
@@ -51,7 +51,7 @@ class theme_adaptable_admin_settingspage extends admin_settingpage {
                 ', which is available to sponsors only.  Please consider sponsoring, see the \'Information\' tab.';
 
             $this->disabled = true;
-            $this->add(new admin_setting_heading(
+            $this->add(new \admin_setting_heading(
                 'theme_adaptable_sponsor'.$name,
                 $localadaptableheading,
                 format_text($localadaptableheadingdesc, FORMAT_MARKDOWN)

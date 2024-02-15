@@ -1630,9 +1630,11 @@ $string['piwiktrackadmin'] = 'Tracking admins';
 $string['piwiktrackadmindesc'] = 'Enable tracking of admin users (not recommended).';
 
 // Custom CSS and Javascript.
-$string['customcssjssettings'] = 'Custom CSS & JS';
-$string['genericsettingsheading'] = 'Apply your own modifications';
-$string['genericsettingsdescription'] = 'Here you can find various settings to add your own CSS and JavaScript code to the theme.';
+$string['customcsssettings'] = 'Custom CSS';
+$string['customjssettings'] = 'Custom JS';
+$string['customcssjssettingsheading'] = 'Apply your own modifications';
+$string['customcsssettingsdescription'] = 'Here you can find various settings to add your own CSS to the theme.';
+$string['customjssettingsdescription'] = 'Here you can find various settings to add your own JavaScript to the theme.  Note: Script tags are automatically added, do not add yourself.';
 
 $string['customcss'] = 'Custom CSS';
 $string['customcssdesc'] = 'Whatever CSS rules you add to this textarea will be reflected in every page, making for easier customization of this theme.';
@@ -1640,11 +1642,17 @@ $string['customcssdesc'] = 'Whatever CSS rules you add to this textarea will be 
 $string['hvpcustomcss'] = 'H5P Custom CSS';
 $string['hvpcustomcssdesc'] = 'Custom CSS for the H5P module.';
 
+$string['customjs'] = 'Custom JavaScript';
+$string['customjsdesc'] = 'Add JavaScript to the site.';
+
 $string['jssection'] = 'Javascript section';
-$string['jssectiondesc'] = 'Add javascript code to the site.';
+$string['jssectiondesc'] = 'DEPRECATED, use \'customjs\' instead.';
+
+$string['customjsrestricted'] = 'Conditional JavaScript';
+$string['customjsrestricteddesc'] = 'Add JavaScript to the site conditionally based on a custom profile field.  This JavaScript will only appear if this condition is met.';
 
 $string['jssectionrestricted'] = 'Conditional javascript section';
-$string['jssectionrestricteddesc'] = 'Add javascript code to the site conditionally based on a custom profile field.  This javascript will only appear if this condition is met.';
+$string['jssectionrestricteddesc'] = 'DEPRECATED, use \'customjsrestricted\' instead.';
 
 $string['jssectionrestrictedprofilefield'] = 'Javascript section custom profile field';
 $string['jssectionrestrictedprofilefielddesc'] = 'Show the javascript above ONLY when user matches this custom profile field value, eg: faculty=fbl.';

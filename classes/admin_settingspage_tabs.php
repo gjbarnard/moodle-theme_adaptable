@@ -23,12 +23,12 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace theme_adaptable;
 
 /**
  * Admin settings page tabs.
  */
-class theme_adaptable_admin_settingspage_tabs extends theme_boost_admin_settingspage_tabs {
+class admin_settingspage_tabs extends \theme_boost_admin_settingspage_tabs {
     /** @var int The branch this Adaptable is for. */
     protected $mbranch;
 
@@ -71,7 +71,7 @@ class theme_adaptable_admin_settingspage_tabs extends theme_boost_admin_settings
             }
 
             $disabled = false;
-            if ($tab instanceof theme_adaptable_admin_settingspage) {
+            if ($tab instanceof admin_settingspage) {
                 $disabled = $tab->get_disabled();
             }
             $context['tabs'][] = [
@@ -87,11 +87,11 @@ class theme_adaptable_admin_settingspage_tabs extends theme_boost_admin_settings
             return '';
         }
 
-        $themes = core_plugin_manager::instance()->get_present_plugins('theme');
+        $themes = \core_plugin_manager::instance()->get_present_plugins('theme');
         if (!empty($themes['adaptable'])) {
             $plugininfo = $themes['adaptable'];
         } else {
-            $plugininfo = core_plugin_manager::instance()->get_plugin_info('theme_adaptable');
+            $plugininfo = \core_plugin_manager::instance()->get_plugin_info('theme_adaptable');
             $plugininfo->version = $plugininfo->versiondisk;
         }
 
