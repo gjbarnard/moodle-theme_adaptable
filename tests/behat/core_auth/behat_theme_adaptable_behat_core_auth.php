@@ -34,7 +34,7 @@ require_once(__DIR__ . '/../../../../../auth/tests/behat/behat_auth.php');
  * @copyright  &copy; 2020 G J Barnard.
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
-class behat_theme_adaptable_behat_auth extends behat_auth {
+class behat_theme_adaptable_behat_core_auth extends behat_auth {
     /**
      * Logs out of the system.
      */

@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Adaptable theme.
+ *
  * @package    theme_adaptable
  * @copyright  2020 G J Barnard
  * @author     G J Barnard -
@@ -35,14 +37,16 @@ class admin_settingspage_tabs extends \theme_boost_admin_settingspage_tabs {
     /**
      * see admin_settingpage for details of this function
      *
-     * @param string $name The internal name for this external page. Must be unique amongst ALL part_of_admin_tree objects.
+     * @param string $name The internal name for this external page. Must be unique amongst all part_of_admin_tree objects.
      * @param string $visiblename The displayed name for this external page. Usually obtained through get_string().
      * @param int $mbranch The branch this Adaptable is for.
-     * @param mixed $req_capability The role capability/permission a user must have to access this external page. Defaults to 'moodle/site:config'.
+     * @param mixed $req_capability The role capability/permission a user must have to access this external page.
+     *                              Defaults to 'moodle/site:config'.
      * @param boolean $hidden Is this external page hidden in admin tree block? Default false.
      * @param stdClass $context The context the page relates to.
      */
-    public function __construct($name, $visiblename, $mbranch, $reqcapability = 'moodle/site:config', $hidden = false, $context = null) {
+    public function __construct($name, $visiblename, $mbranch, $reqcapability = 'moodle/site:config',
+        $hidden = false, $context = null) {
         $this->mbranch = $mbranch;
         return parent::__construct($name, $visiblename, $reqcapability, $hidden, $context);
     }
@@ -128,7 +132,8 @@ class admin_settingspage_tabs extends \theme_boost_admin_settingspage_tabs {
         $context['privacynote'] = format_text(get_string('privacy:note', 'theme_adaptable'), FORMAT_MARKDOWN);
 
         if ($CFG->branch != $this->mbranch) {
-            $context['versioncheck'] = 'Release ' . $plugininfo->release . ', version ' . $plugininfo->version . ' is incompatible with Moodle ' . $CFG->release;
+            $context['versioncheck'] = 'Release ' . $plugininfo->release . ', version ' . $plugininfo->version .
+                ' is incompatible with Moodle ' . $CFG->release;
             $context['versioncheck'] .= ', please get the correct version from ';
             $context['versioncheck'] .= '<a href="https://moodle.org/plugins/theme_adaptable" target="_blank">Moodle.org</a>.  ';
             $context['versioncheck'] .= 'If none is available, then please consider supporting the theme by funding it.  ';

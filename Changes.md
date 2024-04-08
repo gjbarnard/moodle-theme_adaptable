@@ -1,3 +1,14 @@
+Change Log in version 403.1.4 (2023111805)
+===========================================
+1. New setting 'mobileprimarynav' to control the display of the mobile primary navigation.  This is found on the
+   'Header' tab in the theme settings.
+2. New setting 'customjsfiles' to allow the addition of one or more JavaScript files to be included before 'customjs'
+   is output to the page.  Sponsors only functionality.
+3. Fix 'ORPHANED BLOCK - Originally displays in: Course page', ref: https://moodle.org/mod/forum/discuss.php?d=456522.
+4. Apply 'MDL-72923 message: Fixed levels of headings in messaging drawer'.
+5. Fix 'Font on file storage admin type settings'.
+6. Unix file endings - use 'find . -type f -print0 | xargs -0 dos2unix' in a Git Bash on Windows if you need to.
+
 Change Log in version 403.1.3 (2023111804)
 ===========================================
 1. Fix missing logo in alternative header for header style one.

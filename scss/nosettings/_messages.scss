@@ -22,6 +22,10 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
+.bg-messageheader {
+    background-color: $white !important;
+}
+
 @media screen and (min-width: 768px) {
     // M3.7+
     .message-app.drawer,

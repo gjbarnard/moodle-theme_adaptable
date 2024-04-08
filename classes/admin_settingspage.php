@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Adaptable theme.
+ *
  * @package    theme_adaptable
  * @copyright  2023 G J Barnard
  * @author     G J Barnard -
@@ -29,7 +31,7 @@ namespace theme_adaptable;
  * Adaptable admin_settingpage
  */
 class admin_settingspage extends \admin_settingpage {
-    /** @var boolean disabled. */
+    /** @var bool disabled. */
     private $disabled = false;
 
     /**
@@ -38,7 +40,8 @@ class admin_settingspage extends \admin_settingpage {
      * @param string $name The internal name for this external page. Must be unique am  ongst ALL part_of_admin_tree objects.
      * @param string $visiblename The displayed name for this external page. Usually obtained through get_string().
      * @param int $local If the settings on the page require local_adaptable.
-     * @param mixed $req_capability The role capability/permission a user must have to access this external page. Defaults to 'moodle/site:config'.
+     * @param mixed $req_capability The role capability/permission a user must have to access this external page.
+     *                              Defaults to 'moodle/site:config'.
      * @param boolean $hidden Is this external page hidden in admin tree block? Default false.
      * @param stdClass $context The context the page relates to.
      */
@@ -59,6 +62,11 @@ class admin_settingspage extends \admin_settingpage {
         }
     }
 
+    /**
+     * Returns the disabled state.
+     *
+     * return bool Disabled state.
+     */
     public function get_disabled() {
         return $this->disabled;
     }

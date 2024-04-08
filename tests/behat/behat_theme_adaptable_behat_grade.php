@@ -17,7 +17,7 @@
 /**
  * Behat grade related step definition overrides for the Classic theme.
  *
- * @package    theme_classic
+ * @package    theme_adaptable
  * @category   test
  * @copyright  2019 Michael Hawkins
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.

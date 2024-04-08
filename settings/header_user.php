@@ -151,7 +151,8 @@ if ($ADMIN->fulltree) {
     // Enable Accessibility Tool.
     $name = 'theme_adaptable/enableaccesstool';
     $title = get_string('enableaccesstool', 'theme_adaptable');
-    $description = get_string('enableaccesstooldesc', 'theme_adaptable', 'https://github.com/sharpchi/moodle-local_accessibilitytool');
+    $description = get_string('enableaccesstooldesc', 'theme_adaptable',
+        'https://github.com/sharpchi/moodle-local_accessibilitytool');
     $default = false;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);

@@ -30,7 +30,8 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_heading(
         'theme_adaptable_mobile',
         get_string('responsivesettingsheading', 'theme_adaptable'),
-        format_text(get_string('responsivesettingsdesc', 'theme_adaptable', 'https://getbootstrap.com/docs/4.6/utilities/display/'), FORMAT_MARKDOWN)
+        format_text(get_string('responsivesettingsdesc', 'theme_adaptable',
+            'https://getbootstrap.com/docs/4.6/utilities/display/'), FORMAT_MARKDOWN)
     ));
 
     // Hide Full Header.

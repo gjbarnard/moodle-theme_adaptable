@@ -27,6 +27,8 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+// phpcs:disable moodle.Files.LangFilesOrdering
+
 // General.
 $string['choosereadme'] = '
 <div class="clearfix">
@@ -113,6 +115,8 @@ $string['region-course-bottom-a'] = 'Course page bottom region five';
 $string['region-course-bottom-b'] = 'Course page bottom region six';
 $string['region-course-bottom-c'] = 'Course page bottom region seven';
 $string['region-course-bottom-d'] = 'Course page bottom region eight';
+
+$string['orphanedblock'] = '<em>ORPHANED BLOCK - Originally displays in: <strong>{$a}</strong></em>';
 
 // Settings page headings ******************************************.
 $string['settingsmaincolors'] = 'Main colours';
@@ -1044,6 +1048,9 @@ $string['coursetitleshortname'] = 'Course short name / code';
 $string['pageheaderheight'] = 'Page header height';
 $string['pageheaderheightdesc'] = 'Set the height of the main header area (containing logo and titles).';
 
+$string['mobileprimarynav'] = "Mobile primary navigation";
+$string['mobileprimarynavdesc'] = "Enable or disable.  Note: This is the menu controlled by the hamburger icon";
+
 $string['coursepageheaderhidetitle'] = 'Hide header title on course pages';
 $string['coursepageheaderhidetitledesc'] = 'Hide header title, logo and search bar on course pages.  Use this along with page header height setting to show a smaller header on course related pages.';
 
@@ -1645,6 +1652,9 @@ $string['hvpcustomcssdesc'] = 'Custom CSS for the H5P module.';
 
 $string['customjs'] = 'Custom JavaScript';
 $string['customjsdesc'] = 'Add JavaScript to the site.';
+
+$string['customjsfiles'] = 'Custom JavaScript files';
+$string['customjsfilesdesc'] = 'Add JavaScript files to the site.';
 
 $string['jssection'] = 'Javascript section';
 $string['jssectiondesc'] = 'DEPRECATED, use \'customjs\' instead.';
