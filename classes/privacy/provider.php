@@ -42,7 +42,6 @@ class provider implements
 
     // This plugin has some sitewide user preferences to export.
     \core_privacy\local\request\user_preference_provider {
-
     /**
      * Returns meta data about this system.
      *
@@ -72,7 +71,8 @@ class provider implements
             if (preg_match('/(?<=block)\d*(?=hidden)/', $name, $matches)) {
                 if (!empty($matches[0])) {
                     $blockid = $matches[0];
-                    $decoded = ($value) ? get_string('privacy:open', 'theme_adaptable') : get_string('privacy:closed', 'theme_adaptable');
+                    $decoded = ($value) ? get_string('privacy:open', 'theme_adaptable') :
+                        get_string('privacy:closed', 'theme_adaptable');
 
                     writer::export_user_preference(
                         'theme_adaptable',
@@ -87,7 +87,8 @@ class provider implements
                     );
                 }
             } else if ($name == 'drawer-open-index') {
-                $decoded = ($value) ? get_string('privacy:open', 'theme_adaptable') : get_string('privacy:closed', 'theme_adaptable');
+                $decoded = ($value) ? get_string('privacy:open', 'theme_adaptable') :
+                    get_string('privacy:closed', 'theme_adaptable');
 
                 writer::export_user_preference(
                     'theme_adaptable',
@@ -100,7 +101,8 @@ class provider implements
                     ])
                 );
             } else if ($name == 'drawer-open-block') {
-                $decoded = ($value) ? get_string('privacy:open', 'theme_adaptable') : get_string('privacy:closed', 'theme_adaptable');
+                $decoded = ($value) ? get_string('privacy:open', 'theme_adaptable') :
+                    get_string('privacy:closed', 'theme_adaptable');
 
                 writer::export_user_preference(
                     'theme_adaptable',
@@ -113,7 +115,8 @@ class provider implements
                     ])
                 );
             } else if ($name == 'theme_adaptable_zoom') {
-                $decoded = ($value) ? get_string('privacy:open', 'theme_adaptable') : get_string('privacy:closed', 'theme_adaptable');
+                $decoded = ($value) ? get_string('privacy:open', 'theme_adaptable') :
+                    get_string('privacy:closed', 'theme_adaptable');
 
                 writer::export_user_preference(
                     'theme_adaptable',
@@ -126,7 +129,7 @@ class provider implements
                     ])
                 );
             } else if ($name == 'theme_adaptable_full') {
-                $decoded = get_string('privacy:'.$value, 'theme_adaptable');
+                $decoded = get_string('privacy:' . $value, 'theme_adaptable');
 
                 writer::export_user_preference(
                     'theme_adaptable',
@@ -139,7 +142,7 @@ class provider implements
                     ])
                 );
             } else if (preg_match('/(?<=theme_adaptable_alertkey)\d*/', $name, $matches)) {
-                // Now in local_adaptable - left here to report old alerts.
+                // Now in local_adaptable - here to report alerts used with the theme when used with local_adaptable.
                 if (!empty($matches[0])) {
                     $alertid = $matches[0];
 

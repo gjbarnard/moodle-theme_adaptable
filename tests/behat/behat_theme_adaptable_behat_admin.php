@@ -59,7 +59,8 @@ class behat_theme_adaptable_behat_admin extends behat_admin {
 
             // Search by label.
             $this->execute('behat_forms::i_set_the_field_to', [get_string('searchinsettings', 'admin'), $label]);
-            $this->execute("behat_general::i_click_on_in_the", [get_string('search', 'admin'), 'button', '.block_settings', 'css_element']);
+            $this->execute("behat_general::i_click_on_in_the", [get_string('search', 'admin'), 'button',
+                '.block_settings', 'css_element']);
 
             // Admin settings does not use the same DOM structure than other moodle forms
             // but we also need to use lib/behat/form_field/* to deal with the different moodle form elements.

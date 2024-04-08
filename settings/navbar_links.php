@@ -29,7 +29,10 @@ defined('MOODLE_INTERNAL') || die;
 
 // Navbar links.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_navbar_links', get_string('navbarlinkssettings', 'theme_adaptable'));
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_navbar_links',
+        get_string('navbarlinkssettings', 'theme_adaptable')
+    );
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_navbar',

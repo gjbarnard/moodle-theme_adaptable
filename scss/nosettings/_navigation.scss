@@ -33,21 +33,14 @@ header .nav-item {
 }
 
 @media (max-width: 767px) {
-    .nomobilenavigation .activity-navigation .text,
-    .nomobilenavigation .section_footer .text {
-        display: none;
-    }
+    .responsivesectionnav .activity-navigation {
+        .text {
+            display: none;
+        }
 
-    .nomobilenavigation .next_section {
-        float: right;
-    }
-
-    .nomobilenavigation .activity-navigation .col-md-6 {
-        width: 50%;
-    }
-
-    .nomobilenavigation .section_footer .prevnext {
-        width: auto;
+        .col-md-6 {
+            width: 50%;
+        }
     }
 }
 

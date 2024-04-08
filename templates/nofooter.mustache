@@ -34,11 +34,16 @@
 </div>{{! End #page-wrapper. }}
 
 {{{output.standard_end_of_body_html}}}
+
+{{#customjsfiles}}
+<script src="{{.}}"></script>
+{{/customjsfiles}}
 {{#customjs}}
 {{#js}}
 {{{customjs}}}
 {{/js}}
 {{/customjs}}
+
 {{{output.get_all_tracking_methods}}}
 
 </body>

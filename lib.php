@@ -76,7 +76,7 @@ function theme_adaptable_get_main_scss_content($theme) {
         $boosttheme = theme_config::load('boost'); // Needs to be the Boost theme so that we get its settings.
     }
 
-    $scss = '$enable-rounded: false !default;'; // TODO: A setting?
+    $scss = '$enable-rounded: false !default;'; // Todo: A setting?
 
     $scss .= theme_boost_get_main_scss_content($boosttheme);
 
@@ -461,7 +461,7 @@ function theme_adaptable_set_customcss($css, $customcss) {
  */
 function theme_adaptable_serve_hvp_css($filename, $theme) {
     global $CFG, $PAGE;
-    require_once($CFG->dirroot . '/lib/configonlylib.php'); // For min_enable_zlib_compression().
+    require_once($CFG->dirroot . '/lib/configonlylib.php'); // For 'min_enable_zlib_compression' function.
 
     $PAGE->set_context(context_system::instance());
     $themename = $theme->name;
@@ -593,6 +593,8 @@ function theme_adaptable_pluginfile($course, $cm, $context, $filearea, $args, $f
         }
         if ($filearea === 'logo') {
             return $theme->setting_file_serve('logo', $args, $forcedownload, $options);
+        } else if ($filearea === 'customjsfiles') {
+            return $theme->setting_file_serve('customjsfiles', $args, $forcedownload, $options);
         } else if ($filearea === 'homebk') {
             return $theme->setting_file_serve('homebk', $args, $forcedownload, $options);
         } else if ($filearea === 'pagebackground') {

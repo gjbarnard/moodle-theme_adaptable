@@ -867,12 +867,15 @@ table.mceLayout2 iframe {
     text-align: right;
 }
 
-.form-label label {
-    color: [[setting:fontheadercolor]];
-    font-family: [[setting:fontheadername]], sans-serif !important;
-    font-size: 18px;
-    font-weight: [[setting:fontheaderweight]] !important;
-    padding-bottom: 10px;
+.form-label {
+    label,
+    > p {
+        color: [[setting:fontheadercolor]];
+        font-family: [[setting:fontheadername]], sans-serif !important;
+        font-size: 18px;
+        font-weight: [[setting:fontheaderweight]] !important;
+        padding-bottom: 10px;
+    }
 }
 
 .form-colorpicker input {

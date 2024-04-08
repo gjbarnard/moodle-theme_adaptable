@@ -28,7 +28,10 @@ defined('MOODLE_INTERNAL') || die;
 
 // Frontpage courses section.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_frontpage_courses', get_string('frontpagecoursesettings', 'theme_adaptable'));
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_frontpage_courses',
+        get_string('frontpagecoursesettings', 'theme_adaptable')
+    );
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_frontpage_courses',

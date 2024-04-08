@@ -179,12 +179,10 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
         return format_admin_setting(
             $this,
             $this->visiblename,
-            '<div class="form-textarea">
-         <textarea rows="' . $this->rows . '" cols="' . $this->cols . '" id="' . $this->get_id() . '" name="' . $this->get_full_name()
-            . '"spellcheck="true">' . s($data) . '
-         </textarea>
-         </div>
-        <input value="' . $draftitemid . '" name="' . $this->get_full_name() . '_draftitemid" type="hidden" />',
+            '<div class="form-textarea"><textarea rows="' . $this->rows . '" cols="' . $this->cols . '" id="' .
+            $this->get_id() . '" name="' . $this->get_full_name() . '"spellcheck="true">' . s($data) .
+            '</textarea></div><input value="' . $draftitemid . '" name="' . $this->get_full_name() .
+            '_draftitemid" type="hidden" />',
             $this->description,
             true,
             '',

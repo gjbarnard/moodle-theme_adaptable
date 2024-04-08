@@ -106,7 +106,7 @@ class toolbox {
         if (empty($themename)) {
             $themename = 'adaptable';
         }
-        $settingvalue = get_config('theme_'.$themename, $settingname);
+        $settingvalue = get_config('theme_' . $themename, $settingname);
         return (!empty($settingvalue)) ? $settingvalue : $settingdefault;
     }
 
@@ -129,7 +129,8 @@ class toolbox {
             self::$themeconfigs[$themename] = \theme_config::load($themename);
         }
 
-        $setting = (!empty(self::$themeconfigs[$themename]->settings->$settingname)) ? self::$themeconfigs[$themename]->settings->$settingname : $settingdefault;
+        $setting = (!empty(self::$themeconfigs[$themename]->settings->$settingname)) ?
+            self::$themeconfigs[$themename]->settings->$settingname : $settingdefault;
 
         if (!$format) {
             return $setting;
@@ -152,6 +153,17 @@ class toolbox {
      * @return any null|settings stdClass.
      */
     public static function get_settings($themename = null) {
+        return self::get_theme($themename)->settings;
+    }
+
+    /**
+     * Returns the given theme.
+     *
+     * @param string $themename null(default of 'adaptable' used)|theme name.
+     *
+     * @return any null|theme_config class.
+     */
+    public static function get_theme($themename = null) {
 
         if (empty($themename)) {
             $themename = 'adaptable';
@@ -160,7 +172,7 @@ class toolbox {
             self::$themeconfigs[$themename] = \theme_config::load($themename);
         }
 
-        return self::$themeconfigs[$themename]->settings;
+        return self::$themeconfigs[$themename];
     }
 
     /**
@@ -312,7 +324,8 @@ class toolbox {
             get_string('putpropertyversion', 'theme_adaptable') . ' ' . $props['theme_version'] . '.' . PHP_EOL;
         unset($props['theme_version']);
         $report .= get_string('putpropertyour', 'theme_adaptable') . ' \'' . ucfirst($themename) . '\' ' .
-            get_string('putpropertyversion', 'theme_adaptable') . ' ' . $currentprops['theme_version']->value . '.' . PHP_EOL . PHP_EOL;
+            get_string('putpropertyversion', 'theme_adaptable') . ' ' . $currentprops['theme_version']->value . '.' .
+            PHP_EOL . PHP_EOL;
         unset($currentprops['theme_version']);
 
         // Pre-process files - using 'theme_adaptable_pluginfile' in lib.php as a reference.
@@ -353,7 +366,8 @@ class toolbox {
             $settinglog = '\'' . $propkey . '\' ' . get_string('putpropertiesvalue', 'theme_adaptable') . ' \'' . $propvalue . '\'';
             if (array_key_exists($propkey, $currentprops)) {
                 if ($propvalue != $currentprops[$propkey]->value) {
-                    $settinglog .= ' ' . get_string('putpropertiesfrom', 'theme_adaptable') . ' \'' . $currentprops[$propkey]->value . '\'';
+                    $settinglog .= ' ' . get_string('putpropertiesfrom', 'theme_adaptable') . ' \'' .
+                    $currentprops[$propkey]->value . '\'';
                     $changed .= $settinglog . '.' . PHP_EOL;
                     $DB->update_record('config_plugins', ['id' => $currentprops[$propkey]->id, 'value' => $propvalue], true);
                 } else {
@@ -1137,7 +1151,8 @@ class toolbox {
             }
 
             if ($PAGE->theme->settings->$settingname != '0-0-0-0') {
-                $imgblder .= '<img src="' . $imgpath . $PAGE->theme->settings->$settingname . '.png' . '" style="padding-top: 5px">';
+                $imgblder .= '<img src="' . $imgpath . $PAGE->theme->settings->$settingname . '.png' .
+                    '" style="padding-top: 5px">';
             }
 
             $vals = explode('-', $PAGE->theme->settings->$settingname);

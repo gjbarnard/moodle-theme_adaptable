@@ -23,23 +23,31 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+namespace theme_adaptable;
+
 /**
  * Toolbox unit tests for the Adaptable theme.
  * @group theme_adaptable
  * @copyright Copyright (c) 2017 Manoj Solanki (Coventry University)
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
-class theme_adaptable_toolbox_test extends advanced_testcase {
+final class toolbox_test extends \advanced_testcase {
+    /**
+     * Set up.
+     */
     protected function setUp(): void {
         $this->resetAfterTest(true);
 
         set_config('theme', 'adaptable');
     }
 
-    public function test_to_add_property() {
+    /**
+     * Add property test.
+     */
+    public function test_to_add_property(): void {
         // Ref: http://stackoverflow.com/questions/249664/best-practices-to-test-protected-methods-with-phpunit.
         // and http://php.net/manual/en/reflectionmethod.invoke.php.
-        $reflectionmethod = new ReflectionMethod('\theme_adaptable\toolbox', 'to_add_property');
+        $reflectionmethod = new \ReflectionMethod('\theme_adaptable\toolbox', 'to_add_property');
         $reflectionmethod->setAccessible(true);
 
         // Correct ones....

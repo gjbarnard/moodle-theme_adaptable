@@ -373,7 +373,8 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:t/block_to_dock' => 'fas fa-chevron-left',
             'core:t/blocks_drawer_rtl' => 'fas fa-chevron-right',
             'core:t/blocks_drawer' => 'fas fa-chevron-left',
-            'core:t/calc_off' => 'fas fa-calculator', // TODO: Change to better icon once we have stacked icon support or more icons.
+            // Todo: Change to better icon once we have stacked icon support or more icons.
+            'core:t/calc_off' => 'fas fa-calculator',
             'core:t/calc' => 'fas fa-calculator',
             'core:t/check' => 'fas fa-check',
             'core:t/clipboard' => 'fas fa-clipboard',
