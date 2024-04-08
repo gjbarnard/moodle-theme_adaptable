@@ -16,6 +16,8 @@
 
 /**
  * Overrides for behat blocks.
+ *
+ * @package   theme_adaptable
  * @copyright Copyright (c) 2020 Titus
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
@@ -30,6 +32,7 @@ require_once(__DIR__ . '/../../../../blocks/tests/behat/behat_blocks.php');
 /**
  * Overrides to make behat block steps work with adaptable.
  *
+ * @package   theme_adaptable
  * @copyright Copyright (c) 2020 Titus.
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */

@@ -57,7 +57,11 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_heading(
         'theme_adaptable_newsslider_heading',
         get_string('coursepagenewssliderblockregionheading', 'theme_adaptable'),
-        format_text(get_string('coursepagenewssliderblockregionheadingdesc', 'theme_adaptable', 'https://moodle.org/plugins/block_news_slider'), FORMAT_MARKDOWN)
+        format_text(get_string(
+            'coursepagenewssliderblockregionheadingdesc',
+            'theme_adaptable',
+            'https://moodle.org/plugins/block_news_slider'
+        ), FORMAT_MARKDOWN)
     ));
 
     $name = 'theme_adaptable/coursepageblocksliderenabled';
@@ -135,8 +139,10 @@ if ($ADMIN->fulltree) {
         $mktcountcolor = '#D7542A';
     }
     $mktcountmsg = '<span style="color: ' . $checkcountcolor . '; margin-bottom: 20px;">';
-    $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
-    $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong></span>.';
+    $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') .
+        '<strong>' . $noregions . '</strong>';
+    $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') .
+        '<strong>' . $totalblocks . '/' . $noregions . '</strong></span>.';
 
     $page->add(new admin_setting_heading('theme_adaptable_courselayouttopblockscount', '', $mktcountmsg));
 
@@ -181,8 +187,10 @@ if ($ADMIN->fulltree) {
         $mktcountcolor = '#D7542A';
     }
     $mktcountmsg = '<span style="color: ' . $checkcountcolor . '">';
-    $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
-    $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong></span>.';
+    $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') .
+        '<strong>' . $noregions . '</strong>';
+    $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') .
+        '<strong>' . $totalblocks . '/' . $noregions . '</strong></span>.';
 
     $page->add(new admin_setting_heading('theme_adaptable_courselayoutbottomblockscount', '', $mktcountmsg));
 

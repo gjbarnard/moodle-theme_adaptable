@@ -30,18 +30,22 @@
     * urls The URLs for the popover
 
     Example context (json):
-    {
-    }
+    {}
+
 }}
 {{< core/drawer}}
     {{$drawercontent}}
-        <div class="drawer-top p-2 border-bottom bg-messageheader">
-            {{#str}} messages, message {{/str}}
-            <a id="message-drawer-close-{{uniqid}}" class="pull-right" href="#" role="button">
-                {{#pix}} i/window_close, core, {{#str}} togglemessagemenu, message {{/str}} {{/pix}}
-            </a>
-        </div>
         <div id="message-drawer-{{uniqid}}" class="message-app" data-region="message-drawer" role="region">
+            <div class="d-flex justify-content-between align-items-center py-1 px-2 border-bottom bg-messageheader">
+                <h2 class="mb-0">{{#str}} messagingcategory, admin {{/str}}</h2>
+                <div class="closewidget">
+                    <a class="" data-action="closedrawer" href="#"
+                    title="{{#cleanstr}} closebuttontitle {{/cleanstr}}" aria-label="{{#cleanstr}} closebuttontitle {{/cleanstr}}"
+                    >
+                        {{#pix}} i/window_close, core {{/pix}}
+                    </a>
+                </div>
+            </div>
             <div class="header-container position-relative" data-region="header-container">
                 {{> core_message/message_drawer_view_contacts_header }}
                 {{> core_message/message_drawer_view_conversation_header }}
@@ -67,11 +71,8 @@
 {{/core/drawer}}
 
 {{#js}}
-require(['jquery', 'core_message/message_drawer', 'core_message/message_popover'], function($, MessageDrawer, Popover) {
+require(['jquery', 'core_message/message_drawer'], function($, MessageDrawer) {
     var root = $('#message-drawer-{{uniqid}}');
-    MessageDrawer.init(root);
-
-    var toggle = $('#message-drawer-close-{{uniqid}}');
-    Popover.init(toggle);
+    MessageDrawer.init(root, '{{uniqid}}', false);
 });
 {{/js}}

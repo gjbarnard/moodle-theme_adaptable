@@ -16,6 +16,7 @@
 
 /**
  * Adaptable theme.
+ *
  * @package    theme_adaptable
  * @copyright  2021 G J Barnard
  *               {@link https://moodle.org/user/profile.php?id=442195}

@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Adaptable theme.
+ *
  * @package    theme_adaptable
  * @copyright  2023 G J Barnard
  * @author     G J Barnard -
@@ -29,7 +31,7 @@ namespace theme_adaptable;
  * Adaptable admin_settingpage
  */
 class admin_settingspage extends \admin_settingpage {
-    /** @var boolean disabled. */
+    /** @var bool disabled. */
     private $disabled = false;
 
     /**
@@ -38,27 +40,39 @@ class admin_settingspage extends \admin_settingpage {
      * @param string $name The internal name for this external page. Must be unique am  ongst ALL part_of_admin_tree objects.
      * @param string $visiblename The displayed name for this external page. Usually obtained through get_string().
      * @param int $local If the settings on the page require local_adaptable.
-     * @param mixed $req_capability The role capability/permission a user must have to access this external page. Defaults to 'moodle/site:config'.
+     * @param mixed $req_capability The role capability/permission a user must have to access this external page.
+     *                              Defaults to 'moodle/site:config'.
      * @param boolean $hidden Is this external page hidden in admin tree block? Default false.
      * @param stdClass $context The context the page relates to.
      */
-    public function __construct($name, $visiblename, $local = false, $reqcapability = 'moodle/site:config',
-        $hidden = false, $context = null) {
+    public function __construct(
+        $name,
+        $visiblename,
+        $local = false,
+        $reqcapability = 'moodle/site:config',
+        $hidden = false,
+        $context = null
+    ) {
         parent::__construct($name, $visiblename, $reqcapability, $hidden, $context);
         if (($local) && (\theme_adaptable\toolbox::get_local_toolbox() === false)) {
             $localadaptableheading = 'Sponsors only';
-            $localadaptableheadingdesc = 'These settings and functionlity require the \'local_adaptable\' plugin'.
+            $localadaptableheadingdesc = 'These settings and functionlity require the \'local_adaptable\' plugin' .
                 ', which is available to sponsors only.  Please consider sponsoring, see the \'Information\' tab.';
 
             $this->disabled = true;
             $this->add(new \admin_setting_heading(
-                'theme_adaptable_sponsor'.$name,
+                'theme_adaptable_sponsor' . $name,
                 $localadaptableheading,
                 format_text($localadaptableheadingdesc, FORMAT_MARKDOWN)
             ));
         }
     }
 
+    /**
+     * Returns the disabled state.
+     *
+     * return bool Disabled state.
+     */
     public function get_disabled() {
         return $this->disabled;
     }

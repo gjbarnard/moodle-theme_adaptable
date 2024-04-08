@@ -86,6 +86,14 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Have mobile primary navigation.
+    $name = 'theme_adaptable/mobileprimarynav';
+    $title = get_string('mobileprimarynav', 'theme_adaptable');
+    $description = get_string('mobileprimarynavdesc', 'theme_adaptable');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $page->add($setting);
+
     // Course page header title.
     $name = 'theme_adaptable/coursepageheaderhidetitle';
     $title = get_string('coursepageheaderhidetitle', 'theme_adaptable');

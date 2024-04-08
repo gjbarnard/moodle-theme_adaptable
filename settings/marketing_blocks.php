@@ -26,7 +26,10 @@ defined('MOODLE_INTERNAL') || die;
 
 // Marketing blocks section.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_frontpage_blocks', get_string('frontpageblocksettings', 'theme_adaptable'));
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_frontpage_blocks',
+        get_string('frontpageblocksettings', 'theme_adaptable')
+    );
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_marketing',

@@ -33,7 +33,9 @@ use stdClass;
  * Trait for core and core maintenance renderers.
  */
 trait core_renderer_layout {
-
+    /**
+     * Yes header.
+     */
     public function yesheader($sidepostdrawer) {
         global $USER;
         $themesettings = \theme_adaptable\toolbox::get_settings();
@@ -69,8 +71,10 @@ trait core_renderer_layout {
 
         // Navbar Menu.
         $shownavbar = false;
-        if ((isloggedin() && !isguestuser()) ||
-            (!empty($themesettings->enablenavbarwhenloggedout))) {
+        if (
+            (isloggedin() && !isguestuser()) ||
+            (!empty($themesettings->enablenavbarwhenloggedout))
+        ) {
             // Show navbar unless disabled by config.
             if (empty($this->page->layout_options['nonavbar'])) {
                 $shownavbar = true;
@@ -81,7 +85,8 @@ trait core_renderer_layout {
 
         $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
         if (is_object($localtoolbox)) {
-            ['currenttopcat' => $currenttopcat, 'headerbg' => $headerbg] = $localtoolbox->get_category_header($themesettings, $this->page);
+            ['currenttopcat' => $currenttopcat, 'headerbg' => $headerbg] =
+                $localtoolbox->get_category_header($themesettings, $this->page);
         } else {
             $currenttopcat = false;
         }
@@ -157,10 +162,8 @@ trait core_renderer_layout {
             $pageclasses[] = 'drawers';
         }
 
-        $nomobilenavigation = '';
         if (!empty($themesettings->responsivesectionnav)) {
-            $nomobilenavigation = 'nomobilenavigation';
-            $bodyclasses[] = $nomobilenavigation;
+            $bodyclasses[] = 'responsivesectionnav';
         }
 
         $this->head($bodyclasses);
@@ -179,7 +182,7 @@ trait core_renderer_layout {
             'output' => $this,
         ];
 
-        if (!empty($nomobilenavigation)) {
+        if (!empty($themesettings->mobileprimarynav)) {
             $primary = new navigation\primary($this->page);
             $renderer = $this->page->get_renderer('core');
             $primarymenu = $primary->export_for_template($renderer);
@@ -251,8 +254,10 @@ trait core_renderer_layout {
 
         /* Check if this is a course or module page and check setting to hide site title.
            If not one of these pages, by default show it (set $hideheadertitle to false). */
-        if ((strstr($this->page->pagetype, 'course')) ||
-            (strstr($this->page->pagetype, 'mod')) && ($this->page->course->id != SITEID)) {
+        if (
+            (strstr($this->page->pagetype, 'course')) ||
+            (strstr($this->page->pagetype, 'mod')) && ($this->page->course->id != SITEID)
+        ) {
             $hideheadertitle = !empty(($themesettings->coursepageheaderhidetitle)) ? true : false;
         } else {
             $hideheadertitle = false;
@@ -295,11 +300,13 @@ trait core_renderer_layout {
                dashboard page. Checking if the cog is being displayed above to figure out if it still needs to
                show (when there is no cog). Also show mod pages (e.g. Forum, Lesson) as these sometimes have
                a button for a specific purpose. */
-            if (($showeditbuttons) ||
+            if (
+                ($showeditbuttons) ||
                 (($headercontext['shownavbar']['showcog']) &&
                 ((empty($headercontext['shownavbar']['coursemenucontent'])) &&
                 (empty($headercontext['shownavbar']['othermenucontent'])))) ||
-                (strstr($this->page->pagetype, 'mod-'))) {
+                (strstr($this->page->pagetype, 'mod-'))
+            ) {
                 $headercontext['shownavbar']['pageheadingbutton'] = $this->page_heading_button();
             }
 
@@ -314,7 +321,8 @@ trait core_renderer_layout {
 
         if ($adaptableheaderstyle == "style1") {
             $headercontext['menuslinkright'] = (!empty($themesettings->menuslinkright));
-            $headercontext['langmenu'] = (empty($this->page->layout_options['langmenu']) || $this->page->layout_options['langmenu']);
+            $headercontext['langmenu'] = (empty($this->page->layout_options['langmenu']) ||
+                $this->page->layout_options['langmenu']);
             $headercontext['responsiveheader'] = $themesettings->responsiveheader;
 
             if (!empty($themesettings->pageheaderlayout)) {
@@ -323,7 +331,8 @@ trait core_renderer_layout {
                 $headercontext['pageheaderoriginal'] = true;
             }
 
-            $headersearchandsocial = (!empty($themesettings->headersearchandsocial)) ? $themesettings->headersearchandsocial : 'none';
+            $headersearchandsocial = (!empty($themesettings->headersearchandsocial)) ?
+                $themesettings->headersearchandsocial : 'none';
 
             // Search box and social icons.
             switch ($headersearchandsocial) {
@@ -333,7 +342,8 @@ trait core_renderer_layout {
                         'pageheaderoriginal' => $headercontext['pageheaderoriginal'],
                         'output' => $this,
                     ];
-                    $headercontext['searchandsocialheader'] = $this->render_from_template('theme_adaptable/headersocial', $headersocialcontext);
+                    $headercontext['searchandsocialheader'] =
+                        $this->render_from_template('theme_adaptable/headersocial', $headersocialcontext);
                     break;
                 case 'searchmobilenav':
                     $headercontext['searchandsocialnavbar'] = $this->search_box();
@@ -342,14 +352,16 @@ trait core_renderer_layout {
                         'pagelayout' => ($headercontext['pageheaderoriginal']) ? 'pagelayoutoriginal' : 'pagelayoutalternative',
                         'search' => $this->search_box(),
                     ];
-                    $headercontext['searchandsocialheader'] = $this->render_from_template('theme_adaptable/headersearch', $headersearchcontext);
+                    $headercontext['searchandsocialheader'] =
+                        $this->render_from_template('theme_adaptable/headersearch', $headersearchcontext);
                     break;
                 case 'searchheader':
                     $headersearchcontext = [
                         'pagelayout' => ($headercontext['pageheaderoriginal']) ? 'pagelayoutoriginal' : 'pagelayoutalternative',
                         'search' => $this->search_box(),
                     ];
-                    $headercontext['searchandsocialheader'] = $this->render_from_template('theme_adaptable/headersearch', $headersearchcontext);
+                    $headercontext['searchandsocialheader'] =
+                        $this->render_from_template('theme_adaptable/headersearch', $headersearchcontext);
                     break;
                 case 'searchnavbar':
                     $headercontext['searchandsocialnavbar'] = $this->search_box();
@@ -361,7 +373,8 @@ trait core_renderer_layout {
                         'pageheaderoriginal' => $headercontext['pageheaderoriginal'],
                         'output' => $this,
                     ];
-                    $headercontext['searchandsocialheader'] = $this->render_from_template('theme_adaptable/headersocial', $headersocialcontext);
+                    $headercontext['searchandsocialheader'] =
+                        $this->render_from_template('theme_adaptable/headersocial', $headersocialcontext);
                     break;
             }
 
@@ -396,6 +409,9 @@ trait core_renderer_layout {
         echo $this->get_alert_messages();
     }
 
+    /**
+     * No header.
+     */
     public function noheader() {
         $themesettings = \theme_adaptable\toolbox::get_settings();
 
@@ -421,11 +437,16 @@ trait core_renderer_layout {
         echo $this->get_alert_messages();
     }
 
+    /**
+     * Head.
+     *
+     * @param array Of body classes.
+     */
     protected function head($bodyclasses) {
         global $SITE;
         $themesettings = \theme_adaptable\toolbox::get_settings();
 
-        $headcontext = new stdClass;
+        $headcontext = new stdClass();
         $headcontext->output = $this;
         $headcontext->sitefullname = $SITE->fullname;
         $headcontext->pagetitle = $this->page_title();
@@ -438,7 +459,7 @@ trait core_renderer_layout {
             $fontssubset = '';
             if (!empty($themesettings->fontsubset)) {
                 // Get the Google fonts subset.
-                $fontssubset = '&subset='.$themesettings->fontsubset;
+                $fontssubset = '&subset=' . $themesettings->fontsubset;
             }
 
             if (!empty($themesettings->fontname)) {
@@ -446,14 +467,14 @@ trait core_renderer_layout {
                     case 'default':
                     case 'sans-serif':
                         // Use 'sans-serif'.
-                    break;
+                        break;
 
                     default:
                         // Get the Google main font.
                         $fontname = str_replace(" ", "+", $themesettings->fontname);
-                        $fontweight = ':'.$themesettings->fontweight.','.$themesettings->fontweight.'i';
-                        $headcontext->fontname = $fontname.$fontweight.$fontssubset;
-                    break;
+                        $fontweight = ':' . $themesettings->fontweight . ',' . $themesettings->fontweight . 'i';
+                        $headcontext->fontname = $fontname . $fontweight . $fontssubset;
+                        break;
                 }
             }
 
@@ -462,14 +483,14 @@ trait core_renderer_layout {
                     case 'default':
                     case 'sans-serif':
                         // Use 'sans-serif'.
-                    break;
+                        break;
 
                     default:
                         // Get the Google header font.
                         $fontheadername = str_replace(" ", "+", $themesettings->fontheadername);
-                        $fontheaderweight = ':'.$themesettings->fontheaderweight.','.$themesettings->fontheaderweight.'i';
-                        $headcontext->fontheadername = $fontheadername.$fontheaderweight.$fontssubset;
-                    break;
+                        $fontheaderweight = ':' . $themesettings->fontheaderweight . ',' . $themesettings->fontheaderweight . 'i';
+                        $headcontext->fontheadername = $fontheadername . $fontheaderweight . $fontssubset;
+                        break;
                 }
             }
 
@@ -478,24 +499,27 @@ trait core_renderer_layout {
                     case 'default':
                     case 'sans-serif':
                         // Use 'sans-serif'.
-                    break;
+                        break;
 
                     default:
                         // Get the Google title font.
                         $fonttitlename = str_replace(" ", "+", $themesettings->fonttitlename);
-                        $fonttitleweight = ':'.$themesettings->fonttitleweight.','.$themesettings->fonttitleweight.'i';
-                        $headcontext->fonttitlename = $fonttitlename.$fonttitleweight.$fontssubset;
-                    break;
+                        $fonttitleweight = ':' . $themesettings->fonttitleweight . ',' . $themesettings->fonttitleweight . 'i';
+                        $headcontext->fonttitlename = $fonttitlename . $fonttitleweight . $fontssubset;
+                        break;
                 }
             }
         }
         echo $this->render_from_template('theme_adaptable/head', $headcontext);
 
-        echo '<body '.$this->body_attributes($bodyclasses).'>';
+        echo '<body ' . $this->body_attributes($bodyclasses) . '>';
         echo $this->standard_top_of_body_html();
         echo '<div id="page-wrapper">';
     }
 
+    /**
+     * Course index header.
+     */
     protected function courseindexheader() {
         global $CFG;
         require_once($CFG->dirroot . '/course/lib.php');
@@ -528,6 +552,9 @@ trait core_renderer_layout {
         return [$courseindexopen, $courseindex, $courseindexmarkup, $courseindextogglemarkup];
     }
 
+    /**
+     * Side post header.
+     */
     protected function sidepostheader() {
         user_preference_allow_ajax_update('drawer-open-block', PARAM_BOOL);
 
@@ -572,6 +599,9 @@ trait core_renderer_layout {
         return [$hassidepost, $sidepostmarkup, $sideposttogglemarkup];
     }
 
+    /**
+     * Secondary navigation.
+     */
     public function secondarynav() {
         $secondarynavigation = '';
         $overflow = '';
@@ -591,12 +621,15 @@ trait core_renderer_layout {
         return [$secondarynavigation, $overflow];
     }
 
+    /**
+     * Yes footer.
+     */
     public function yesfooter() {
         global $USER;
 
         $themesettings = \theme_adaptable\toolbox::get_settings();
 
-        $context = new stdClass;
+        $context = new stdClass();
         $context->output = $this;
         $context->responsivepagefooter = $themesettings->responsivepagefooter;
         $context->showfooterblocks = $themesettings->showfooterblocks;
@@ -624,7 +657,11 @@ trait core_renderer_layout {
 
         $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
         if (is_object($localtoolbox)) {
-            if (method_exists($localtoolbox, 'supported_methods')) { // TODO - Temporary until such time as not.
+            if (method_exists($localtoolbox, 'get_custom_js')) { // Todo - Temporary until such time as not.
+                $theme = \theme_adaptable\toolbox::get_theme();
+                $context->customjsfiles =
+                    \theme_adaptable\admin_setting_configstoredfiles::setting_file_urls('customjsfiles', 'customjsfiles', $theme);
+
                 $context->customjs = $localtoolbox->get_custom_js($themesettings, $this->page, $this);
             }
         }
@@ -632,23 +669,35 @@ trait core_renderer_layout {
         echo $this->render_from_template('theme_adaptable/footer', $context);
     }
 
+    /**
+     * No footer.
+     */
     public function nofooter() {
         $themesettings = \theme_adaptable\toolbox::get_settings();
 
-        $context = new stdClass;
+        $context = new stdClass();
         $context->output = $this;
         $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
         if (is_object($localtoolbox)) {
-            $context->customjs = $localtoolbox->get_custom_js($themesettings, $this->page, $this);
+            if (method_exists($localtoolbox, 'get_custom_js')) { // Todo - Temporary until such time as not.
+                $theme = \theme_adaptable\toolbox::get_theme();
+                $context->customjsfiles =
+                    \theme_adaptable\admin_setting_configstoredfiles::setting_file_urls('customjsfiles', 'customjsfiles', $theme);
+
+                $context->customjs = $localtoolbox->get_custom_js($themesettings, $this->page, $this);
+            }
         }
 
         echo $this->render_from_template('theme_adaptable/nofooter', $context);
     }
 
     /*
-     * TODO - Template the layouts... somehow!
+     * Todo - Template the layouts... somehow!
      */
 
+    /**
+     * One column layout.
+     */
     public function columns_one_layout() {
         // Include header.
         $this->yesheader(false);
@@ -685,6 +734,9 @@ trait core_renderer_layout {
         }
     }
 
+    /**
+     * Two column layout.
+     */
     public function columns_two_layout() {
         $themesettings = \theme_adaptable\toolbox::get_settings();
 
@@ -731,6 +783,9 @@ trait core_renderer_layout {
         $this->yesfooter();
     }
 
+    /**
+     * Course layout.
+     */
     public function course_layout() {
         global $COURSE;
         $themesettings = \theme_adaptable\toolbox::get_settings();
@@ -783,8 +838,10 @@ trait core_renderer_layout {
 
             $sectionid = optional_param('sectionid', 0, PARAM_INT);
             $section = optional_param('section', 0, PARAM_INT);
-            if ((!empty($themesettings->tabbedlayoutcoursepagelink)) &&
-                (($sectionid) || ($section))) {
+            if (
+                (!empty($themesettings->tabbedlayoutcoursepagelink)) &&
+                (($sectionid) || ($section))
+            ) {
                 $courseurl = new moodle_url('/course/view.php', ['id' => $COURSE->id]);
                 echo '<div class="linktab"><a href="' . $courseurl->out(true) . '"><i class="fa fa-th-large"></i></a></div>';
             }
@@ -800,8 +857,10 @@ trait core_renderer_layout {
                 }
 
                 $checkedstatus = '';
-                if (($tabcount == 0 && $currentpage == 'coursepage') ||
-                    ($currentpage != 'coursepage' && $tabnumber == 0)) {
+                if (
+                    ($tabcount == 0 && $currentpage == 'coursepage') ||
+                    ($currentpage != 'coursepage' && $tabnumber == 0)
+                ) {
                     $checkedstatus = 'checked';
                 }
 
@@ -929,6 +988,9 @@ trait core_renderer_layout {
         }
     }
 
+    /**
+     * Dashboard layout.
+     */
     public function dashboard_layout() {
         global $CFG, $USER;
         $themesettings = \theme_adaptable\toolbox::get_settings();
@@ -953,8 +1015,10 @@ trait core_renderer_layout {
 
         echo $this->get_news_ticker();
 
-        if ((!empty($themesettings->dashblocksenabled)) &&
-            (empty($themesettings->tabbedlayoutdashboard)) && ($dashblocksposition == 'abovecontent')) {
+        if (
+            (!empty($themesettings->dashblocksenabled)) &&
+            (empty($themesettings->tabbedlayoutdashboard)) && ($dashblocksposition == 'abovecontent')
+        ) {
             echo $dashblocklayoutlayoutrow;
         }
 
@@ -1075,8 +1139,10 @@ trait core_renderer_layout {
         }
         echo '</div>';
 
-        if ((!empty($themesettings->dashblocksenabled)) && (empty($themesettings->tabbedlayoutdashboard))
-            && ($dashblocksposition == 'belowcontent')) {
+        if (
+            (!empty($themesettings->dashblocksenabled)) && (empty($themesettings->tabbedlayoutdashboard))
+            && ($dashblocksposition == 'belowcontent')
+        ) {
             echo $dashblocklayoutlayoutrow;
         }
 
@@ -1094,11 +1160,14 @@ trait core_renderer_layout {
         $this->yesfooter();
     }
 
+    /**
+     * Embedded layout.
+     */
     public function embedded_layout() {
         echo $this->doctype();
         echo '<html ' . $this->htmlattributes() . '>';
         echo '<head>';
-        echo '<title>'. $this->page_title() .'</title>';
+        echo '<title>' . $this->page_title() . '</title>';
         echo '<link rel="shortcut icon" href="' . $this->favicon() . '" />';
         echo $this->standard_head_html();
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
@@ -1128,6 +1197,9 @@ trait core_renderer_layout {
         $this->nofooter();
     }
 
+    /**
+     * Frontpage layout.
+     */
     public function frontpage_layout() {
         global $USER;
         $themesettings = \theme_adaptable\toolbox::get_settings();
@@ -1245,6 +1317,9 @@ trait core_renderer_layout {
         $this->yesfooter();
     }
 
+    /**
+     * Login layout.
+     */
     public function login_layout() {
         $logincontent = '<div class="login-wrapper"><div class="login-container">';
         $logincontent .= $this->main_content();
@@ -1278,6 +1353,9 @@ trait core_renderer_layout {
         }
     }
 
+    /**
+     * Secure layout.
+     */
     public function secure_layout() {
         // Header.
         $this->yesheader(true);
@@ -1304,5 +1382,31 @@ trait core_renderer_layout {
         echo '</div>';
         echo '</div>';
         $this->nofooter();
+    }
+
+    /**
+     * Maintenance layout.
+     */
+    public function maintenance_layout() {
+        echo $this->doctype();
+        echo '<html ' . $this->htmlattributes() . '>';
+        echo '<head>';
+        echo '<title>' . $this->page_title() . '</title>';
+        echo '<link rel="shortcut icon" href="' . $this->favicon() . '">';
+        echo $this->standard_head_html();
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+        echo '</head>';
+        echo '<body>';
+        echo '<div class="container outercont">';
+        echo '<div id="page-content" class="row">';
+        echo '<section id="region-main" class="col-12">';
+        echo $this->course_content_header();
+        echo $this->main_content();
+        echo $this->course_content_footer();
+        echo '</section>';
+        echo '</div>';
+        echo '</div>';
+        echo '</body>';
+        echo '</html>';
     }
 }

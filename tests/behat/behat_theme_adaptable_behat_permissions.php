@@ -16,6 +16,8 @@
 
 /**
  * Overrides for behat navigation.
+ *
+ * @package   theme_adaptable
  * @author    Marcus Green
  * @copyright Titus Learning 2020
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -32,11 +34,19 @@ require_once(__DIR__ . '/../../../../lib/tests/behat/behat_permissions.php');
 /**
  * Overrides to make behat permissions work with adaptable.
  *
+ * @package   theme_adaptable
  * @author    Marcus Green
  * @copyright Titus Learning 2020
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class behat_theme_adaptable_behat_permissions extends behat_permissions {
+    /**
+     * Set system level permissions to the specified role.  Expects a table with capability name
+     * and permission (Inherit/Allow/Prevent/Prohibit) columns.
+     * @Given /^I set the following system permissions of "(?P<rolefullname_string>(?:[^"]|\\")*)" role:$/
+     * @param string $rolename
+     * @param TableNode $table
+     */
     public function i_set_the_following_system_permissions_of_role($rolename, $table) {
         global $DB;
 
@@ -85,7 +95,8 @@ class behat_theme_adaptable_behat_permissions extends behat_permissions {
     }
     /**
      * Overrides system capabilities at category, course and module levels.
-     * This step begins after clicking 'Permissions' link. Expects a table with capability name and permission (Inherit/Allow/Prevent/Prohibit) columns.
+     * This step begins after clicking 'Permissions' link. Expects a table with capability name
+     * and permission (Inherit/Allow/Prevent/Prohibit) columns.
      * @param string $rolename
      * @param TableNode $table
      */

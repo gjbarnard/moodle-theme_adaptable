@@ -99,7 +99,8 @@ trait core_renderer_toolbox {
         $usermenuitems[] = ['enableeditprofile', false, $CFG->wwwroot . '/user/edit.php', get_string('editmyprofile'),
             \theme_adaptable\toolbox::getfontawesomemarkup('cog', ['mr-1']), ];
         $usermenuitems[] = ['enableaccesstool', false, $CFG->wwwroot . '/local/accessibilitytool/manage.php',
-            get_string('enableaccesstool', 'theme_adaptable'), \theme_adaptable\toolbox::getfontawesomemarkup('low-vision', ['mr-1']), ];
+            get_string('enableaccesstool', 'theme_adaptable'),
+            \theme_adaptable\toolbox::getfontawesomemarkup('low-vision', ['mr-1']), ];
         $usermenuitems[] = ['enableprivatefiles', false, $CFG->wwwroot . '/user/files.php',
             get_string('privatefiles', 'block_private_files'), \theme_adaptable\toolbox::getfontawesomemarkup('file', ['mr-1']), ];
         if (\theme_adaptable\toolbox::kalturaplugininstalled()) {
@@ -121,7 +122,8 @@ trait core_renderer_toolbox {
         $usermenuitems[] = ['enablefeed', false, $CFG->wwwroot . '/report/myfeedback/index.php',
             get_string('enablefeed', 'theme_adaptable'), \theme_adaptable\toolbox::getfontawesomemarkup('bullhorn', ['mr-1']), ];
         $usermenuitems[] = ['enablecalendar', false, $CFG->wwwroot . '/calendar/view.php',
-            get_string('pluginname', 'block_calendar_month'), \theme_adaptable\toolbox::getfontawesomemarkup('calendar', ['mr-1']), ];
+            get_string('pluginname', 'block_calendar_month'),
+            \theme_adaptable\toolbox::getfontawesomemarkup('calendar', ['mr-1']), ];
 
         $returnurl = $this->page->url->out_as_local_url(false);
         $context = context_course::instance($COURSE->id);
@@ -184,13 +186,16 @@ trait core_renderer_toolbox {
      */
     public function block(block_contents $bc, $region) {
         $bc = clone($bc); // Avoid messing up the object passed in.
-        if (empty($bc->blockinstanceid) || !strip_tags($bc->title)) {
+        $skiptitle = strip_tags($bc->title);
+        if (empty($bc->blockinstanceid) || !$skiptitle) {
             $bc->collapsible = block_contents::NOT_HIDEABLE;
+        } else {
+            global $USER;
+            $USER->adaptable_user_pref['block' . $bc->blockinstanceid . 'hidden'] = PARAM_BOOL;
         }
         if (!empty($bc->blockinstanceid)) {
             $bc->attributes['data-instanceid'] = $bc->blockinstanceid;
         }
-        $skiptitle = strip_tags($bc->title);
         if ($bc->blockinstanceid && !empty($skiptitle)) {
             $bc->attributes['aria-labelledby'] = 'instance-' . $bc->blockinstanceid . '-header';
         } else if (!empty($bc->arialabel)) {
@@ -497,9 +502,8 @@ trait core_renderer_toolbox {
      *       attribute.  This version needed for 'Edit button keep position' in adaptable.js.
      *
      * @param moodle_url $url The URL + params to send through when clicking the button.
-     * @parmm string $method Not used.
+     * @param string $method Not used.
      * @return string HTML the button
-     * Written by G J Barnard
      */
     public function edit_button(moodle_url $url, string $method = 'post') {
         $url->param('sesskey', sesskey());
@@ -750,16 +754,19 @@ trait core_renderer_toolbox {
                             /* Here's the crucial bit.  Check if span number is 0,
                                or $displayall is true (override) and if so, print it out. */
                             if ($spannumber == 0 || $displayall) {
-                                $blockclass = $block['classnamebeginswith'] . chr(96 + $y);
-                                $missingblock = $this->blocks($blockclass, 'block');
+                                $blockregion = $block['classnamebeginswith'] . chr(96 + $y);
+                                $displayregion = $this->page->apply_theme_region_manipulations($blockregion);
 
                                 // Check if the block actually has content to display before displaying.
-                                if (strip_tags($missingblock)) {
+                                if ($this->page->blocks->region_has_content($displayregion, $this)) {
                                     if ($adminediting) {
-                                        $missingblocks .= '<em>ORPHANED BLOCK - Originally displays in: <strong>' .
-                                                get_string('region-' . $blockclass, 'theme_adaptable') . '</strong></em>';
+                                        $missingblocks .= get_string(
+                                            'orphanedblock',
+                                            'theme_adaptable',
+                                            get_string('region-' . $blockregion, 'theme_adaptable')
+                                        );
                                     }
-                                    $missingblocks .= $missingblock;
+                                    $missingblocks .= $this->blocks($blockregion, 'block');
                                 }
                             }
                         }
@@ -1293,7 +1300,8 @@ trait core_renderer_toolbox {
                     $mysitesmaxlengthhidden,
                     $this->page->theme->settings,
                     $this->page,
-                    $this);
+                    $this
+                );
             }
 
             if (!empty($this->page->theme->settings->enablethiscourse)) {
@@ -1301,7 +1309,8 @@ trait core_renderer_toolbox {
                     $branchlabel = '';
                     $branchtitle = get_string('thiscourse', 'theme_adaptable');
                     if ($navbardisplayicons) {
-                        $branchlabel .= '<i class="fa fa-sitemap fa-lg"></i><span class="menutitle">';
+                        $branchlabel .=
+                            \theme_adaptable\toolbox::getfontawesomemarkup('sitemap', ['fa-lg']) . '<span class="menutitle">';
                     }
                     $branchlabel .= $branchtitle;
                     if ($navbardisplayicons) {
@@ -1310,7 +1319,7 @@ trait core_renderer_toolbox {
 
                     // Check the option of displaying a sub-menu arrow symbol.
                     if (!empty($this->page->theme->settings->navbardisplaysubmenuarrow)) {
-                        $branchlabel .= ' &nbsp;<i class="fa fa-caret-down"></i>';
+                        $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('caret-down', ['ml-1']);
                     }
 
                     $branchurl = $this->page->url;
@@ -1326,7 +1335,13 @@ trait core_renderer_toolbox {
                     $branchmenusort = 10000;
                     if ($this->page->theme->settings->displayparticipants) {
                         $branchtitle = get_string('people', 'theme_adaptable');
-                        $branchlabel = '<i class="icon fa fa-users mr-2"></i>' . $branchtitle;
+                        $branchlabel = \theme_adaptable\toolbox::getfontawesomemarkup(
+                            'users',
+                            ['icon', 'mr-2'],
+                            [],
+                            '',
+                            $branchtitle
+                        ) . $branchtitle;
                         $branchurl = new moodle_url('/user/index.php', ['id' => $this->page->course->id]);
                         $branch->add($branchlabel, $branchurl, $branchtitle, $branchmenusort);
                     }
@@ -1334,7 +1349,7 @@ trait core_renderer_toolbox {
                     // Display Grades.
                     if ($this->page->theme->settings->displaygrades) {
                         $branchtitle = get_string('grades');
-                        $branchlabel = $this->pix_icon('i/grades', '', '') . $branchtitle;
+                        $branchlabel = $this->pix_icon('i/grades', $branchtitle, '') . $branchtitle;
                         $branchurl = new moodle_url('/grade/report/index.php', ['id' => $this->page->course->id]);
                         $branchmenusort++;
                         $branch->add($branchlabel, $branchurl, $branchtitle, $branchmenusort);
@@ -1343,7 +1358,7 @@ trait core_renderer_toolbox {
                     // Kaltura video gallery.
                     if (\theme_adaptable\toolbox::kalturaplugininstalled()) {
                         $branchtitle = get_string('nav_mediagallery', 'local_kalturamediagallery');
-                        $branchlabel = $this->pix_icon('media-gallery', '', 'local_kalturamediagallery') . $branchtitle;
+                        $branchlabel = $this->pix_icon('media-gallery', $branchtitle, 'local_kalturamediagallery') . $branchtitle;
                         $branchurl = new moodle_url(
                             '/local/kalturamediagallery/index.php',
                             ['courseid' => $this->page->course->id]
@@ -1356,7 +1371,7 @@ trait core_renderer_toolbox {
                     if (get_config('core_competency', 'enabled')) {
                         if ($this->page->theme->settings->enablecompetencieslink) {
                             $branchtitle = get_string('competencies', 'competency');
-                            $branchlabel = $this->pix_icon('i/competencies', '', '') . $branchtitle;
+                            $branchlabel = $this->pix_icon('i/competencies', $branchtitle, '') . $branchtitle;
                             $branchurl = new moodle_url(
                                 '/admin/tool/lp/coursecompetencies.php',
                                 ['courseid' => $this->page->course->id]
@@ -1370,7 +1385,7 @@ trait core_renderer_toolbox {
                     $data = theme_adaptable_get_course_activities();
                     foreach ($data as $modname => $modfullname) {
                         if ($modname === 'resources') {
-                            $icon = $this->pix_icon('monologo', '', 'mod_page');
+                            $icon = $this->pix_icon('monologo', get_string('pluginname', 'mod_page'), 'mod_page');
                             $branchmenusort++;
                             $branch->add(
                                 $icon . $modfullname,
@@ -1379,7 +1394,7 @@ trait core_renderer_toolbox {
                                 $branchmenusort
                             );
                         } else {
-                            $icon = $this->pix_icon('monologo', '', $modname);
+                            $icon = $this->pix_icon('monologo', get_string('pluginname', 'mod_' . $modname), $modname);
                             $branchmenusort++;
                             $branch->add(
                                 $icon . $modfullname,
@@ -1469,7 +1484,13 @@ trait core_renderer_toolbox {
 
         if (!empty($sectionsformnenu)) { // Rare but possible!
             $branchtitle = get_string('sections', 'theme_adaptable');
-            $branchlabel = '<i class="icon sections-menu fa fa-list-ol fa-lg"></i>' . $branchtitle;
+            $branchlabel = \theme_adaptable\toolbox::getfontawesomemarkup(
+                'list-ol',
+                ['icon', 'fa-lg'],
+                [],
+                '',
+                $branchtitle
+            ) . $branchtitle;
             $branch = $menu->add($branchlabel, null, $branchtitle, 100003);
 
             foreach ($sectionsformnenu as $sectionformenu) {
@@ -1541,7 +1562,8 @@ trait core_renderer_toolbox {
 
         if (!empty($logosetarea)) {
             // Logo.
-            $responsivelogo = (empty($this->page->theme->settings->responsivelogo)) ? '' : ' ' . $this->page->theme->settings->responsivelogo;
+            $responsivelogo = (empty($this->page->theme->settings->responsivelogo)) ? '' : ' ' .
+                $this->page->theme->settings->responsivelogo;
             $logomarkup = '<div class="pb-2 pr-3 pt-2 bd-highlight' . $responsivelogo . '">';
             $logo = '<img src=' . $this->page->theme->setting_file_url($logosetarea, $logosetarea) . ' id="logo"';
             $logo .= ' alt="' . get_string('logo', 'theme_adaptable') . '">';
@@ -1551,7 +1573,8 @@ trait core_renderer_toolbox {
                 $logomarkup .= $logo;
             } else {
                 // Logo is a link to site homepage when there is no navbar.
-                $logomarkup .= '<a href=' . $CFG->wwwroot . ' aria-label="' . get_string('home') . '" title="' . format_string($SITE->fullname) . '">';
+                $logomarkup .= '<a href=' . $CFG->wwwroot . ' aria-label="' . get_string('home') . '" title="' .
+                    format_string($SITE->fullname) . '">';
                 $logomarkup .= $logo;
                 $logomarkup .= '</a>';
             }
@@ -1598,7 +1621,8 @@ trait core_renderer_toolbox {
             $sitetitle = $this->get_site_title();
             if (empty($sitetitle)) {
                 if (!empty($categoryheadercustomtitle)) {
-                    $titlemarkup .= '<div id="headertitle" class="bd-highlight pt-2 ' . $themesettings->responsiveheadertitle . '">';
+                    $titlemarkup .= '<div id="headertitle" class="bd-highlight pt-2 ' .
+                        $themesettings->responsiveheadertitle . '">';
                     $titlemarkup .= '<h1><span id="categorytitle">' . format_string($categoryheadercustomtitle) . '</span></h1>';
                     $titlemarkup .= '</div>';
                 }
@@ -1617,6 +1641,11 @@ trait core_renderer_toolbox {
         return $titlemarkup;
     }
 
+    /**
+     * Get the site title.
+     *
+     * return string Site title.
+     */
     protected function get_site_title() {
         global $SITE;
 
@@ -1645,6 +1674,11 @@ trait core_renderer_toolbox {
         return $sitetitle;
     }
 
+    /**
+     * Get the course title.
+     *
+     * return string Course title.
+     */
     protected function get_course_title() {
         global $COURSE;
 
@@ -1688,7 +1722,7 @@ trait core_renderer_toolbox {
      *
      * @return string Markup.
      */
-    public function context_header($headerinfo = null, $headinglevel = 1) : string {
+    public function context_header($headerinfo = null, $headinglevel = 1): string {
         $headerinfo = [];
         $headerinfo['heading'] = $this->get_course_title();
         return parent::context_header($headerinfo, $headinglevel);
@@ -2311,7 +2345,7 @@ trait core_renderer_toolbox {
             $themesettings = \theme_adaptable\toolbox::get_settings();
             $retr = $localtoolbox->generate_login($logincontent, $themesettings);
         } else {
-            $retr = new stdClass;
+            $retr = new stdClass();
             $retr->header = false;
             $retr->footer = false;
         }
