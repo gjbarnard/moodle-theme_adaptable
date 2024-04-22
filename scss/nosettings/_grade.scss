@@ -36,8 +36,22 @@
         margin: 0;
     }
 
-    .gradeparent tr.heading {
-        top: 0;
+    .gradeparent {
+        th.header,
+        th.userfield {
+            .action-menu {
+                margin-left: auto;
+            }
+        }
+        tr.heading {
+            top: 0;
+        }
+    }
+
+    .heading .gradeitemheader {
+        padding-left: 2.2rem;
+        text-indent: -2.2rem;
+        width: 100%;
     }
 
     &.hasstickyfooter .gradeparent tr.lastrow {

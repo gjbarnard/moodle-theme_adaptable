@@ -80,6 +80,24 @@ trait core_renderer_toolbox {
     }
 
     /**
+     * Outputs a container.
+     *
+     * @param string $contents The contents of the box
+     * @param string $classes A space-separated list of CSS classes
+     * @param string $id An optional ID
+     * @param array $attributes Optional other attributes as array
+     * @return string the HTML to output.
+     */
+    public function container($contents, $classes = null, $id = null, $attributes = []) {
+        // Manipulate the grader report.
+        if ((!is_null($classes)) && ($classes == 'gradeparent')) {
+            $contents = preg_replace('/<th class="(header|userfield)(.*?)>(.*?)<\/th>/is',
+                '<th class="$1$2><div class="d-flex">$3</div></th>', $contents);
+        }
+        return $this->container_start($classes, $id, $attributes) . $contents . $this->container_end();
+    }
+
+    /**
      * Returns user profile menu
      */
     public function user_profile_menu() {

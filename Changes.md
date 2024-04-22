@@ -1,3 +1,9 @@
+Change Log in version 404.0.1 (2024032800)
+===========================================
+1. Release candidate version for Moodle 4.4.
+2. Grade report improvements.
+3. Update theme version of FontAwesome free to 6.5.2 from 6.4.2.
+
 Change Log in version 403.1.4 (2023111805)
 ===========================================
 1. New setting 'mobileprimarynav' to control the display of the mobile primary navigation.  This is found on the

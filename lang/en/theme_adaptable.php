@@ -30,8 +30,7 @@
 // phpcs:disable moodle.Files.LangFilesOrdering
 
 // General.
-$string['choosereadme'] = '
-<div class="clearfix">
+$string['choosereadme'] = '<div class="clearfix">
 <h2>Adaptable</h2>
 <p><img class="img-polaroid" src="adaptable/pix/screenshot.png" /></p>
 <h3>About</h3>

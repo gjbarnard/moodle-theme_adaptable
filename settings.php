@@ -32,14 +32,15 @@ defined('MOODLE_INTERNAL') || die;
 require_once(__DIR__ . '/libs/admin_confightmleditor.php');
 require_once(__DIR__ . '/lib.php');
 
+unset($settings);
 $settings = null;
-$ADMIN->add('themes', new admin_category('theme_adaptable', get_string('configtitle', 'theme_adaptable')));
+$ADMIN->add('appearance', new admin_category('theme_adaptable', get_string('configtitle', 'theme_adaptable')));
 
 // Adaptable theme settings page.
 $asettings = new \theme_adaptable\admin_settingspage_tabs(
     'themesettingadaptable',
     get_string('configtabtitle', 'theme_adaptable'),
-    403
+    404
 );
 if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/array_definitions.php');
