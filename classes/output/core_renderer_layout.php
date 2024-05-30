@@ -218,34 +218,7 @@ trait core_renderer_layout {
             // Display user profile menu.
             // Only used when user is logged in and not on the secure layout.
             if ((isloggedin()) && ($this->page->pagelayout != 'secure')) {
-                // User icon.
-                $userpic = $this->user_picture($USER, ['link' => false, 'visibletoscreenreaders' => false,
-                    'size' => 35, 'class' => 'userpicture', ]);
-                // User name.
-                $username = format_string(fullname($USER));
-
-                // User menu dropdown.
-                if (!empty($themesettings->usernameposition)) {
-                    $usernameposition = $themesettings->usernameposition;
-                    if ($usernameposition == 'right') {
-                        $usernamepositionleft = false;
-                    } else {
-                        $usernamepositionleft = true;
-                    }
-                } else {
-                    $usernamepositionleft = true;
-                }
-
-                // Set template context.
-                $usermenucontext = [
-                    'username' => $username,
-                    'userpic' => $userpic,
-                    'showusername' => $themesettings->showusername,
-                    'usernamepositionleft' => $usernamepositionleft,
-                    'userprofilemenu' => $this->user_profile_menu(),
-                ];
-                $usermenu = $this->render_from_template('theme_adaptable/usermenu', $usermenucontext);
-                $headercontext['loginoruser'] = '<li class="nav-item dropdown ml-3 ml-md-2 mr-2 mr-md-0">' . $usermenu . '</li>';
+                $headercontext['loginoruser'] = '<li class="nav-item dropdown ml-3 ml-md-2 mr-2 mr-md-0">' . $this->user_menu() . '</li>';
             } else {
                 $headercontext['loginoruser'] = '';
             }
@@ -270,9 +243,7 @@ trait core_renderer_layout {
         // Navbar Menu.
         if ($shownavbar) {
             $headercontext['shownavbar'] = [
-                'disablecustommenu' => (!empty($themesettings->disablecustommenu)),
                 'navigationmenu' => $this->navigation_menu('main-navigation'),
-                'navigationmenudrawer' => $this->navigation_menu('main-navigation-drawer'),
                 'output' => $this,
                 'toolsmenu' => $this->tools_menu(),
             ];
@@ -517,29 +488,37 @@ trait core_renderer_layout {
      */
     protected function courseindexheader() {
         global $CFG;
-        require_once($CFG->dirroot . '/course/lib.php');
-        $left = \theme_adaptable\toolbox::get_setting('blockside');
+        $courseindex = \theme_adaptable\toolbox::get_setting('courseindexenabled');
 
-        if (isloggedin()) {
-            $courseindexopen = (get_user_preferences('drawer-open-index', true) == true);
-        } else {
-            $courseindexopen = false;
+        if ($courseindex) {
+            require_once($CFG->dirroot . '/course/lib.php');
+            $courseindex = core_course_drawer();
         }
-
-        $courseindex = core_course_drawer();
 
         if (!$courseindex) {
             $courseindexopen = false;
+            $courseindexmarkup = '';
+            $courseindextogglemarkup = '';
+        } else {
+            if (isloggedin()) {
+                $courseindexopen = (get_user_preferences('drawer-open-index', true) == true);
+            } else {
+                $courseindexopen = false;
+            }
+
+            $left = \theme_adaptable\toolbox::get_setting('blockside');
+            $stickynavbar = \theme_adaptable\toolbox::get_setting('stickynavbar');
+
+            $templatecontext = [
+                'courseindexopen' => $courseindexopen,
+                'courseindex' => $courseindex,
+                'left' => $left,
+                'stickynavbar' => $stickynavbar,
+            ];
+
+            $courseindexmarkup = $this->render_from_template('theme_adaptable/courseindex', $templatecontext);
+            $courseindextogglemarkup = $this->render_from_template('theme_adaptable/courseindextoggle', $templatecontext);
         }
-
-        $templatecontext = [
-            'courseindexopen' => $courseindexopen,
-            'courseindex' => $courseindex,
-            'left' => $left,
-        ];
-
-        $courseindexmarkup = $this->render_from_template('theme_adaptable/courseindex', $templatecontext);
-        $courseindextogglemarkup = $this->render_from_template('theme_adaptable/courseindextoggle', $templatecontext);
 
         return [$courseindexopen, $courseindex, $courseindexmarkup, $courseindextogglemarkup];
     }
@@ -549,6 +528,7 @@ trait core_renderer_layout {
      */
     protected function sidepostheader() {
         $left = \theme_adaptable\toolbox::get_setting('blockside');
+        $stickynavbar = \theme_adaptable\toolbox::get_setting('stickynavbar');
 
         if (isloggedin()) {
             $sidepostopen = (get_user_preferences('drawer-open-block', true) == true);
@@ -575,6 +555,7 @@ trait core_renderer_layout {
             'left' => $left,
             'sidepostopen' => $sidepostopen,
             'sidepost' => $sideposthtml,
+            'stickynavbar' => $stickynavbar,
         ];
 
         $sideposttogglecontext = [

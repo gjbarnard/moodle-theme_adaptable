@@ -31,7 +31,6 @@ namespace theme_adaptable\output;
 
 use block_contents;
 use context_course;
-use custom_menu;
 use custom_menu_item;
 use html_writer;
 use moodle_url;
@@ -98,88 +97,343 @@ trait core_renderer_toolbox {
     }
 
     /**
-     * Returns user profile menu
+     * Returns user profile menu items.
+     *
+     * returns array of objects suitable for adding to an action_menu as items.
      */
-    public function user_profile_menu() {
+    protected function user_profile_menu_items() {
         global $CFG, $COURSE;
-        $retval = '';
+        $retval = [];
 
         /* False or theme setting name to first array param (not all links have settings).
+           Entry type: link, divider or user.
            False or Moodle version number to second param (only some links check version).
            URL for link in third param.
            Link text in fourth parameter.
            Icon in fifth param. */
         $usermenuitems = [];
-        $usermenuitems[] = ['enablemy', false, $CFG->wwwroot . '/my', get_string('myhome'),
+        $usermenuitems[] = ['enablemy', 'link', false, new moodle_url('/my'), get_string('myhome'),
             \theme_adaptable\toolbox::getfontawesomemarkup('dashboard', ['mr-1']), ];
-        $usermenuitems[] = ['enableprofile', false, $CFG->wwwroot . '/user/profile.php', get_string('viewprofile'),
+        $usermenuitems[] = ['enableprofile', 'link', false, new moodle_url('/user/profile.php'), get_string('viewprofile'),
             \theme_adaptable\toolbox::getfontawesomemarkup('user', ['mr-1']), ];
-        $usermenuitems[] = ['enableeditprofile', false, $CFG->wwwroot . '/user/edit.php', get_string('editmyprofile'),
+        $usermenuitems[] = ['enableeditprofile', 'link', false, new moodle_url('/user/edit.php'), get_string('editmyprofile'),
             \theme_adaptable\toolbox::getfontawesomemarkup('cog', ['mr-1']), ];
-        $usermenuitems[] = ['enableaccesstool', false, $CFG->wwwroot . '/local/accessibilitytool/manage.php',
+        $usermenuitems[] = ['enableaccesstool', 'link', false, new moodle_url('/local/accessibilitytool/manage.php'),
             get_string('enableaccesstool', 'theme_adaptable'),
             \theme_adaptable\toolbox::getfontawesomemarkup('low-vision', ['mr-1']), ];
-        $usermenuitems[] = ['enableprivatefiles', false, $CFG->wwwroot . '/user/files.php',
+        $usermenuitems[] = ['enableprivatefiles', 'link', false, new moodle_url('/user/files.php'),
             get_string('privatefiles', 'block_private_files'), \theme_adaptable\toolbox::getfontawesomemarkup('file', ['mr-1']), ];
         if (\theme_adaptable\toolbox::kalturaplugininstalled()) {
-            $usermenuitems[] = [false, false, $CFG->wwwroot . '/local/mymedia/mymedia.php',
+            $usermenuitems[] = [false, 'link', false, new moodle_url('/local/mymedia/mymedia.php'),
                 get_string('nav_mymedia', 'local_mymedia'), $this->pix_icon('my-media', '', 'local_mymedia'), ];
         }
-        $usermenuitems[] = ['enablegrades', false, $CFG->wwwroot . '/grade/report/overview/index.php', get_string('grades'),
+        $usermenuitems[] = ['enablegrades', 'link', false, new moodle_url('/grade/report/overview/index.php'), get_string('grades'),
             \theme_adaptable\toolbox::getfontawesomemarkup('list-alt', ['mr-1']), ];
-        $usermenuitems[] = ['enablebadges', false, $CFG->wwwroot . '/badges/mybadges.php', get_string('badges'),
+        $usermenuitems[] = ['enablebadges', 'link', false, new moodle_url('/badges/mybadges.php'), get_string('badges'),
             \theme_adaptable\toolbox::getfontawesomemarkup('certificate', ['mr-1']), ];
-        $usermenuitems[] = ['enablepref', '2015051100', $CFG->wwwroot . '/user/preferences.php', get_string('preferences'),
+        $usermenuitems[] = ['enablepref', 'link', '2015051100', new moodle_url('/user/preferences.php'), get_string('preferences'),
             \theme_adaptable\toolbox::getfontawesomemarkup('cog', ['mr-1']), ];
-        $usermenuitems[] = ['enablenote', false, $CFG->wwwroot . '/message/edit.php', get_string('notifications'),
+        $usermenuitems[] = ['enablenote', 'link', false, new moodle_url('/message/edit.php'), get_string('notifications'),
             \theme_adaptable\toolbox::getfontawesomemarkup('paper-plane', ['mr-1']), ];
-        $usermenuitems[] = ['enableblog', false, $CFG->wwwroot . '/blog/index.php', get_string('enableblog', 'theme_adaptable'),
+        $usermenuitems[] = [false, 'divider'];
+        $usermenuitems[] = ['enableblog', 'link', false, new moodle_url('/blog/index.php'), get_string('enableblog', 'theme_adaptable'),
             \theme_adaptable\toolbox::getfontawesomemarkup('rss', ['mr-1']), ];
-        $usermenuitems[] = ['enableposts', false, $CFG->wwwroot . '/mod/forum/user.php',
+        $usermenuitems[] = ['enableposts', 'link', false, new moodle_url('/mod/forum/user.php'),
             get_string('enableposts', 'theme_adaptable'), \theme_adaptable\toolbox::getfontawesomemarkup('commenting', ['mr-1']), ];
-        $usermenuitems[] = ['enablefeed', false, $CFG->wwwroot . '/report/myfeedback/index.php',
+        $usermenuitems[] = ['enablefeed', 'link', false, new moodle_url('/report/myfeedback/index.php'),
             get_string('enablefeed', 'theme_adaptable'), \theme_adaptable\toolbox::getfontawesomemarkup('bullhorn', ['mr-1']), ];
-        $usermenuitems[] = ['enablecalendar', false, $CFG->wwwroot . '/calendar/view.php',
+        $usermenuitems[] = ['enablecalendar', 'link', false, new moodle_url('/calendar/view.php'),
             get_string('pluginname', 'block_calendar_month'),
             \theme_adaptable\toolbox::getfontawesomemarkup('calendar', ['mr-1']), ];
 
-        $returnurl = $this->page->url->out_as_local_url(false);
-        $context = context_course::instance($COURSE->id);
-        if ((!is_role_switched($COURSE->id)) && (has_capability('moodle/role:switchroles', $context))) {
-            $url = $CFG->wwwroot . '/course/switchrole.php?id=' . $COURSE->id . '&switchrole=-1&returnurl=' . $returnurl;
-            $usermenuitems[] = [false, false, $url, get_string('switchroleto'),
-                \theme_adaptable\toolbox::getfontawesomemarkup('user-o', ['mr-1']), ];
-        }
+        // Custom user menu items postion.
+        $usermenuitems[] = [false, 'user'];
+
+        // Return.
         if (is_role_switched($COURSE->id)) {
-            $url = $CFG->wwwroot . '/course/switchrole.php?id=' . $COURSE->id . '&sesskey=' . sesskey() .
-            '&switchrole=0&returnurl=' . $returnurl;
-            $usermenuitems[] = [false, false, $url, get_string('switchrolereturn'),
+            $returnurl = $this->page->url->out_as_local_url(false);
+            $url = new moodle_url('/course/switchrole.php', ['id' => $COURSE->id, 'sesskey' => sesskey(),
+            'switchrole' => '0', 'returnurl' => $returnurl]);
+            $usermenuitems[] = [false, 'link', false, $url, get_string('switchrolereturn'),
                 \theme_adaptable\toolbox::getfontawesomemarkup('user-o', ['mr-1']), ];
+        } else {
+            $context = context_course::instance($COURSE->id);
+            if (has_capability('moodle/role:switchroles', $context)) {
+                $returnurl = $this->page->url->out_as_local_url(false);
+                $url = new moodle_url('/course/switchrole.php', ['id' => $COURSE->id, 'switchrole' => '-1', 'returnurl' => $returnurl]);
+                $usermenuitems[] = [false, 'link', false, $url, get_string('switchroleto'),
+                    \theme_adaptable\toolbox::getfontawesomemarkup('user-o', ['mr-1']), ];
+            }
         }
 
-        $usermenuitems[] = [false, false, $CFG->wwwroot . '/login/logout.php?sesskey=' . sesskey(), get_string('logout'),
+        $usermenuitems[] = [false, 'link', false, new moodle_url('/login/logout.php', ['sesskey' => sesskey()]), get_string('logout'),
             \theme_adaptable\toolbox::getfontawesomemarkup('sign-out', ['mr-1']), ];
 
-        for ($i = 0; $i < count($usermenuitems); $i++) {
-            $additem = true;
+        foreach ($usermenuitems as $usermenuitem) {
+            switch($usermenuitem[1]) {
+                case 'link':
+                    $additem = true;
 
-            // If theme setting is specified in array but not enabled in theme settings do not add to menu.
-            $usermenuitem = $usermenuitems[$i][0];
-            if (empty($this->page->theme->settings->$usermenuitem) && $usermenuitems[$i][0]) {
-                $additem = false;
-            }
+                    // If theme setting is specified in array but not enabled in theme settings do not add to menu.
+                    if (!empty($usermenuitem[0])) {
+                        $usermenuitemname = $usermenuitem[0];
+                        if (empty($this->page->theme->settings->$usermenuitemname)) {
+                            $additem = false;
+                        }
+                    }
 
-            // If item requires version number and moodle is below that version to not add to menu.
-            if ($usermenuitems[$i][1] && $CFG->version < $usermenuitems[$i][1]) {
-                $additem = false;
-            }
+                    // If item requires version number and moodle is below that version to not add to menu.
+                    if ($usermenuitem[2] && $CFG->version < $usermenuitem[2]) {
+                        $additem = false;
+                    }
 
-            if ($additem) {
-                $retval .= '<a class="dropdown-item" href="' . $usermenuitems[$i][2] . '" title="' . $usermenuitems[$i][3] . '">';
-                $retval .= $usermenuitems[$i][4] . $usermenuitems[$i][3] . '</a>';
+                    if ($additem) {
+                        $item = new stdClass;
+                        $item->itemtype = 'link';
+                        $item->url = $usermenuitem[3];
+                        $item->title = $usermenuitem[5] . $usermenuitem[4];
+                        $retval[] = $item;
+                    }
+                break;
+                case 'divider':
+                    $item = new stdClass;
+                    $item->itemtype = 'divider';
+                    $retval[] = $item;
+                break;
+                case 'user':
+                    $customitems = $this->user_convert_text_to_menu_items($CFG->customusermenuitems);
+                    if ($customitems[0]) {
+                        $divider = new stdClass();
+                        $divider->itemtype = 'divider';
+                        $retval[] = $divider;
+                        foreach ($customitems[1] as $item) {
+                            $retval[] = $item;
+                        }
+                        $retval[] = $divider;
+                    }
+                break;
             }
         }
         return $retval;
+    }
+
+    /**
+     * Converts a string into a flat array of menu items, where each menu items is a
+     * stdClass with fields type, url, title.
+     *
+     * @param string $text the menu items definition
+     * @return array [hasitems - bool, items - array].
+     */
+    protected function user_convert_text_to_menu_items($text) {
+        $hasitems = false;
+        $lines = explode("\n", $text);
+        $children = [];
+        foreach ($lines as $line) {
+            $line = trim($line);
+            $bits = explode('|', $line, 3);
+            $itemtype = 'link';
+            if (preg_match("/^#+$/", $line)) {
+                $itemtype = 'divider';
+            } else if (!array_key_exists(0, $bits) || empty($bits[0])) {
+                // Every item must have a name to be valid.
+                continue;
+            } else {
+                $bits[0] = ltrim($bits[0], '-');
+            }
+
+            // Create the child.
+            $child = new stdClass();
+            $child->itemtype = $itemtype;
+            if ($itemtype === 'divider') {
+                // Add the divider to the list of children and skip link processing.
+                $children[] = $child;
+                continue;
+            }
+
+            // Name processing.
+            $namebits = explode(',', $bits[0], 2);
+            if (count($namebits) == 2) {
+                $namebits[1] = $namebits[1] ?: 'core';
+                // Check the validity of the identifier part of the string.
+                if (clean_param($namebits[0], PARAM_STRINGID) !== '' && clean_param($namebits[1], PARAM_COMPONENT) !== '') {
+                    // Treat this as a language string.
+                    $child->title = get_string($namebits[0], $namebits[1]);
+                    $child->titleidentifier = implode(',', $namebits);
+                }
+            }
+            if (empty($child->title)) {
+                // Use it as is, don't even clean it.
+                $child->title = $bits[0];
+                $child->titleidentifier = str_replace(" ", "-", $bits[0]);
+            }
+
+            // URL processing.
+            if (!array_key_exists(1, $bits) || empty($bits[1])) {
+                // Unlike core, if invaild then skip.
+                unset($child);
+                continue;
+            } else {
+                // Nasty hack to replace the grades with the direct url.
+                if (strpos($bits[1], '/grade/report/mygrades.php') !== false) {
+                    $bits[1] = user_mygrades_url();
+                }
+
+                // Make sure the url is a moodle url.
+                $bits[1] = new moodle_url(trim($bits[1]));
+            }
+            $child->url = $bits[1];
+
+            // Font Awesome processing.
+            if (array_key_exists(2, $bits)) {
+                $fa = trim($bits[2]);
+                $child->title = \theme_adaptable\toolbox::getfontawesomemarkup($fa, ['mr-1']) . $child->title;
+            }
+
+            // Add this child to the list of children.
+            $children[] = $child;
+            $hasitems = true;
+        }
+        return [$hasitems, $children];
+    }
+
+    /**
+     * Construct a user menu, returning HTML that can be echoed out by a
+     * layout file.
+     *
+     * @param stdClass $user A user object, usually $USER.
+     * @param bool $withlinks true if a dropdown should be built.
+     * @return string HTML fragment.
+     */
+    public function user_menu($user = null, $withlinks = null) {
+        global $USER, $CFG;
+        require_once($CFG->dirroot . '/user/lib.php');
+
+        if (is_null($user)) {
+            $user = $USER;
+        }
+
+        // Note: This behaviour is intended to match that of core_renderer::login_info,
+        // but should not be considered to be good practice; layout options are
+        // intended to be theme-specific. Please don't copy this snippet anywhere else.
+        if (is_null($withlinks)) {
+            $withlinks = empty($this->page->layout_options['nologinlinks']);
+        }
+
+        // Add a class for when $withlinks is false.
+        $usermenuclasses = 'usermenu';
+        if (!$withlinks) {
+            $usermenuclasses .= ' withoutlinks';
+        }
+
+        $returnstr = "";
+
+        // If during initial install, return the empty return string.
+        if (during_initial_install()) {
+            return $returnstr;
+        }
+
+        // Adaptable modified.
+        $themesettings = \theme_adaptable\toolbox::get_settings();
+
+        $avatarclasses = "avatars";
+        $userpic = $this->user_picture($user, ['link' => false, 'visibletoscreenreaders' => false,
+            'size' => 35, 'class' => 'userpicture', ]);
+        $avatarcontents = html_writer::span($userpic, 'avatar current');
+        $usertextcontents = format_string(fullname($user));
+
+        // User menu dropdown.
+        if (!empty($themesettings->usernameposition)) {
+            $usernameposition = $themesettings->usernameposition;
+            if ($usernameposition == 'right') {
+                $usernamepositionleft = false;
+            } else {
+                $usernamepositionleft = true;
+            }
+        } else {
+            $usernamepositionleft = true;
+        }
+
+        if ($usernamepositionleft) {
+            $returnstr .= html_writer::span(
+                html_writer::span($usertextcontents, 'usertext mr-1') .
+                html_writer::span($avatarcontents, $avatarclasses),
+                'userbutton'
+            );
+        } else {
+            $returnstr .= html_writer::span(
+                html_writer::span($avatarcontents, $avatarclasses) .
+                html_writer::span($usertextcontents, 'usertext mr-1'),
+                'userbutton'
+            );
+        }
+
+        $navitems = $this->user_profile_menu_items();
+
+        // Create a divider (well, a filler).
+        $divider = new \action_menu_filler();
+        $divider->primary = false;
+
+        $am = new \action_menu();
+        $am->set_menu_trigger(
+            $returnstr,
+            'nav-link'
+        );
+        $am->set_action_label(get_string('usermenu'));
+        $am->set_nowrap_on_items();
+        if ($withlinks) {
+            $navitemcount = count($navitems);
+            $idx = 0;
+            foreach ($navitems as $key => $value) {
+
+                switch ($value->itemtype) {
+                    case 'divider':
+                        // If the nav item is a divider, add one and skip link processing.
+                        $am->add($divider);
+                        break;
+
+                    case 'invalid':
+                        // Silently skip invalid entries (should we post a notification?).
+                        break;
+
+                    case 'link':
+                        // Process this as a link item.
+                        $pix = null;
+                        if (isset($value->pix) && !empty($value->pix)) {
+                            $pix = new pix_icon($value->pix, '', null, ['class' => 'iconsmall']);
+                        } else if (isset($value->imgsrc) && !empty($value->imgsrc)) {
+                            $value->title = html_writer::img(
+                                $value->imgsrc,
+                                $value->title,
+                                ['class' => 'iconsmall']
+                            ) . $value->title;
+                        }
+
+                        $al = new \action_menu_link_secondary(
+                            $value->url,
+                            $pix,
+                            $value->title,
+                            ['class' => 'icon']
+                        );
+                        if (!empty($value->titleidentifier)) {
+                            $al->attributes['data-title'] = $value->titleidentifier;
+                        }
+                        $am->add($al);
+                        break;
+                }
+
+                $idx++;
+
+                // Add dividers after the first item and before the last item.
+                if ($idx == 1 || $idx == $navitemcount - 1) {
+                    $am->add($divider);
+                }
+            }
+        }
+
+        return html_writer::div(
+            $this->render($am),
+            $usermenuclasses
+        );
     }
 
     /**
@@ -588,25 +842,21 @@ trait core_renderer_toolbox {
      * @return string
      */
     public function socialicons() {
-        if (!isset($this->page->theme->settings->socialiconlist)) {
+        $socialiconlist = \theme_adaptable\toolbox::get_setting('socialiconlist');
+        if (empty($socialiconlist)) {
             return '';
         }
 
-        $target = '_blank';
-        if (isset($this->page->theme->settings->socialtarget)) {
-            $target = $this->page->theme->settings->socialtarget;
-        }
+        $target = \theme_adaptable\toolbox::get_setting('socialtarget', false, null, '_blank');
 
         $retval = '';
-
-        $socialiconlist = $this->page->theme->settings->socialiconlist;
         $lines = explode("\n", $socialiconlist);
 
         foreach ($lines as $line) {
             if (strstr($line, '|')) {
                 $fields = explode('|', $line);
                 $retval .= '<a target="' . $target . '" title="' . $fields[1] . '" href="' . $fields[0] . '">';
-                $retval .= '<i class="fa ' . $fields[2] . '"></i>';
+                $retval .= \theme_adaptable\toolbox::getfontawesomemarkup($fields[2]);
                 $retval .= '</a>';
             }
         }
@@ -1198,7 +1448,7 @@ trait core_renderer_toolbox {
      * @return menu object.
      */
     public function navigation_menu_content() {
-        global $COURSE;
+        global $CFG, $COURSE;
         $menu = new custom_menu();
 
         $access = true;
@@ -1225,7 +1475,7 @@ trait core_renderer_toolbox {
                 $branchlabel = '';
                 $branchtitle = get_string('home', 'theme_adaptable');
                 if ($navbardisplayicons) {
-                    $branchlabel .= '<i class="fa fa-home fa-lg"></i>';
+                    $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('home', ['fa-lg', 'mr-1']);
                 }
                 $branchlabel .= $branchtitle;
 
@@ -1241,7 +1491,7 @@ trait core_renderer_toolbox {
                 $branchlabel = '';
                 $branchtitle = get_string('myhome');
                 if ($navbardisplayicons) {
-                    $branchlabel .= '<i class="fa fa-dashboard fa-lg"></i>';
+                    $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('dashboard', ['fa-lg', 'mr-1']);
                 }
                 $branchlabel .= $branchtitle;
                 $branchurl = new moodle_url('/my/index.php');
@@ -1253,7 +1503,7 @@ trait core_renderer_toolbox {
                 $branchlabel = '';
                 $branchtitle = get_string('courses');
                 if ($navbardisplayicons) {
-                    $branchlabel .= '<i class="fa fa-th fa-lg"></i>';
+                    $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('th', ['fa-lg', 'mr-1']);
                 }
                 $branchlabel .= $branchtitle;
                 $branchurl = new moodle_url('/my/courses.php');
@@ -1265,7 +1515,7 @@ trait core_renderer_toolbox {
                 $branchlabel = '';
                 $branchtitle = get_string('events', 'theme_adaptable');
                 if ($navbardisplayicons) {
-                    $branchlabel .= '<i class="fa fa-calendar fa-lg"></i>';
+                    $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('calendar', ['fa-lg', 'mr-1']);
                 }
                 $branchlabel .= $branchtitle;
 
@@ -1320,7 +1570,7 @@ trait core_renderer_toolbox {
                     $branchtitle = get_string('thiscourse', 'theme_adaptable');
                     if ($navbardisplayicons) {
                         $branchlabel .=
-                            \theme_adaptable\toolbox::getfontawesomemarkup('sitemap', ['fa-lg']) . '<span class="menutitle">';
+                            \theme_adaptable\toolbox::getfontawesomemarkup('sitemap', ['mr-1', 'fa-lg']) . '<span class="menutitle">';
                     }
                     $branchlabel .= $branchtitle;
                     if ($navbardisplayicons) {
@@ -1347,7 +1597,7 @@ trait core_renderer_toolbox {
                         $branchtitle = get_string('people', 'theme_adaptable');
                         $branchlabel = \theme_adaptable\toolbox::getfontawesomemarkup(
                             'users',
-                            ['icon', 'mr-2'],
+                            ['icon', 'mr-1'],
                             [],
                             '',
                             $branchtitle
@@ -1419,7 +1669,7 @@ trait core_renderer_toolbox {
         }
 
         if ($navbardisplayicons) {
-            $helpicon = '<i class="fa fa-life-ring fa-lg"></i>';
+            $helpicon = \theme_adaptable\toolbox::getfontawesomemarkup('life-ring', ['fa-lg']);
         } else {
             $helpicon = '';
         }
@@ -1457,6 +1707,36 @@ trait core_renderer_toolbox {
                     }
                 }
             }
+        }
+
+        // Custom menu.
+        if ((!empty($CFG->custommenuitems)) &&
+            (empty($this->page->theme->settings->disablecustommenu))) {
+            $custommenutitle = \theme_adaptable\toolbox::get_setting('custommenutitle', 'format_plain');
+            $branch = null;
+            if (!empty($custommenutitle)) {
+                $branchlabel = '';
+                $branchtitle = $custommenutitle;
+                if ($navbardisplayicons) {
+                    $branchlabel .=
+                        \theme_adaptable\toolbox::getfontawesomemarkup('bars', ['mr-1', 'fa-lg']) . '<span class="menutitle">';
+                }
+                $branchlabel .= $branchtitle;
+                if ($navbardisplayicons) {
+                    $branchlabel .= '</span>';
+                }
+
+                // Check the option of displaying a sub-menu arrow symbol.
+                if (!empty($this->page->theme->settings->navbardisplaysubmenuarrow)) {
+                    $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('caret-down', ['ml-1']);
+                }
+
+                $branchurl = $this->page->url;
+                $branchsort++;
+                $branch = $menu->add($branchlabel, $branchurl, $branchtitle, $branchsort);
+            }
+
+            $menu->add_custom_menu_items($CFG->custommenuitems, current_language(), $branch);
         }
 
         return $menu;
@@ -2182,8 +2462,7 @@ trait core_renderer_toolbox {
     }
 
     /**
-     * This renders the bootstrap top menu.
-     * This renderer is needed to enable the Bootstrap style navigation.
+     * Render custom menu.
      *
      * @param custom_menu $menu
      * @param string $wrappre
@@ -2192,7 +2471,7 @@ trait core_renderer_toolbox {
      *
      * @return string
      */
-    public function render_custom_menu(custom_menu $menu, $wrappre = '', $wrappost = '', $menuid = '') {
+    public function render_custom_menu(\custom_menu $menu, $wrappre = '', $wrappost = '', $menuid = '') {
         if (!$menu->has_children()) {
             return '';
         }
@@ -2206,6 +2485,7 @@ trait core_renderer_toolbox {
             }
         }
         $content = $wrappre . $content . $wrappost;
+
         return $content;
     }
 
@@ -2228,6 +2508,7 @@ trait core_renderer_toolbox {
             $url = '#';
         }
         if ($menunode->has_children()) {
+            $submenucount++;
             $content = '<li class="nav-item dropdown my-auto">';
             $content .= html_writer::start_tag('a', ['href' => $url,
                 'class' => 'nav-link dropdown-toggle my-auto', 'role' => 'button',

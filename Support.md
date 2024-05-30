@@ -13,11 +13,30 @@ If you would like to sponsor me, get support or fund improvements, then please d
 - GitHub | Please outline your issue / improvement on '[Adaptable issues](https://github.com/gjbarnard/moodle-theme_adaptable/issues)'.
 - @gjbarnard | [X](https://x.com/gjbarnard).
 
-Bespoke work
-------------
+Sponsorship information
+-----------------------
+By becoming a sponsor you help to keep the theme alive and working as underlying technologies change and the core Moodle software moves
+forward.  In return I’ll provide you access to additional functionality for the theme and prioritise questions from sponsors through a
+sponsors only area on GitHub.
+
+Sponsorship is not support or a contract to provide such, nor is it a commitment to provide updates, future versions or improvements.
+What it is though is an incentive to me to keep the theme going and maintained, and intend to do so for as long as possible.
+
+How much you offer for sponsorship is up to you to decide and for us to then agree upon based upon the use and value of the theme to you.
+Sponsorship can be a one off payment or many payments over time, the choice is yours.
+
+Please contact me using the details above along with how much you'd like to offer and an outline of who you are and how much you
+use the theme.  I will then outline the steps that need to be taken so that you can become a sponsor.  Note that I can only do
+business to business transactions.
+
+Improvements and bespoke work
+-----------------------------
+Adaptable is already a complicated theme and therefore I am reluctant to add any major features, indeed my aim is to reduce the
+complexity without actually removing functionality.  There is though the possibility of improving what is already there and / or
+creating a child theme that adds the specific functionality that you require.
 
 If you would like your own customised version or a new child theme of Boost / Classic, then typically with a setting and a few style
-changes this is usually two to three hours work.  At my current rate this will be between 88 and 132 GBP.  I charge by the minute with
+changes this is usually two to three hours work.  At my current rate this will be between 94 and 141 GBP.  I charge by the minute with
 a minimum time of fifteen.  Please contact me for further details with an outline of what you would like.
 
 Open source software

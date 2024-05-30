@@ -70,14 +70,15 @@ if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/marketing_blocks.php');
     include(dirname(__FILE__) . '/settings/navbar_settings.php');
     include(dirname(__FILE__) . '/settings/navbar_mycourses.php');
-    include(dirname(__FILE__) . '/settings/navbar_tools_menu.php');
     include(dirname(__FILE__) . '/settings/navbar_links.php');
     include(dirname(__FILE__) . '/settings/navbar_styles.php');
+    include(dirname(__FILE__) . '/settings/navbar_tools_menu.php');
     include(dirname(__FILE__) . '/settings/print.php');
     include(dirname(__FILE__) . '/settings/templates.php');
     include(dirname(__FILE__) . '/settings/user.php');
     include(dirname(__FILE__) . '/settings/custom_css.php');
     include(dirname(__FILE__) . '/settings/custom_js.php');
+    include(dirname(__FILE__) . '/settings/custom_menus.php');
 }
 $ADMIN->add('theme_adaptable', $asettings);
 require(dirname(__FILE__) . '/settings/importexport_settings.php');

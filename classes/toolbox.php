@@ -503,12 +503,18 @@ class toolbox {
      */
     public static function getfontawesomemarkup($theicon, $classes = [], $attributes = [], $content = '', $title = '') {
         if (!empty($theicon)) {
-            $fav = self::get_setting('fav');
-            if (!empty($fav)) {
-                $toolbox = self::get_instance();
-                $classes[] = $toolbox->get_fa6_from_fa4($theicon);
+            $theicon = trim($theicon);
+            if (mb_strpos($theicon, ' ') === false) { // No spaces, so find.
+                $fav = self::get_setting('fav');
+                if (!empty($fav)) {
+                    $toolbox = self::get_instance();
+                    $classes[] = $toolbox->get_fa6_from_fa4($theicon);
+                } else {
+                    $classes[] = 'fa fa-' . $theicon;
+                }
             } else {
-                $classes[] = 'fa fa-' . $theicon;
+                // Spaces so full icon specified.
+                $classes[] = $theicon;
             }
         }
         $attributes['aria-hidden'] = 'true';

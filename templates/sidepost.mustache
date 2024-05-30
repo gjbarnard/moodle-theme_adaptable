@@ -32,7 +32,7 @@
 {{#hassidepost}}
     {{< theme_boost/drawer }}
         {{$id}}theme_adaptable-drawers-sidepost{{/id}}
-        {{$drawerclasses}}drawer drawer-{{#left}}left{{/left}}{{^left}}right{{/left}}{{#sidepostopen}} show{{/sidepostopen}}{{/drawerclasses}}
+        {{$drawerclasses}}drawer drawer-{{#left}}left{{/left}}{{^left}}right{{/left}}{{#sidepostopen}} show{{/sidepostopen}}{{#stickynavbar}} d-none{{/stickynavbar}}{{/drawerclasses}}
         {{$drawercontent}}
             <section class="d-print-none" aria-label="{{#str}}blocks{{/str}}">
                 {{{ addblockbutton }}}

@@ -76,5 +76,16 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
         }
     }
 
+    if ($oldversion < 2024032801) {
+        $value = get_config('theme_adaptable', 'menuhovercolor');
+        if (!empty($value)) {
+            set_config('menubkhovercolor', $value, 'theme_adaptable');
+            // Prevent replacement when upgrade has already happened in a version for an older Moodle!
+            unset_config('menuhovercolor', 'theme_adaptable');
+        }
+
+        upgrade_plugin_savepoint(true, 2024032801, 'theme', 'adaptable');
+    }
+
     return true;
 }
