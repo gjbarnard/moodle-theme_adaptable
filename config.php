@@ -58,6 +58,7 @@ $frontlayoutregions = [
     'frnt-market-r',
     'frnt-market-s',
     'frnt-market-t',
+    'information',
     'news-slider-a',
     'course-tab-one-a',
     'course-tab-two-a',

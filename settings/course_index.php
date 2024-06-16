@@ -39,6 +39,13 @@ if ($ADMIN->fulltree) {
         format_text(get_string('courseindexsettingsdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
     ));
 
+    // Enabled.
+    $name = 'theme_adaptable/courseindexenabled';
+    $title = get_string('courseindexenabled', 'theme_adaptable');
+    $description = get_string('courseindexenableddesc', 'theme_adaptable');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, true);
+    $page->add($setting);
+
     // Item.
     $name = 'theme_adaptable/courseindexitemcolor';
     $title = get_string('courseindexitemcolor', 'theme_adaptable');

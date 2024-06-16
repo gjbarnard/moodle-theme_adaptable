@@ -32,7 +32,7 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_heading(
         'theme_adaptable_social',
         get_string('socialheading', 'theme_adaptable'),
-        format_text(get_string('socialtitledesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free'), FORMAT_MARKDOWN)
+        format_text(get_string('socialtitledesc', 'theme_adaptable'), FORMAT_MARKDOWN)
     ));
 
     $name = 'theme_adaptable/socialsize';
@@ -65,7 +65,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/socialiconlist';
     $title = get_string('socialiconlist', 'theme_adaptable');
     $default = '';
-    $description = get_string('socialiconlistdesc', 'theme_adaptable');
+    $description = get_string('socialiconlistdesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free');
     $setting = new admin_setting_configtextarea($name, $title, $description, $default, PARAM_RAW, '50', '10');
     $page->add($setting);
 

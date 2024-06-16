@@ -70,6 +70,7 @@ $string['configtabtitle'] = 'Settings';
 
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
+$string['region-information'] = 'Information';
 $string['side-post1'] = 'Side bar in footer';
 
 $string['cachedef_adaptablefontawesomeiconmapping'] = 'Caches font awesome icons';
@@ -118,6 +119,8 @@ $string['region-course-bottom-d'] = 'Course page bottom region eight';
 
 $string['orphanedblock'] = '<em>ORPHANED BLOCK - Originally displays in: <strong>{$a}</strong></em>';
 
+$string['skipblock'] = 'Skip block {$a}';
+
 // Settings page headings ******************************************.
 $string['settingsmaincolors'] = 'Main colours';
 $string['settingsheadercolors'] = 'Header colours';
@@ -147,7 +150,6 @@ $string['frontpageblockregionsettings'] = 'Block region builder';
 $string['dashboardblockregionsettings'] = 'Dashboard block region builder';
 $string['coursepageblockregionsettings'] = 'Course page block region builder';
 $string['frontpageblocksettings'] = 'Marketing blocks';
-$string['newstickersettings'] = 'News ticker';
 $string['frontpageslidersettings'] = 'Frontpage slider';
 $string['frontpagecoursesettings'] = 'Frontpage courses list';
 $string['frontpagesettingsheading'] = 'Frontpage rendering';
@@ -158,10 +160,12 @@ $string['frontpagerendereroption1'] = 'Tiles';
 $string['frontpagerendereroption2'] = 'Tiles w/ overlay';
 $string['frontpagerendereroption3'] = 'Moodle default';
 $string['frontpagerendereroption4'] = 'Coventry tiles';
+$string['informationblocksettings'] = 'Information blocks';
+$string['newstickersettings'] = 'News ticker';
 
 // Information.
 $string['settingsinformation'] = 'Information';
-$string['themesupport'] = 'Support';
+$string['themesupportsponsorship'] = 'Support and sponsorship';
 $string['themechanges'] = 'Changes';
 $string['themereadme'] = 'Readme';
 
@@ -339,6 +343,27 @@ $string['layoutcount2'] = ' block regions. You are currently using: ';
 
 $string['sidebaricon'] = 'Show / hide the sidebar';
 
+// Flexible blocks.
+$string['flexibleblocksoverflow'] = 'Overflow';
+
+// Information Blocks.
+$string['informationsettingsheading'] = 'Customize the information block region that appears on the front page.';
+$string['informationsettingsdesc'] = 'There is a layout builder allowing you to decide how many blocks you need and define your own layout.<br>Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
+
+$string['informationblocksenabled'] = 'Enable information blocks';
+$string['informationblocksenableddesc'] = 'Set the information blocks in the frontpage.';
+$string['informationblocksvisible'] = 'Show the information blocks when';
+$string['informationblocksvisibledesc'] = 'Show the information blocks when \'Logged out\', \'Logged in\' or \'Logged in or out\'.';
+$string['informationblocksvisibleloggedout'] = 'Logged out';
+$string['informationblocksvisibleloggedin'] = 'Logged in';
+$string['informationblocksvisibleloggedinout'] = 'Logged in or out';
+
+$string['informationblocksbuilderheading'] = 'Information block layout builder';
+$string['informationblocksbuilderdesc'] = 'Use the tool below to setup your information blocks.  Once defined the blocks will follow the layout when editing is off.';
+
+$string['informationblockslayoutrow'] = 'Information block row';
+$string['informationblockslayoutrowdesc'] = 'Add / set the layout for this information block row on front page.';
+
 // Marketing Blocks & Info Box.
 $string['marketingsettings'] = 'Marketing blocks';
 $string['marketingsettingsheading'] = 'Customize the marketing blocks that appear on the front page.';
@@ -350,7 +375,7 @@ $string['marketingvisibleloggedout'] = 'Logged out';
 $string['marketingvisibleloggedin'] = 'Logged in';
 $string['marketingvisibleloggedinout'] = 'Logged in or out';
 
-$string['marketingbuilderheading'] = 'Marketing block layout builder';
+$string['marketingbuilderheading'] = 'Marketing block layout builder - deprecated, please transition to using the Information block region';
 $string['marketingbuilderdesc'] = 'Use the tool below to setup your marketing blocks. Once defined the block settings will appear further down the page.';
 
 $string['marketlayoutrow'] = 'Marketing block row';
@@ -363,6 +388,8 @@ $string['layoutaddcontent'] = 'Happy with your layout?  Now add content to your 
 $string['layoutaddcontentdesc1'] = 'You have configured ';
 $string['layoutaddcontentdesc2'] = ' marketing blocks. If you are happy with this layout add content to the blocks below.<br>If you are not happy use the layout builder above to make changes.';
 
+$string['marketingdeprecated'] = 'Marketing blocks are deprecated, please migrate to using the Information block region.';
+
 $string['infobox'] = 'Frontpage info box';
 $string['infoboxdesc'] = 'Frontpage info block HTML.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.<br><strong>Note: </strong><i>This element is only used for compatibility with BCU and will be removed in coming versions.</i>';
 
@@ -372,7 +399,7 @@ $string['infoboxfullscreendesc'] = 'Turning this option on will make the infobox
 $string['infobox2'] = 'Frontpage secondary info box';
 $string['infobox2desc'] = 'Frontpage secondary info box.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.<br><strong>Note: </strong><i>This element is only used for compatibility with BCU and will be removed in coming versions.</i>';
 
-$string['frontpagemarketenabled'] = 'Enable marketing blocks';
+$string['frontpagemarketenabled'] = 'Enable marketing blocks - deprecated, please transition to using the Information block region';
 $string['frontpagemarketenableddesc'] = 'Set the marketing blocks in the frontpage.';
 
 $string['frontpagemarketoption'] = 'Choose style for marketing blocks';
@@ -504,6 +531,8 @@ $string['enablecompetencieslinkdesc'] = 'Display competencies link in the \'This
 
 $string['togglenavigation'] = 'Toggle navigation';
 
+$string['custommenu'] = 'Custom';
+
 // Navbar styling.
 $string['navbardropdownborderradius'] = 'Dropdown menu border radius';
 $string['navbardropdownborderradiusdesc'] = 'Controls the border radius for dropdown menus (e.g. rounded corners).';
@@ -577,7 +606,7 @@ $string['cdefaulticondesc'] = 'The Font Awesome icon without the prefixing \'fa-
 // Colours.
 $string['colorsettings'] = 'Colours';
 $string['colorsettingsheading'] = 'Modify the main colours used throughout the theme.';
-$string['colordesc'] = 'You can select the colours that you would like to use throughout the theme. Use Hex or any other standard notation. As an alternate option you can use transparent and inherited as a value';
+$string['colordesc'] = 'You can select the colours that you would like to use throughout the theme. Use Hex or any other standard notation. As an alternate option you can use transparent and inherited as a value.';
 $string['linkcolor'] = 'Link colour';
 $string['linkcolordesc'] = 'Set the colour of links in the theme, use html hex code.';
 
@@ -728,14 +757,17 @@ $string['messagepopupcolordesc'] = 'Set the text colour of messages pop-up heade
 $string['menubkcolor'] = 'Main menu background colour';
 $string['menubkcolordesc'] = 'Set a main menu background colour.';
 
-$string['menubordercolor'] = 'Main menu bottom border colour';
-$string['menubordercolordesc'] = 'Set a main menu border bottom colour.';
+$string['menubkhovercolor'] = 'Main menu background hover colour';
+$string['menubkhovercolordesc'] = 'Set a main menu background hover colour.';
 
 $string['menufontcolor'] = 'Main menu font colour';
 $string['menufontcolordesc'] = 'Set a main menu font colour.';
 
-$string['menuhovercolor'] = 'Main menu hover colour';
-$string['menuhovercolordesc'] = 'Set a main menu hover colour.';
+$string['menufonthovercolor'] = 'Main menu hover colour';
+$string['menufonthovercolordesc'] = 'Set a main menu hover colour.';
+
+$string['menubordercolor'] = 'Main menu bottom border colour';
+$string['menubordercolordesc'] = 'Set a main menu border bottom colour.';
 
 $string['mobilemenubkcolor'] = 'Mobile menu background colour';
 $string['mobilemenubkcolordesc'] = 'Set the main menu background colour on mobile devices (collapsed).';
@@ -832,9 +864,12 @@ $string['coursesectionactivityquizbgcolor'] = 'Quiz activity background colour';
 $string['coursesectionactivityquizbgcolordesc'] = 'Set the quiz activity background colour.  Type <strong>transparent</strong> in the box for transparency.';
 
 // Course Index.
-$string['courseindexsettings'] = 'Course Index';
+$string['courseindexsettings'] = 'Course index';
 $string['courseindexsettingsheading'] = 'Course index settings';
-$string['courseindexsettingsdesc'] = 'Customize the Course Index.';
+$string['courseindexsettingsdesc'] = 'Customize the Course index.';
+
+$string['courseindexenabled'] = 'Enabled';
+$string['courseindexenableddesc'] = 'Enable or disable the \'Course Index\'.';
 
 $string['courseindexitemcolor'] = 'Item colour';
 $string['courseindexitemcolordesc'] = 'The item colour on the \'Course Index\' in a course.';
@@ -1396,18 +1431,6 @@ $string['hideinforumdesc'] = 'When using fixed width and all menu options the fo
 $string['targetnewwindow'] = 'New window';
 $string['targetsamewindow'] = 'Same window';
 
-$string['toolsmenu2'] = 'Second tools menu';
-$string['toolsmenu2desc'] = 'You can configure links to be shown under a tools menu. Each line consists of some menu text, a link URL (optional), a tooltip title (optional) and a language code or comma-separated list of codes (optional, for displaying the line to users of the specified language only), separated by pipe characters. You can specify a structure using hyphens. For example:<br/><pre>
-Moodle community|https://moodle.org
--Moodle free support|https://moodle.org/support
--Moodle development|https://moodle.org/development
---Moodle Docs|http://docs.moodle.org|Moodle Docs
---German Moodle Docs|http://docs.moodle.org/de|Documentation in German|de
-Moodle.com|http://moodle.com/
-</pre>';
-
-$string['toolsmenulabel'] = 'Tools';
-$string['toolsmenulabel2'] = 'Tools two';
 $string['events'] = 'Events';
 $string['future'] = 'Future';
 $string['hiddencourses'] = 'Hidden courses';
@@ -1438,28 +1461,36 @@ $string['newstickercountdesc'] = 'Define multiple news ticker sections with acce
 $string['tickertext'] = 'News ticker text';
 $string['tickertextdesc'] = 'Add news ticker text in list format. See the read me for more info.';
 
-$string['newmenu1trigger'] = 'Top menu dropdown 1 trigger word';
-$string['newmenu1triggerdesc'] = 'Set a top menu Dropdown 1 trigger word.  Font awesome icons can be used';
-
 $string['menusheading'] = 'Configure navigation for link menus in the upper header';
-$string['menustitledesc'] = 'Tools menus (in navbar) and top menus (upper header) can be restricted based on custom profile fields (optional).  To add a restriction enter the name of the profile field and expected value.  Menu Structure follows the common Moodle format:<br/><pre>
-Moodle community|https://moodle.org
--Moodle free support|https://moodle.org/support
--Moodle development|https://moodle.org/development
---Moodle Docs|http://docs.moodle.org|Moodle Docs
---German Moodle Docs|http://docs.moodle.org/de|Documentation in German|de
-Moodle.com|http://moodle.com/
-</pre>
-';
+$string['menustitledesc'] = 'Top menus can be restricted based on custom profile fields (optional).  To add a restriction enter the name of the profile field and expected value.';
 
 $string['menusession'] = 'Store access details in session';
 $string['menusessiondesc'] = 'For performance reasons it is suggested this is enabled. You may want to disable when testing.';
 
+$string['menusessionttl'] = 'Minutes to store access rules in session';
+$string['menusessionttldesc'] = 'Number of minutes after which menu access rules are refreshed in the users session.';
+
+// Custom menus.
+$string['headernavbarcustommenuheading'] = 'Custom menu';
+$string['headernavbarcustommenuheadingdesc'] = 'The custom menu as set by the core \'custommenuitems\' setting, duplicated below.';
+
 $string['disablecustommenu'] = 'Disable Moodle custom menu';
 $string['disablecustommenudesc'] = 'Disable Moodle custom menus in the navigation bar (will still render in other themes you may have installed).';
 
-$string['menusessionttl'] = 'Minutes to store access rules in session';
-$string['menusessionttldesc'] = 'Number of minutes after which menu access rules are refreshed in the users session.';
+$string['custommenutitle'] = 'Custom menu title';
+$string['custommenutitledesc'] = 'Set the title of the custom menu title that will contain all of the custom menus on the navbar.  If empty then each top level entry will create a new menu on the navbar.';
+
+$string['headernavbarcustommenucoreheading'] = 'Core settings';
+$string['headernavbarcustommenucoreheadingdesc'] = 'Duplicated for convenience.';
+
+$string['custommenuitemscoredesc'] = 'A custom menu may be configured here.  Enter each menu item on a new line.  Lines starting with a hyphen will appear as menu items in the previous top level menu and ### makes a divider.';
+$string['customusermenuitemscoredesc'] = 'You can configure the contents of the user menu (with the exception of the log out link, which is automatically added).  Each line is separated by pipe characters and consists of 1) a string in "langstringname, componentname" form or as plain text, 2) a URL, and 3) a Font Awesome icon name or CSS classes (optional).  Dividers can be used by adding a line of one or more # characters where desired.  To find the FontAwesome(Free) classes for the icon you wish to use, go to <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome free</a> and search for the icon.  You can use the name, such as \'graduation-cap\' or the complete list of classes \'fa-solid fa-graduation-cap\'.  For example:
+<pre>
+messages,message|/message/index.php|fa-regular fa-comment
+privatefiles,moodle|/user/files.php|folder-tree
+</pre>
+Note: The default core value may contain duplicates, please adjust as desired.
+';
 
 // Tool menus.
 $string['newmenudesc'] = 'Configure links to be shown under a top header menu.';
@@ -1469,9 +1500,6 @@ $string['newmenurequirelogin'] = 'Require login';
 $string['newmenurequirelogindesc'] = 'If enabled this menu will only be visible to logged in users.';
 
 $string['menusdesc'] = '';
-
-$string['newmenu2trigger'] = 'Top menu dropdown 2 trigger word';
-$string['newmenu2triggerdesc'] = 'Set a top menu dropdown 2 trigger word.  Font awesome icons can be used.';
 
 $string['enablemenus'] = 'Enable menus';
 $string['enablemenusdesc'] = 'It is recommended you leave this off if menus are not in use for preformance reasons.';
@@ -1504,7 +1532,7 @@ $string['topmenuscount'] = 'Number of top menus';
 $string['topmenuscountdesc'] = 'Set the number of top menus you want to add to the theme header.';
 
 $string['menusheadingvisibility'] = 'General settings for top menu visibility';
-$string['menusheadingvisibilitydesc'] = 'The following settings allow you to control where menus appear and optionally allow users to customise their settings';
+$string['menusheadingvisibilitydesc'] = 'The following settings allow you to control where menus appear and optionally allow users to customise their settings.';
 
 $string['newmenuheading'] = 'Top menu';
 $string['newmenu'] = 'Top menu dropdown';
@@ -1519,20 +1547,30 @@ $string['toolsmenuscount'] = 'Number of tool menus';
 $string['toolsmenuscountdesc'] = 'Set the number of tools menus you want to add to the main navigation bar.';
 
 $string['toolsmenuheading'] = 'Tools menu';
-$string['toolsmenuheadingdesc'] = 'Add a drop down menu to the main navigation bar.  You can configure links to be shown under a tools menu (in main navigation bar).
- The format is similar to that used for Moodle custom menus but allows you to add Font Awesome icons to menu items:<br/><pre>
-&lt;span class=&quot;fa-solid fa-videoa&quot;&gt;&lt;/span&gt; Record Screen|https://mysite.localhost|Record Screen
-&lt;span class=&quot;fa-regular fa-image&quot;&gt;&lt;/span&gt; ThinkStock|https://mysite.localhost|ThinkStock
-&lt;span class=&quot;fa-regular fa-clock&quot;&gt;&lt;/span&gt; Exam Clock|https://mysite.localhost|Exam Clock
-</pre><br />';
+$string['toolsmenuheadingdesc'] = 'Add a drop down menu to the main navigation bar.  You can configure links to be shown under a tools menu (in main navigation bar).  In the format of \'text|url|title|langs|fontawesome classes|capability to check\'.  Only enter what you require.  If you don\'t need something but do need another thing further along then leave it blank but still use the \'|\' delimiter.  For example: \'text|url|||fontawesome classes\'.  To find the FontAwesome(Free) classes for the icon you wish to use, go to <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome free</a> and search for the icon.  You can use the name, such as \'graduation-cap\' or the complete list of classes \'fa-solid fa-graduation-cap\'.  For example:<pre>
+Record Screen|https://mysite.localhost|Record Screen||video
+Photos|https://mysite.localhost|Photos||fa-solid fa-image
+Exam Clock|https://mysite.localhost|Exam Clock|en|clock
+Cloc arholiad|https://mysite.localhost|Cloc arholiad|cy|clock
+</pre>';
+
+$string['fontawesomesettingdesc'] = 'The format of each line is \'text|url|title|langs|fontawesome classes|capability to check\'.  Only enter what you require.  If you don\'t need something but do need another thing further along then leave it blank but still use the \'|\' delimiter.  For example: \'text|url|||fontawesome classes\'.  To find the FontAwesome(Free) classes for the icon you wish to use, go to <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome free</a> and search for the icon.  You can use the name, such as \'graduation-cap\' or the complete list of classes \'fa-solid fa-graduation-cap\'.  For example:<pre>
+Courses
+-All courses|/course/
+-Course search|/course/search.php
+-###
+-FAQ|https://example.org/faq
+-Exam Clock|https://mysite.localhost|Exam Clock|en|clock
+-Cloc arholiad|https://mysite.localhost|Cloc arholiad|cy|clock
+Educators|https://mysite.localhost|Educators only|en|graduation-cap|moodle/course:manageactivities
+</pre>';
+
 $string['toolsmenuheadingindex'] = 'Tools menu {$a}';
-$string['toolsmenu'] = 'Tools menu dropdown';
+$string['toolsmenu'] = 'Tools menu';
 $string['toolsmenudesc'] = 'Add the links here.';
 $string['toolsmenutitle'] = 'Tools menu title';
 $string['toolsmenutitledefault'] = 'Tools';
 $string['toolsmenutitledesc'] = 'Add the title of the menu you would like to display in the main navigation bar.';
-
-$string['toolsmenulabel'] = 'Tools menu';
 
 $string['toolsmenufield'] = 'Custom profile field name=Value (optional)';
 $string['toolsmenufielddesc'] = 'Add access rule using for custom profile field eg: usertype=student.';
@@ -1540,20 +1578,7 @@ $string['toolsmenufielddesc'] = 'Add access rule using for custom profile field 
 // Social settings.
 $string['socialsettings'] = 'Header social';
 $string['socialheading'] = 'Social icon settings';
-$string['socialtitledesc'] = 'You can disable the sitewide search box and enable social icons / links in its place.<br/>To setup icons enter a delimited list into the "Social Icon List" field below.<br/>This should be in the format:
-
-url|title|icon
-
-For example:
-<pre>
-https://example.com/course/search.php|Search Moodle|fa-search
-https://facebook.com/|Facebook|fa-square-facebook
-https://X.com/|X|fa-square-x-twitter
-https://twitter.com/|Twitter|fa-square-twitter
-https://instagram.com|Instagram|fa-square-instagram
-https://example.com|My Web|fa-globe
-</pre>
-For reference you can find the full list of Font Awesome Icons see \'<a href="{$a}" target="_blank">here</a>\'.';
+$string['socialtitledesc'] = 'You can disable the sitewide search box and enable social icons / links in its place.  To setup icons enter a delimited list into the "Social Icon List" field below.';
 
 $string['socialsize'] = 'Set the font size of the social icons';
 $string['socialsizedesc'] = 'For a better view, the size needs to be 5px greater than the desired actual size.';
@@ -1573,7 +1598,20 @@ $string['socialsearchicondesc'] = 'Enable to put a search link alongside social 
 $string['socialicondesc'] = 'Set Font Awesome icon for example: fa-facebook.';
 
 $string['socialiconlist'] = 'Social icon list';
-$string['socialiconlistdesc'] = 'Enter a delimited list to setup the social icons / links you need using the format: url|title|icon.';
+$string['socialiconlistdesc'] = 'Enter a delimited list to setup the social icons / links you need.  This should be in the format:
+
+url|title|icon
+
+For example:
+<pre>
+https://example.com/course/search.php|Search Moodle|search
+https://facebook.com/|Facebook|fa-brands fa-facebook-f
+https://X.com/|X|fa-brands fa-x-twitter
+https://twitter.com/|Twitter|fa-brands fa-twitter
+https://instagram.com|Instagram|fa-brands fa-instagram
+https://example.com|My Web|globe
+</pre>
+Where the Font Awesome icon can be its name or CSS classes.  For reference you can find the full list of Font Awesome Icons see \'<a href="{$a}" target="_blank">here</a>\'.';
 
 // Templates.
 $string['templatessettings'] = 'Templates';

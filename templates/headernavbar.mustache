@@ -22,10 +22,8 @@
     Example context (json):
     {
         "coursemenucontent": "",
-        "disablecustommenu": false,
         "enablezoom": true,
         "enablezoomshowtext": true,
-        "navigationmenudrawer": "",
         "navigationmenu": "",
         "othermenucontent": "",
         "pageheadingbutton": "",
@@ -42,9 +40,6 @@
                     <nav aria-label="{{#str}}sitelinkslabel, theme_adaptable{{/str}}">
                         <ul class="navbar-nav">
                             {{{navigationmenu}}}
-                            {{^disablecustommenu}}
-                                {{{output.custom_menu}}}
-                            {{/disablecustommenu}}
                             {{{toolsmenu}}}
                         </ul>
                     </nav>

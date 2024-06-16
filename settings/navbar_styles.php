@@ -53,12 +53,21 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Main menu hover color.
-    $name = 'theme_adaptable/menuhovercolor';
-    $title = get_string('menuhovercolor', 'theme_adaptable');
-    $description = get_string('menuhovercolordesc', 'theme_adaptable');
+    // Main menu background hover color.
+    $name = 'theme_adaptable/menubkhovercolor';
+    $title = get_string('menubkhovercolor', 'theme_adaptable');
+    $description = get_string('menubkhovercolordesc', 'theme_adaptable');
     $previewconfig = null;
     $setting = new admin_setting_configcolourpicker($name, $title, $description, '#00B3A1', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Main menu text color.
+    $name = 'theme_adaptable/menufonthovercolor';
+    $title = get_string('menufonthovercolor', 'theme_adaptable');
+    $description = get_string('menufonthovercolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
