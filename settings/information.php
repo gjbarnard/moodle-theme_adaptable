@@ -38,11 +38,11 @@ if ($ADMIN->fulltree) {
         get_string('settingsinformation', 'theme_adaptable')
     );
 
-    // Support.md.
-    $name = 'theme_adaptable/themesupport';
-    $title = get_string('themesupport', 'theme_adaptable');
-    $description = 'Support.md';
-    $setting = new admin_setting_markdown($name, $title, $description, 'Support.md');
+    // SupportAndSponsorship.md.
+    $name = 'theme_adaptable/themesupportsponsorship';
+    $title = get_string('themesupportsponsorship', 'theme_adaptable');
+    $description = 'SupportAndSponsorship.md';
+    $setting = new admin_setting_markdown($name, $title, $description, 'SupportAndSponsorship.md');
     $page->add($setting);
 
     // Changes.md.

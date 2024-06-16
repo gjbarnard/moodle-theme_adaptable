@@ -40,12 +40,6 @@ if ($ADMIN->fulltree) {
         )
     );
 
-    $name = 'theme_adaptable/disablecustommenu';
-    $title = get_string('disablecustommenu', 'theme_adaptable');
-    $description = get_string('disablecustommenudesc', 'theme_adaptable');
-    $setting = new admin_setting_configcheckbox($name, $title, $description, false, true, false);
-    $page->add($setting);
-
     // Sticky Navbar at the top. See issue #278.
     $name = 'theme_adaptable/stickynavbar';
     $title = get_string('stickynavbar', 'theme_adaptable');

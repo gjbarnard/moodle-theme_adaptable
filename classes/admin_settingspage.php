@@ -50,8 +50,8 @@ class admin_settingspage extends \admin_settingpage {
         parent::__construct($name, $visiblename, $reqcapability, $hidden, $context);
         if (($local) && (\theme_adaptable\toolbox::get_local_toolbox() === false)) {
             $localadaptableheading = 'Sponsors only';
-            $localadaptableheadingdesc = 'These settings and functionlity require the \'local_adaptable\' plugin'.
-                ', which is available to sponsors only.  Please consider sponsoring, see the \'Information\' tab.';
+            $localadaptableheadingdesc = 'These settings and functionlity are available to sponsors only, '.
+                'please see the \'Information\' tab.';
 
             $this->disabled = true;
             $this->add(new \admin_setting_heading(

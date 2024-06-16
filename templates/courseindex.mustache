@@ -34,7 +34,7 @@
 {{#courseindex}}
     {{< theme_boost/drawer }}
         {{$id}}theme_adaptable-drawers-courseindex{{/id}}
-        {{$drawerclasses}}drawer drawer-{{#left}}right{{/left}}{{^left}}left{{/left}}{{#courseindexopen}} show{{/courseindexopen}}{{/drawerclasses}}
+        {{$drawerclasses}}drawer drawer-{{#left}}right{{/left}}{{^left}}left{{/left}}{{#courseindexopen}} show{{/courseindexopen}}{{#stickynavbar}} d-none{{/stickynavbar}}{{/drawerclasses}}
         {{$drawercontent}}
             {{{courseindex}}}
         {{/drawercontent}}
