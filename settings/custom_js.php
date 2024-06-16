@@ -61,6 +61,7 @@ if ($ADMIN->fulltree) {
         ['accepted_types' => '*.js', 'maxfiles' => 8, 'maxbytes' => 65536, 'areamaxbytes' => (65536 * 8)]
     );
     $setting->set_owner($page);
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
     $name = 'theme_adaptable/jssection';

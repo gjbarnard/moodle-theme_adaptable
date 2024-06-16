@@ -30,7 +30,11 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_heading(
         'theme_adaptable_menus',
         get_string('menusheading', 'theme_adaptable'),
-        format_text(get_string('menustitledesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+        format_text(
+            get_string('menustitledesc', 'theme_adaptable').'<br><br>'.
+            get_string('fontawesomesettingdesc', 'theme_adaptable'),
+            FORMAT_MARKDOWN
+        )
     ));
 
     // Settings for top header menus.

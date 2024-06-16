@@ -92,7 +92,8 @@
 #adaptable-page-header-wrapper #main-navbar ul.navbar-nav > li > a.nav-link:hover,
 #adaptable-page-header-wrapper #main-navbar li div.nav-link:hover,
 #adaptable-page-header-wrapper #main-navbar li #editingbutton input[type="submit"]:hover {
-    background-color: [[setting:menuhovercolor]];
+    background-color: [[setting:menubkhovercolor]];
+    color: [[setting:menufonthovercolor]];
 }
 
 #adaptable-page-header-wrapper #main-navbar .input-group {
@@ -120,7 +121,8 @@
 }
 
 #adaptable-page-header-wrapper .above-header .nav-link > i,
-#adaptable-page-header-wrapper .above-header .navbar-nav > li > a {
+#adaptable-page-header-wrapper .above-header .navbar-nav > li > a,
+#adaptable-page-header-wrapper .above-header .navbar-nav > li .usermenu .dropdown-toggle {
     color: [[setting:headertextcolor]];
 }
 

@@ -109,40 +109,6 @@ define(['jquery', 'core/log'], function($, log) {
                         body.removeClass("page-header-margin");
                     }
 
-                    $(window).resize(function() {
-                        windowWidth = $(window).width();
-                        if (windowWidth < screensm) {
-                            if (currentWindowSize != 1) {
-                                makeNavbarSticky(true);
-                                currentWindowSize = 1;
-                            }
-                        } else if (windowWidth < screenmd) {
-                            if (currentWindowSize != 2) {
-                                makeNavbarSticky(true);
-                                currentWindowSize = 2;
-                            }
-                        } else {
-                            if (currentWindowSize != 3) {
-                                currentWindowSize = 3;
-                            }
-                            // At screenmd and above, window width changes can change the height of the header.
-                            makeNavbarSticky(true);
-                        }
-                        if (windowWidth < screenmd) {
-                            if (isFixed === 0) {
-                                header.classList.remove("sticky");
-                                body.addClass("page-header-margin");
-                                isFixed = 1;
-                            }
-                        } else {
-                            if (isFixed === 1) {
-                                header.classList.add("sticky");
-                                body.removeClass("page-header-margin");
-                                isFixed = 0;
-                            }
-                        }
-                    });
-
                     var makeNavbarSticky = function(update = false) {
                         pageScrollTop = page.scrollTop;
 
@@ -211,9 +177,49 @@ define(['jquery', 'core/log'], function($, log) {
                         }
                     };
                     makeNavbarSticky(true);
+                    if (courseIndex) {
+                        courseIndex.classList.remove("d-none");
+                    }
+                    if (sidePost) {
+                        sidePost.classList.remove("d-none");
+                    }
 
                     // When the user scrolls the page, execute makeNavbarSticky().
                     page.onscroll = function() {makeNavbarSticky();};
+
+                    $(window).resize(function() {
+                        windowWidth = $(window).width();
+                        if (windowWidth < screensm) {
+                            if (currentWindowSize != 1) {
+                                makeNavbarSticky(true);
+                                currentWindowSize = 1;
+                            }
+                        } else if (windowWidth < screenmd) {
+                            if (currentWindowSize != 2) {
+                                makeNavbarSticky(true);
+                                currentWindowSize = 2;
+                            }
+                        } else {
+                            if (currentWindowSize != 3) {
+                                currentWindowSize = 3;
+                            }
+                            // At screenmd and above, window width changes can change the height of the header.
+                            makeNavbarSticky(true);
+                        }
+                        if (windowWidth < screenmd) {
+                            if (isFixed === 0) {
+                                header.classList.remove("sticky");
+                                body.addClass("page-header-margin");
+                                isFixed = 1;
+                            }
+                        } else {
+                            if (isFixed === 1) {
+                                header.classList.add("sticky");
+                                body.removeClass("page-header-margin");
+                                isFixed = 0;
+                            }
+                        }
+                    });
                 }
 
                 $('.moodlewidth').click(function() {

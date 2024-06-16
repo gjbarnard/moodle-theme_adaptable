@@ -1,3 +1,53 @@
+Change Log in version 401.1.12 (2022112314)
+===========================================
+1. Fix 'itemid' not being regenerated for 'customjsfiles'.
+2. Reduce drawer flicker on page load when the navbar is sticky.
+3. Add ability to move custom menus into a single menu to save navbar space by giving 'custommenutitle' setting a value.
+   Note: At bottom of the 'Navbar' settings tab.
+4. Improve custom menu code to facilitate simple inclusion of Font Awesome icons.
+5. Fix dropdown menu id's.
+6. Remember the tab currently selected when saving settings.
+7. Functionality using a 'custom menu' such as 'Custom menu items', 'Header menus' and 'Tools menu' now supports the
+   following format:
+    text|url|title|langs|fontawesome classes or name|capability.
+   where:
+     text - Text to show for the entry.
+     url - URL of the entry.
+     title - Title attribute in the link tag value.
+     langs - Only show on the given language codes - separate more than one with a comma.
+     fontawesome classes or name - State the Font Awesome classes or name for the icon that is placed before the text.
+     capability - State the capability to check that the user has on the page before showing, for example
+       'moodle/course:manageactivities' to only show to editing teachers.
+8. Renamed 'Tools menu dropdown' setting tab to 'Tools menu'.
+9. Add 'customusermenuitems' to the user menu.
+10. Add FontAwesome support to 'customusermenuitems' as the third parameter, name or CSS classes.
+11. Add duplicate entries for 'custommenuitems' and 'customusermenuitems' on a new 'Custom menu' settings tab.
+12. Settings language strings tidy.
+13. Social icons improvement to use either icon name or CSS classes.
+14. Replace 'menuhovercolor' with 'menubkhovercolor' and 'menufonthovercolor' to fix menu hovering.
+15. Add 'courseindexenabled' setting on the 'Course index' tab to enable / disable the 'Course Index'.
+16. Fix header information overridden when set in the context header leading to missing output.
+17. Add 'Information blocks'.  This is designed to be a replacement for the marketing blocks that are
+    now deprecated.  The code that they use has always been problematic and subject to contained file
+    based content being lost on occasion, or rather not lost but misplaced in terms of linkage at times.
+    I've never been able to entirely rectify or resolve the issues.  Therefore instead of reinventing the
+    wheel, I've gone for a block region based solution whereby proven and tested block code is employed.
+    Instead of defining the content in the theme settings, you'll create blocks and place them in the
+    'information' region on the front page.  Of course you'll find all of the other settings in place
+    to control the layout and visiblity as before, on the theme's 'Information blocks' settings tab.
+    When editing you'll see the full block header with each block having the same width to allow easy
+    manipulation, i.e. the layout you set is not applied.  Its only when editing is off that the layout
+    is applied and the block titles removed.  If you see the word 'Overflow' then that means that you have
+    more blocks than you've defined in the layout rows to allow.  Admins will see 'Marketing blocks are
+    deprecated, please migrate to using the Information block region.'.  When editing, block regions will
+    have their name at the top.  In testing with re-ordering the blocks I did find this problematic and
+    could not work out entiry why as the theme code is doing what it should do, the core code is telling
+    the backend via an AJAX call about the reordering, just that after doing so then it seemed that cron
+    had to run for the changes to become permanent.  It is my intention that other settings employing the
+    same code as the marketing blocks will also migrate to this improved solution.
+18. Improve the look of the calendar block controls and fix the next and previous icons.
+19. Improve the layout builder to have new clearer responsive images.
+
 Change Log in version 401.1.11 (2022112312)
 ===========================================
 1. New setting 'mobileprimarynav' to control the display of the mobile primary navigation.  This is found on the

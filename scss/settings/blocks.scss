@@ -289,21 +289,39 @@
     text-decoration: none;
 }
 
-.block .calendar-controls .previous:before {
-    content: "\f053";
-    font-family: "FontAwesome";
+.block .calendar-controls {
+    .previous,
+    .next {
+        font-size: 0.8rem;
+        margin-top: 0.125rem;
+        .arrow {
+            display: none;
+        }
+        &:before,
+        &:after {
+            font-family: "FontAwesome";
+        }
+    }
+    .previous {
+        &:before {
+            content: "\f053"; // chevron-left.
+        }
+    }
+    .next {
+        &:after {
+            content: "\f054"; // chevron-right.
+        }
+    }
 }
 
-.block .calendar-controls .next:before {
-    content: "\f054";
-    font-family: "FontAwesome";
+@media (min-width: 768px) {
+    section:not(#region-main) .block.block_calendar_month .maincalendar .calendarwrapper {
+        .previous,
+        .next {
+            font-size: .8rem;
+        }
+    }
 }
-
-.block .calendar-controls .previous .arrow,
-.block .calendar-controls .next .arrow {
-    display: none;
-}
-
 
 // Comments block.
 .block_comments div.content li {

@@ -35,7 +35,10 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_heading(
         'theme_adaptable_toolsmenu',
         get_string('toolsmenu', 'theme_adaptable'),
-        format_text(get_string('toolsmenuheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+        format_text(
+            get_string('toolsmenuheadingdesc', 'theme_adaptable'),
+            FORMAT_MARKDOWN
+        )
     ));
 
     $name = 'theme_adaptable/enabletoolsmenus';
