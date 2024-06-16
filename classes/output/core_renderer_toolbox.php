@@ -485,19 +485,21 @@ trait core_renderer_toolbox {
         $bc->add_class('mb-3');
 
         if (empty($skiptitle)) {
-            $output = '';
-            $skipdest = '';
-        } else {
-            $output = html_writer::link(
-                '#sb-' . $bc->skipid,
-                get_string('skipa', 'access', $skiptitle),
-                ['class' => 'skip skip-block', 'id' => 'fsb-' . $bc->skipid]
-            );
-            $skipdest = html_writer::span(
-                '',
-                'skip-block-to',
-                ['id' => 'sb-' . $bc->skipid]
-            );
+            $skiptitle = get_string('skipblock', 'theme_adaptable', $bc->blockinstanceid);
+        }
+        $output = html_writer::link(
+            '#sb-' . $bc->skipid,
+            get_string('skipa', 'access', $skiptitle),
+            ['class' => 'skip skip-block', 'id' => 'fsb-' . $bc->skipid]
+        );
+        $skipdest = html_writer::span(
+            '',
+            'skip-block-to',
+            ['id' => 'sb-' . $bc->skipid]
+        );
+
+        if (!empty($bc->attributes['notitle'])) {
+            $bc->title = '';
         }
 
         $output .= html_writer::start_tag('section', $bc->attributes);
@@ -1045,16 +1047,185 @@ trait core_renderer_toolbox {
     }
 
     /**
-     * Renders marketing blocks on front page
+     * Get the HTML for block title in the given region.
+     *
+     * @param string $region The region to get HTML for.
+     *
+     * @return string HTML.
+     */
+    protected function block_region_title($region) {
+        return html_writer::tag(
+            'p',
+            get_string('region-' . $region, 'theme_adaptable'),
+            ['class' => 'block-region-title col-12 text-center font-italic font-weight-bold']
+        );
+    }
+
+    /**
+     * Renders flexible blocks on front page.
+     *
+     * @param string $region
+     * @param string $layoutrow
+     * @param string $settingname
+     * @param array $classes
+     * @param string $tag
+     * @return string Markup.
+     */
+    public function get_flexible_blocks(
+        $region,
+        $layoutrow = 'informationblockslayoutrow',
+        $settingname = 'information',
+        $classes = [],
+        $tag = 'aside') {
+        $editing = $this->page->user_is_editing();
+        $themesettings = \theme_adaptable\toolbox::get_settings();
+
+        if (!$editing) {
+            $visiblestate = 3;
+            if (!empty($themesettings->informationblocksvisible)) {
+                $visiblestate = $themesettings->informationblocksvisible;
+            }
+            if ($visiblestate != 3) {
+                $loggedin = isloggedin();
+                if ((($visiblestate == 1) && ($loggedin)) || (($visiblestate == 2) && (!$loggedin))) {
+                    return '';
+                }
+            }
+        }
+
+        $content = '';
+        $classes = (array)$classes;
+        $classes[] = 'block-region';
+
+        if ($editing) {
+            $content .= $this->block_region_title($region);
+            $classes[] = 'editing-flexible-blocks';
+        }
+
+        $attributes = [
+            'id' => 'block-region-' . $region,
+            'class' => join(' ', $classes),
+            'data-blockregion' => $region,
+            'data-droptarget' => '1',
+        ];
+
+        if ($this->page->blocks->region_has_content($region, $this)) {
+            $content .= html_writer::tag('h2', get_string('blocks'), ['class' => 'sr-only']);
+
+            $blockcontents = $this->page->blocks->get_content_for_region($region, $this);
+            $lastblock = null;
+            $zones = [];
+            foreach ($blockcontents as $bc) {
+                if ($bc instanceof block_contents) {
+                    $zones[] = $bc->title;
+                }
+            }
+
+            if (!$editing) {
+                $blockrows = [];
+                $blocksequence = [];
+                $blocksequencecount = 0;
+                $blockspacescount = 0;
+
+                $content .= '<div class="flexibleblocks container">';
+
+                for ($i = 1; $i <= 5; $i++) {
+                    $blockrowsetting = $layoutrow . $i;
+                    $blockrowvalue = $themesettings->$blockrowsetting;
+                    if ($blockrowvalue != '0-0-0-0') {
+                        $blockrows[] = $blockrowvalue;
+                    }
+                }
+
+                foreach ($blockrows as $blockrow) {
+                    $blocksequence[] = '+'; // Row start.
+                    $vals = explode('-', $blockrow);
+                    foreach ($vals as $val) {
+                        if ($val > 0) {
+                            $blocksequence[] = $val; // Block width.
+                            $blockspacescount++;
+                        }
+                    }
+                    $blocksequence[] = '-'; // Row end.
+                }
+            }
+
+            $blockspacesexceeded = false;
+            $blockcount = 0;
+            foreach ($blockcontents as $bc) {
+                if ($bc instanceof block_contents) {
+                    if (!$editing) {
+                        if (!empty($blocksequence[$blocksequencecount])) {
+                            if ($blocksequence[$blocksequencecount] == '+') {
+                                $content .= '<div class="row flexiblerow">';
+                                $blocksequencecount++;
+                            }
+                            $bc->attributes['class'] .= ' col-'.$blocksequence[$blocksequencecount]; // Will be a number.
+                        } else {
+                            if ((!$blockspacesexceeded) && ($blockcount >= $blockspacescount)) {
+                                $blockspacesexceeded = true;
+                                html_writer::tag(
+                                    'p',
+                                    get_string('flexibleblocksoverflow', 'theme_adaptable'),
+                                    ['class' => 'block-region-overflow col-12 text-center font-italic font-weight-bold']
+                                );
+                                $content .= '<div class="flexible-blocks-overflow">';
+                                if (is_siteadmin()) {
+                                    $content .= html_writer::tag(
+                                        'p',
+                                        get_string('flexibleblocksoverflow', 'theme_adaptable'),
+                                        ['class' => 'block-region-overflow col-12 text-center font-italic font-weight-bold']
+                                    );
+                                }
+                            }
+                            $bc->attributes['class'] .= ' col-4';
+                        }
+                        $bc->attributes['notitle'] = true;
+                    }
+                    $content .= $this->block($bc, $region);
+                    $lastblock = $bc->title;
+                    $blockcount++;
+                    if ((!$editing) && (!$blockspacesexceeded)) {
+                        $blocksequencecount++;
+                        // Could be a end of row next.
+                        if ($blocksequence[$blocksequencecount] == '-') {
+                            $content .= '</div>';
+                            $blocksequencecount++;
+                        }
+                    }
+                } else if ($bc instanceof block_move_target) {
+                    $content .= $this->block_move_target($bc, $zones, $lastblock, $region);
+                } else {
+                    throw new coding_exception(
+                        'Unexpected type of thing (' . get_class($bc) . ') found in list of block contents.');
+                }
+            }
+
+            if (!$editing) {
+                if ($blockspacesexceeded) {
+                    $content .= '</div>'; // End of flexible-blocks-overflow.
+                }
+                $content .= '</div>'; // End of container.
+            }
+        } else {
+            $content .= html_writer::tag('h2', get_string('blocks'), ['class' => 'sr-only']);
+        }
+
+        return html_writer::tag($tag, $content, $attributes);
+    }
+
+    /**
+     * Renders marketing blocks on front page.
      *
      * @param string $layoutrow
      * @param string $settingname
      * @return string Markup.
      */
     public function get_marketing_blocks($layoutrow = 'marketlayoutrow', $settingname = 'market') {
+        $themesettings = \theme_adaptable\toolbox::get_settings();
         $visiblestate = 3;
-        if (!empty($this->page->theme->settings->marketingvisible)) {
-            $visiblestate = $this->page->theme->settings->marketingvisible;
+        if (!empty($themesettings->marketingvisible)) {
+            $visiblestate = $themesettings->marketingvisible;
         }
         if ($visiblestate != 3) {
             $loggedin = isloggedin();
@@ -1066,13 +1237,21 @@ trait core_renderer_toolbox {
         $fields = [];
         $blockcount = 0;
 
-        $extramarketclass = $this->page->theme->settings->frontpagemarketoption;
+        $extramarketclass = $themesettings->frontpagemarketoption;
 
         $retval = '<div id="marketblocks" class="container ' . $extramarketclass . '">';
 
+        if (is_siteadmin()) {
+            $retval .= html_writer::tag(
+                'p',
+                get_string('marketingdeprecated', 'theme_adaptable'),
+                ['class' => 'marketing-deprecated col-12 text-center font-italic font-weight-bold']
+            );
+        }
+
         for ($i = 1; $i <= 5; $i++) {
             $marketrow = $layoutrow . $i;
-            $marketrow = $this->page->theme->settings->$marketrow;
+            $marketrow = $themesettings->$marketrow;
             if ($marketrow != '0-0-0-0') {
                 $fields[] = $marketrow;
             }
@@ -1086,7 +1265,7 @@ trait core_renderer_toolbox {
                     $retval .= '<div class="my-1 col-md-' . $val . ' ' . $extramarketclass . '">';
                     $blockcount++;
                     $fieldname = $settingname . $blockcount;
-                    if (isset($this->page->theme->settings->$fieldname)) {
+                    if (isset($themesettings->$fieldname)) {
                         // Add HTML format.
                         $retval .= \theme_adaptable\toolbox::get_setting($fieldname, 'format_moodle');
                     }
@@ -2005,16 +2184,17 @@ trait core_renderer_toolbox {
     }
 
     /**
-     * Currently not called, but will leave for reference!
+     * Renders the context header for the page.
      *
-     * @param array $headerinfo Array of things, see parent.
-     * @param int $headinglevel Heading level, see parent.
-     *
-     * @return string Markup.
+     * @param array $headerinfo Heading information.
+     * @param int $headinglevel What 'h' level to make the heading.
+     * @return string A rendered context header.
      */
     public function context_header($headerinfo = null, $headinglevel = 1): string {
-        $headerinfo = [];
-        $headerinfo['heading'] = $this->get_course_title();
+        if (empty($headerinfo)) {
+            $headerinfo = [];
+            $headerinfo['heading'] = $this->get_course_title();
+        }
         return parent::context_header($headerinfo, $headinglevel);
     }
 
@@ -2741,6 +2921,42 @@ trait core_renderer_toolbox {
     protected function theme_switch_links() {
         // We're just going to return nothing and fail nicely, whats the point in bootstrap if not for responsive?
         return '';
+    }
+
+    /**
+     * Get the HTML for blocks in the given region.
+     *
+     * @since Moodle 2.5.1 2.6
+     * @param string $region The region to get HTML for.
+     * @param array $classes Wrapping tag classes.
+     * @param string $tag Wrapping tag.
+     * @param boolean $fakeblocksonly Include fake blocks only.
+     * @return string HTML.
+     */
+    public function blocks($region, $classes = [], $tag = 'aside', $fakeblocksonly = false) {
+        $displayregion = $this->page->apply_theme_region_manipulations($region);
+        $editing = $this->page->user_is_editing();
+        $classes = (array)$classes;
+        $classes[] = 'block-region';
+        $attributes = [
+            'id' => 'block-region-'.preg_replace('#[^a-zA-Z0-9_\-]+#', '-', $displayregion),
+            'class' => join(' ', $classes),
+            'data-blockregion' => $displayregion,
+            'data-droptarget' => '1',
+        ];
+
+        $content = '';
+        if ($editing) {
+            $content = $this->block_region_title($region);
+        }
+
+        if ($this->page->blocks->region_has_content($displayregion, $this)) {
+            $content .= html_writer::tag('h2', get_string('blocks'), ['class' => 'sr-only']) .
+                $this->blocks_for_region($displayregion, $fakeblocksonly);
+        } else {
+            $content .= html_writer::tag('h2', get_string('blocks'), ['class' => 'sr-only']);
+        }
+        return html_writer::tag($tag, $content, $attributes);
     }
 
     /**

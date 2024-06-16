@@ -59,11 +59,11 @@ if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/footer.php');
     include(dirname(__FILE__) . '/settings/frontpage_courses.php');
     include(dirname(__FILE__) . '/settings/frontpage_slider.php');
-    include(dirname(__FILE__) . '/settings/news_ticker.php');
     include(dirname(__FILE__) . '/settings/header.php');
     include(dirname(__FILE__) . '/settings/header_menus.php');
     include(dirname(__FILE__) . '/settings/header_social.php');
     include(dirname(__FILE__) . '/settings/header_user.php');
+    include(dirname(__FILE__) . '/settings/information_blocks.php');
     include(dirname(__FILE__) . '/settings/layout.php');
     include(dirname(__FILE__) . '/settings/layout_responsive.php');
     include(dirname(__FILE__) . '/settings/login.php');
@@ -72,6 +72,7 @@ if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/navbar_mycourses.php');
     include(dirname(__FILE__) . '/settings/navbar_links.php');
     include(dirname(__FILE__) . '/settings/navbar_styles.php');
+    include(dirname(__FILE__) . '/settings/news_ticker.php');
     include(dirname(__FILE__) . '/settings/navbar_tools_menu.php');
     include(dirname(__FILE__) . '/settings/print.php');
     include(dirname(__FILE__) . '/settings/templates.php');

@@ -461,9 +461,17 @@ a.component-expand .badge {
     margin-top: 20px;
 }
 
+.flexibleblocks,
 #marketblocks {
     background-color: [[setting:marketblocksbackgroundcolor]];
     padding-bottom: 10px;
+
+    h3 {
+        font-size: 24px;
+        font-weight: normal;
+        line-height: 48px;
+        margin: 10px auto;
+    }
 }
 
 #marketblocks .internalmarket {
@@ -473,21 +481,34 @@ a.component-expand .badge {
     text-align: center;
 }
 
-.marketimage {
+.marketimage { // Deprecated.
     border: 0;
     display: block;
     width: 100%;
 }
 
-#marketblocks h3 {
-    font-size: 24px;
-    font-weight: normal;
-    line-height: 48px;
-    margin: 10px auto;
-}
-
+.flexiblerow,
 .marketrow {
     margin-top: 20px;
+}
+
+.editing-flexible-blocks,
+.flexible-blocks-overflow {
+    column-gap: 0.25rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+
+    .block {
+        flex: 0 0 calc(25% - 0.5rem);
+        max-width: 25%;
+    }
+}
+
+.flexible-blocks-overflow {
+    margin-right: -15px;
+    margin-left: -15px;
 }
 
 img.emoticon {

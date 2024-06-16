@@ -1,3 +1,27 @@
+Change Log in version 404.1.0 (2024032802) - In development.
+============================================================
+1. Fix header information overridden when set in the context header leading to missing output.
+2. Add 'Information blocks'.  This is designed to be a replacement for the marketing blocks that are
+   now deprecated.  The code that they use has always been problematic and subject to contained file
+   based content being lost on occasion, or rather not lost but misplaced in terms of linkage at times.
+   I've never been able to entirely rectify or resolve the issues.  Therefore instead of reinventing the
+   wheel, I've gone for a block region based solution whereby proven and tested block code is employed.
+   Instead of defining the content in the theme settings, you'll create blocks and place them in the
+   'information' region on the front page.  Of course you'll find all of the other settings in place
+   to control the layout and visiblity as before, on the theme's 'Information blocks' settings tab.
+   When editing you'll see the full block header with each block having the same width to allow easy
+   manipulation, i.e. the layout you set is not applied.  Its only when editing is off that the layout
+   is applied and the block titles removed.  If you see the word 'Overflow' then that means that you have
+   more blocks than you've defined in the layout rows to allow.  Admins will see 'Marketing blocks are
+   deprecated, please migrate to using the Information block region.'.  When editing, block regions will
+   have their name at the top.  In testing with re-ordering the blocks I did find this problematic and
+   could not work out entiry why as the theme code is doing what it should do, the core code is telling
+   the backend via an AJAX call about the reordering, just that after doing so then it seemed that cron
+   had to run for the changes to become permanent.  It is my intention that other settings employing the
+   same code as the marketing blocks will also migrate to this improved solution.
+3. Improve the look of the calendar block controls and fix the next and previous icons.
+4. Improve the layout builder to have new clearer responsive images.
+
 Change Log in version 404.0.2 (2024032801)
 ===========================================
 1. Reduce drawer flicker on page load when the navbar is sticky.

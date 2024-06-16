@@ -69,6 +69,7 @@ $string['configtabtitle'] = 'Settings';
 
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
+$string['region-information'] = 'Information';
 $string['side-post1'] = 'Side bar in footer';
 
 $string['cachedef_adaptablefontawesomeiconmapping'] = 'Caches font awesome icons';
@@ -117,6 +118,8 @@ $string['region-course-bottom-d'] = 'Course page bottom region eight';
 
 $string['orphanedblock'] = '<em>ORPHANED BLOCK - Originally displays in: <strong>{$a}</strong></em>';
 
+$string['skipblock'] = 'Skip block {$a}';
+
 // Settings page headings ******************************************.
 $string['settingsmaincolors'] = 'Main colours';
 $string['settingsheadercolors'] = 'Header colours';
@@ -146,7 +149,6 @@ $string['frontpageblockregionsettings'] = 'Block region builder';
 $string['dashboardblockregionsettings'] = 'Dashboard block region builder';
 $string['coursepageblockregionsettings'] = 'Course page block region builder';
 $string['frontpageblocksettings'] = 'Marketing blocks';
-$string['newstickersettings'] = 'News ticker';
 $string['frontpageslidersettings'] = 'Frontpage slider';
 $string['frontpagecoursesettings'] = 'Frontpage courses list';
 $string['frontpagesettingsheading'] = 'Frontpage rendering';
@@ -157,10 +159,12 @@ $string['frontpagerendereroption1'] = 'Tiles';
 $string['frontpagerendereroption2'] = 'Tiles w/ overlay';
 $string['frontpagerendereroption3'] = 'Moodle default';
 $string['frontpagerendereroption4'] = 'Coventry tiles';
+$string['informationblocksettings'] = 'Information blocks';
+$string['newstickersettings'] = 'News ticker';
 
 // Information.
 $string['settingsinformation'] = 'Information';
-$string['themesupport'] = 'Support';
+$string['themesupportsponsorship'] = 'Support and sponsorship';
 $string['themechanges'] = 'Changes';
 $string['themereadme'] = 'Readme';
 
@@ -338,6 +342,27 @@ $string['layoutcount2'] = ' block regions. You are currently using: ';
 
 $string['sidebaricon'] = 'Show / hide the sidebar';
 
+// Flexible blocks.
+$string['flexibleblocksoverflow'] = 'Overflow';
+
+// Information Blocks.
+$string['informationsettingsheading'] = 'Customize the information block region that appears on the front page.';
+$string['informationsettingsdesc'] = 'There is a layout builder allowing you to decide how many blocks you need and define your own layout.<br>Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
+
+$string['informationblocksenabled'] = 'Enable information blocks';
+$string['informationblocksenableddesc'] = 'Set the information blocks in the frontpage.';
+$string['informationblocksvisible'] = 'Show the information blocks when';
+$string['informationblocksvisibledesc'] = 'Show the information blocks when \'Logged out\', \'Logged in\' or \'Logged in or out\'.';
+$string['informationblocksvisibleloggedout'] = 'Logged out';
+$string['informationblocksvisibleloggedin'] = 'Logged in';
+$string['informationblocksvisibleloggedinout'] = 'Logged in or out';
+
+$string['informationblocksbuilderheading'] = 'Information block layout builder';
+$string['informationblocksbuilderdesc'] = 'Use the tool below to setup your information blocks.  Once defined the blocks will follow the layout when editing is off.';
+
+$string['informationblockslayoutrow'] = 'Information block row';
+$string['informationblockslayoutrowdesc'] = 'Add / set the layout for this information block row on front page.';
+
 // Marketing Blocks & Info Box.
 $string['marketingsettings'] = 'Marketing blocks';
 $string['marketingsettingsheading'] = 'Customize the marketing blocks that appear on the front page.';
@@ -349,7 +374,7 @@ $string['marketingvisibleloggedout'] = 'Logged out';
 $string['marketingvisibleloggedin'] = 'Logged in';
 $string['marketingvisibleloggedinout'] = 'Logged in or out';
 
-$string['marketingbuilderheading'] = 'Marketing block layout builder';
+$string['marketingbuilderheading'] = 'Marketing block layout builder - deprecated, please transition to using the Information block region';
 $string['marketingbuilderdesc'] = 'Use the tool below to setup your marketing blocks. Once defined the block settings will appear further down the page.';
 
 $string['marketlayoutrow'] = 'Marketing block row';
@@ -362,6 +387,8 @@ $string['layoutaddcontent'] = 'Happy with your layout?  Now add content to your 
 $string['layoutaddcontentdesc1'] = 'You have configured ';
 $string['layoutaddcontentdesc2'] = ' marketing blocks. If you are happy with this layout add content to the blocks below.<br>If you are not happy use the layout builder above to make changes.';
 
+$string['marketingdeprecated'] = 'Marketing blocks are deprecated, please migrate to using the Information block region.';
+
 $string['infobox'] = 'Frontpage info box';
 $string['infoboxdesc'] = 'Frontpage info block HTML.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.<br><strong>Note: </strong><i>This element is only used for compatibility with BCU and will be removed in coming versions.</i>';
 
@@ -371,7 +398,7 @@ $string['infoboxfullscreendesc'] = 'Turning this option on will make the infobox
 $string['infobox2'] = 'Frontpage secondary info box';
 $string['infobox2desc'] = 'Frontpage secondary info box.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.<br><strong>Note: </strong><i>This element is only used for compatibility with BCU and will be removed in coming versions.</i>';
 
-$string['frontpagemarketenabled'] = 'Enable marketing blocks';
+$string['frontpagemarketenabled'] = 'Enable marketing blocks - deprecated, please transition to using the Information block region';
 $string['frontpagemarketenableddesc'] = 'Set the marketing blocks in the frontpage.';
 
 $string['frontpagemarketoption'] = 'Choose style for marketing blocks';

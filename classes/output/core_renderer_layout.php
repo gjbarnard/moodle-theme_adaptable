@@ -1202,6 +1202,11 @@ trait core_renderer_layout {
             echo '</div>';
         }
 
+        // If Information Blocks are enabled then let's show them.
+        if (!empty($themesettings->informationblocksenabled)) {
+            echo $this->get_flexible_blocks('information');
+        }
+
         // If Marketing Blocks are enabled then let's show them.
         if (!empty($themesettings->frontpagemarketenabled)) {
             echo $this->get_marketing_blocks();

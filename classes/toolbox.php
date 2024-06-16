@@ -1137,11 +1137,12 @@ class toolbox {
      * @return array of the imgblder and totalblocks.
      */
     public static function admin_settings_layout_builder($settingpage, $adminsettingname, $admindefaults, $adminchoices) {
-        global $CFG, $PAGE;
+        global $OUTPUT;
 
         $totalblocks = 0;
-        $imgpath = $CFG->wwwroot . '/theme/adaptable/pix/layout-builder/';
-        $imgblder = '';
+        $imgblder = '<div class="img-fluid">';
+        $themesettings = self::get_settings();
+
         for ($i = 1; $i <= 5; $i++) {
             $name = 'theme_adaptable/' . $adminsettingname . $i;
             $title = get_string($adminsettingname, 'theme_adaptable');
@@ -1152,22 +1153,23 @@ class toolbox {
 
             $settingname = $adminsettingname . $i;
 
-            if (!isset($PAGE->theme->settings->$settingname)) {
-                $PAGE->theme->settings->$settingname = '0-0-0-0';
+            if (!isset($themesettings->$settingname)) {
+                $themesettings->$settingname = '0-0-0-0';
             }
 
-            if ($PAGE->theme->settings->$settingname != '0-0-0-0') {
-                $imgblder .= '<img src="' . $imgpath . $PAGE->theme->settings->$settingname . '.png' .
-                    '" style="padding-top: 5px">';
+            if ($themesettings->$settingname != '0-0-0-0') {
+                $imgurl = $OUTPUT->image_url('layout-builder/'.$themesettings->$settingname, 'theme_adaptable');
+                $imgblder .= '<img src="' . $imgurl . '" class="mb-1 img-fluid">';
             }
 
-            $vals = explode('-', $PAGE->theme->settings->$settingname);
+            $vals = explode('-', $themesettings->$settingname);
             foreach ($vals as $val) {
                 if ($val > 0) {
                     $totalblocks++;
                 }
             }
         }
+        $imgblder .= '</div>';
 
         return ['imgblder' => $imgblder, 'totalblocks' => $totalblocks];
     }
