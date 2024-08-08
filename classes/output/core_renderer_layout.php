@@ -493,6 +493,7 @@ trait core_renderer_layout {
      */
     protected function courseindexheader() {
         global $CFG;
+        user_preference_allow_ajax_update('drawer-open-index', PARAM_BOOL);
         $courseindex = \theme_adaptable\toolbox::get_setting('courseindexenabled');
 
         if ($courseindex) {
