@@ -70,30 +70,6 @@ class behat_theme_adaptable_behat_navigation extends behat_navigation {
     }
 
     /**
-     * Go to current page setting item
-     *
-     * This can be used on front page, course, category or modules pages.
-     *
-     * @Given /^I navigate to "(?P<nodetext_string>(?:[^"]|\\")*)" in current page administration$/
-     *
-     * @throws ExpectationException
-     * @param string $nodetext navigation node to click, may contain path, for example "Reports > Overview"
-     * @return void
-     */
-    public function i_navigate_to_in_current_page_administration($nodetext) {
-        $parentnodes = array_map('trim', explode('>', $nodetext));
-
-        // Find the name of the first category of the administration block tree.
-        $xpath = "//section[contains(@class,'block_settings')]//div[@id='settingsnav']/ul[1]/li[1]/p[1]/span";
-        $node = $this->find('xpath', $xpath);
-
-        array_unshift($parentnodes, $node->getText());
-        $lastnode = array_pop($parentnodes);
-
-        $this->select_node_in_navigation($lastnode, $parentnodes);
-    }
-
-    /**
      * Finds a node in the Navigation or Administration tree and clicks on it.
      *
      * @param string $nodetext
@@ -166,26 +142,5 @@ class behat_theme_adaptable_behat_navigation extends behat_navigation {
         array_unshift($parentnodes, get_string('administrationsite'));
         $lastnode = array_pop($parentnodes);
         $this->select_node_in_navigation($lastnode, $parentnodes);
-    }
-
-    /**
-     * Click on an entry in the user menu.
-     * @Given /^I follow "(?P<nodetext_string>(?:[^"]|\\")*)" in the user menu$/
-     *
-     * @param string $nodetext
-     */
-    public function i_follow_in_the_user_menu($nodetext) {
-        if ($this->running_javascript()) {
-            // The user menu must be expanded when JS is enabled.
-            $xpath = "//a[@id='usermenu']";
-            $this->execute("behat_general::i_click_on", [$this->escape($xpath), "xpath_element"]);
-        }
-        // Now select the link.
-        // The CSS path is always present, with or without JS.
-        $xpath = "//div[@id='usermenu-dropdown']";
-        $this->execute(
-            'behat_general::i_click_on_in_the',
-            [$nodetext, "link", $xpath, "xpath_element"]
-        );
     }
 }
