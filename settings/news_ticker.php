@@ -55,6 +55,42 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
 
+    // Ticker header background colour.
+    $name = 'theme_adaptable/tickerheaderbackgroundcolour';
+    $title = get_string('tickerheaderbackgroundcolour', 'theme_adaptable');
+    $description = get_string('tickerheaderbackgroundcolourdesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#00796b', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Ticker header text colour.
+    $name = 'theme_adaptable/tickerheadertextcolour';
+    $title = get_string('tickerheadertextcolour', 'theme_adaptable');
+    $description = get_string('tickerheadertextcolourdesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#eee', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Ticker container background colour.
+    $name = 'theme_adaptable/tickerconstainerbackgroundcolour';
+    $title = get_string('tickerconstainerbackgroundcolour', 'theme_adaptable');
+    $description = get_string('tickerconstainerbackgroundcolourdesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#009688', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Ticker container text colour.
+    $name = 'theme_adaptable/tickerconstainertextcolour';
+    $title = get_string('tickerconstainertextcolour', 'theme_adaptable');
+    $description = get_string('tickerconstainertextcolourdesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#eee', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     // Ticker Width (fullscreen / fixed width).
     $name = 'theme_adaptable/tickerwidth';
     $title = get_string('tickerwidth', 'theme_adaptable');

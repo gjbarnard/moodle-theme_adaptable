@@ -28,6 +28,7 @@
 namespace theme_adaptable;
 
 use context_system;
+use context_user;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -54,7 +55,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
      * @param array $options file area options.
      * @param int $itemid itemid for file storage.
      */
-    public function __construct($name, $visiblename, $description, $filearea, array $options = null, $itemid = 0) {
+    public function __construct($name, $visiblename, $description, $filearea, ?array $options, $itemid = 0) {
         $this->oldhashes = [];
         $this->owner = null;
         parent::__construct($name, $visiblename, $description, $filearea, $itemid, $options);
@@ -242,6 +243,128 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
             $callbackfunction($this->get_full_name());
         }
         return true;
+    }
+
+    /**
+     * Base 64 encode.
+     */
+    public function base64encode() {
+        global $PAGE, $USER;
+        $component = is_null($this->plugin) ? 'theme_adaptable' : $this->plugin;
+        $itemid = theme_get_revision();
+        $syscontext = context_system::instance();
+
+        $fs = get_file_storage();
+        $files = $fs->get_area_files(
+            $syscontext->id, $component, $this->filearea, 0, 'sortorder,filepath,filename', false);  // Item id could not be 0!
+
+        $settingfiles = [];
+        foreach ($files as $file) {
+            $filename = $file->get_filename();
+            $orginalcreated = $file->get_timecreated();
+            $filecontent = $file->get_content();
+            $base64enc = base64_encode($filecontent);
+
+            $settingarrfile = [
+                'filepath' => $file->get_filepath(),
+                'filename' => $file->get_filename(),
+                'author' => $file->get_author(),
+                'license' => $file->get_license(),
+                'timecreated' => $file->get_timecreated(),
+                'timemodified' => $file->get_timemodified(),
+                'mimetype' => $file->get_mimetype(),
+                'content' => $base64enc,
+            ];
+            $settingfilejson = json_encode($settingarrfile, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS);
+            $settingfileent = htmlentities($settingfilejson, ENT_COMPAT);
+            $settingfiles[] = $settingfileent;
+        }
+
+        $settingfilesjson = json_encode($settingfiles, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS);
+        $settingarr = [$this->filearea => $settingfilesjson];
+        $settingarrjson = json_encode($settingarr, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS);
+
+        return $settingarrjson;
+    }
+
+    /**
+     * Base 64 decode.
+     */
+    public function base64decode($settingarrjson) {
+        global $USER;
+        $component = is_null($this->plugin) ? 'theme_adaptable' : $this->plugin;
+        $syscontext = context_system::instance();
+
+        $settingarrjsondec = json_decode($settingarrjson, true);
+        $settingarrdec = $settingarrjsondec[$this->filearea];
+
+        $settingsfilesjsondec = json_decode($settingarrdec, true);
+
+        $fs = get_file_storage();
+        $draftfiles = [];
+        foreach ($settingsfilesjsondec as $settingsfilejsondec) {
+            $settingfileentdec = html_entity_decode($settingsfilejsondec, ENT_COMPAT);
+            $settingfilejsondec = json_decode($settingfileentdec, true);
+
+            $base64dec = base64_decode($settingfilejsondec['content']);
+            $filerecord = [
+                'contextid' => context_user::instance($USER->id)->id,
+                'component' => 'user',
+                'filearea' => 'draft',
+                'itemid' => file_get_unused_draft_itemid(),
+                'filepath' => '/',
+                'filename' => $settingfilejsondec['filename'],
+                // Don't use userid as could be different!
+                'author' => $settingfilejsondec['author'],
+                'license' => $settingfilejsondec['license'],
+                'timecreated' => time(),
+                'timemodified' => time(),
+                'mimetype' => $settingfilejsondec['mimetype'],
+            ];
+            $draftfiles[] = $fs->create_file_from_string($filerecord, $base64dec); // Draft.
+        }
+
+        // Got this far with all the draft files created...
+        $files = $fs->get_area_files(
+            $syscontext->id, $component, $this->filearea, 0, 'sortorder,filepath,filename', false);  // Item id could not be 0!
+        foreach ($files as $file) {
+            if (!empty($file)) {
+                $file->delete();
+            }
+        }
+
+        foreach ($draftfiles as $draftfile) {
+            $filerecord = [
+                'contextid' => $syscontext->id,
+                'component' => $component,
+                'filearea' => $this->filearea,
+                'itemid' => '0',
+                'filepath' => $draftfile->get_filepath(),
+                'filename' => $draftfile->get_filename(),
+                'author' => $draftfile->get_author(),
+                'license' => $draftfile->get_license(),
+                'timecreated' => $draftfile->get_timecreated(),
+                'timemodified' => $draftfile->get_timemodified(),
+                'mimetype' => $draftfile->get_mimetype(),
+            ];
+            $settingfile = $fs->create_file_from_string($filerecord, $draftfile->get_content()); // Replacement.
+
+            $draftfile->delete(); // Finished with draft.
+        }
+
+        $files = $fs->get_area_files(
+            $syscontext->id, $component, $this->filearea, 0, 'sortorder,filepath,filename', false);  // Item id could not be 0!
+        $filepath = '';
+        if ($files) {
+            /** @var stored_file $file */
+            $file = reset($files);
+            $filepath = $file->get_filepath().$file->get_filename();
+        }
+        $result = ($this->config_write($this->filearea, $filepath) ? '' : get_string('errorsetting', 'admin'));
+        $callbackfunction = $this->updatedcallback;
+        if (!empty($callbackfunction) && is_callable($callbackfunction)) {
+            $callbackfunction($this->get_full_name());
+        }
     }
 
     // Adapted from theme_config class.

@@ -23,9 +23,10 @@
 //
 
 .navbar .popover-region-container {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 5px 5px 15px 1px #000;
+    background-color: $body-bg;
+    border: 1px solid $body-color; // Possibly make a setting!
+    box-shadow: 5px 5px 15px 1px $body-color;
+    color: $body-color;
     height: 500px;
     opacity: 1;
     position: absolute;

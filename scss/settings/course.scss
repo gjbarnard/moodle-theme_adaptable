@@ -455,6 +455,7 @@ body:not(.editing) .sitetopic ul.section,
 .format-onetopic .onetopic {
     .tab_content {
         background-color: [[setting:regionmaincolor]];
+        color: [[setting:regionmaintextcolor]];
     }
 
     .nav-tabs {

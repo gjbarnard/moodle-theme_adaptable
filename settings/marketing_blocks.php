@@ -92,17 +92,18 @@ if ($ADMIN->fulltree) {
     ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = \theme_adaptable\toolbox::admin_settings_layout_builder(
         $page,
         'marketlayoutrow',
+        5,
         $marketingfooterbuilderdefaults,
         $bootstrap12
     );
 
     $page->add(new admin_setting_heading(
-        'theme_adaptable_blocklayoutcheck',
+        'theme_adaptable_marketingblocklayoutcheck',
         get_string('layoutcheck', 'theme_adaptable'),
         format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
     ));
 
-    $page->add(new admin_setting_heading('theme_adaptable_layoutbuilder', '', $imgblder));
+    $page->add(new admin_setting_heading('theme_adaptable_marketinglayoutbuilder', '', $imgblder));
 
     $blkcontmsg = get_string('layoutaddcontentdesc1', 'theme_adaptable');
     $blkcontmsg .= $totalblocks;

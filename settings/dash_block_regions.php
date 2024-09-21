@@ -53,16 +53,17 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Dashboard block region builder.
-    $noregions = 20; // Number of block regions defined in config.php.
+    $noregions = 20; // // Number of block regions defined in config.php - frnt-market- etc.
     ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = \theme_adaptable\toolbox::admin_settings_layout_builder(
         $page,
         'dashblocklayoutlayoutrow',
+        5,
         $bootstrap12defaults,
         $bootstrap12
     );
 
     $page->add(new admin_setting_heading(
-        'theme_adaptable_blocklayoutcheck',
+        'theme_adaptable_dashblocklayoutcheck',
         get_string('layoutcheck', 'theme_adaptable'),
         format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
     ));

@@ -249,6 +249,7 @@ if ($ADMIN->fulltree) {
 
     $bootstrap12defaults = ['3-3-3-3', '4-4-4-0', '3-3-3-3', '0-0-0-0', '0-0-0-0'];
 
+    $footerblocksbuilderdefaults = ['3-3-3-3', '0-0-0-0', '0-0-0-0'];
     $informationblocksbuilderdefaults = ['3-3-3-3', '0-0-0-0', '0-0-0-0', '0-0-0-0', '0-0-0-0'];
     $marketingfooterbuilderdefaults = ['3-3-3-3', '0-0-0-0', '0-0-0-0', '0-0-0-0', '0-0-0-0'];
 

@@ -259,14 +259,10 @@
         overflow: inherit;
         padding: 10px 10px 10px;
         white-space: normal;
-    }
 
-    #ticker-wrap #newscontent #news {
-        white-space: normal;
-    }
-
-    #ticker-wrap #controls {
-        display: none;
+        #news {
+            white-space: normal;
+        }
     }
 
     .slidestyle2 .flex-caption {

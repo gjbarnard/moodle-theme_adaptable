@@ -13,15 +13,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Adaptable theme.
- *
- * @module     theme_adaptable/icon_system_fontawesome
- * @copyright  2023 G J Barnard
- *               {@link https://moodle.org/user/profile.php?id=442195}
- *               {@link https://gjbarnard.co.uk}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
- */
+//
+// Adaptable theme.
+//
+// @module     theme_adaptable/icon_system_fontawesome
+// @copyright  2023 G J Barnard
+//               {@link https://moodle.org/user/profile.php?id=442195}
+//               {@link https://gjbarnard.co.uk}
+// @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+//
 
 define(['core/icon_system', 'jquery', 'core/ajax', 'core/mustache', 'core/localstorage', 'core/url'],
 function(IconSystem, $, Ajax, Mustache, LocalStorage, Url) {

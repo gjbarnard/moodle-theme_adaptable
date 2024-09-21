@@ -23,6 +23,29 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
+#header2 {
+    background-color: transparent;
+    border-bottom: none;
+    clear: both;
+    margin-bottom: 0;
+    min-height: [[setting:pageheaderheight]];
+
+    // Override default boost max height for header2.
+    .navbar {
+        max-height: 150px;
+    }
+
+    .row {
+        margin: 0 0 0 -15px;
+        min-height: [[setting:pageheaderheight]];
+    }
+}
+
+#adaptable-page-header-wrapper #header2 i,
+#adaptable-page-header-wrapper #page-header i {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.10);
+}
+
 .headerbgimage {
     color: [[setting:headerbgimagetextcolour]];
 
@@ -37,5 +60,40 @@
     #headertitle h5,
     #headertitle h6 {
         color: [[setting:headerbgimagetextcolour]];
+    }
+}
+
+// Header.
+#adaptable-page-header-wrapper {
+    background-color: [[setting:headerbkcolor2]];
+    color: [[setting:headertextcolor2]];
+    z-index: 10;
+
+    &.sticky {
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: $zindex-sticky;
+    }
+
+    // Lists.
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus,
+    .dropdown-submenu:hover > a,
+    .dropdown-submenu:focus > a {
+        background-image: none;
+    }
+}
+
+#page-header {
+    background-color: transparent;
+    border-bottom: none;
+    clear: both;
+    margin-bottom: 0;
+    padding-top: 0;
+
+    > div:first-of-type {
+        min-height: [[setting:pageheaderheight]];
     }
 }

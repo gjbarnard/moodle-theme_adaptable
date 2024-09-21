@@ -379,13 +379,17 @@
     margin-bottom: 0;
 }
 
-#adaptable-page-header-wrapper .navbar .popover-region-toggle {
-    color: inherit;
-    width: inherit;
-}
-
-#adaptable-page-header-wrapper .navbar .popover-region {
-    margin: 0 0 0 4px;
+#adaptable-page-header-wrapper .navbar {
+    .popover-region-toggle {
+        color: inherit;
+        width: inherit;
+    }
+    .popover-region {
+        margin: 0 0 0 4px;
+        .icon {
+            font-weight: 900; // https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight - override 'bolder' when body has <= 300 weight.
+        }
+    }
 }
 
 .navbar-light .navbar-nav .nav-link {
