@@ -22,6 +22,61 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
-.path-backup .wibbler {
-    width: auto;
+// Course restore - TODO - check if prefixed with path-backup.
+.detail-pair-label,
+.detail-pair-value {
+    font-size: 1rem !important;
+}
+
+.path-backup {
+    .backup_progress {
+        padding: 7px 5px;
+        border-radius: 8px;
+        background-color: #f5f5f5;
+    }
+
+    .backup-section {
+        .header {
+            margin-bottom: 20px;
+        }
+        .ics-results {
+            margin-top: 15px;
+        }
+     }
+
+    .detail-pair {
+        .detail-pair-label {
+            width: 20%;
+        }
+        .detail-pair-value input[type="submit"] {
+            margin: 0;
+        }
+    }
+
+    .detail-pair-value .ics-search input[type="submit"],
+    .detail-pair .detail-pair-value input[type="submit"] {
+        margin: 10px 0 0;
+    }
+
+    .form-check .icon-post {
+        margin-left: .5rem;
+    }
+
+    .form-group {
+        margin-bottom: 0;
+    }
+
+    .mform {
+        .grouped_settings.section_level {
+            padding: 10px 0 0 10px;
+        }
+        .root_setting:nth-of-type(odd),
+        .grouped_settings:nth-of-type(odd) {
+            background-color: transparent;
+        }
+    }
+
+    .wibbler {
+        width: auto;
+    }
 }

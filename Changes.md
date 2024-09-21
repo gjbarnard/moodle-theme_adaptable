@@ -1,3 +1,38 @@
+Change Log in version 401.1.14 (2022112315)
+===========================================
+1. Yes, I can be superstitious at times.
+2. Only show secondary navigation if there is something to show.
+3. Refactored 'buttonfocuscolor' and 'buttonfocuscoloropacity' to be 'inputbuttonfocuscolour' and 'inputbuttonfocuscolouropacity'
+   respectively as they really relate to the box shadow when focusing on an 'input' button.
+4. Created 'buttonfocuscolour' and 'buttontextfocuscolor' to apply a background and text colour on focused buttons.
+5. Flex Slider upgraded to 2.7.2.
+6. Pace updated to 1.2.4.
+7. AMD'ify Tickerme.
+8. AMD'ify jquery.easing.
+9. Removed outdated method of jQuery plugin usage.
+10. Moved ticker JS to sponsors only.
+11. Added 'enablesavecanceloverlayresetconfirm' string for save settings cancellation reset warning.
+12. Fix sticky header margin.
+13. Fix course index user preference.
+14. Added 'regionmaintextcolor' and other small fixes.
+15. Added 'primarycolour' and 'secondarycolour', to control the respective Bootstrap colours as used in the SCSS in general.
+16. Added the ability to set text and background colours on the Ticker.
+17. Moved 'fontcolor' to 'Colours' tab and fix button colours.
+18. Dialog and tab tidy.
+19. Ticker style back to what it was.
+20. Fix collapsed information blocks not showing.
+21. Remove 'docked' styles.
+22. Fix 'Flexible blocks are too big on small screens'.
+23. Add name and description back to user profile page.
+24. Fix theme selector buttons.
+25. Tidy frontpage layout.
+26. Fix backup 'Return to course button'.
+27. Add file settings to import / export of settings.
+28. Fix unread notification text colour.
+29. Fix notification icons not showing when body font weight is <= 300.
+30. Update theme version of FontAwesome free to 6.6.0 from 6.4.2.
+31. Increase tooltip font size to .9rem.
+
 Change Log in version 401.1.12 (2022112314)
 ===========================================
 1. Fix 'itemid' not being regenerated for 'customjsfiles'.

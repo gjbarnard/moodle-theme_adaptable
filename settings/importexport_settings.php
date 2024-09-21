@@ -28,13 +28,6 @@ defined('MOODLE_INTERNAL') || die;
 
 $page = new \theme_adaptable\admin_settingspage('theme_adaptable_importexport', get_string('properties', 'theme_adaptable'));
 if ($ADMIN->fulltree) {
-    if (file_exists("{$CFG->dirroot}/theme/adaptable/settings/adaptable_admin_setting_getprops.php")) {
-        require_once($CFG->dirroot . '/theme/adaptable/settings/adaptable_admin_setting_getprops.php');
-        require_once($CFG->dirroot . '/theme/adaptable/settings/adaptable_admin_setting_putprops.php');
-    } else if (!empty($CFG->themedir) && file_exists("{$CFG->themedir}/adaptable/settings/adaptable_admin_setting_getprops.php")) {
-        require_once($CFG->themedir . '/adaptable/settings/adaptable_admin_setting_getprops.php');
-        require_once($CFG->themedir . '/adaptable/settings/adaptable_admin_setting_putprops.php');
-    }
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_importexport',
@@ -42,18 +35,26 @@ if ($ADMIN->fulltree) {
         format_text(get_string('propertiesdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
     ));
 
-    $adaptableexportprops = optional_param('theme_adaptable_getprops_saveprops', 0, PARAM_INT);
-    $adaptableprops = \theme_adaptable\toolbox::compile_properties('adaptable');
-    $page->add(new adaptable_admin_setting_getprops(
-        'theme_adaptable_getprops',
+    $page->add(new \theme_adaptable\admin_setting_getprops(
+        'theme_adaptable/getprops',
         get_string('propertiesproperty', 'theme_adaptable'),
         get_string('propertiesvalue', 'theme_adaptable'),
-        $adaptableprops,
+        'theme_adaptable',
         'theme_adaptable_importexport',
         get_string('propertiesreturn', 'theme_adaptable'),
         get_string('propertiesexport', 'theme_adaptable'),
-        $adaptableexportprops
+        get_string('propertiesexportfilestoo', 'theme_adaptable'),
+        get_string('propertiesexportfilestoofile', 'theme_adaptable')
     ));
+
+    $name = 'theme_adaptable/propertyfiles';
+    $title = get_string('propertyfiles', 'theme_adaptable');
+    $description = get_string('propertyfilesdesc', 'theme_adaptable');
+    $setting = new \theme_adaptable\admin_setting_configstoredfiles(
+        $name, $title, $description, 'propertyfiles',
+        ['accepted_types' => '*.json', 'maxfiles' => 8]
+    );
+    $page->add($setting);
 
     // Import theme settings section (put properties).
     $name = 'theme_adaptable/theme_adaptable_putprops_import_heading';
@@ -61,14 +62,30 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_heading($name, $heading, '');
     $page->add($setting);
 
-    $setting = new adaptable_admin_setting_putprops(
-        'theme_adaptable_putprops',
+    $fileputpropssetting = new \theme_adaptable\admin_setting_configstoredfile_putprops(
+        'theme_adaptable/fileputprops',
+        get_string('putpropertiesfilename', 'theme_adaptable'),
+        get_string('putpropertiesfiledesc', 'theme_adaptable'),
+        'fileputprops',
+        'Adaptable',
+        'theme_adaptable',
+        '\theme_adaptable\toolbox::put_properties',
+        'putprops',
+        ['accepted_types' => '*.json', 'maxfiles' => 1]
+    );
+    $fileputpropssetting->set_updatedcallback('purge_all_caches');
+    $page->add($fileputpropssetting);
+
+    $setting = new \theme_adaptable\admin_setting_putprops(
+        'theme_adaptable/putprops',
         get_string('putpropertiesname', 'theme_adaptable'),
         get_string('putpropertiesdesc', 'theme_adaptable'),
-        'adaptable',
+        'Adaptable',
+        'theme_adaptable',
         '\theme_adaptable\toolbox::put_properties'
     );
     $setting->set_updatedcallback('purge_all_caches');
+    $fileputpropssetting->set_admin_setting_putprops($setting);
     $page->add($setting);
 }
 $ADMIN->add('theme_adaptable', $page);

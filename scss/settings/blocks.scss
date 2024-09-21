@@ -75,11 +75,11 @@
 }
 
 .block .header .block_action .block-hider-show,
-.jsenabled .block.hidden .content {
+.jsenabled .block-region:not(#block-region-information) .block.hidden .content {
     display: none;
 }
 
-.jsenabled .block.hidden .content {
+.jsenabled .block-region:not(#block-region-information) .block.hidden .content {
     opacity: 0;
 }
 
@@ -95,8 +95,7 @@
 
 // Block titles.
 .block .header,
-.block > .card-body,
-#dockeditempanel .dockeditempanel_hd {
+.block > .card-body {
     border-width: [[setting:blockheaderbordertop]] [[setting:blockheaderborderright]] [[setting:blockheaderborderbottom]] [[setting:blockheaderborderleft]];
     border-color: [[setting:blockbordercolor]];
     border-style: [[setting:blockheaderbordertopstyle]];
@@ -119,6 +118,16 @@
     }
 }
 
+#block-region-information {
+    .block {
+        .header {
+            .block-action {
+                display: none;
+            }
+        }
+    }
+}
+
 // Block title.
 .block .title h2 {
     color: [[setting:fontblockheadercolor]];
@@ -130,18 +139,13 @@
 }
 
 // Block content.
-.block > .content,
-#dockeditempanel .dockeditempanel_bd {
+.block > .content {
     border-color: [[setting:blockbordercolor]];
     border-radius: [[setting:blockmaintopradius]] [[setting:blockmaintopradius]] [[setting:blockmainbottomradius]] [[setting:blockmainbottomradius]];
     border-style: [[setting:blockmainbordertopstyle]];
     border-width: [[setting:blockmainbordertop]] [[setting:blockmainborderright]] [[setting:blockmainborderbottom]] [[setting:blockmainborderleft]];
     font-weight: normal;
     padding: 10px 5px;
-}
-
-#dockeditempanel .dockeditempanel_bd  {
-    margin-left: 5px;
 }
 
 .block-region-front .block .content {
@@ -590,40 +594,39 @@ body.has_dock div#dock {
 // Tabbed layout for course and dashboard.
 
 main.tabcontentcontainer {
-  min-height: 400px;
-  padding: 0;
-  background: #fff;
-  margin: 5px 0;
+    margin: 5px 0;
+    min-height: 400px;
+    padding: 0;
 }
 
 #dashboardtabcontainer section.adaptable-tab-section {
-  display: none;
-  padding: 20px 0 0;
-  border-top: 4px solid [[setting:tabbedlayoutdashboardcolorselected]];
+    border-top: 4px solid [[setting:tabbedlayoutdashboardcolorselected]];
+    display: none;
+    padding: 20px 0 0;
 }
 
 #coursetabcontainer section.adaptable-tab-section {
-  display: none;
-  padding: 20px 0 0;
-  border-top: 4px solid [[setting:tabbedlayoutcoursepagetabcolorselected]];
+    border-top: 4px solid [[setting:tabbedlayoutcoursepagetabcolorselected]];
+    display: none;
+    padding: 20px 0 0;
 }
 
 #dashboardtabcontainer input.dashboardtab,
 #coursetabcontainer input.coursetab {
-  display: none;
+    display: none;
 }
 
 .tabcontentcontainer div.linktab,
 .tabcontentcontainer label.dashboardtab,
 .tabcontentcontainer label.coursetab {
-  position: relative;
-  display: inline-block;
-  padding: 15px 15px 25px;
-  margin: 0 4px 0 0;
-  border-bottom: 0;
-  cursor: pointer;
-  font-weight: 400;
-  transition: background-color 0.2s ease;
+    border-bottom: 0;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    padding: 15px 15px 25px;
+    position: relative;
+    margin: 0 4px 0 0;
+    transition: background-color 0.2s ease;
 }
 
 .tabcontentcontainer label.dashboardtab {

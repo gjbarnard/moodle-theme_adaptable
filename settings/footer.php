@@ -60,44 +60,30 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, 1);
     $page->add($setting);
 
-    $totalblocks = 0;
-    $imgpath = $CFG->wwwroot . '/theme/adaptable/pix/layout-builder/';
-    $imgblder = '';
-    for ($i = 1; $i <= 3; $i++) {
-        $name = 'theme_adaptable/footerlayoutrow' . $i;
-        $title = get_string('footerlayoutrow', 'theme_adaptable');
-        $description = get_string('footerlayoutrowdesc', 'theme_adaptable');
-        $default = $i - 1;
-        $choices = $bootstrap12;
-        $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-        $page->add($setting);
-
-        $settingname = 'footerlayoutrow' . $i;
-
-        $footersetting = get_config('theme_adaptable', $settingname);
-        if (!isset($footersetting)) {
-            $footersetting = '0-0-0-0';
-        }
-
-        if ($footersetting != '0-0-0-0') {
-            $imgblder .= '<img src="' . $imgpath . $footersetting . '.png" style="padding-top: 5px">';
-        }
-
-        $vals = explode('-', $footersetting);
-        foreach ($vals as $val) {
-            if ($val > 0) {
-                $totalblocks++;
-            }
-        }
-    }
-
     $page->add(new admin_setting_heading(
-        'theme_adaptable_footerlayoutcheck',
-        get_string('layoutcheck', 'theme_adaptable'),
-        format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+        'theme_adaptable_footerbuilder',
+        get_string('footerbuilderheading', 'theme_adaptable'),
+        format_text(get_string('footerbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
     ));
 
-    $page->add(new admin_setting_heading('theme_adaptable_footerlayoutbuilder', '', $imgblder));
+    // Footer block region builder.
+    ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = \theme_adaptable\toolbox::admin_settings_layout_builder(
+        $page,
+        'footerlayoutrow',
+        3,
+        $footerblocksbuilderdefaults,
+        $bootstrap12
+    );
+
+    if ($totalblocks > 0) {
+        $page->add(new admin_setting_heading(
+            'theme_adaptable_footerlayoutcheck',
+            get_string('layoutcheck', 'theme_adaptable'),
+            format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+        ));
+
+        $page->add(new admin_setting_heading('theme_adaptable_footerlayoutbuilder', '', $imgblder));
+    }
 
     $blkcontmsg = get_string('layoutaddcontentdesc1', 'theme_adaptable');
     $blkcontmsg .= $totalblocks;

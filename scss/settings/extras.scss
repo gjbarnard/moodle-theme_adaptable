@@ -26,12 +26,13 @@
 //
 
 #back-to-top {
-    background-color: #000;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: [[setting:regionmaincolorrgba]];
+    border: 1px solid [[setting:linkcolorrgba]];
     border-radius: 5px;
-    box-shadow: 0 0 1px #fff;
-    color: #fff;
+    color: [[setting:linkcolorrgba]];
+    cursor: pointer;
     display: none;
+    font-size: 1.1em;
     padding: 5px 12px;
     position: fixed;
     right: 3px;
@@ -40,11 +41,16 @@
     text-transform: uppercase;
     top: 85%;
     transition: all 0.3s ease 0s;
-    font-size: 1.1em;
-    cursor: pointer;
-}
-#back-to-top:hover .fa {
-    color: [[setting:linkhover]];
+
+    &:hover {
+        border-color: [[setting:linkhoverrgba]];
+        box-shadow: 0 0 4px [[setting:linkhoverrgba]];
+        color: [[setting:linkhoverrgba]];
+    }
+
+    #page.show-drawer-right & {
+        right: $drawer-right-width + 14px;
+    }
 }
 
 .singleselect {
@@ -155,6 +161,7 @@ ul.teachers {
 .msg-title,
 .msg-sender,
 .msg-time {
+    background-color: [[setting:maincolor]];
     color: [[setting:fontcolor]];
 }
 
@@ -195,10 +202,8 @@ ul.teachers {
 }
 
 .messaging-area-container .messaging-area .messages-area .messages .blocktime {
-    color: [[setting:maincolor]];
     font-weight: bold;
     font-size: 16px;
-    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 4px;
 }
 
@@ -568,8 +573,8 @@ ul.teachers {
 #page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect select.singleselect[disabled],
 #page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect select.singleselect[readonly],
 fieldset[disabled] #page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect select.singleselect {
-    cursor: not-allowed;
     background-color: #eee;
+    cursor: not-allowed;
     opacity: 1;
 }
 
@@ -721,7 +726,8 @@ textarea#page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscu
 }
 
 #ticker-wrap {
-    background: #eee;
+    background-color: [[setting:tickerconstainerbackgroundcolour]];
+    color: [[setting:tickerconstainertextcolour]];
     line-height: 40px;
     margin-bottom: 15px;
     margin-top: 15px;
@@ -729,13 +735,10 @@ textarea#page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscu
     [[setting:tickerwidth]]
 }
 
-#page-site-index #ticker-wrap {
-    display: block;
-}
-
 #ticker-announce {
-    background-color: [[setting:maincolor]];
-    color: #eee;
+    background-color: [[setting:tickerheaderbackgroundcolour]];
+    color: [[setting:tickerheadertextcolour]];
+    float: left;
     font-weight: 600;
     margin-right: 15px;
     margin-left: -15px;
@@ -747,8 +750,13 @@ textarea#page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscu
     padding-right: 15px;
 }
 
+#play_trigger a,
+#pause_trigger a,
 #ticker-wrap #controls .fa {
-    color: [[setting:maincolor]];
+    color: [[setting:tickerconstainertextcolour]];
+}
+
+#ticker-wrap #controls .fa {
     cursor: pointer;
     margin-top: 10px;
 }
@@ -764,10 +772,6 @@ textarea#page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscu
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-#play_trigger a, #pause_trigger a {
-    color: [[setting:maincolor]] !important;
 }
 
 // Slider.
@@ -832,9 +836,9 @@ html[xmlns] .slides {
     display: block;
 }
 
-// FlexSlider Default Theme.
+// FlexSlider Default Theme - adjusted.
 .flexslider {
-    background: #fff;
+    background: transparent;
     margin: 0;
     position: relative;
     zoom: 1;
@@ -852,9 +856,11 @@ html[xmlns] .slides {
     -moz-transition: all 1s ease;
     transition: all 1s ease;
 }
+
 .loading .flex-viewport {
     max-height: 300px;
 }
+
 .flexslider .slides {
     zoom: 1;
 }
@@ -869,8 +875,8 @@ html[xmlns] .slides {
     position: absolute;
     text-indent: -9999px;
     top: 50%;
+    transition: all .3s ease;
     width: 30px;
-    -webkit-transition: all .3s ease;
 }
 
 .flex-direction-nav .flex-next {
@@ -928,7 +934,7 @@ html[xmlns] .slides {
     display: inline-block;
     margin: 0 4px;
     zoom: 1;
-	*display: inline;
+    *display: inline;
 }
 
 .flex-control-paging li a {

@@ -43,7 +43,7 @@ class behat_theme_adaptable_behat_permissions extends behat_permissions {
     /**
      * Set system level permissions to the specified role.  Expects a table with capability name
      * and permission (Inherit/Allow/Prevent/Prohibit) columns.
-     * @Given /^I set the following system permissions of "(?P<rolefullname_string>(?:[^"]|\\")*)" role:$/
+     * @override /^I set the following system permissions of "(?P<rolefullname_string>(?:[^"]|\\")*)" role:$/
      * @param string $rolename
      * @param TableNode $table
      */

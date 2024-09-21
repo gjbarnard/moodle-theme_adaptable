@@ -46,7 +46,15 @@ if ($ADMIN->fulltree) {
     $title = get_string('maincolor', 'theme_adaptable');
     $description = get_string('maincolordesc', 'theme_adaptable');
     $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#3A454b', $previewconfig);
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#fff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Main Font color.
+    $name = 'theme_adaptable/fontcolor';
+    $title = get_string('fontcolor', 'theme_adaptable');
+    $description = get_string('fontcolordesc', 'theme_adaptable');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#333333', null);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
@@ -55,7 +63,25 @@ if ($ADMIN->fulltree) {
     $title = get_string('backcolor', 'theme_adaptable');
     $description = get_string('backcolordesc', 'theme_adaptable');
     $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#FFF', $previewconfig);
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#fff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Site primary colour.
+    $name = 'theme_adaptable/primarycolour';
+    $title = get_string('primarycolour', 'theme_adaptable');
+    $description = get_string('primarycolourdesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#00796b', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Site secondary colour.
+    $name = 'theme_adaptable/secondarycolour';
+    $title = get_string('secondarycolour', 'theme_adaptable');
+    $description = get_string('secondarycolourdesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#009688', $previewconfig);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
@@ -64,7 +90,16 @@ if ($ADMIN->fulltree) {
     $title = get_string('regionmaincolor', 'theme_adaptable');
     $description = get_string('regionmaincolordesc', 'theme_adaptable');
     $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#FFF', $previewconfig);
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#fff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Main region text color.
+    $name = 'theme_adaptable/regionmaintextcolor';
+    $title = get_string('regionmaintextcolor', 'theme_adaptable');
+    $description = get_string('regionmaintextcolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#000', $previewconfig);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 

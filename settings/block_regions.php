@@ -49,12 +49,13 @@ if ($ADMIN->fulltree) {
     ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = \theme_adaptable\toolbox::admin_settings_layout_builder(
         $page,
         'blocklayoutlayoutrow',
+        5,
         $bootstrap12defaults,
         $bootstrap12
     );
 
     $page->add(new admin_setting_heading(
-        'theme_adaptable_blocklayoutcheck',
+        'theme_adaptable_blockslayoutcheck',
         get_string('layoutcheck', 'theme_adaptable'),
         format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
     ));
@@ -67,9 +68,9 @@ if ($ADMIN->fulltree) {
     $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
     $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong>.';
 
-    $page->add(new admin_setting_heading('theme_adaptable_layoutblockscount', '', $mktcountmsg));
+    $page->add(new admin_setting_heading('theme_adaptable_blockslayoutblockscount', '', $mktcountmsg));
 
-    $page->add(new admin_setting_heading('theme_adaptable_layoutbuilder', '', $imgblder));
+    $page->add(new admin_setting_heading('theme_adaptable_blockslayoutbuilder', '', $imgblder));
 
     $asettings->add($page);
 }

@@ -70,7 +70,10 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/frontpagerendererdefaultimage';
     $title = get_string('frontpagerendererdefaultimage', 'theme_adaptable');
     $description = get_string('frontpagerendererdefaultimagedesc', 'theme_adaptable');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'frontpagerendererdefaultimage');
+    $setting = new \theme_adaptable\admin_setting_configstoredfiles(
+        $name, $title, $description, 'frontpagerendererdefaultimage',
+        ['accepted_types' => '*.jpg,*.jpeg,*.jfif,*.png', 'maxfiles' => 1]
+    );
     $page->add($setting);
 
     // Show course contacts.

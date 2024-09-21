@@ -47,6 +47,22 @@ class toolbox {
     private static $localinstance = null;
 
     /**
+     * @var string Props.
+     */
+    public const PROPS = 'props';
+
+    /**
+     * @var string File Prop Names.
+     */
+    public const FILEPROPNAMES = 'filepropnames';
+
+    /**
+     * @var array File Property Names - using 'theme_adaptable_pluginfile' in lib.php as a reference.
+     */
+    private const FILEPROPERTYNAMES = ['logo', 'customjsfiles', 'favicon', 'homebk', 'pagebackground',
+        'frontpagerendererdefaultimage', 'headerbgimage', 'loginbgimage', 'adaptablemarkettingimages', ];
+
+    /**
      * Gets the toolbox singleton.
      *
      * @return toolbox The toolbox instance.
@@ -246,44 +262,31 @@ class toolbox {
     /**
      * Compile properties.
      *
-     * @param string $themename Theme name
-     * @param bool $array Is this an array (confusing variable name)
+     * @param string $pluginfrankenstyle Plugin frankenstle.
+     * @param array $theirprops Properties received.
      *
      * @return array properties
      */
-    public static function compile_properties($themename, $array = true) {
+    public static function compile_properties($pluginfrankenstyle, $theirprops = null) {
         global $CFG, $DB;
 
-        $props = [];
-        $themeprops = $DB->get_records('config_plugins', ['plugin' => 'theme_' . $themename]);
+        $ourprops = [];
+        $themeprops = $DB->get_records('config_plugins', ['plugin' => $pluginfrankenstyle]);
 
-        if ($array) {
-            $props['moodle_version'] = $CFG->version;
-            // Put the theme version next so that it will be at the top of the table.
-            foreach ($themeprops as $themeprop) {
-                if ($themeprop->name == 'version') {
-                    $props['theme_version'] = $themeprop->value;
-                    unset($themeprops[$themeprop->id]);
-                    break;
-                }
-            }
-
-            foreach ($themeprops as $themeprop) {
-                $props[$themeprop->name] = $themeprop->value;
-            }
-        } else {
+        if ($theirprops) {
+            // In a format where we can update our props from their props.
             $data = new \stdClass();
             $data->id = 0;
             $data->value = $CFG->version;
-            $props['moodle_version'] = $data;
-            // Convert 'version' to 'theme_version'.
+            $ourprops['moodle_version'] = $data;
+            // Convert 'version' to 'plugin_version'.
             foreach ($themeprops as $themeprop) {
                 if ($themeprop->name == 'version') {
                     $data = new \stdClass();
                     $data->id = $themeprop->id;
-                    $data->name = 'theme_version';
+                    $data->name = 'plugin_version';
                     $data->value = $themeprop->value;
-                    $props['theme_version'] = $data;
+                    $ourprops['plugin_version'] = $data;
                     unset($themeprops[$themeprop->id]);
                     break;
                 }
@@ -292,7 +295,90 @@ class toolbox {
                 $data = new \stdClass();
                 $data->id = $themeprop->id;
                 $data->value = $themeprop->value;
-                $props[$themeprop->name] = $data;
+                $ourprops[$themeprop->name] = $data;
+            }
+        } else {
+            $ourprops['moodle_version'] = $CFG->version;
+            // Put the plugin version next so that it will be at the top of the table.
+            foreach ($themeprops as $themeprop) {
+                if ($themeprop->name == 'version') {
+                    $ourprops['plugin_version'] = $themeprop->value;
+                    unset($themeprops[$themeprop->id]);
+                    break;
+                }
+            }
+
+            foreach ($themeprops as $themeprop) {
+                $ourprops[$themeprop->name] = $themeprop->value;
+            }
+        }
+
+        // File property processing.
+        $ourfileprops = self::FILEPROPERTYNAMES;
+
+        // If receiving properties then we need to take into account the slides being set, not what we currently have.
+        // Using 'theme_adaptable_pluginfile' in lib.php as a reference.
+        if ($theirprops) {
+            $slidercount = $theirprops['slidercount'];
+        } else {
+            $slidercount = self::get_setting('slidercount');
+        }
+
+        // Slide show.
+        for ($propslide = 1; $propslide <= $slidercount; $propslide++) {
+            $ourfileprops[] = 'p' . $propslide;
+        }
+
+        // Category.
+        $customheaderids = explode(',', get_config('theme_adaptable', 'categoryhavecustomheader'));
+        foreach ($customheaderids as $customheaderid) {
+            $ourfileprops[] = 'categoryheaderbgimage' . $customheaderid;
+            $ourfileprops[] = 'categoryheaderlogo' . $customheaderid;
+        }
+
+        if (array_key_exists('propertyfiles', $ourprops)) {
+            unset($ourprops['propertyfiles']); // Prevent props in props.
+        }
+
+        if (array_key_exists('getprops', $ourprops)) {
+            unset($ourprops['getprops']); // Prevent property information in props.
+        }
+        if (array_key_exists('putprops', $ourprops)) {
+            unset($ourprops['putprops']); // Prevent property report in props.
+        }
+        if (array_key_exists('fileputprops', $ourprops)) {
+            unset($ourprops['fileputprops']); // Prevent property file in props.
+        }
+
+        $properties = [self::PROPS => $ourprops, self::FILEPROPNAMES => $ourfileprops];
+
+        return $properties;
+    }
+
+    /**
+     * Get properties.
+     *
+     * @param string $pluginfrankenstyle Plugin frankenstyle.
+     * @param bool $encodefiles.
+     *
+     * @return array Properties.
+     */
+    public static function get_properties(string $pluginfrankenstyle, bool $encodefiles = false) {
+        $props = self::compile_properties($pluginfrankenstyle);
+
+        if ($encodefiles) {
+            $fileprops = $props[self::FILEPROPNAMES];
+
+            foreach ($fileprops as $fileprop) {
+                $name = $pluginfrankenstyle.'/'.$fileprop;
+                $title = get_string($fileprop, $pluginfrankenstyle);
+                $description = $title;
+                $setting = new \theme_adaptable\admin_setting_configstoredfiles(
+                    $name, $title, $description, $fileprop, null
+                );
+                $encoded = $setting->base64encode();
+
+                $props[self::PROPS][$fileprop] = $encoded;
             }
         }
 
@@ -302,81 +388,77 @@ class toolbox {
     /**
      * Store properties.
      *
-     * @param string $themename Theme name
-     * @param string $props Properties
-     * @return string
+     * @param string $pluginname Plugin name.
+     * @param string $pluginfrankenstyle Plugin frankenstle.
+     * @param array $props Properties.
+     * @return string Result.
      */
-    public static function put_properties($themename, $props) {
+    public static function put_properties($pluginname, $pluginfrankenstyle, $props) {
         global $DB;
 
         // Get the current properties as a reference and for theme version information.
-        $currentprops = self::compile_properties($themename, false);
+        $currentprops = self::compile_properties($pluginfrankenstyle, $props);
 
         // Build the report.
-        $report = get_string('putpropertyreport', 'theme_adaptable') . PHP_EOL;
-        $report .= get_string('putpropertyproperties', 'theme_adaptable') . ' \'Moodle\' ' .
-            get_string('putpropertyversion', 'theme_adaptable') . ' ' . $props['moodle_version'] . '.' . PHP_EOL;
+        $report = get_string('putpropertyreport', $pluginfrankenstyle) . PHP_EOL;
+        $report .= get_string('putpropertyproperties', $pluginfrankenstyle) . ' \'Moodle\' ' .
+            get_string('putpropertyversion', $pluginfrankenstyle) . ' ' . $props['moodle_version'] . '.' . PHP_EOL;
         unset($props['moodle_version']);
-        $report .= get_string('putpropertyour', 'theme_adaptable') . ' \'Moodle\' ' .
-            get_string('putpropertyversion', 'theme_adaptable') . ' ' . $currentprops['moodle_version']->value . '.' . PHP_EOL;
-        unset($currentprops['moodle_version']);
-        $report .= get_string('putpropertyproperties', 'theme_adaptable') . ' \'' . ucfirst($themename) . '\' ' .
-            get_string('putpropertyversion', 'theme_adaptable') . ' ' . $props['theme_version'] . '.' . PHP_EOL;
-        unset($props['theme_version']);
-        $report .= get_string('putpropertyour', 'theme_adaptable') . ' \'' . ucfirst($themename) . '\' ' .
-            get_string('putpropertyversion', 'theme_adaptable') . ' ' . $currentprops['theme_version']->value . '.' .
-            PHP_EOL . PHP_EOL;
-        unset($currentprops['theme_version']);
+        $report .= get_string('putpropertyour', $pluginfrankenstyle) . ' \'Moodle\' ' .
+            get_string('putpropertyversion', $pluginfrankenstyle) . ' ' .
+            $currentprops[self::PROPS]['moodle_version']->value . '.' . PHP_EOL;
+        unset($currentprops[self::PROPS]['moodle_version']);
+        $pluginversionkey = 'plugin_version';
+        if (array_key_exists('theme_version', $props)) {
+            // Old properties.
+            $pluginversionkey = 'theme_version';
+        }
+        $report .= get_string('putpropertyproperties', $pluginfrankenstyle) . ' \'' . $pluginname . '\' ' .
+            get_string('putpropertyversion', $pluginfrankenstyle) . ' ' . $props[$pluginversionkey] . '.' . PHP_EOL;
+        unset($props[$pluginversionkey]);
+        $report .= get_string('putpropertyour', $pluginfrankenstyle) . ' \'' . $pluginname . '\' ' .
+            get_string('putpropertyversion', $pluginfrankenstyle) . ' ' .
+            $currentprops[self::PROPS]['plugin_version']->value . '.' . PHP_EOL . PHP_EOL;
+        unset($currentprops[self::PROPS][$pluginversionkey]);
 
         // Pre-process files - using 'theme_adaptable_pluginfile' in lib.php as a reference.
         $filestoreport = '';
-        $preprocessfilesettings = ['logo', 'favicon', 'homebk', 'pagebackground', 'frontpagerendererdefaultimage',
-            'headerbgimage', 'loginbgimage', 'adaptablemarkettingimages', ];
-
-        // Slide show.
-        for ($propslide = 1; $propslide <= $props['slidercount']; $propslide++) {
-            $preprocessfilesettings[] = 'p' . $propslide;
-        }
-
-        // Category.
-        $customheaderids = explode(',', get_config('theme_adaptable', 'categoryhavecustomheader'));
-        foreach ($customheaderids as $customheaderid) {
-            $preprocessfilesettings[] = 'categoryheaderbgimage' . $customheaderid;
-            $preprocessfilesettings[] = 'categoryheaderlogo' . $customheaderid;
-        }
+        $preprocessfilesettings = $currentprops[self::FILEPROPNAMES];
 
         // Process the file properties.
         foreach ($preprocessfilesettings as $preprocessfilesetting) {
-            self::put_prop_file_preprocess($preprocessfilesetting, $props, $filestoreport);
-            unset($currentprops[$preprocessfilesetting]);
+            self::put_prop_file_preprocess($pluginfrankenstyle, $preprocessfilesetting, $props, $filestoreport);
+            unset($currentprops[self::PROPS][$preprocessfilesetting]);
         }
 
         if ($filestoreport) {
-            $report .= get_string('putpropertiesreportfiles', 'theme_adaptable') . PHP_EOL . $filestoreport . PHP_EOL;
+            $report .= get_string('putpropertiesreportfiles', $pluginfrankenstyle) . PHP_EOL . $filestoreport . PHP_EOL;
         }
 
         // Need to ignore and report on any unknown settings.
-        $report .= get_string('putpropertiessettingsreport', 'theme_adaptable') . PHP_EOL;
+        $report .= get_string('putpropertiessettingsreport', $pluginfrankenstyle) . PHP_EOL;
         $changed = '';
         $unchanged = '';
         $added = '';
         $ignored = '';
         $settinglog = '';
         foreach ($props as $propkey => $propvalue) {
-            $settinglog = '\'' . $propkey . '\' ' . get_string('putpropertiesvalue', 'theme_adaptable') . ' \'' . $propvalue . '\'';
-            if (array_key_exists($propkey, $currentprops)) {
-                if ($propvalue != $currentprops[$propkey]->value) {
-                    $settinglog .= ' ' . get_string('putpropertiesfrom', 'theme_adaptable') . ' \'' .
-                    $currentprops[$propkey]->value . '\'';
+            $settinglog = '\'' . $propkey . '\' ' .
+                get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' . $propvalue . '\'';
+            if (array_key_exists($propkey, $currentprops[self::PROPS])) {
+                if ($propvalue != $currentprops[self::PROPS][$propkey]->value) {
+                    $settinglog .= ' ' . get_string('putpropertiesfrom', $pluginfrankenstyle) . ' \'' .
+                    $currentprops[self::PROPS][$propkey]->value . '\'';
                     $changed .= $settinglog . '.' . PHP_EOL;
-                    $DB->update_record('config_plugins', ['id' => $currentprops[$propkey]->id, 'value' => $propvalue], true);
+                    $DB->update_record('config_plugins', ['id' => $currentprops[self::PROPS][$propkey]->id, 'value' => $propvalue],
+                        true);
                 } else {
                     $unchanged .= $settinglog . '.' . PHP_EOL;
                 }
             } else if (self::to_add_property($propkey)) {
                 // Properties that have an index and don't already exist.
                 $DB->insert_record('config_plugins', [
-                    'plugin' => 'theme_' . $themename, 'name' => $propkey, 'value' => $propvalue, ], true);
+                    'plugin' => $pluginfrankenstyle, 'name' => $propkey, 'value' => $propvalue, ], true);
                 $added .= $settinglog . '.' . PHP_EOL;
             } else {
                 $ignored .= $settinglog . '.' . PHP_EOL;
@@ -384,16 +466,16 @@ class toolbox {
         }
 
         if (!empty($changed)) {
-            $report .= get_string('putpropertieschanged', 'theme_adaptable') . PHP_EOL . $changed . PHP_EOL;
+            $report .= get_string('putpropertieschanged', $pluginfrankenstyle) . PHP_EOL . $changed . PHP_EOL;
         }
         if (!empty($added)) {
-            $report .= get_string('putpropertiesadded', 'theme_adaptable') . PHP_EOL . $added . PHP_EOL;
+            $report .= get_string('putpropertiesadded', $pluginfrankenstyle) . PHP_EOL . $added . PHP_EOL;
         }
         if (!empty($unchanged)) {
-            $report .= get_string('putpropertiesunchanged', 'theme_adaptable') . PHP_EOL . $unchanged . PHP_EOL;
+            $report .= get_string('putpropertiesunchanged', $pluginfrankenstyle) . PHP_EOL . $unchanged . PHP_EOL;
         }
         if (!empty($ignored)) {
-            $report .= get_string('putpropertiesignored', 'theme_adaptable') . PHP_EOL . $ignored . PHP_EOL;
+            $report .= get_string('putpropertiesignored', $pluginfrankenstyle) . PHP_EOL . $ignored . PHP_EOL;
         }
 
         return $report;
@@ -454,15 +536,26 @@ class toolbox {
     /**
      * Pre process properties file.
      *
+     * @param string $pluginfrankenstyle
      * @param int $key
      * @param array $props
      * @param string $filestoreport
      *
      */
-    private static function put_prop_file_preprocess($key, &$props, &$filestoreport) {
+    private static function put_prop_file_preprocess($pluginfrankenstyle, $key, &$props, &$filestoreport) {
         if (!empty($props[$key])) {
-            $filestoreport .= '\'' . $key . '\' ' . get_string('putpropertiesvalue', 'theme_adaptable') . ' \'' .
-                \core_text::substr($props[$key], 1) . '\'.' . PHP_EOL;
+            if ($props[$key][0] == '{') { // Is a JSON encoded file(s).
+                $name = $pluginfrankenstyle.'/'.$key;
+                $title = get_string($key, $pluginfrankenstyle);
+                $description = $title;
+                $setting = new \theme_adaptable\admin_setting_configstoredfiles(
+                    $name, $title, $description, $key, null
+                );
+                $setting->base64decode($props[$key]);
+            } else {
+                $filestoreport .= '\'' . $key . '\' ' . get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' .
+                    \core_text::substr($props[$key], 1) . '\'.' . PHP_EOL;
+            }
         }
         unset($props[$key]);
     }
@@ -1131,19 +1224,21 @@ class toolbox {
      *
      * @param admin_settingpage $settingpage
      * @param string $adminsettingname
+     * @param int $totalrows
      * @param array $admindefaults
      * @param array $adminchoices
      *
      * @return array of the imgblder and totalblocks.
      */
-    public static function admin_settings_layout_builder($settingpage, $adminsettingname, $admindefaults, $adminchoices) {
+    public static function admin_settings_layout_builder(
+        $settingpage, $adminsettingname, $totalrows, $admindefaults, $adminchoices) {
         global $OUTPUT;
 
         $totalblocks = 0;
         $imgblder = '<div class="img-fluid">';
         $themesettings = self::get_settings();
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= $totalrows; $i++) {
             $name = 'theme_adaptable/' . $adminsettingname . $i;
             $title = get_string($adminsettingname, 'theme_adaptable');
             $description = get_string($adminsettingname . 'desc', 'theme_adaptable');
