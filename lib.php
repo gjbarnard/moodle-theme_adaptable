@@ -46,7 +46,18 @@ define('THEME_ADAPTABLE_DEFAULT_SLIDERCOUNT', '3');
  * @return string SCSS.
  */
 function theme_adaptable_pre_scss($theme) {
-    $prescss = '$courseindex-link-color: ' .
+    $regionmaincolor = \theme_adaptable\toolbox::get_setting('regionmaincolor', false, $theme->name, '#ffffff');
+    $fontcolor = \theme_adaptable\toolbox::get_setting('fontcolor', false, $theme->name, '#333333');
+    $fontcolorrgba = \theme_adaptable\toolbox::hex2rgba(\theme_adaptable\toolbox::get_setting('fontcolor'), 0.25);
+    $prescss = '$body-bg: ' . $regionmaincolor . ';';
+    $prescss = '$body-color: ' . $fontcolor . ';';
+    $prescss .= '$primary: ' . \theme_adaptable\toolbox::get_setting('primarycolour', false, $theme->name, '#00796b') . ';';
+    $prescss .= '$secondary: ' . \theme_adaptable\toolbox::get_setting('secondarycolour', false, $theme->name, '#009688') . ';';
+    $prescss .= '$nav-tabs-border-color: $secondary;';
+    $prescss .= '$dialogue-base-bg: ' . $regionmaincolor . ';';
+    $prescss .= '$nav-tabs-link-active-border-color: ' . $fontcolorrgba .' ' . $fontcolorrgba . ' transparent;';
+    $prescss .= '$nav-tabs-link-hover-border-color: transparent transparent '. $fontcolor . ';';
+    $prescss .= '$courseindex-link-color: ' .
         \theme_adaptable\toolbox::get_setting('courseindexitemcolor', false, $theme->name, '#495057') . ';';
     $prescss .= '$courseindex-link-hover-color: ' .
         \theme_adaptable\toolbox::get_setting('courseindexitemhovercolor', false, $theme->name, '#e6e6e6') . ';';
@@ -56,8 +67,8 @@ function theme_adaptable_pre_scss($theme) {
         \theme_adaptable\toolbox::get_setting('courseindexpageitembgcolor', false, $theme->name, '#0f6cbf') . ';';
     $prescss .= '$drawer-bg-color: #fff;';  // Currently no setting for 'block region' background.
     $prescss .= '$input-btn-focus-color: rgba(' .
-        \theme_adaptable\toolbox::get_setting('buttonfocuscolor', false, $theme->name, '#0f6cc0') . ', ' .
-        \theme_adaptable\toolbox::get_setting('buttonfocuscoloropacity', false, $theme->name, '0.75') . ');';
+        \theme_adaptable\toolbox::get_setting('inputbuttonfocuscolour', false, $theme->name, '#0f6cc0') . ', ' .
+        \theme_adaptable\toolbox::get_setting('inputbuttonfocuscolouropacity', false, $theme->name, '0.75') . ');';
 
     return $prescss;
 }
@@ -102,13 +113,16 @@ function theme_adaptable_get_main_scss_content($theme) {
         'admin',
         'blocks',
         'button',
+        'core',
         'course',
         'extras',
         'header',
         'login',
         'menu',
+        'modal',
         'responsive',
         'search',
+        'secondarynavigation',
         'tabs',
         'print',
         'categorycustom',
@@ -175,15 +189,20 @@ function theme_adaptable_process_scss($scss, $theme) {
         '[[setting:linkcolor]]' => '#51666C',
         '[[setting:linkhover]]' => '#009688',
         '[[setting:dimmedtextcolor]]' => '#6a737b',
-        '[[setting:maincolor]]' => '#3A454b',
+        '[[setting:maincolor]]' => '#ffffff',
         '[[setting:backcolor]]' => '#FFFFFF',
-        '[[setting:regionmaincolor]]' => '#FFFFFF',
+        '[[setting:primarycolour]]' => '#00796b',
+        '[[setting:secondarycolour]]' => '#009688',
+        '[[setting:regionmaincolor]]' => '#ffffff',
+        '[[setting:regionmaintextcolor]]' => '#000000',
         '[[setting:rendereroverlaycolor]]' => '#3A454b',
         '[[setting:rendereroverlayfontcolor]]' => '#FFFFFF',
         '[[setting:buttoncolor]]' => '#51666C',
         '[[setting:buttontextcolor]]' => '#ffffff',
         '[[setting:buttonhovercolor]]' => '#009688',
         '[[setting:buttontexthovercolor]]' => '#eeeeee',
+        '[[setting:buttonfocuscolour]]' => '#0f6cc0',
+        '[[setting:buttontextfocuscolour]]' => '#eeeeee',
         '[[setting:buttoncolorscnd]]' => '#51666C',
         '[[setting:buttontextcolorscnd]]' => '#ffffff',
         '[[setting:buttonhovercolorscnd]]' => '#009688',
@@ -337,6 +356,10 @@ function theme_adaptable_process_scss($scss, $theme) {
         '[[setting:enableticker]]' => true,
         '[[setting:enabletickermy]]' => true,
         '[[setting:tickerwidth]]' => '',
+        '[[setting:tickerheaderbackgroundcolour]]' => '#00796b',
+        '[[setting:tickerheadertextcolour]]' => '#eee',
+        '[[setting:tickerconstainerbackgroundcolour]]' => '#009688',
+        '[[setting:tickerconstainertextcolour]]' => '#eee',
         '[[setting:onetopicactivetabbackgroundcolor]]' => '#d9edf7',
         '[[setting:onetopicactivetabtextcolor]]' => '#000000',
         '[[setting:fontblockheaderweight]]' => '400',
@@ -403,6 +426,12 @@ function theme_adaptable_process_scss($scss, $theme) {
     }
     $defaults['[[setting:socialpaddingsidehalf]]'] = $socialpaddingsidehalf;
 
+    // Add in rgba colours.
+    $defaults['[[setting:fontcolorrgba]]'] = \theme_adaptable\toolbox::hex2rgba($defaults['[[setting:fontcolor]]'], 0.25);
+    $defaults['[[setting:regionmaincolorrgba]]'] = \theme_adaptable\toolbox::hex2rgba($defaults['[[setting:regionmaincolor]]'], 0.75);
+    $defaults['[[setting:linkcolorrgba]]'] = \theme_adaptable\toolbox::hex2rgba($defaults['[[setting:linkcolor]]'], 0.75);
+    $defaults['[[setting:linkhoverrgba]]'] = \theme_adaptable\toolbox::hex2rgba($defaults['[[setting:linkhover]]'], 0.75);
+
     // Replace the CSS with values from the $defaults array.
     $scss = strtr($scss, $defaults);
     if (empty($theme->settings->tilesshowallcontacts) || $theme->settings->tilesshowallcontacts == false) {
@@ -410,6 +439,7 @@ function theme_adaptable_process_scss($scss, $theme) {
     } else {
         $scss = theme_adaptable_set_tilesshowallcontacts($scss, true);
     }
+
     return $scss;
 }
 
@@ -689,12 +719,6 @@ function theme_adaptable_get_course_activities() {
  */
 function theme_adaptable_page_init(moodle_page $page) {
     global $CFG;
-
-    $page->requires->jquery_plugin('pace', 'theme_adaptable');
-    $page->requires->jquery_plugin('flexslider', 'theme_adaptable');
-    $page->requires->jquery_plugin('ticker', 'theme_adaptable');
-    $page->requires->jquery_plugin('easing', 'theme_adaptable');
-    $page->requires->jquery_plugin('adaptable', 'theme_adaptable');
 
     if (
         (isloggedin()) && (\theme_adaptable\toolbox::get_setting('enableaccesstool')) &&

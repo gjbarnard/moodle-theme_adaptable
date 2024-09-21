@@ -13,16 +13,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Admin settings.  Go back to the current tab after save.
- *
- * @module     theme_adaptable/admin_settings
- * @copyright  2024 G J Barnard.
- * @author     G J Barnard -
- *               {@link https://moodle.org/user/profile.php?id=442195}
- *               {@link https://gjbarnard.co.uk}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
- */
+//
+// Admin settings.  Go back to the current tab after save.
+//
+// @module     theme_adaptable/admin_settings
+// @copyright  2024 G J Barnard.
+// @author     G J Barnard -
+//               {@link https://moodle.org/user/profile.php?id=442195}
+//               {@link https://gjbarnard.co.uk}
+// @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+//
 
 import log from 'core/log';
 
@@ -47,13 +47,14 @@ export const init = () => {
         }
     };
 
+    log.debug('Adaptable ES6 Admin settings init');
     if (document.readyState !== 'loading') {
-        log.debug("Adaptable Admin settings JS DOM content already loaded");
+        log.debug("Adaptable ES6 Admin settings JS DOM content already loaded");
         stickyTabs();
     } else {
-        log.debug("Adaptable Admin settings JS DOM content not loaded");
+        log.debug("Adaptable ES6 Admin settings JS DOM content not loaded");
         document.addEventListener('DOMContentLoaded', function() {
-            log.debug("Adaptable Admin settings JS DOM content loaded");
+            log.debug("Adaptable ES6 Admin settings JS DOM content loaded");
             stickyTabs();
         });
     }

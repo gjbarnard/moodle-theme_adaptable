@@ -121,14 +121,6 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Main Font color.
-    $name = 'theme_adaptable/fontcolor';
-    $title = get_string('fontcolor', 'theme_adaptable');
-    $description = get_string('fontcolordesc', 'theme_adaptable');
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#333333', null);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
     // Top Menu Font Size.
     $name = 'theme_adaptable/topmenufontsize';
     $title = get_string('topmenufontsize', 'theme_adaptable');

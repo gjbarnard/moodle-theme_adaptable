@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-//
+
 //
 // Adaptable save button JS file
 //
@@ -25,41 +25,53 @@
 //               {@link https://moodle.org/user/profile.php?id=442195}
 //               {@link https://gjbarnard.co.uk}
 // @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+//
 
-/* jshint ignore:start */
-define(['jquery', 'core/log'], function($, log) {
+import $ from 'jquery';
+import log from 'core/log';
 
-    "use strict"; // ... jshint ;_;.
+/**
+ * Save button.
+ */
+const saveButton = () => {
+    $("#savediscardsection").hide();
 
-    log.debug('Adaptable savebutton.js function called');
+    $('#adminsettings :input').on('change input', function () {
+        $("#savediscardsection").fadeIn('slow');
+    });
 
-    return {
-        init: function() {
-            $(document).ready(function($) {
-
-                $("#savediscardsection").hide();
-
-                $('#adminsettings :input').on('change input', function() {
-                    $("#savediscardsection").fadeIn('slow');
-                });
-
-                $("#adminsubmitbutton").click(function() {
-                    window.onbeforeunload = null;
-                    $("#adminsettings").submit();
-                });
-                $("#adminresetbutton").click(function() {
-                    var result = confirm("This resets any changes made since loading this page. Are you sure?");
-                    if (result == true) {
-                        $('#adminsettings')[0].reset();
-                        $("#savediscardsection").hide();
-                    }
-                });
-
-                $(".colourdialogue").click(function() {
-                    $("#savediscardsection").fadeIn('slow');
-                });
-            });
+    $("#adminsubmitbutton").click(function () {
+        window.onbeforeunload = null;
+        $("#adminsettings").submit();
+    });
+    $("#adminresetbutton").click(function () {
+        var confirmString = $(this).data('confirm'); // Saves an AJAX call for such a rare thing.
+        var result = confirm(confirmString);
+        if (result == true) {
+            $('#adminsettings')[0].reset();
+            $("#savediscardsection").hide();
         }
-    };
-});
-/* jshint ignore:end */
+    });
+
+    $(".colourdialogue").click(function () {
+        $("#savediscardsection").fadeIn('slow');
+    });
+};
+
+/**
+ * Init.
+ */
+export const saveButtonInit = () => {
+    log.debug('Adaptable ES6 Save button Init');
+
+    if (document.readyState !== 'loading') {
+        log.debug("Adaptable ES6 Save button Init DOM content already loaded");
+        saveButton();
+    } else {
+        log.debug("Adaptable ES6 Save button Init JS DOM content not loaded");
+        document.addEventListener('DOMContentLoaded', function () {
+            log.debug("Adaptable ES6 Save button Init JS DOM content loaded");
+            saveButton();
+        });
+    }
+};

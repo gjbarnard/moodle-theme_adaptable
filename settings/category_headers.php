@@ -102,7 +102,10 @@ if ($ADMIN->fulltree) {
                     ['id' => $customheaderid, 'name' => $catinfo['name'], 'children' => $childrentext]
                 );
             }
-            $setting = new admin_setting_configstoredfile($name, $title, $description, 'categoryheaderbgimage' . $customheaderid);
+            $setting = new \theme_adaptable\admin_setting_configstoredfiles(
+                $name, $title, $description, 'categoryheaderbgimage' . $customheaderid,
+                ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
+            );
             $page->add($setting);
 
             // Background image text colour.
@@ -135,7 +138,10 @@ if ($ADMIN->fulltree) {
                 $description = get_string('categoryheaderlogodescchildren', 'theme_adaptable', ['id' => $customheaderid,
                     'name' => $catinfo['name'], 'children' => $childrentext, ]);
             }
-            $setting = new admin_setting_configstoredfile($name, $title, $description, 'categoryheaderlogo' . $customheaderid);
+            $setting = new \theme_adaptable\admin_setting_configstoredfiles(
+                $name, $title, $description, 'categoryheaderlogo' . $customheaderid,
+                ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
+            );
             $page->add($setting);
 
             // Custom title.

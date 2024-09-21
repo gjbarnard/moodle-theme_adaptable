@@ -28,6 +28,7 @@
 // Main elements selectors.
 html,
 body {
+    background-color: [[setting:maincolor]];
     color: [[setting:fontcolor]];
     font-family: [[setting:fontname]], sans-serif;
     font-size: [[setting:fontsize]];
@@ -58,9 +59,9 @@ h6 {
 
 // Other text tags.
 input,
-button,
 select,
 textarea {
+    background-color: [[setting:maincolor]];
     color: [[setting:fontcolor]];
     font-family: [[setting:fontname]], sans-serif;
     font-size: [[setting:fontsize]];
@@ -93,31 +94,7 @@ a:focus {
     color: [[setting:selectiontext]];
 }
 
-// Forms.
-fieldset {
-    min-width: 0;
-}
-
-.mform fieldset {
-    margin-left: 0;
-}
-
-.mform fieldset.collapsible legend a.fheader {
-    margin-left: 0;
-}
-
-.col-form-label.d-inline {
-    float: right;
-    margin: 3px 5px 5px 0;
-}
-
 // Main headings.
-#page-content {
-    padding: 12px 0 20px;
-    position: relative;
-    width: auto;
-}
-
 .headingblock, h2.main,
 #site-news-forum h2,
 #frontpage-course-list h2,
@@ -153,76 +130,9 @@ div.signuppanel h2 {
     margin-left: 30px;
 }
 
-#header2 {
-    background-color: transparent;
-    border-bottom: none;
-    clear: both;
-    margin-bottom: 0;
-    min-height: [[setting:pageheaderheight]];
-}
-
-// Override default boost max height for header2.
-#header2 .navbar {
-    max-height: 150px;
-}
-
-#header2 .row {
-    margin: 0 0 0 -15px;
-    min-height: [[setting:pageheaderheight]];
-}
-
-#adaptable-page-header-wrapper #header2 i,
-#adaptable-page-header-wrapper #page-header i {
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.10);
-}
-
-// Page.
-#page {
-    [[setting:homebkg]]
-    clear: both;
-    margin: 0;
-    max-width: inherit;
-    padding: 0;
-}
-
 .container.outercont {
     -ms-flex-negative: 0;
     flex-shrink: 0;
-}
-
-// Header.
-#adaptable-page-header-wrapper {
-    background-color: [[setting:headerbkcolor2]];
-    color: [[setting:headertextcolor2]];
-    z-index: 10;
-
-    &.sticky {
-        left: 0;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: $zindex-sticky;
-    }
-
-    // Lists.
-    .dropdown-menu > li > a:hover,
-    .dropdown-menu > li > a:focus,
-    .dropdown-submenu:hover > a,
-    .dropdown-submenu:focus > a {
-        background-image: none;
-    }
-}
-
-#page-header {
-    background-color: transparent;
-    border-bottom: none;
-    clear: both;
-    margin-bottom: 0;
-    padding-top: 0;
-}
-
-#page-header > div:first-of-type {
-    min-height: [[setting:pageheaderheight]];
 }
 
 #logo {
@@ -904,20 +814,25 @@ table.mceLayout2 iframe {
     display: inline;
 }
 
-.settingsform .form-item {
-    border-bottom: 1px solid [[setting:blockbordercolor]];
-    margin: 10px 0;
-    padding: 10px 0;
+.settingsform {
+    .form-item {
+        border-bottom: 1px solid [[setting:fontcolorrgba]];
+        margin: 10px 0;
+        padding: 10px 0;
+    }
+    fieldset {
+        margin-bottom: 10px;
+    }
 }
-
 
 input[type="radio"], input[type="checkbox"] {
     margin-right: 1px;
 }
 
 #region-main {
-    background-color: [[setting:regionmaincolor]];
+    background-color: $body-bg;
     border: none;
+    color: [[setting:regionmaintextcolor]];
     transition: all .5s ease-in-out;
 }
 
@@ -1071,165 +986,24 @@ input[type="radio"], input[type="checkbox"] {
     width: 70%;
 }
 
-// Modal styles.
-.moodle-dialogue-base .closebutton::after {
-    color: #777;
-}
-
-.modal-backdrop {
-    background-color: #000;
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 1040;
-}
-
-.modal-backdrop.fade {
-    opacity: 0;
-}
-
-.modal-backdrop,
-.modal-backdrop.fade.in {
-    filter: alpha(opacity=80);
-    opacity: .8;
-}
-
-.modal {
-    background-clip: padding-box;
-    border-radius: 6px;
-    box-shadow: 0 3px 7px rgba(0, 0, 0, .3);
-    outline: 0;
-}
-
-.modal.fade {
-    transition: opacity .3s linear, top .3s ease-out;
-}
-
-.modal.fade.in {
-    top: 10%;
-}
-
-.modal-title h5 {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.modal-header {
-    background-color: transparent;
-    border-bottom: none !important;
-    padding: 9px 15px;
-}
-
-.modal-header h4 {
-    font-weight: bold;
-}
-
-.modal-header .close {
-    background-color: transparent !important;
-    color: #777 !important;
-    font-size: 1.5rem;
-    height: auto;
-    line-height: 1;
-    margin: 0;
-    padding: 3px 0 0;
-}
-
-.modal-header .close:hover,
-.modal-header .close:focus {
-    color: #000 !important;
-}
-
-.modal-header h3 {
-    line-height: 30px;
-    margin: 0;
-}
-
-.modal-body {
-    overflow-y: auto;
-    padding: 15px;
-}
-
-.modal-form {
-    margin-bottom: 0;
-}
-
-.modal-content {
-    background-color: transparent !important;
-    border: none !important;
-}
-
-.modal-dialog .modal-content {
-    background-color: #fff !important;
-    border: 1px solid [[setting:maincolor]] !important;
-}
-
-.modal-footer {
-    background-color: transparent !important;
-    border-radius: 0 0 6px 6px;
-    border-top: none;
-    box-shadow: none !important;
-    margin-bottom: 0;
-    padding: 14px 15px 15px;
-    text-align: right;
-}
-
-.modal-footer:after,
-.modal-footer:before {
-    content: "";
-    display: table;
-    line-height: 0;
-}
-
-.modal-footer:after {
-    clear: both;
-}
-
-.modal-footer .btn+.btn {
-    margin-left: 5px;
-    margin-bottom: 0;
-}
-
-.modal-footer .btn-group .btn+.btn {
-    margin-left: -1px;
-}
-
-.modal-footer .btn-block+.btn-block {
-    margin-left: 0;
-}
-
-.modal-footer::after, .modal-footer::before {
-    content: "";
-    display: table;
-    line-height: 0;
-}
-
-// Modal file Picker.
-.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd,
-.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd.yui3-widget-hd {
-    background:none;
-    background-color: [[setting:maincolor]];
-    border-bottom: 1px solid #bbb;
-    color: #fff !important;
-    font-family: [[setting:fontheadername]], sans-serif !important;
-    font-size: 15px;
-    font-weight: normal;
-    letter-spacing: 1px;
-    margin: 0;
-    padding: 0.7em;
-    text-align: center;
-    text-shadow: 1px 1px 1px #666 !important;
-}
-
-.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd h1,
-.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd h5,
-.moodle-dialogue h3 {
-    font-family: [[setting:fontheadername]], sans-serif !important;
-    color: #fff !important;
+.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd .yui3-widget-buttons {
+    background-image: none;
+    margin-top: 5px;
+    margin-right: 5px;
     padding: 0;
-    text-align: center;
-    text-shadow: 1px 1px 1px #666 !important;
+}
+
+.fp-select {
+    .fp-thumbnail {
+        background: transparent;
+        border: none;
+        margin: auto;
+
+        img {
+            border: 1px solid [[setting:fontcolorrgba]];
+            border-radius: 4px;
+        }
+    }
 }
 
 #page-navbar .breadcrumb-button {
@@ -1601,7 +1375,7 @@ a.cimbox {
 
 .pace .pace-progress {
     background-color: [[setting:loadingcolor]];
-    height: 3px;
+    height: 2px;
     position: fixed;
     top: 0;
     right: 100%;
@@ -1660,7 +1434,7 @@ a.cimbox {
 
 .path-mod-quiz #mod_quiz_navblock .qnbutton {
     background: none;
-    background-color: #eee;
+    background-color: [[setting:maincolor]];
     border: 0;
     border-radius: 4px;
     color: [[setting:linkcolor]] !important;
@@ -1865,13 +1639,6 @@ a.dimmed_text:visited,
     text-align: left;
 }
 
-.moodle-dialogue-base .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd .yui3-widget-buttons {
-    background-image: none;
-    margin-top: 5px;
-    margin-right: 5px;
-    padding: 0;
-}
-
 .choosercontainer #chooseform .selected .typesummary,
 .choosercontainer #chooseform .selected .instruction {
     display: none;
@@ -1889,52 +1656,22 @@ a.dimmed_text:visited,
     width: 100%;
 }
 
-@media (min-width: 992px) {
-    #page.drawers {
-        #savediscardsection {
-            margin-left: -1.25rem;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-        }
-        &.show-drawer-left,
-        &.show-drawer-right {
-            #savediscardsection {
-                min-width: auto;
-            }
-        }
-        &.show-drawer-left {
-            #savediscardsection {
-                margin-left: 0;
-                width: calc(100% - #{$drawer-left-width});
-            }
-        }
-        &.show-drawer-right {
-            #savediscardsection {
-                width: calc(100% - #{$drawer-right-width});
-            }
-        }
-        &.show-drawer-left.show-drawer-right {
-            #savediscardsection {
-                width: calc(100% - #{$drawer-left-width} - #{$drawer-right-width});
-            }
-        }
-    }
-}
-
 img.smallicon {
     height: 16px;
     width: 16px;
     vertical-align: middle;
 }
 
-#page-course-resources table.mod_index td img {
-    height: 36px;
-    width: 36px;
-    vertical-align: middle;
-}
+#page-course-resources {
+    table.mod_index td img {
+        height: 36px;
+        width: 36px;
+        vertical-align: middle;
+    }
 
-#page-course-resources #region-main table.generaltable {
-    display: table;
+    #region-main table.generaltable {
+        display: table;
+    }
 }
 
 #profilepic img,
@@ -1945,14 +1682,16 @@ img.smallicon {
     margin: 0 4px 0 0;
 }
 
-#adaptable-page-header-wrapper .above-header .userpicture {
-    height: 25px;
-    width: 25px ;
-}
+#adaptable-page-header-wrapper {
+    .above-header .userpicture {
+        height: 25px;
+        width: 25px;
+    }
 
-#adaptable-page-header-wrapper #header2 .userpicture {
-    height: 35px;
-    width: 35px ;
+    #header2 .userpicture {
+        height: 35px;
+        width: 35px;
+    }
 }
 
 .comment-message .picture {
@@ -1969,27 +1708,19 @@ img.smallicon {
 }
 
 // Added to style the grid of letters etc on participants page.
-.userlist .initialbar .letter {
-    border: 0;
-    height: 1.8em;
-    min-width: 1.8em;
-}
-
-.userlist .initialbar .letter.active {
-    line-height: 2em;
-}
-
 .userlist .initialbar {
     margin-bottom: 10px;
-}
-
-.userlist .initialbar .letter:hover {
-    color: #fff !important;
-}
-
-// Adaptable 2.0.
-.p-0 {
-    background-color: transparent !important;
+    .letter {
+        border: 0;
+        height: 1.8em;
+        min-width: 1.8em;
+        &.active {
+            line-height: 2em;
+        }
+        &:hover {
+            color: #fff !important;
+        }
+    }
 }
 
 .form-inline input.form-control[type=text] {
@@ -2014,8 +1745,9 @@ img.smallicon {
 .moodle-dialogue-base .chooserdialogue button.closebutton,
 .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd .closebutton,
 .moodle-dialogue-base .chooserdialogue .moodle-dialogue-wrap .moodle-dialogue-hd .yui3-widget-buttons button.yui3-button.closebutton {
-    background-color: #fff;
+    background-color: [[setting:maincolor]];
     border-radius: 3px;
+    color: [[setting:fontcolor]];
     line-height: 1.2em;
     margin: 0;
     opacity: 1;
@@ -2033,65 +1765,12 @@ img.smallicon {
     vertical-align: top;
 }
 
-.form-group textarea.form-control {
-    margin: 0 0 0.7rem 0;
-}
-
 .moodle-dialogue-base .chooserdialogue .moodle-dialogue-wrap .moodle-dialogue-hd .yui3-widget-buttons {
     padding: 0.6em;
 }
- 
-.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd .yui3-widget-buttons {
-    padding: 1em;
-}
 
-.settingsform fieldset {
-    margin-bottom: 10px;
-}
-
-.modal.modal-in-page {
-    z-index: 1;
-}
-
-// Backup / restore and Course import page.
-.path-backup .mform .grouped_settings.section_level {
-    padding: 10px 0 0 10px;
-}
-
-.path-backup .backup-section .header {
-    margin-bottom: 20px;
-}
-
-.backup-section .ics-results {
-    margin-top: 15px;
-}
-
-.path-backup .detail-pair .detail-pair-label {
-    width: 20%;
-}
-
-.path-backup .detail-pair-value .ics-search input[type="submit"],
-.path-backup .detail-pair .detail-pair-value input[type="submit"] {
-    margin: 10px 0 0;
-}
-
-// Course restore.
-.detail-pair-label,
-.detail-pair-value {
-    font-size: 1rem !important;
-}
-
-.path-backup .form-group {
-    margin-bottom: 0;
-}
-
-.path-backup .form-check .icon-post {
-    margin-left: .5rem;
-}
-
-.path-backup .mform .root_setting:nth-of-type(odd),
-.path-backup .mform .grouped_settings:nth-of-type(odd) {
-    background-color: transparent;
+.form-group textarea.form-control {
+    margin: 0 0 0.7rem 0;
 }
 
 // File Picker.
@@ -2109,25 +1788,9 @@ img.smallicon {
     margin-top: 70px !important;
 }
 
-.path-backup .backup_progress {
-    padding: 7px 5px;
-    border-radius: 8px;
-    background-color: #f5f5f5;
-}
-
-.backup_stage .backup_stage_current,
-.backup_stage .backup_stage_next {
-    color: [[setting:maincolor]];
-}
-
-.path-backup .detail-pair .detail-pair-value input[type="submit"] {
-    margin: 0;
-}
-
 // Info icon.
 .text-info {
     color: [[setting:infoiconcolor]] !important;
-    margin-top: 9px; // Fix vertical alignment.
 }
 
 // Highlight results.

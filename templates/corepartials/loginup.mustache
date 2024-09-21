@@ -54,6 +54,11 @@
                 !}}placeholder="{{#cleanstr}}password{{/cleanstr}}" {{!
                 !}}autocomplete="current-password">
         </div>
+        {{#recaptcha}}
+        <div class="login-form-recaptcha mb-3">
+            {{{recaptcha}}}
+        </div>
+        {{/recaptcha}}
         <div class="login-form-submit form-group">
             <button class="loginbtn btn btn-primary btn-lg btn-block" type="submit" id="loginbtn">{{#str}}login{{/str}}</button>
         </div>

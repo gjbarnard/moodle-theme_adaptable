@@ -1,5 +1,40 @@
-Change Log in version 404.1.0 (2024032802) - In development.
-============================================================
+Change Log in version 404.1.1 (2024032803)
+==========================================
+1. Fix missing 'recaptcha' on login form.
+2. Only show secondary navigation if there is something to show.
+3. Refactored 'buttonfocuscolor' and 'buttonfocuscoloropacity' to be 'inputbuttonfocuscolour' and 'inputbuttonfocuscolouropacity'
+   respectively as they really relate to the box shadow when focusing on an 'input' button.
+4. Created 'buttonfocuscolour' and 'buttontextfocuscolor' to apply a background and text colour on focused buttons.
+5. Flex Slider upgraded to 2.7.2.
+6. Pace updated to 1.2.4.
+7. AMD'ify Tickerme.
+8. AMD'ify jquery.easing.
+9. Removed outdated method of jQuery plugin usage.
+10. Moved ticker JS to sponsors only.
+11. Added 'enablesavecanceloverlayresetconfirm' string for save settings cancellation reset warning.
+12. Fix sticky header margin.
+13. Added 'regionmaintextcolor' and other small fixes.
+14. Added 'primarycolour' and 'secondarycolour', to control the respective Bootstrap colours as used in the SCSS in general.
+15. Added the ability to set text and background colours on the Ticker.
+16. Moved 'fontcolor' to 'Colours' tab and fix button colours.
+17. Dialog and tab tidy.
+18. Ticker style back to what it was.
+19. Fix collapsed information blocks not showing.
+20. Remove 'docked' styles.
+21. Fix 'Flexible blocks are too big on small screens'.
+22. Add name and description back to user profile page.
+23. Fix theme selector buttons.
+24. Tidy frontpage layout.
+25. Fix backup 'Return to course button'.
+26. Add file settings to import / export of settings.
+27. Fix unread notification text colour.
+28. Fix notification icons not showing when body font weight is <= 300.
+29. Update theme version of FontAwesome free to 6.6.0 from 6.5.2.
+30. Increase tooltip font size to .9rem.
+31. Better file upload icon and for when FA4 shims disabled.
+
+Change Log in version 404.1.0 (2024032802)
+==========================================
 1. Fix header information overridden when set in the context header leading to missing output.
 2. Add 'Information blocks'.  This is designed to be a replacement for the marketing blocks that are
    now deprecated.  The code that they use has always been problematic and subject to contained file
@@ -8,15 +43,15 @@ Change Log in version 404.1.0 (2024032802) - In development.
    wheel, I've gone for a block region based solution whereby proven and tested block code is employed.
    Instead of defining the content in the theme settings, you'll create blocks and place them in the
    'information' region on the front page.  Of course you'll find all of the other settings in place
-   to control the layout and visiblity as before, on the theme's 'Information blocks' settings tab.
+   to control the layout and visibility as before, on the theme's 'Information blocks' settings tab.
    When editing you'll see the full block header with each block having the same width to allow easy
    manipulation, i.e. the layout you set is not applied.  Its only when editing is off that the layout
    is applied and the block titles removed.  If you see the word 'Overflow' then that means that you have
    more blocks than you've defined in the layout rows to allow.  Admins will see 'Marketing blocks are
    deprecated, please migrate to using the Information block region.'.  When editing, block regions will
    have their name at the top.  In testing with re-ordering the blocks I did find this problematic and
-   could not work out entiry why as the theme code is doing what it should do, the core code is telling
-   the backend via an AJAX call about the reordering, just that after doing so then it seemed that cron
+   could not work out entirely why as the theme code is doing what it should do, the core code is telling
+   the back end via an AJAX call about the reordering, just that after doing so then it seemed that cron
    had to run for the changes to become permanent.  It is my intention that other settings employing the
    same code as the marketing blocks will also migrate to this improved solution.
 3. Improve the look of the calendar block controls and fix the next and previous icons.

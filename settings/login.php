@@ -42,7 +42,10 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/loginbgimage';
     $title = get_string('loginbgimage', 'theme_adaptable');
     $description = get_string('loginbgimagedesc', 'theme_adaptable');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginbgimage');
+    $setting = new \theme_adaptable\admin_setting_configstoredfiles(
+        $name, $title, $description, 'loginbgimage',
+        ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
+    );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 

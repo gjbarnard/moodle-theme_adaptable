@@ -23,8 +23,15 @@
 //
 //
 
-#adminsettings h2 {
-    color: [[setting:fontheadercolor]];
-    font-family: [[setting:fontheadername]], sans-serif !important;
-    font-weight: [[setting:fontheaderweight]] !important;
+#adminsettings {
+    h2,
+    h3 {
+        color: [[setting:fontheadercolor]];
+        font-family: [[setting:fontheadername]], sans-serif !important;
+        font-weight: [[setting:fontheaderweight]] !important;
+    }
+
+    h3 {
+        border-bottom: 1px solid [[setting:fontcolorrgba]];
+    }
 }
