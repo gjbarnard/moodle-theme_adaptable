@@ -192,8 +192,26 @@ $string['enabletickermydesc'] = 'Check to enable the ticker on the \'My Home\' /
 $string['enabletickerc'] = 'Enable the news ticker on internal pages?';
 $string['enabletickercdesc'] = 'Check to enable the ticker on internal pages.';
 
+$string['tickerheaderbackgroundcolour'] = 'News ticker header background colour';
+$string['tickerheaderbackgroundcolourdesc'] = 'Set the backgound colour of the ticker header.';
+
+$string['tickerheadertextcolour'] = 'News ticker header text colour';
+$string['tickerheadertextcolourdesc'] = 'Set the text colour of the ticker header.';
+
+$string['tickerconstainerbackgroundcolour'] = 'News ticker container background colour';
+$string['tickerconstainerbackgroundcolourdesc'] = 'Set the backgound colour of the ticker container.';
+
+$string['tickerconstainertextcolour'] = 'News ticker container text colour';
+$string['tickerconstainertextcolourdesc'] = 'Set the text colour of the ticker container.';
+
 $string['tickerwidth'] = 'News ticker width';
 $string['tickerwidthdesc'] = 'You can use this setting to fix the news ticker at 100% width.';
+
+$string['newstickercount'] = 'Number of news ticker sections';
+$string['newstickercountdesc'] = 'Define multiple news ticker sections with access rules to target different audiences.';
+
+$string['tickertext'] = 'News ticker text';
+$string['tickertextdesc'] = 'Add news ticker text in list format.  See the read me for more info.';
 
 $string['tickertextprofilefield'] = 'Custom Profile Field Name=Value (optional)';
 $string['tickertextprofilefielddesc'] = 'Add access rule using for custom profile field eg: usertype=student';
@@ -359,7 +377,7 @@ $string['informationblocksvisibleloggedin'] = 'Logged in';
 $string['informationblocksvisibleloggedinout'] = 'Logged in or out';
 
 $string['informationblocksbuilderheading'] = 'Information block layout builder';
-$string['informationblocksbuilderdesc'] = 'Use the tool below to setup your information blocks.  Once defined the blocks will follow the layout when editing is off.';
+$string['informationblocksbuilderdesc'] = 'Use the tool below to setup your information blocks.  Once defined the blocks will follow the layout when editing is off and window width is greater than 575 px.  Overflow will always be four blocks per row.';
 
 $string['informationblockslayoutrow'] = 'Information block row';
 $string['informationblockslayoutrowdesc'] = 'Add / set the layout for this information block row on front page.';
@@ -386,7 +404,7 @@ $string['marketdesc'] = 'Add html for marketing block.  Please see the \'Readme\
 
 $string['layoutaddcontent'] = 'Happy with your layout?  Now add content to your blocks:';
 $string['layoutaddcontentdesc1'] = 'You have configured ';
-$string['layoutaddcontentdesc2'] = ' marketing blocks. If you are happy with this layout add content to the blocks below.<br>If you are not happy use the layout builder above to make changes.';
+$string['layoutaddcontentdesc2'] = ' blocks. If you are happy with this layout add content to the blocks below.<br>If you are not happy use the layout builder above to make changes.';
 
 $string['marketingdeprecated'] = 'Marketing blocks are deprecated, please migrate to using the Information block region.';
 
@@ -420,7 +438,7 @@ $string['footersettingsheading'] = 'Set the content that should appear in the fo
 $string['footerdesc'] = 'Control the content that appears in the 4 footer sections of the page.';
 
 $string['showfooterblocks'] = 'Show footer blocks';
-$string['showfooterblocksdesc'] = 'Show / hide the four configurable footer blocks.';
+$string['showfooterblocksdesc'] = 'Show / hide the configurable footer blocks.';
 
 $string['footerblocksplacement'] = 'Footer blocks placement ';
 $string['footerblocksplacementdesc'] = 'Control where the upper footer blocks are displayed. Sitewide is default.';
@@ -430,6 +448,9 @@ $string['footerblocksplacement3'] = 'Never';
 
 $string['footerlayoutrow'] = 'Footer layout builder';
 $string['footerlayoutrowdesc'] = 'Design your layout for footer block regions.';
+
+$string['footerbuilderheading'] = 'Footer block layout builder';
+$string['footerbuilderdesc'] = 'Use the tool below to setup your footer blocks.  Once defined the blocks will follow the layout when editing is off and window width is greater than 575 px.  Overflow will always be four blocks per row.';
 
 $string['footnote'] = 'Footnote';
 $string['footnotedesc'] = 'Add text to the footer.';
@@ -619,11 +640,23 @@ $string['dimmedtextcolordesc'] = 'The dimmed text CSS class (dimmed_text) is use
 $string['backcolor'] = 'Background colour';
 $string['backcolordesc'] = 'Set the background colour.';
 
+$string['primarycolour'] = 'Primary colour';
+$string['primarycolourdesc'] = 'Set the primary colour.  This is the Bootstrap \'primary\' colour that is used within the SCSS.';
+
+$string['secondarycolour'] = 'Secondary colour';
+$string['secondarycolourdesc'] = 'Set the secondary colour.  This is the Bootstrap \'secondary\' colour that is used within the SCSS.';
+
 $string['regionmaincolor'] = 'Main region colour';
 $string['regionmaincolordesc'] = 'Set the background colour for main content area.';
 
+$string['regionmaintextcolor'] = 'Main region text colour';
+$string['regionmaintextcolordesc'] = 'Set the text colour for main content area.';
+
 $string['maincolor'] = 'Main colour';
-$string['maincolordesc'] = 'Main colour for blocks and footer.';
+$string['maincolordesc'] = 'Set the main colour.';
+
+$string['fontcolor'] = 'Main font colour';
+$string['fontcolordesc'] = 'Set the colour of the font in the theme, use html hex code.';
 
 $string['footertextcolor'] = 'Footer text colour';
 $string['footertextcolordesc'] = 'The colour of the text in the footer, use html hex code.';
@@ -921,9 +954,6 @@ $string['fontsizedesc'] = 'Select the default font size (in percentage) used in 
 $string['fontheadername'] = 'Headers font';
 $string['fontheadernamedesc'] = 'Select the font used in the text and blocks headers.';
 
-$string['fontcolor'] = 'Main font colour';
-$string['fontcolordesc'] = 'Set the colour of the font in the theme, use html hex code.';
-
 $string['fontheadercolor'] = 'Headers font colour';
 $string['fontheadercolordesc'] = 'Set the colour of the headers font in the theme, use html hex code.';
 
@@ -984,20 +1014,26 @@ $string['buttonradiusdesc'] = 'Higher radius = curved buttons, lower radius = sq
 $string['buttoncolor'] = 'Button colour';
 $string['buttoncolordesc'] = 'The colour of the main buttons used throughout the site.';
 
+$string['buttontextcolor'] = 'Button text colour';
+$string['buttontextcolordesc'] = 'The colour of text used on buttons.';
+
 $string['buttonhovercolor'] = 'Button background hover colour';
 $string['buttonhovercolordesc'] = 'The colour that the button background changes to when hovering over the button.';
 
 $string['buttontexthovercolor'] = 'Button text hover colour';
 $string['buttontexthovercolordesc'] = 'The colour that the button text changes to when hovering over the button.';
 
-$string['buttonfocuscolor'] = 'Button focus colour';
-$string['buttonfocuscolordesc'] = 'The colour that the button uses when focusing on the button.';
+$string['buttonfocuscolour'] = 'Button focus background colour';
+$string['buttonfocuscolourdesc'] = 'The colour that the button uses when focusing on the button.';
 
-$string['buttonfocuscoloropacity'] = 'Button focus colour opacity';
-$string['buttonfocuscoloropacitydesc'] = 'The opacity that the button uses for the colour when focusing on the button.';
+$string['buttontextfocuscolour'] = 'Button focus text colour';
+$string['buttontextfocuscolourdesc'] = 'The text colour that the button uses when focusing on the button.';
 
-$string['buttontextcolor'] = 'Button text colour';
-$string['buttontextcolordesc'] = 'The colour of text used on buttons.';
+$string['inputbuttonfocuscolour'] = 'Input button focus colour';
+$string['inputbuttonfocuscolourdesc'] = 'The colour that the button uses when focusing on the input button.';
+
+$string['inputbuttonfocuscolouropacity'] = 'Input button focus colour opacity';
+$string['inputbuttonfocuscolouropacitydesc'] = 'The opacity that the button uses for the colour when focusing on the input button.';
 
 $string['buttoncolorscnd'] = 'Secondary button colour';
 $string['buttoncolordescscnd'] = 'The colour of the secondary buttons used throughout the site.';
@@ -1124,6 +1160,7 @@ $string['searchboxpaddingdesc'] = 'Set padding for the search box when it is in 
 
 $string['enablesavecanceloverlay'] = 'Enable save / cancel overlay on settings pages';
 $string['enablesavecanceloverlaydesc'] = 'Display a save / cancel button overlay at the top of a settings page to make it easier to save settings.';
+$string['enablesavecanceloverlayresetconfirm'] = 'This resets any changes made since loading this page.  Are you sure?';
 
 $string['usernavheading'] = 'Customise the user navigation dropdown';
 $string['usernav'] = 'Header user';
@@ -1456,12 +1493,6 @@ $string['mysitesexclude'] = 'Enable excluding hidden courses';
 $string['mysitesinclude'] = 'Enable including hidden courses';
 $string['mysitesdisabled'] = 'Disable';
 
-$string['newstickercount'] = 'Number of news ticker sections';
-$string['newstickercountdesc'] = 'Define multiple news ticker sections with access rules to target different audiences.';
-
-$string['tickertext'] = 'News ticker text';
-$string['tickertextdesc'] = 'Add news ticker text in list format. See the read me for more info.';
-
 $string['menusheading'] = 'Configure navigation for link menus in the upper header';
 $string['menustitledesc'] = 'Top menus can be restricted based on custom profile fields (optional).  To add a restriction enter the name of the profile field and expected value.';
 
@@ -1730,7 +1761,7 @@ $string['versioninfo'] = 'Release {$a->release}, version {$a->version} on Moodle
 $string['versionalpha'] = 'Alpha version - Almost certainly contains bugs.  This is a development version for developers \'only\'!  Don\'t even think of installing on a production server!';
 $string['versionbeta'] = 'Beta version - Likely to contain bugs.  Ready for testing by administrators on a test server only.';
 $string['versionrc'] = 'Release candidate version - May contain bugs.  Check completely on a test server before considering on a production server.';
-$string['versionstable'] = 'Stable version - Could contain bugs as there is not enough time left in the universe to find them all.  Check on a test server before installing on your production server, seriously do!  You won\'t regret it and you\'ll be able to customise until you\'re happy, then use the \'Import / export settings\' functionality to transfer the setting values, bar the files.';
+$string['versionstable'] = 'Stable version - Could contain bugs as there is not enough time left in the universe to find them all.  Check on a test server before installing on your production server, seriously do!  You won\'t regret it and you\'ll be able to customise until you\'re happy, then use the \'Import / export settings\' functionality to transfer the setting values.';
 
 // Grade editing.
 $string['turngradereditingoff'] = 'Turn grader editing off';
@@ -1770,11 +1801,22 @@ $string['propertiessub'] = 'Current theme settings';
 $string['propertiesdesc'] = 'In this section you can import / export current Adaptable theme settings (properties) in JSON format. You can also view all current settings on this Moodle installation.';
 $string['propertiesproperty'] = 'Property';
 $string['propertiesvalue'] = 'Value';
-$string['propertiesexport'] = 'Export properties as a JSON string';
+$string['propertiesexport'] = 'Export properties without files<br>as a JSON string';
+$string['propertiesexporthelp'] = 'After exporting, copy the JSON from the screen and paste it into the \'putprops\' setting (after clearing it) on the destination installation and click on \'Save changes\'.  A report will then be generated and put in the \'putprops\' setting.  It will list any file settings that need their files manually transferred.';
+$string['propertiesexportfilestoo'] = 'Export properties with files<br>as a JSON string';
+$string['propertiesexportfilestoohelp'] = 'After exporting, copy the JSON from the screen and paste it into the \'putprops\' setting (after clearing it) on the destination installation and click on \'Save changes\'.  A report will then be generated and put in the \'putprops\' setting.';
+$string['propertiesexportfilestoofile'] = 'Export properties with files<br>as a JSON file';
+$string['propertiesexportfilestoofilehelp'] = 'After exporting, download the generated JSON file with today\'s date and time from the \'propertyfiles\' setting and upload it into the \'fileputprops\' setting on the destination installation and click on \'Save changes\'.  A report will then be generated and put in the \'putprops\' setting.';
+$string['propertiesexportfilestoofilesuccess'] = 'Properties with files as a JSON file exported as {$a}.';
+$string['propertiesexportfilestoofilefail'] = 'Maximum properties with files as a JSON file reached.  Please delete one or more.';
 $string['propertiesreturn'] = 'Return';
+$string['propertyfiles'] = 'Property files';
+$string['propertyfilesdesc'] = 'When the maximum is reached no more will be added until one or more are deleted.';
 $string['putpropertiesheading'] = 'Import theme settings';
 $string['putpropertiesname'] = 'Import properties';
 $string['putpropertiesdesc'] = 'Paste the JSON string and \'Save changes\'.  Warning!  Does not validate setting values and performs a \'Purge all caches\'.';
+$string['putpropertiesfilename'] = 'Import properties from a file';
+$string['putpropertiesfiledesc'] = 'Drag and drop or upload the JSON file and \'Save changes\'.  Warning!  Does not validate setting values and performs a \'Purge all caches\'.  The report will be in \'putprops\'.';
 $string['putpropertyreport'] = 'Report:';
 $string['putpropertyversion'] = 'version:';
 $string['putpropertyproperties'] = 'Properties';
@@ -1818,8 +1860,8 @@ $string['tabbedlayoutcoursepagetabcolorselected'] = 'Selected tab colour for cou
 $string['tabbedlayoutcoursepagetabcolorselecteddesc'] = 'Choose the colour for the currently selected tab.';
 $string['tabbedlayoutcoursepagetabcolorunselected'] = 'Unselected tab colour for course page';
 $string['tabbedlayoutcoursepagetabcolorunselecteddesc'] = 'Choose the colour for any other tab.';
-$string['tabbedlayoutcoursepagetabpersistencetime'] = 'Course homepage tab persistence time';
-$string['tabbedlayoutcoursepagetabpersistencetimedesc'] = 'Course homepage Tab persists on the selected tab when refreshing for a period of inactivity.  Set the inactivity period here.  For example, set to 30 so that the first tab is selected after 30 minutes of inactivity.';
+$string['tabbedlayoutcoursepagetabpersistencetime'] = 'Course tab persistence time';
+$string['tabbedlayoutcoursepagetabpersistencetimedesc'] = 'Course tab persists on the selected tab when refreshing for a period of inactivity.  Set the inactivity period here.  For example, set to 30 so that the first tab is selected after 30 minutes of inactivity.';
 $string['tabbedlayoutdashboard'] = 'Dashboard page tabbed layout';
 $string['tabbedlayoutdashboarddesc'] = 'Use a tabbed layout for the Dashboard page.  This displays all content in tabs, with course content in one tab and allowing you to tailor the content in other tabs. Use this setting to configure the order of tabs.';
 $string['tabbedlayoutdashboardtabcolorselected'] = 'Selected tab colour for dashboard';

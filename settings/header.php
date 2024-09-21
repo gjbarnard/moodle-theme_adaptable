@@ -39,7 +39,10 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/headerbgimage';
     $title = get_string('headerbgimage', 'theme_adaptable');
     $description = get_string('headerbgimagedesc', 'theme_adaptable');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'headerbgimage');
+    $setting = new \theme_adaptable\admin_setting_configstoredfiles(
+        $name, $title, $description, 'headerbgimage',
+        ['accepted_types' => '*.jpg,*.jpeg,*.jfif,*.png', 'maxfiles' => 1]
+    );
     $page->add($setting);
 
     // Header image text colour.
@@ -75,7 +78,10 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/logo';
     $title = get_string('logo', 'theme_adaptable');
     $description = get_string('logodesc', 'theme_adaptable');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'logo');
+    $setting = new \theme_adaptable\admin_setting_configstoredfiles(
+        $name, $title, $description, 'logo',
+        ['accepted_types' => '*.jpg,*.jpeg,*.jfif,*.png', 'maxfiles' => 1]
+    );
     $page->add($setting);
 
     // Page Header Height.

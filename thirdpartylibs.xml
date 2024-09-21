@@ -210,7 +210,7 @@
     <location>scss/fontawesome</location>
     <name>Font Awesome - http://fontawesome.com</name>
     <description>Font Awesome is the Internet's icon library and toolkit, used by millions of designers, developers, and content creators.</description>
-    <version>6.4.2</version>
+    <version>6.6.0</version>
     <license>(MIT)</license>
     <repository>https://github.com/FortAwesome/Font-Awesome</repository>
     <copyrights>
@@ -218,31 +218,24 @@
     </copyrights>
   </library>
   <library>
-    <location>./jquery/jquery-easing-min.js</location>
+    <location>./amd/src/jqueryeasing.js</location>
     <name>jQuery Easing - http://gsgd.co.uk/sandbox/jquery/easing/</name>
     <license>Open source under the BSD License.  Copyright  2008 George McGinley Smith.</license>
     <version>1.4.1</version>
     <licenseversion></licenseversion>
   </library>
   <library>
-    <location>./jquery/jquery-flexslider-min.js</location>
+    <location>./amd/src/flexslider.js</location>
     <name>jQuery FlexSlider - https://github.com/woocommerce/FlexSlider</name>
     <license>GPL.  Copyright 2012 WooThemes.  Contributing Author: Tyler Smith.</license>
-    <version>2.4.0</version>
+    <version>2.7.2</version>
     <licenseversion>2.0</licenseversion>
   </library>
   <library>
-    <location>./jquery/pace-min.js</location>
+    <location>./amd/src/pace.js</location>
     <name>Pace - https://github.com/CodeByZach/pace</name>
     <license>MIT</license>
-    <version>1.0.2</version>
-    <licenseversion></licenseversion>
-  </library>
-  <library>
-    <location>./jquery/tickerme.js</location>
-    <name>jQuery Tickerme Plugin - https://github.com/gluhbirne/TickerMePink</name>
-    <license>None stated, see: https://github.com/gluhbirne/TickerMePink</license>
-    <version>1.0</version>
+    <version>1.2.4</version>
     <licenseversion></licenseversion>
   </library>
 </libraries>

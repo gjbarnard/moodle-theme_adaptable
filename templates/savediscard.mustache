@@ -27,14 +27,13 @@
     }
 }}
 
-{{#js}}
-require(['theme_adaptable/savebutton'], function(mod) {
-    mod.init();
-});
-{{/js}}
-
 <div id="savediscardsection" style="margin-top: {{{ topmargin }}};">
 <input id="adminresetbutton" class="form-submit" style="float: right; margin-right: 20px;" type="reset"
-    form="adminsettings" value=" {{{ discardtext }}}" />
+    form="adminsettings" value="{{{ discardtext }}}" data-confirm="{{#str}}enablesavecanceloverlayresetconfirm, theme_adaptable{{/str}}" />
 <input id="adminsubmitbutton" style="float: right; margin-right: 20px;" type="submit" form="adminsettings" value=" {{{ savetext }}}" />
 </div>
+{{#js}}
+require(['theme_adaptable/savebutton'], function(mod) {
+    mod.saveButtonInit();
+});
+{{/js}}

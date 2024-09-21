@@ -22,6 +22,24 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
+fieldset {
+    min-width: 0;
+}
+
+.mform {
+    fieldset {
+        margin-left: 0;
+        &.collapsible legend a.fheader {
+            margin-left: 0;
+        }
+    }
+}
+
+.col-form-label.d-inline {
+    float: right;
+    margin: 3px 5px 5px 0;
+}
+
 @media (min-width: 768px) {
     .availability-dialogue .moodle-dialogue {
         width: 740px !important;

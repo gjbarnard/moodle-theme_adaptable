@@ -534,7 +534,10 @@ trait core_renderer_toolbox {
                         'data-instanceid' => $bc->blockinstanceid,
                         'title' => get_string('blockshowhide', 'theme_adaptable'),
                     ]);
-                $this->page->requires->js_call_amd('theme_adaptable/collapseblock');
+                $this->page->requires->js_call_amd(
+                    'theme_adaptable/collapseblock',
+                    'collapseBlockInit'
+                );
             }
 
             $output .=
@@ -881,8 +884,8 @@ trait core_renderer_toolbox {
      * @return  string HTML output
      */
     public function get_block_regions(
-        $settingsname = 'blocklayoutlayoutrow',
-        $classnamebeginswith = 'frnt-market-',
+        $settingsname,
+        $classnamebeginswith,
         $customrowsetting = null
     ) {
         global $COURSE, $USER;
@@ -1142,7 +1145,7 @@ trait core_renderer_toolbox {
                                 $content .= '<div class="row flexiblerow">';
                                 $blocksequencecount++;
                             }
-                            $bc->attributes['class'] .= ' col-'.$blocksequence[$blocksequencecount]; // Will be a number.
+                            $bc->attributes['class'] .= ' col-12 col-sm-'.$blocksequence[$blocksequencecount]; // Will be a number.
                         } else {
                             if ((!$blockspacesexceeded) && ($blockcount >= $blockspacescount)) {
                                 $blockspacesexceeded = true;
@@ -1160,7 +1163,7 @@ trait core_renderer_toolbox {
                                     );
                                 }
                             }
-                            $bc->attributes['class'] .= ' col-4';
+                            $bc->attributes['class'] .= ' col-12 col-sm-4';
                         }
                         $bc->attributes['notitle'] = true;
                     }
@@ -1347,6 +1350,8 @@ trait core_renderer_toolbox {
         if (empty($this->page->theme->settings->sliderenabled)) {
             return '';
         }
+
+        $this->page->requires->js_call_amd('theme_adaptable/slider', 'init');
 
         $visiblestate = 3;
         if (!empty($this->page->theme->settings->slidervisible)) {

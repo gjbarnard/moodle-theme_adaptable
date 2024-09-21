@@ -54,18 +54,17 @@ trait core_renderer_layout {
         theme_adaptable_initialise_full();
         $bodyclasses[] = theme_adaptable_get_full();
 
-        $bsoptionsdata = ['data' => []];
+        $optionsdata = ['data' => []];
 
         // Main navbar.
         if (isset($themesettings->stickynavbar) && $themesettings->stickynavbar == 1) {
-            $bsoptionsdata['data']['stickynavbar'] = true;
+            $optionsdata['data']['stickynavbar'] = true;
         } else {
-            $bsoptionsdata['data']['stickynavbar'] = false;
+            $optionsdata['data']['stickynavbar'] = false;
         }
 
         // JS calls.
-        $this->page->requires->js_call_amd('theme_adaptable/adaptable', 'init');
-        $this->page->requires->js_call_amd('theme_adaptable/bsoptions', 'init', $bsoptionsdata);
+        $this->page->requires->js_call_amd('theme_adaptable/adaptable', 'init', $optionsdata);
 
         // Layout.
         $left = (!right_to_left());
@@ -173,7 +172,7 @@ trait core_renderer_layout {
         if (!empty($sidepostmarkup)) {
             echo $sidepostmarkup;
         }
-        if (!$bsoptionsdata['data']['stickynavbar']) {
+        if (!$optionsdata['data']['stickynavbar']) {
             echo '<div id="page" class="' . implode(' ', $pageclasses) . '">';
         }
 
@@ -363,7 +362,7 @@ trait core_renderer_layout {
 
             echo $this->render_from_template('theme_adaptable/headerstyletwo', $headercontext);
         }
-        if ($bsoptionsdata['data']['stickynavbar']) {
+        if ($optionsdata['data']['stickynavbar']) {
             echo '<div id="page" class="' . implode(' ', $pageclasses) . '">';
         }
         if (!empty($courseindextogglemarkup)) {
@@ -580,12 +579,14 @@ trait core_renderer_layout {
             $tablistnav = $this->page->has_tablist_secondary_navigation();
             $moremenu = new \core\navigation\output\more_menu($this->page->secondarynav, 'nav-tabs', true, $tablistnav);
             $secondarynavigation = $moremenu->export_for_template($this);
-            $secondarynavigation = $this->render_from_template('theme_adaptable/secondarynav', $secondarynavigation);
+            if (!empty($secondarynavigation)) {
+                $secondarynavigation = $this->render_from_template('theme_adaptable/secondarynav', $secondarynavigation);
 
-            $overflowdata = $this->page->secondarynav->get_overflow_menu_data();
-            if (!is_null($overflowdata)) {
-                $overflow = $overflowdata->export_for_template($this);
-                $overflow = $this->render_from_template('theme_adaptable/overflow', $overflow);
+                $overflowdata = $this->page->secondarynav->get_overflow_menu_data();
+                if (!is_null($overflowdata)) {
+                    $overflow = $overflowdata->export_for_template($this);
+                    $overflow = $this->render_from_template('theme_adaptable/overflow', $overflow);
+                }
             }
         }
 
@@ -725,6 +726,9 @@ trait core_renderer_layout {
         echo '<section id="region-main">';
         echo $this->get_course_alerts();
         echo $this->course_content_header();
+        if ($this->page->pagetype == 'user-profile') {
+            echo $this->context_header();
+        }
         if (!empty($secondarynavigation)) {
             echo $secondarynavigation;
         }
@@ -950,7 +954,7 @@ trait core_renderer_layout {
             } else {
                 $tabbedlayoutcoursepagetabpersistencetime = 30;
             }
-            $this->page->requires->js_call_amd('theme_adaptable/utils', 'init', ['currentpage' => $currentpage,
+            $this->page->requires->js_call_amd('theme_adaptable/tabbed', 'init', ['currentpage' => $currentpage,
                 'tabpersistencetime' => $tabbedlayoutcoursepagetabpersistencetime, ]);
         }
     }
@@ -974,7 +978,7 @@ trait core_renderer_layout {
         $dashblocklayoutlayoutrow = '';
         if (!empty($themesettings->dashblocksenabled)) {
             $dashblocklayoutlayoutrow = '<div id="frontblockregion" class="row">';
-            $dashblocklayoutlayoutrow .= $this->get_block_regions('dashblocklayoutlayoutrow');
+            $dashblocklayoutlayoutrow .= $this->get_block_regions('dashblocklayoutlayoutrow', 'frnt-market-');
             $dashblocklayoutlayoutrow .= '</div>';
         }
 
@@ -1184,7 +1188,9 @@ trait core_renderer_layout {
             echo $overflow;
         }
 
+        echo '<div class="container">';
         echo $this->get_news_ticker();
+        echo '</div>';
 
         // Slider.
         echo $this->get_frontpage_slider();
@@ -1197,11 +1203,14 @@ trait core_renderer_layout {
                 echo '<div id="theinfo" class="container">';
             }
             echo '<div class="row">';
+            echo '<div class="col-12">';
             echo \theme_adaptable\toolbox::get_setting('infobox', 'format_moodle');
+            echo '</div>';
             echo '</div>';
             echo '</div>';
         }
 
+        echo '<div class="container">';
         // If Information Blocks are enabled then let's show them.
         if (!empty($themesettings->informationblocksenabled)) {
             echo $this->get_flexible_blocks('information');
@@ -1211,11 +1220,12 @@ trait core_renderer_layout {
         if (!empty($themesettings->frontpagemarketenabled)) {
             echo $this->get_marketing_blocks();
         }
+        echo '</div>';
 
         if (!empty($themesettings->frontpageblocksenabled)) {
             echo '<div id="frontblockregion" class="container">';
             echo '<div class="row">';
-            echo $this->get_block_regions();
+            echo $this->get_block_regions('blocklayoutlayoutrow', 'frnt-market-');
             echo '</div>';
             echo '</div>';
         }
@@ -1228,12 +1238,13 @@ trait core_renderer_layout {
                 echo '<div id="theinfo2" class="container">';
             }
             echo '<div class="row">';
+            echo '<div class="col-12">';
             echo \theme_adaptable\toolbox::get_setting('infobox2', 'format_moodle');
+            echo '</div>';
             echo '</div>';
             echo '</div>';
         }
 
-        // The main content goes here.
         echo '<div id="maincontainer" class="container outercont">';
         echo '<div id="page-content" class="row">';
         echo '<div id="page-navbar" class="col-12">';
@@ -1331,7 +1342,7 @@ trait core_renderer_layout {
         // Include secondary navigation.
         [$secondarynavigation, $overflow] = $this->secondarynav();
 
-        echo '<div id="page" class="container-outercont">';
+        echo '<div id="page" class="container outercont">';
         echo $this->page_navbar();
         echo '<div id="page-content" class="row">';
         echo '<div id="region-main-box" class="col-12">';

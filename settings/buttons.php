@@ -52,6 +52,15 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Buttons text color.
+    $name = 'theme_adaptable/buttontextcolor';
+    $title = get_string('buttontextcolor', 'theme_adaptable');
+    $description = get_string('buttontextcolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     // Buttons background hover color.
     $name = 'theme_adaptable/buttonhovercolor';
     $title = get_string('buttonhovercolor', 'theme_adaptable');
@@ -70,17 +79,35 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Buttons focus color.
-    $name = 'theme_adaptable/buttonfocuscolor';
-    $title = get_string('buttonfocuscolor', 'theme_adaptable');
-    $description = get_string('buttonfocuscolordesc', 'theme_adaptable');
+    // Buttons background focus color.
+    $name = 'theme_adaptable/buttonfocuscolour';
+    $title = get_string('buttonfocuscolour', 'theme_adaptable');
+    $description = get_string('buttonfocuscolourdesc', 'theme_adaptable');
     $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#0F6CC0', $previewconfig);
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#0f6cc0', $previewconfig);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Buttons focus color opacity.
-    $bfcoopactitychoices = [
+    // Buttons text focus color.
+    $name = 'theme_adaptable/buttontextfocuscolour';
+    $title = get_string('buttontextfocuscolour', 'theme_adaptable');
+    $description = get_string('buttontextfocuscolourdesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#eeeeee', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Input buttons focus color.
+    $name = 'theme_adaptable/inputbuttonfocuscolour';
+    $title = get_string('inputbuttonfocuscolour', 'theme_adaptable');
+    $description = get_string('inputbuttonfocuscolourdesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#0f6cc0', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Input buttons focus color opacity.
+    $ibfcoopactitychoices = [
         '0.0' => '0.0',
         '0.05' => '0.05',
         '0.1' => '0.1',
@@ -104,20 +131,11 @@ if ($ADMIN->fulltree) {
         '1.0' => '1.0',
     ];
 
-    $name = 'theme_adaptable/buttonfocuscoloropacity';
-    $title = get_string('buttonfocuscoloropacity', 'theme_adaptable');
-    $description = get_string('buttonfocuscoloropacitydesc', 'theme_adaptable');
+    $name = 'theme_adaptable/inputbuttonfocuscolouropacity';
+    $title = get_string('inputbuttonfocuscolouropacity', 'theme_adaptable');
+    $description = get_string('inputbuttonfocuscolouropacitydesc', 'theme_adaptable');
     $default = '0.75';
-    $setting = new admin_setting_configselect($name, $title, $description, $default, $bfcoopactitychoices);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    // Buttons text color.
-    $name = 'theme_adaptable/buttontextcolor';
-    $title = get_string('buttontextcolor', 'theme_adaptable');
-    $description = get_string('buttontextcolordesc', 'theme_adaptable');
-    $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $ibfcoopactitychoices);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 

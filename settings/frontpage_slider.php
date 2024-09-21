@@ -202,7 +202,10 @@ if ($ADMIN->fulltree) {
         $name = 'theme_adaptable/p' . $sliderindex;
         $title = get_string('sliderimage', 'theme_adaptable');
         $description = get_string('sliderimagedesc', 'theme_adaptable');
-        $setting = new admin_setting_configstoredfile($name, $title, $description, $fileid);
+        $setting = new \theme_adaptable\admin_setting_configstoredfiles(
+            $name, $title, $description, $fileid,
+            ['accepted_types' => '*.jpg,*.jpeg,*.jfif,*.png', 'maxfiles' => 1]
+        );
         $page->add($setting);
 
         $name = 'theme_adaptable/p' . $sliderindex . 'url';

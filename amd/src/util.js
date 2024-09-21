@@ -13,18 +13,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Util Module based on core_user/repository.
- *
- * @module     theme_adaptable/util
- * @copyright  2020 Andrew Nicols <andrew@nicols.co.uk>
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
- * @copyright  2023 G J Barnard.
- * @author     G J Barnard -
- *               {@link https://moodle.org/user/profile.php?id=442195}
- *               {@link https://gjbarnard.co.uk}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
- */
+//
+// Util Module based on core_user/repository.
+//
+// @module     theme_adaptable/util
+// @copyright  2020 Andrew Nicols <andrew@nicols.co.uk>
+// @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+// @copyright  2023 G J Barnard.
+// @author     G J Barnard -
+//               {@link https://moodle.org/user/profile.php?id=442195}
+//               {@link https://gjbarnard.co.uk}
+// @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+//
 
 import {call as fetchMany} from 'core/ajax';
 

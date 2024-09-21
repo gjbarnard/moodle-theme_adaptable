@@ -162,8 +162,8 @@ $THEME->layouts = [
     ],
     // My courses page.
     'mycourses' => [
-        'file' => 'dashboard.php',
-        'regions' => $courselayoutregions,
+        'file' => 'columns2.php',
+        'regions' => $standardregions,
         'defaultregion' => 'side-post',
         'options' => ['langmenu' => true],
     ],

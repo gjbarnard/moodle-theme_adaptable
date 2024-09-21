@@ -27,6 +27,19 @@
     padding: .5rem;
 }
 
+#page {
+    clear: both;
+    margin: 0;
+    max-width: inherit;
+    padding: 0;
+}
+
+#page-content {
+    padding: 12px 0 20px;
+    position: relative;
+    width: auto;
+}
+
 // Calendar links on the page.
 a.skip-block,
 a.skip {
@@ -43,4 +56,12 @@ a.skip {
 body.h5p-embed #page-content {
     display: block;
     padding: 0;
+}
+
+.theme-card .btn {
+    padding: 0.25rem 0.5rem !important;
+}
+
+.tooltip {
+    font-size: .9rem;
 }

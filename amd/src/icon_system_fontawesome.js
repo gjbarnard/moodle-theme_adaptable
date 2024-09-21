@@ -13,20 +13,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Adaptable theme.
- *
- * An Icon System implementation for FontAwesome based on core/icon_system_fontawesome by
- * Damyon Wiese.
- *
- * @module theme_adaptable/icon_system_fontawesome
- * @copyright  2017 Damyon Wiese
- * @copyright  2023 G J Barnard.
- * @author     G J Barnard -
- *               {@link https://moodle.org/user/profile.php?id=442195}
- *               {@link https://gjbarnard.co.uk}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
- */
+//
+// Adaptable theme.
+//
+// An Icon System implementation for FontAwesome based on core/icon_system_fontawesome by
+// Damyon Wiese.
+//
+// @module theme_adaptable/icon_system_fontawesome
+// @copyright  2017 Damyon Wiese
+// @copyright  2023 G J Barnard.
+// @author     G J Barnard -
+//               {@link https://moodle.org/user/profile.php?id=442195}
+//               {@link https://gjbarnard.co.uk}
+// @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+//
 
 import {call as fetchMany} from 'core/ajax';
 import LocalStorage from 'core/localstorage';
