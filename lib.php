@@ -32,6 +32,9 @@ defined('MOODLE_INTERNAL') || die;
 global $CFG;
 require_once($CFG->dirroot . '/theme/boost/lib.php');
 
+use core\output\theme_config;
+use core\url;
+
 define('THEME_ADAPTABLE_DEFAULT_ALERTCOUNT', '1');
 define('THEME_ADAPTABLE_DEFAULT_ANALYTICSCOUNT', '1');
 define('THEME_ADAPTABLE_DEFAULT_TOPMENUSCOUNT', '1');
@@ -804,12 +807,12 @@ function theme_adaptable_extend_navigation_course($coursenode, $course, $coursec
                 $editstring = get_string('turngradereditingon', 'theme_adaptable');
             }
         } else {
-            if ($PAGE->url->compare(new moodle_url('/course/view.php'), URL_MATCH_BASE)) {
+            if ($PAGE->url->compare(new url('/course/view.php'), URL_MATCH_BASE)) {
                 // We are on the course page, retain the current page params e.g. section.
                 $editurl = clone($PAGE->url);
             } else {
                 // Edit on the main course page.
-                $editurl = new moodle_url(
+                $editurl = new url(
                     '/course/view.php',
                     ['id' => $course->id, 'return' => $PAGE->url->out_as_local_url(false)]
                 );

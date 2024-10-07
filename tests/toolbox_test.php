@@ -36,6 +36,7 @@ final class toolbox_test extends \advanced_testcase {
      * Set up.
      */
     protected function setUp(): void {
+        parent::setUp();
         $this->resetAfterTest(true);
 
         set_config('theme', 'adaptable');
@@ -43,6 +44,7 @@ final class toolbox_test extends \advanced_testcase {
 
     /**
      * Add property test.
+     * @covers \theme_adaptable\toolbox::to_add_property
      */
     public function test_to_add_property(): void {
         // Ref: http://stackoverflow.com/questions/249664/best-practices-to-test-protected-methods-with-phpunit.

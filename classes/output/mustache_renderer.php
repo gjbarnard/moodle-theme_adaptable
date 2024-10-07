@@ -29,7 +29,7 @@ namespace theme_adaptable\output;
 /**
  * The mustache renderer.
  */
-class mustache_renderer extends \core_renderer {
+class mustache_renderer extends \core\output\core_renderer {
     /**
      * @var Mustache_Loader $stringloader The mustache string loader.
      */

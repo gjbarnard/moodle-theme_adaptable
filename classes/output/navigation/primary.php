@@ -16,8 +16,8 @@
 
 namespace theme_adaptable\output\navigation;
 
-use custom_menu;
-use renderer_base;
+use core\output\custom_menu;
+use core\output\renderer_base;
 
 /**
  * Adaptable theme.
@@ -60,7 +60,7 @@ class primary extends \core\navigation\output\primary {
         foreach ($menu->get_children() as $node) {
             $url = $node->get_url();
             $target = '';
-            if (is_object($url) && (get_class($url) == 'moodle_url')) {
+            if (is_object($url) && (get_class($url) == 'core\url')) {
                 $target = $url->get_param('helptarget');
                 if ($target != null) {
                     $url->remove_params('helptarget');

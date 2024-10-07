@@ -30,11 +30,11 @@
 
 namespace theme_adaptable\output\core;
 
-use html_writer;
-use moodle_url;
+use core\output\html_writer;
+use core\url;
+use core_course_list_element;
 use coursecat_helper;
 use lang_string;
-use core_course_list_element;
 use stdClass;
 
 /**
@@ -100,7 +100,7 @@ class course_renderer extends \core_course_renderer {
         if (($type == 1) || ($showcourses < self::COURSECAT_SHOW_COURSES_EXPANDED)) {
             $content .= html_writer::start_tag('div', ['class' => 'panel-heading']);
             $content .= html_writer::link(
-                new moodle_url('/course/view.php', ['id' => $course->id]),
+                new url('/course/view.php', ['id' => $course->id]),
                 $coursename,
                 ['class' => $course->visible ? '' : 'dimmed', 'title' => $coursename]
             );
@@ -145,7 +145,7 @@ class course_renderer extends \core_course_renderer {
                     $arrow, ['class' => 'get_stringlink']);
 
             if (($type != 4) || (empty($this->page->theme->settings->covhidebutton))) {
-                $content .= html_writer::link(new moodle_url(
+                $content .= html_writer::link(new url(
                     '/course/view.php',
                     ['id' => $course->id]
                 ), $btn, ['class' => " coursebtn submit btn btn-info btn-sm"]);
@@ -219,7 +219,7 @@ class course_renderer extends \core_course_renderer {
             if ($isimage) {
                 if ($type == 1) {
                     $contentimages .= html_writer::start_tag('div', ['class' => 'courseimage']);
-                    $link = new moodle_url('/course/view.php', ['id' => $course->id]);
+                    $link = new url('/course/view.php', ['id' => $course->id]);
                     $contentimages .= html_writer::link($link, html_writer::empty_tag('img', ['src' => $url]));
                     $contentimages .= html_writer::end_tag('div');
                 } else {
@@ -229,7 +229,7 @@ class course_renderer extends \core_course_renderer {
                     ];
                     if ($type == 4) {
                         $cimtag = 'a';
-                        $cimboxattr['href'] = new moodle_url('/course/view.php', ['id' => $course->id]);
+                        $cimboxattr['href'] = new url('/course/view.php', ['id' => $course->id]);
                     } else {
                         $cimtag = 'div';
                     }
@@ -256,7 +256,7 @@ class course_renderer extends \core_course_renderer {
             if ($type == 2) {
                 $cimtag = 'div';
             } else { // Type is 4.
-                $cimboxattr['href'] = new moodle_url('/course/view.php', ['id' => $course->id]);
+                $cimboxattr['href'] = new url('/course/view.php', ['id' => $course->id]);
                 $cimtag = 'a';
             }
             $contentimages .= html_writer::tag($cimtag, '', $cimboxattr);
@@ -269,7 +269,7 @@ class course_renderer extends \core_course_renderer {
                 'class' => 'coursebox-content',
                 ]);
             $coursename = $chelper->get_course_formatted_name($course);
-            $content .= html_writer::start_tag('a', ['href' => new moodle_url('/course/view.php', ['id' => $course->id])]);
+            $content .= html_writer::start_tag('a', ['href' => new url('/course/view.php', ['id' => $course->id])]);
             $content .= html_writer::tag('h3', $coursename, ['class' => $course->visible ? '' : 'dimmed']);
             $content .= html_writer::end_tag('a');
         }
@@ -295,7 +295,7 @@ class course_renderer extends \core_course_renderer {
                         ['class' => 'fa fa-graduation-cap']
                     ));
                     $name = html_writer::link(
-                        new moodle_url(
+                        new url(
                             '/user/view.php',
                             ['id' => $userid, 'course' => $course->id]
                         ),
@@ -315,7 +315,7 @@ class course_renderer extends \core_course_renderer {
                 $content .= html_writer::start_tag('div', ['class' => 'coursecat']);
                 $content .= get_string('category') . ': ' .
                         html_writer::link(
-                            new moodle_url('/course/index.php', ['categoryid' => $cat->id]),
+                            new url('/course/index.php', ['categoryid' => $cat->id]),
                             $cat->get_formatted_name(),
                             ['class' => $cat->visible ? '' : 'dimmed']
                         );

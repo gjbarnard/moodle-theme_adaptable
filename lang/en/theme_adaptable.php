@@ -315,6 +315,9 @@ $string['blocklayoutlayoutcount2'] = ' block regions. You are currently using: '
 $string['blocklayoutlayoutrow'] = 'Block region row';
 $string['blocklayoutlayoutrowdesc'] = 'Add / set layout for block region row on front page.';
 
+$string['blockregioneditingtitleshown'] = 'Show the block region title when editing';
+$string['blockregioneditingtitleshowndesc'] = 'You can show / hide the block region title when editing.';
+
 $string['dashblocklayoutlayoutrow'] = 'Dashboard block region row ';
 $string['dashblocklayoutlayoutrowdesc'] = 'Add / set layout for block region row on Dashboard page.';
 

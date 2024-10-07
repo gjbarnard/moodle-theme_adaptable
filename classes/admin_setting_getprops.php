@@ -28,9 +28,9 @@ namespace theme_adaptable;
 
 use context_system;
 use context_user;
-use html_table;
-use html_writer;
-use moodle_url;
+use core_table\output\html_table;
+use core\output\html_writer;
+use core\url;
 
 /**
  * Get properties class.
@@ -133,7 +133,7 @@ class admin_setting_getprops extends \admin_setting {
         if ($saveprops) {
             $props = \theme_adaptable\toolbox::get_properties($this->pluginfrankenstyle);
 
-            $returnurl = new moodle_url('/admin/settings.php', ['section' => $this->settingsectionname]);
+            $returnurl = new url('/admin/settings.php', ['section' => $this->settingsectionname]);
             $returnbutton = '<div class="singlebutton"><a class="btn btn-secondary" href="' . $returnurl->out(true) . '">' .
                 $this->returnbuttonname . '</a></div>';
             $return .= $returnbutton;
@@ -205,7 +205,7 @@ class admin_setting_getprops extends \admin_setting {
                 }
             }
 
-            $returnurl = new moodle_url('/admin/settings.php', ['section' => $this->settingsectionname]);
+            $returnurl = new url('/admin/settings.php', ['section' => $this->settingsectionname]);
             $returnbutton = '<div class="singlebutton"><a class="btn btn-secondary" href="' . $returnurl->out(true) . '">' .
                 $this->returnbuttonname . '</a></div>';
             $return .= $returnbutton;
@@ -223,21 +223,21 @@ class admin_setting_getprops extends \admin_setting {
         } else {
             $props = \theme_adaptable\toolbox::get_properties($this->pluginfrankenstyle);
 
-            $propsexporturl = new moodle_url('/admin/settings.php', ['section' => $this->settingsectionname,
+            $propsexporturl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops' => 1, ]);
             $propsexportbutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
                 $propsexporturl->out(true) . '" data-toggle="tooltip" data-placement="bottom" title="'.
                 get_string('propertiesexporthelp', $this->pluginfrankenstyle) . '">' .
                 $this->savepropsbuttonname . '</a></div></div>';
 
-            $propsexportfilestoourl = new moodle_url('/admin/settings.php', ['section' => $this->settingsectionname,
+            $propsexportfilestoourl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops_filestoo' => 1, ]);
             $propsexportfilestoobutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
                 $propsexportfilestoourl->out(true) . '" data-toggle="tooltip" data-placement="bottom" title="'.
                 get_string('propertiesexportfilestoohelp', $this->pluginfrankenstyle) . '">' .
                 $this->savepropsfilestoobuttonname . '</a></div></div>';
 
-            $propsexportfilestoofilesurl = new moodle_url('/admin/settings.php', ['section' => $this->settingsectionname,
+            $propsexportfilestoofilesurl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops_filestoofile' => 1, ]);
             $propsexportfilestoofilebutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
                 $propsexportfilestoofilesurl->out(true) . '" data-toggle="tooltip" data-placement="bottom" title="'.

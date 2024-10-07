@@ -26,7 +26,7 @@
 
 namespace theme_adaptable\output;
 
-use moodle_url;
+use core\url;
 use stdClass;
 
 /**
@@ -195,7 +195,7 @@ trait core_renderer_layout {
                     'displayloginbox' => ($themesettings->displaylogin == 'box') ? true : false,
                     'output' => $this,
                     'token' => s(\core\session\manager::get_login_token()),
-                    'url' => new moodle_url('/login/index.php'),
+                    'url' => new url('/login/index.php'),
                 ];
                 if (!$loginformcontext['displayloginbox']) {
                     $authsequence = get_enabled_auth_plugins(); // Get all auths.
@@ -415,7 +415,7 @@ trait core_renderer_layout {
         $headcontext->output = $this;
         $headcontext->sitefullname = $SITE->fullname;
         $headcontext->pagetitle = $this->page_title();
-        $siteurl = new moodle_url('');
+        $siteurl = new url('');
         $headcontext->siteurl = $siteurl->out();
         $headcontext->maincolor = $themesettings->maincolor;
 
@@ -535,11 +535,9 @@ trait core_renderer_layout {
             $sidepostopen = false;
         }
 
-        // Add block button in editing mode.
-        $addblockbutton = $this->addblockbutton();
-
         $sideposthtml = $this->blocks('side-post');
-        $hassidepost = (strpos($sideposthtml, 'data-block=') !== false || !empty($addblockbutton));
+        // Blocks or add block button.
+        $hassidepost = ((strpos($sideposthtml, 'data-block=') !== false) || (strpos($sideposthtml, 'data-key="addblock"') !== false));
         if (!$hassidepost) {
             $sidepostopen = false;
         }
@@ -549,7 +547,6 @@ trait core_renderer_layout {
         }
 
         $sidepostcontext = [
-            'addblockbutton' => $addblockbutton,
             'hassidepost' => $hassidepost,
             'left' => $left,
             'sidepostopen' => $sidepostopen,
@@ -815,7 +812,7 @@ trait core_renderer_layout {
             $section = optional_param('section', 0, PARAM_INT);
             if ((!empty($themesettings->tabbedlayoutcoursepagelink)) &&
                 (($sectionid) || ($section))) {
-                $courseurl = new moodle_url('/course/view.php', ['id' => $COURSE->id]);
+                $courseurl = new url('/course/view.php', ['id' => $COURSE->id]);
                 echo '<div class="linktab"><a href="' . $courseurl->out(true) . '"><i class="fa fa-th-large"></i></a></div>';
             }
 

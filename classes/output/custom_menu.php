@@ -26,6 +26,9 @@
 
 namespace theme_adaptable\output;
 
+use core\output\custom_menu_item;
+use core\url;
+
 /**
  * Adaptable's custom menu.
  */
@@ -38,7 +41,7 @@ class custom_menu extends \custom_menu {
      */
     public function __construct($definition = '', $currentlanguage = null) {
         $this->currentlanguage = $currentlanguage;
-        \custom_menu_item::__construct('root'); // create virtual root element of the menu
+        custom_menu_item::__construct('root'); // create virtual root element of the menu
         if (!empty($definition)) {
             $this->override_children(self::convert_text_to_menu_nodes($definition, $currentlanguage));
         }
@@ -51,7 +54,7 @@ class custom_menu extends \custom_menu {
      * @param string $currentlanguage The current language code, null disables multilang support.
      * @param string $menu Other menu to add to (optional).
      */
-    public function add_custom_menu_items($definition = '', $currentlanguage = null, \custom_menu_item $menu = null) {
+    public function add_custom_menu_items($definition = '', $currentlanguage = null, custom_menu_item $menu = null) {
         if (!empty($definition)) {
             $items = self::convert_text_to_menu_nodes($definition, $currentlanguage);
             if (empty($menu)) {
@@ -122,7 +125,7 @@ class custom_menu extends \custom_menu {
                             break;
                         case 1: // URL.
                             try {
-                                $itemurl = new \moodle_url($setting);
+                                $itemurl = new url($setting);
                             } catch (\moodle_exception $exception) {
                                 // We're not actually worried about this, we don't want to mess up the display
                                 // just for a wrongly entered URL.

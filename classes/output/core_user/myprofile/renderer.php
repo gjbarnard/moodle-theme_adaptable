@@ -34,7 +34,6 @@ defined('MOODLE_INTERNAL') || die;
 use core_user\output\myprofile\category;
 use core_user\output\myprofile\node;
 use core_user\output\myprofile\tree;
-use html_writer;
 
 require_once($CFG->dirroot . '/user/lib.php');
 

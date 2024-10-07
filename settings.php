@@ -40,7 +40,7 @@ $ADMIN->add('appearance', new admin_category('theme_adaptable', get_string('conf
 $asettings = new \theme_adaptable\admin_settingspage_tabs(
     'themesettingadaptable',
     get_string('configtabtitle', 'theme_adaptable'),
-    404
+    405
 );
 if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/array_definitions.php');

@@ -35,6 +35,12 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_heading($name, $heading, '');
     $page->add($setting);
 
+    $name = 'theme_adaptable/blockregioneditingtitleshown';
+    $title = get_string('blockregioneditingtitleshown', 'theme_adaptable');
+    $description = get_string('blockregioneditingtitleshowndesc', 'theme_adaptable');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, true);
+    $page->add($setting);
+
     $name = 'theme_adaptable/frontpageuserblocksenabled';
     $title = get_string('frontpageuserblocksenabled', 'theme_adaptable');
     $description = get_string('frontpageuserblocksenableddesc', 'theme_adaptable');

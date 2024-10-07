@@ -1,3 +1,10 @@
+Change Log in version 405.0.1 (2024100500)
+==========================================
+1. Block region tidy when editing, 'Add block' button for each region and added 'blockregioneditingtitleshown' setting
+   under 'Block' with a default of true.
+2. Impact of MDL-81920 and MDL-81960.
+3. Release candidate initial release.
+
 Change Log in version 404.1.1 (2024032803)
 ==========================================
 1. Fix missing 'recaptcha' on login form.

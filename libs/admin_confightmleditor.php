@@ -26,6 +26,8 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use core\url;
+
 /**
  * Class to configure html editor for admin settings allowing use of repositories.
  *
@@ -261,7 +263,7 @@ class adaptable_setting_confightmleditor extends admin_setting_configtext {
                     ) {
                         $filerec = $fs->create_file_from_storedfile($filerecord, $file);
                     }
-                    $url = moodle_url::make_pluginfile_url(
+                    $url = url::make_pluginfile_url(
                         $filerec->get_contextid(),
                         $filerec->get_component(),
                         $filerec->get_filearea(),

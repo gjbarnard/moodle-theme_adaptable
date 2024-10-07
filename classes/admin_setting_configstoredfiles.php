@@ -29,6 +29,7 @@ namespace theme_adaptable;
 
 use context_system;
 use context_user;
+use core\url;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -395,10 +396,10 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
             $syscontext->id, $component, $filearea, 0, 'sortorder,filepath,filename', false);  // Item id could not be 0!
         foreach ($files as $file) {
             $filepath = $file->get_filepath().$file->get_filename();
-            $url = \moodle_url::make_file_url(
+            $url = url::make_file_url(
                 "$CFG->wwwroot/pluginfile.php", "/$syscontext->id/$component/$filearea/$itemid".$filepath);
             // Now this is tricky because the we can not hardcode http or https here, lets use the relative link.
-            // Note: unfortunately moodle_url does not support //urls yet.
+            // Note: unfortunately url does not support //urls yet.
             $url = preg_replace('|^https?://|i', '//', $url->out(false));
             $urls[] = $url;
         }

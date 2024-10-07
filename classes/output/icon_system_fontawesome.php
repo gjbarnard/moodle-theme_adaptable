@@ -26,6 +26,8 @@
  */
 namespace theme_adaptable\output;
 
+use core\output\pix_icon;
+
 /**
  * Font Awesome icon system.
  */
@@ -524,8 +526,8 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
      *
      * @return string the rendered icon markup.
      */
-    public function render_pix_icon(\renderer_base $output, \pix_icon $icon) {
-        $subtype = '\pix_icon_fontawesome';
+    public function render_pix_icon(\renderer_base $output, pix_icon $icon) {
+        $subtype = '\core\output\pix_icon_fontawesome';
         $subpix = new $subtype($icon);
         $data = $subpix->export_for_template($output);
 

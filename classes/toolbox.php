@@ -27,6 +27,9 @@
 
 namespace theme_adaptable;
 
+use core\output\html_writer;
+use core\output\theme_config;
+
 /**
  * Class definition for toolbox.
  */
@@ -75,7 +78,7 @@ class toolbox {
     }
 
     /**
-     * Gets the setting moodle_url for the given setting if it exists and set.
+     * Gets the setting url for the given setting if it exists and set.
      *
      * See: https://moodle.org/mod/forum/discuss.php?d=371252#p1516474 and change if theme_config::setting_file_url
      * changes.
@@ -86,11 +89,11 @@ class toolbox {
      *
      * @return string Setting url
      */
-    public static function get_setting_moodle_url($setting, $theconfig = null) {
+    public static function get_setting_url($setting, $theconfig = null) {
         $settingurl = null;
 
         if (empty($theconfig)) {
-            $theconfig = \theme_config::load('adaptable');
+            $theconfig = theme_config::load('adaptable');
         }
         if ($theconfig != null) {
             $thesetting = $theconfig->settings->$setting;
@@ -99,7 +102,7 @@ class toolbox {
                 $itemid = \theme_get_revision();
                 $syscontext = \context_system::instance();
 
-                $settingurl = \moodle_url::make_file_url(
+                $settingurl = \core\url::make_file_url(
                     "$CFG->wwwroot/pluginfile.php",
                     "/$syscontext->id/theme_$theconfig->name/$setting/$itemid" . $thesetting
                 );
@@ -142,7 +145,7 @@ class toolbox {
             $themename = 'adaptable';
         }
         if (empty(self::$themeconfigs[$themename])) {
-            self::$themeconfigs[$themename] = \theme_config::load($themename);
+            self::$themeconfigs[$themename] = theme_config::load($themename);
         }
 
         $setting = (!empty(self::$themeconfigs[$themename]->settings->$settingname)) ?
@@ -185,7 +188,7 @@ class toolbox {
             $themename = 'adaptable';
         }
         if (empty(self::$themeconfigs[$themename])) {
-            self::$themeconfigs[$themename] = \theme_config::load($themename);
+            self::$themeconfigs[$themename] = theme_config::load($themename);
         }
 
         return self::$themeconfigs[$themename];
@@ -637,9 +640,9 @@ class toolbox {
         $attributes['class'] = implode(' ', $classes);
         if (!empty($title)) {
             $attributes['title'] = $title;
-            $content .= \html_writer::tag('span', $title, ['class' => 'sr-only']);
+            $content .= html_writer::tag('span', $title, ['class' => 'sr-only']);
         }
-        return \html_writer::tag('span', $content, $attributes);
+        return html_writer::tag('span', $content, $attributes);
     }
 
     /**
