@@ -65,6 +65,9 @@ trait core_renderer_layout {
 
         // JS calls.
         $this->page->requires->js_call_amd('theme_adaptable/adaptable', 'init', $optionsdata);
+        if (!empty($themesettings->pageloadingprogress)) {
+            $this->page->requires->js_call_amd('theme_adaptable/pace_init', 'init', [$themesettings->pageloadingprogresstheme]);
+        }
 
         // Layout.
         $left = (!right_to_left());
@@ -392,6 +395,10 @@ trait core_renderer_layout {
 
         theme_adaptable_initialise_full();
         $bodyclasses[] = theme_adaptable_get_full();
+
+        if (!empty($themesettings->pageloadingprogress)) {
+            $this->page->requires->js_call_amd('theme_adaptable/pace_init', 'init', [$themesettings->pageloadingprogresstheme]);
+        }
 
         // Include header.
         $this->head($bodyclasses);

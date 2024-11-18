@@ -159,15 +159,6 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_heading($name, $heading, '');
     $page->add($setting);
 
-    // Loading bar color.
-    $name = 'theme_adaptable/loadingcolor';
-    $title = get_string('loadingcolor', 'theme_adaptable');
-    $description = get_string('loadingcolordesc', 'theme_adaptable');
-    $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#00B3A1', $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
     // Top header message badge background color.
     $name = 'theme_adaptable/msgbadgecolor';
     $title = get_string('msgbadgecolor', 'theme_adaptable');

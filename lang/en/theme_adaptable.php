@@ -135,7 +135,7 @@ $string['settingsmessagescolors'] = 'Messages pop-up colours';
 $string['settingsfootercolors'] = 'Footer colours';
 $string['settingsfonts'] = 'Fonts';
 $string['settingsanalytics'] = 'Analytics';
-$string['settingsblocksgeneral'] = 'General';
+$string['settingsblocksconfiguration'] = 'Configuration';
 $string['settingsborders'] = 'Borders';
 $string['settingscolors'] = 'Colours';
 $string['settingscourses'] = 'Courses';
@@ -143,12 +143,11 @@ $string['settingstopicsweeks'] = 'Topics / Weeks';
 $string['settingsblockicons'] = 'Icons';
 
 // Admin Settings Strings.
-$string['settingspageblocksettings'] = 'Block';
 $string['settingspagealertsettings'] = 'Alerts';
-$string['frontpageblockregionsettings'] = 'Block region builder';
-$string['dashboardblockregionsettings'] = 'Dashboard block region builder';
+$string['settingspageblocksettings'] = 'Block';
 $string['coursepageblockregionsettings'] = 'Course page block region builder';
-$string['frontpageblocksettings'] = 'Marketing blocks';
+$string['dashboardblockregionsettings'] = 'Dashboard block region builder';
+$string['settingspagefrontpageblockregionsettings'] = 'Frontpage block region builder';
 $string['frontpageslidersettings'] = 'Frontpage slider';
 $string['frontpagecoursesettings'] = 'Frontpage courses list';
 $string['frontpagesettingsheading'] = 'Frontpage rendering';
@@ -159,6 +158,8 @@ $string['frontpagerendereroption1'] = 'Tiles';
 $string['frontpagerendereroption2'] = 'Tiles w/ overlay';
 $string['frontpagerendereroption3'] = 'Moodle default';
 $string['frontpagerendereroption4'] = 'Coventry tiles';
+$string['frontpageblocksettings'] = 'Marketing blocks';
+$string['settingspagegeneralsettings'] = 'General';
 $string['informationblocksettings'] = 'Information blocks';
 $string['newstickersettings'] = 'News ticker';
 
@@ -1066,6 +1067,31 @@ $string['none'] = 'None';
 $string['slight'] = 'Slight';
 $string['standard'] = 'Standard';
 
+// General.
+$string['pageloadingprogress'] = 'Page loading progress';
+$string['pageloadingprogressdesc'] = 'Show the page loading progress.';
+
+$string['pageloadingprogresstheme'] = 'Page loading theme';
+$string['pageloadingprogressthemedesc'] = 'Set the page loading theme.';
+
+$string['pageloadingprogressthemebarbershop'] = 'Barber shop';
+$string['pageloadingprogressthemebigcounter'] = 'Big counter';
+$string['pageloadingprogressthemebounce'] = 'Bounce';
+$string['pageloadingprogressthemecenteratom'] = 'Center atom';
+$string['pageloadingprogressthemecentercircle'] = 'Center circle';
+$string['pageloadingprogressthemecenterradar'] = 'Center radar';
+$string['pageloadingprogressthemecentersimple'] = 'Center simple';
+$string['pageloadingprogressthemecornerindicator'] = 'Corner indicator';
+$string['pageloadingprogressthemefillleft'] = 'Fill left';
+$string['pageloadingprogressthemeflash'] = 'Flash';
+$string['pageloadingprogressthemeflattop'] = 'Flat top';
+$string['pageloadingprogressthemeloadingbar'] = 'Loading bar';
+$string['pageloadingprogressthememacosx'] = 'Mac OSX';
+$string['pageloadingprogressthememinimal'] = 'Minimal';
+
+$string['loadingcolor'] = 'Page loading colour';
+$string['loadingcolordesc'] = 'The loading bar colour.';
+
 // Login button.
 $string['logintextbutton'] = 'Log in';
 $string['logintextbuttonwhenoidc'] = 'Guest/Manual Login';
@@ -1188,9 +1214,6 @@ $string['enableavailablecoursesdesc'] = 'Display "Available Courses" text in the
 
 $string['thiscourse'] = 'This course';
 $string['coursesections'] = 'Course sections';
-
-$string['loadingcolor'] = 'Loading colour';
-$string['loadingcolordesc'] = 'The loading bar colour in the top of the page.';
 
 $string['sitetitle'] = 'Display site title';
 $string['sitetitledesc'] = 'Display the default Moodle site title from <a href="./../admin/settings.php?section=frontpagesettings" target="_blank">Front Page Settings</a> or enter a custom site title in the text box below.';
@@ -1515,9 +1538,9 @@ $string['custommenutitle'] = 'Custom menu title';
 $string['custommenutitledesc'] = 'Set the title of the custom menu title that will contain all of the custom menus on the navbar.  If empty then each top level entry will create a new menu on the navbar.';
 
 $string['headernavbarcustommenucoreheading'] = 'Core settings';
-$string['headernavbarcustommenucoreheadingdesc'] = 'Duplicated for convenience.';
+$string['headernavbarcustommenucoreheadingdesc'] = 'Shown for convenience.  Please navigate to \'Advanced theme settings\' under \'Appearance\'.';
 
-$string['custommenuitemscoredesc'] = 'A custom menu may be configured here.  Enter each menu item on a new line.  Lines starting with a hyphen will appear as menu items in the previous top level menu and ### makes a divider.';
+$string['custommenuitemscoredesc'] = 'A custom menu may be configured in the core setting.  Enter each menu item on a new line.  Lines starting with a hyphen will appear as menu items in the previous top level menu and ### makes a divider.';
 $string['customusermenuitemscoredesc'] = 'You can configure the contents of the user menu (with the exception of the log out link, which is automatically added).  Each line is separated by pipe characters and consists of 1) a string in "langstringname, componentname" form or as plain text, 2) a URL, and 3) a Font Awesome icon name or CSS classes (optional).  Dividers can be used by adding a line of one or more # characters where desired.  To find the FontAwesome(Free) classes for the icon you wish to use, go to <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome free</a> and search for the icon.  You can use the name, such as \'graduation-cap\' or the complete list of classes \'fa-solid fa-graduation-cap\'.  For example:
 <pre>
 messages,message|/message/index.php|fa-regular fa-comment
@@ -1525,6 +1548,8 @@ privatefiles,moodle|/user/files.php|folder-tree
 </pre>
 Note: The default core value may contain duplicates, please adjust as desired.
 ';
+$string['headernavbarcustommenucoreempty'] = 'Setting \'<small>{$a}</small>\' is empty.';
+$string['headernavbarcustommenucorenotempty'] = 'Setting \'<small>{$a}</small>\' is:<br><br>';
 
 // Tool menus.
 $string['newmenudesc'] = 'Configure links to be shown under a top header menu.';

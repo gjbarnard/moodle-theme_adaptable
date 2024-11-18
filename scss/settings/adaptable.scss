@@ -1361,28 +1361,6 @@ a.cimbox {
     text-align: center;
 }
 
-// Pace Settings.
-.pace {
-  pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-.pace-inactive {
-    display: none;
-}
-
-.pace .pace-progress {
-    background-color: [[setting:loadingcolor]];
-    height: 2px;
-    position: fixed;
-    top: 0;
-    right: 100%;
-    width: 100%;
-    z-index: 2000;
-}
-
 // Hidden admin blocks.
 .hidden-blocks .block {
     float: right;

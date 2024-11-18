@@ -1,3 +1,12 @@
+Change Log in version 405.1.0 (2024100501)
+==========================================
+1. Stable release for Moodle 4.5.
+2. Fix 'newstickercount' incorrect default value.
+3. Add Pace themes from https://codebyzach.github.io/pace/ and add 'pageloadingprogress' and 'pageloadingprogresstheme' settings to new 'General' tab.
+4. Block regions to Frontpage block regions rename.
+5. Prevent an open Adaptable settings window overwriting core settings in another.
+6. Setting tabs fully alphabetical.
+
 Change Log in version 405.0.1 (2024100500)
 ==========================================
 1. Block region tidy when editing, 'Add block' button for each region and added 'blockregioneditingtitleshown' setting
