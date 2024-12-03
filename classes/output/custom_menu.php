@@ -28,11 +28,12 @@ namespace theme_adaptable\output;
 
 use core\output\custom_menu_item;
 use core\url;
+use custom_menu as core_custom_menu;
 
 /**
  * Adaptable's custom menu.
  */
-class custom_menu extends \custom_menu {
+class custom_menu extends core_custom_menu {
     /**
      * Creates the custom menu
      *
@@ -41,7 +42,7 @@ class custom_menu extends \custom_menu {
      */
     public function __construct($definition = '', $currentlanguage = null) {
         $this->currentlanguage = $currentlanguage;
-        custom_menu_item::__construct('root'); // create virtual root element of the menu
+        custom_menu_item::__construct('root'); // Create virtual root element of the menu.
         if (!empty($definition)) {
             $this->override_children(self::convert_text_to_menu_nodes($definition, $currentlanguage));
         }
@@ -54,7 +55,7 @@ class custom_menu extends \custom_menu {
      * @param string $currentlanguage The current language code, null disables multilang support.
      * @param string $menu Other menu to add to (optional).
      */
-    public function add_custom_menu_items($definition = '', $currentlanguage = null, custom_menu_item $menu = null) {
+    public function add_custom_menu_items($definition = '', ?string $currentlanguage = null, ?custom_menu_item $menu = null) {
         if (!empty($definition)) {
             $items = self::convert_text_to_menu_nodes($definition, $currentlanguage);
             if (empty($menu)) {

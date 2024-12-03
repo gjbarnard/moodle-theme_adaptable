@@ -1,3 +1,18 @@
+Change Log in version 405.1.1 (2024100502)
+==========================================
+1. Fix 'Class "core\external\output\icon_system" not found' - #35.
+2. Add theme user settings, initially 'My courses custom sort' - Sponsors only functionality.
+3. Larger tools menu title and field setting boxes.  The former to help with multilang support.
+4. Fix navbar search magnifying glass position.
+5. Add user favourites menu - Sponsors only functionality.
+6. Tools menu settings should be 'PARAM_TEXT'.
+7. Allow sub-sub menus.
+8. Add 'navbardisplaytitles' setting to show / hide the navbar titles, disabled when 'navbardisplayicons' is unset.
+9. Rename 'navbardisplaysubmenuarrow' to 'navbardisplaymenuarrow' and fix places where this didn't apply.
+10. Fix original header search icon colour when open.
+11. Fix header search position and default setting value.
+12. Tidy header search.
+
 Change Log in version 405.1.0 (2024100501)
 ==========================================
 1. Stable release for Moodle 4.5.

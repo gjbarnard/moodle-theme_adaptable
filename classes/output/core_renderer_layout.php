@@ -220,7 +220,8 @@ trait core_renderer_layout {
             // Display user profile menu.
             // Only used when user is logged in and not on the secure layout.
             if ((isloggedin()) && ($this->page->pagelayout != 'secure')) {
-                $headercontext['loginoruser'] = '<li class="nav-item dropdown ml-3 ml-md-2 mr-2 mr-md-0">' . $this->user_menu() . '</li>';
+                $headercontext['loginoruser'] =
+                    '<li class="nav-item dropdown ml-3 ml-md-2 mr-2 mr-md-0">' . $this->user_menu() . '</li>';
             } else {
                 $headercontext['loginoruser'] = '';
             }
@@ -247,6 +248,7 @@ trait core_renderer_layout {
             $headercontext['shownavbar'] = [
                 'navigationmenu' => $this->navigation_menu('main-navigation'),
                 'output' => $this,
+                'userfavmenu' => $this->userfav_menu(),
                 'toolsmenu' => $this->tools_menu(),
             ];
 
@@ -544,7 +546,8 @@ trait core_renderer_layout {
 
         $sideposthtml = $this->blocks('side-post');
         // Blocks or add block button.
-        $hassidepost = ((strpos($sideposthtml, 'data-block=') !== false) || (strpos($sideposthtml, 'data-key="addblock"') !== false));
+        $hassidepost =
+            ((strpos($sideposthtml, 'data-block=') !== false) || (strpos($sideposthtml, 'data-key="addblock"') !== false));
         if (!$hassidepost) {
             $sidepostopen = false;
         }

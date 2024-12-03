@@ -76,8 +76,8 @@ if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/navbar_mycourses.php');
     include(dirname(__FILE__) . '/settings/navbar_links.php');
     include(dirname(__FILE__) . '/settings/navbar_styles.php');
+    include(dirname(__FILE__) . '/settings/navbar_userfav_tools_menu.php');
     include(dirname(__FILE__) . '/settings/news_ticker.php');
-    include(dirname(__FILE__) . '/settings/navbar_tools_menu.php');
     include(dirname(__FILE__) . '/settings/print.php');
     include(dirname(__FILE__) . '/settings/templates.php');
     include(dirname(__FILE__) . '/settings/user.php');

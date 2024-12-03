@@ -27,12 +27,17 @@
 
 // Main elements selectors.
 html,
-body {
+body,
+.body {
     background-color: [[setting:maincolor]];
     color: [[setting:fontcolor]];
     font-family: [[setting:fontname]], sans-serif;
     font-size: [[setting:fontsize]];
     font-weight: [[setting:fontweight]] !important;
+}
+
+html,
+body {
     line-height: normal;
     margin: 0;
     padding: 0;

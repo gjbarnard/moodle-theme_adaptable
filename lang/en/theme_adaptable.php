@@ -495,10 +495,13 @@ $string['navbarlinksettingsheading'] = 'Customize the links on the navigation ba
 $string['navbarlinksettingsdesc'] = 'Allows you to control the links that appear on the navigation bar.';
 
 $string['navbardisplayicons'] = 'Display icons';
-$string['navbardisplayiconsdesc'] = 'Display icons next to main menu headings';
+$string['navbardisplayiconsdesc'] = 'Display an icon next to the menu title.  Note: This is ignored when \'custommenutitle\' isn\'t set for the custom menu.';
 
-$string['navbardisplaysubmenuarrow'] = 'Display sub-menu arrow';
-$string['navbardisplaysubmenuarrowdesc'] = 'Display sub-menu arrow (downward facing) when a menu heading has sub-menu options.';
+$string['navbardisplaytitles'] = 'Display titles';
+$string['navbardisplaytitlesdesc'] = 'Display the menu title.  Notes: Ignored when \'navbardisplayicons\' is unset and also ignored when \'custommenutitle\' isn\'t set for the custom menu.';
+
+$string['navbardisplaymenuarrow'] = 'Display menu arrow';
+$string['navbardisplaymenuarrowdesc'] = 'Display menu arrow (downward facing) for a menu title.';
 
 $string['home'] = 'Home';
 $string['enablemy'] = 'Dashboard';
@@ -588,10 +591,13 @@ $string['enablemysitesdesc'] = 'Display a dropdown with a users courses';
 $string['enablemysitesrestriction'] = 'Restrict user\'s courses dropdown to a custom profile field';
 $string['enablemysitesrestrictiondesc'] = 'Restrict dropdown with a user\'s courses by custom profile field. E.g. usertype=staff.';
 
-$string['mysitessortoverride'] = 'Enable my courses custom sort';
+$string['mysitessortoverride'] = 'My courses custom sort';
 $string['mysitessortoverridedesc'] = 'Use custom profile fields or generic strings (year etc) to collapse past courses in sub menu.';
 $string['mysitessortoverridefield'] = 'My Courses Custom Profile Field(s) or Strings';
 $string['mysitessortoverridefielddesc'] = 'Comma delimited list of profile fields or strings to check for in course short codes.';
+
+$string['enableusermysitessortoverride'] = 'Enable user my courses custom sort';
+$string['enableusermysitessortoverridedesc'] = 'Allow the user to set their own value for \'My courses custom sort\', including defaulting to the theme setting value set by \'mysitessortoverride\'.';
 
 $string['mysitessortoverrideoff'] = 'Display all enrolled courses in single flat list';
 $string['mysitessortoverridestrings'] = 'Display enrolled containing strings in first list, others in sub menu';
@@ -1488,8 +1494,8 @@ $string['dangericoncolordesc'] = 'Set the colour of the warning/danger icon main
 $string['helptarget'] = 'Help target';
 $string['helptargetdesc'] = 'Do you want the help link to open in a new window?';
 
-$string['hideinforum'] = 'Hide help and tools in forums';
-$string['hideinforumdesc'] = 'When using fixed width and all menu options the forum search box spills onto the line below. Turning this option on will hide tools and help menu items in forums allowing it to display properly.';
+$string['hideinforum'] = 'Hide help, user favourites and tools in forums';
+$string['hideinforumdesc'] = 'When using fixed width and all menu options the forum search box spills onto the line below.  Turning this option on will hide help, user favourites and tools menu items in forums allowing it to display properly.';
 
 $string['targetnewwindow'] = 'New window';
 $string['targetsamewindow'] = 'Same window';
@@ -1598,6 +1604,21 @@ $string['newmenu'] = 'Top menu dropdown';
 $string['newmenutitle'] = 'Top menu title';
 $string['newmenutitledesc'] = 'The title of the dropdown list that will appear in the header of your site.';
 $string['newmenutitledefault'] = 'Menu';
+
+$string['navbaruserfavtoolsmenus'] = 'Navbar user favourites and tools menus';
+
+$string['userfavmenu'] = 'User favourites menu';
+$string['userfavmenudesc'] = 'The user will be able to create their own favourites menu saved as a user preference.  The format of each line is \'text|url|title|langs|fontawesome classes\'.  Only enter what you require.  If you don\'t need something but do need another thing further along then leave it blank but still use the \'|\' delimiter.  For example: \'text|url|||fontawesome classes\'.  To find the FontAwesome(Free) classes for the icon you wish to use, go to <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome free</a> and search for the icon.  You can use the name, such as \'graduation-cap\' or the complete list of classes \'fa-solid fa-graduation-cap\'.  For example:<pre>
+Courses
+-All courses|/course/|||graduation-cap
+-Course search|/course/search.php
+-###
+-FAQ|https://example.org/faq
+-Exam Clock|https://mysite.localhost|Exam Clock||clock
+</pre>';
+
+$string['enableuserfavmenu'] = 'Enable user favourites menu';
+$string['enableuserfavmenudesc'] = 'It is recommended you leave this off if the menu is not in use for preformance reasons.';
 
 $string['enabletoolsmenus'] = 'Enable tool menus';
 $string['enabletoolsmenusdesc'] = 'It is recommended you leave this off if menus are not in use for preformance reasons.';

@@ -198,7 +198,11 @@ class admin_setting_getprops extends \admin_setting {
 
                     $draftjson->delete(); // Finished with draft.
 
-                    $savepropsfilestoofileresult = get_string('propertiesexportfilestoofilesuccess', $this->pluginfrankenstyle, $settingfile->get_filename());
+                    $savepropsfilestoofileresult = get_string(
+                        'propertiesexportfilestoofilesuccess',
+                        $this->pluginfrankenstyle,
+                        $settingfile->get_filename()
+                    );
                 } else {
                     $savepropsfilestoofileresult = get_string('propertiesexportfilestoofilefail', $this->pluginfrankenstyle);
                     $alertstate = 'warning';

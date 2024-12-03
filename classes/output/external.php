@@ -33,8 +33,8 @@ use core_external\external_multiple_structure;
 use core_external\external_single_structure;
 use core_external\external_value;
 use core_external\external_warnings;
-use core\external\output\icon_system;
 use core\external\output\icon_system\load_fontawesome_map;
+use core\output\icon_system;
 use core_user;
 
 /**

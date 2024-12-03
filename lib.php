@@ -54,9 +54,12 @@ function theme_adaptable_pre_scss($theme) {
     $fontcolorrgba = \theme_adaptable\toolbox::hex2rgba($fontcolor, 0.25);
     $prescss = '$body-bg: ' . $regionmaincolor . ';' . PHP_EOL;
     $prescss = '$body-color: ' . $fontcolor . ';' . PHP_EOL;
-    $prescss .= '$primary: ' . \theme_adaptable\toolbox::get_setting('primarycolour', false, $theme->name, '#00796b') . ';' . PHP_EOL;
-    $prescss .= '$secondary: ' . \theme_adaptable\toolbox::get_setting('secondarycolour', false, $theme->name, '#009688') . ';' . PHP_EOL;
-    $prescss .= '$loadingcolor: ' . \theme_adaptable\toolbox::get_setting('loadingcolor', false, $theme->name, '#00B3A1') . ';' . PHP_EOL;
+    $prescss .= '$primary: ' .
+        \theme_adaptable\toolbox::get_setting('primarycolour', false, $theme->name, '#00796b') . ';' . PHP_EOL;
+    $prescss .= '$secondary: ' .
+        \theme_adaptable\toolbox::get_setting('secondarycolour', false, $theme->name, '#009688') . ';' . PHP_EOL;
+    $prescss .= '$loadingcolor: ' .
+        \theme_adaptable\toolbox::get_setting('loadingcolor', false, $theme->name, '#00B3A1') . ';' . PHP_EOL;
     $loadingcolor = \theme_adaptable\toolbox::get_setting('loadingcolor', false, $theme->name, '#00B3A1');
     $loadingcolorrgba = \theme_adaptable\toolbox::hex2rgba($loadingcolor, 0.2);
     $prescss .= '$loadingcolor: ' . $loadingcolor . ';' . PHP_EOL;
@@ -439,6 +442,9 @@ function theme_adaptable_process_scss($scss, $theme) {
     $defaults['[[setting:regionmaincolorrgba]]'] = \theme_adaptable\toolbox::hex2rgba($defaults['[[setting:regionmaincolor]]'], 0.75);
     $defaults['[[setting:linkcolorrgba]]'] = \theme_adaptable\toolbox::hex2rgba($defaults['[[setting:linkcolor]]'], 0.75);
     $defaults['[[setting:linkhoverrgba]]'] = \theme_adaptable\toolbox::hex2rgba($defaults['[[setting:linkhover]]'], 0.75);
+
+    // The navbardisplaymenuarrow setting.
+    $defaults['[[setting:navbardisplaymenuarrow]]'] = (empty($theme->settings->navbardisplaymenuarrow)) ? 'content: none;' : '';
 
     // Replace the CSS with values from the $defaults array.
     $scss = strtr($scss, $defaults);
