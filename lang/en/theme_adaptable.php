@@ -682,8 +682,11 @@ $string['footerlinkcolordesc'] = 'Footer blocks link colour.';
 $string['headerbkcolor'] = 'Top header background colour';
 $string['headerbkcolordesc'] = 'Set the top header background colour.';
 
-$string['msgbadgecolor'] = 'Message badge background colour';
-$string['msgbadgecolordesc'] = 'Set the background colour for the messages badge / bubble in the header (displays number of unread messages)';
+$string['notbadgecolour'] = 'Notifications badge colour';
+$string['notbadgecolourdesc'] = 'Set the colour for the notifications badge / bubble in the header (displays number of unread notifications)';
+
+$string['notbadgebackgroundcolour'] = 'Notifications badge background colour';
+$string['notbadgebackgroundcolourdesc'] = 'Set the background colour for the notifications badge / bubble in the header (displays number of unread notifications)';
 
 $string['messagingbackgroundcolor'] = 'Messages main window background colour';
 $string['messagingbackgroundcolordesc'] = 'Set the background colour for the messages main chat window.';
@@ -1211,6 +1214,9 @@ $string['menusettingsheading'] = 'Customize menus in the upper header the header
 
 $string['logo'] = 'Logo';
 $string['logodesc'] = 'Upload a logo for use on your site.  Recommended size is 200px by 80px.';
+
+$string['logoalt'] = 'Logo description';
+$string['logoaltdesc'] = 'Provide a description of your logo for accessibility.  Multilang compatible.';
 
 $string['favicon'] = 'Favicon';
 $string['favicondesc'] = 'Upload a favicon for use on your site using the core setting \'core_admin | favicon\' under \'Site Administration\' -> \'Appearance\' -> \'Logos\'.';

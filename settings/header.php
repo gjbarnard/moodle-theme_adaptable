@@ -84,6 +84,14 @@ if ($ADMIN->fulltree) {
     );
     $page->add($setting);
 
+    // Logo description text.
+    $name = 'theme_adaptable/logoalt';
+    $title = get_string('logoalt', 'theme_adaptable');
+    $description = get_string('logoaltdesc', 'theme_adaptable');
+    $default = get_string('logo', 'theme_adaptable');
+    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
+    $page->add($setting);
+
     // Page Header Height.
     $name = 'theme_adaptable/pageheaderheight';
     $title = get_string('pageheaderheight', 'theme_adaptable');

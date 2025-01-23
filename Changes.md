@@ -1,3 +1,10 @@
+Change Log in version 405.1.2 (2024100503)
+==========================================
+1. Add 'logoalt' setting to provide a description of your logo for accessibility.  Multilang compatible.
+2. Convert 'msgbadgecolor' into 'notbadgebackgroundcolour' and create 'notbadgecolour' so that both the background and font colour
+   can be set for the notifications.
+3. Fix duplicate custom menu items in 'mobileprimarynav' drawer.
+
 Change Log in version 405.1.1 (2024100502)
 ==========================================
 1. Fix 'Class "core\external\output\icon_system" not found' - #35.
@@ -12,12 +19,14 @@ Change Log in version 405.1.1 (2024100502)
 10. Fix original header search icon colour when open.
 11. Fix header search position and default setting value.
 12. Tidy header search.
+13. Update theme version of FontAwesome free to 6.7.1 from 6.6.0.
 
 Change Log in version 405.1.0 (2024100501)
 ==========================================
 1. Stable release for Moodle 4.5.
 2. Fix 'newstickercount' incorrect default value.
-3. Add Pace themes from https://codebyzach.github.io/pace/ and add 'pageloadingprogress' and 'pageloadingprogresstheme' settings to new 'General' tab.
+3. Add Pace themes from https://codebyzach.github.io/pace/ and add 'pageloadingprogress' and 'pageloadingprogresstheme' settings
+   to new 'General' tab.
 4. Block regions to Frontpage block regions rename.
 5. Prevent an open Adaptable settings window overwriting core settings in another.
 6. Setting tabs fully alphabetical.

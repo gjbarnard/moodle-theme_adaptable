@@ -159,12 +159,21 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_heading($name, $heading, '');
     $page->add($setting);
 
-    // Top header message badge background color.
-    $name = 'theme_adaptable/msgbadgecolor';
-    $title = get_string('msgbadgecolor', 'theme_adaptable');
-    $description = get_string('msgbadgecolordesc', 'theme_adaptable');
+    // Top header notifications badge colour.
+    $name = 'theme_adaptable/notbadgecolour';
+    $title = get_string('notbadgecolour', 'theme_adaptable');
+    $description = get_string('notbadgecolourdesc', 'theme_adaptable');
     $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#E53935', $previewconfig);
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Top header notifications badge background colour.
+    $name = 'theme_adaptable/notbadgebackgroundcolour';
+    $title = get_string('notbadgebackgroundcolour', 'theme_adaptable');
+    $description = get_string('notbadgebackgroundcolourdesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#e53935', $previewconfig);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 

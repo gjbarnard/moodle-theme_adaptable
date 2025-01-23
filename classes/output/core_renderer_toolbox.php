@@ -2008,7 +2008,7 @@ trait core_renderer_toolbox {
                 $this->page->theme->settings->responsivelogo;
             $logomarkup = '<div class="pb-2 pr-3 pt-2 bd-highlight' . $responsivelogo . '">';
             $logo = '<img src=' . $this->page->theme->setting_file_url($logosetarea, $logosetarea) . ' id="logo"';
-            $logo .= ' alt="' . get_string('logo', 'theme_adaptable') . '">';
+            $logo .= ' alt="' . \theme_adaptable\toolbox::get_setting('logoalt', true) . '">';
 
             if ($shownavbar) {
                 // Logo is not a link to site homepage when there is a navbar.
