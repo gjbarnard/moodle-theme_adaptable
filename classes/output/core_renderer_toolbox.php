@@ -1884,8 +1884,8 @@ trait core_renderer_toolbox {
         $modinfo = get_fast_modinfo($COURSE);
         $numsections = $courseformat->get_last_section_number();
         $sectionsformnenu = [];
-        foreach ($modinfo->get_section_info_all() as $section => $thissection) {
-            if ($section > $numsections) {
+        foreach ($modinfo->get_section_info_all() as $sectionno => $thissection) {
+            if ($sectionno > $numsections) {
                 // Don't link to stealth sections.
                 continue;
             }
@@ -1894,10 +1894,14 @@ trait core_renderer_toolbox {
             $showsection = $thissection->uservisible ||
                 ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo));
 
-            if (($showsection) || ($section == 0)) {
-                $sectionsformnenu[$section] = [
-                    'sectionname' => $courseformat->get_section_name($section),
-                    'url' => $courseformat->get_view_url($section),
+            if (($showsection) || ($sectionno == 0)) {
+                $url = $courseformat->get_view_url($sectionno);
+                if (empty($url->get_encoded_anchor())) {
+                    $url->set_anchor('section-'.$sectionno);
+                }
+                $sectionsformnenu[$sectionno] = [
+                    'sectionname' => $courseformat->get_section_name($sectionno),
+                    'url' => $url,
                 ];
             }
         }

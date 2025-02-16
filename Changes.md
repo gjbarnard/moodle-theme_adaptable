@@ -1,3 +1,9 @@
+Change Log in version 405.1.3 (2024100504)
+==========================================
+1. Improve FontAwesome class name processing for setting values.
+2. Fix impact of MDL-79986 removing section anchors from the course format URL ('get_view_url()' in the format's 'lib.php' file)
+   causing the 'Sections' in the 'This course' menu to no longer go to the given section on the page.
+
 Change Log in version 405.1.2 (2024100503)
 ==========================================
 1. Add 'logoalt' setting to provide a description of your logo for accessibility.  Multilang compatible.
