@@ -470,6 +470,7 @@ trait core_renderer_toolbox {
         }
         if (!empty($bc->blockinstanceid)) {
             $bc->attributes['data-instanceid'] = $bc->blockinstanceid;
+            $bc->attributes['data-instance-id'] = $bc->blockinstanceid;
         }
         if ($bc->blockinstanceid && !empty($skiptitle)) {
             $bc->attributes['aria-labelledby'] = 'instance-' . $bc->blockinstanceid . '-header';
