@@ -1,3 +1,8 @@
+Change Log in version 405.1.4 (2024100505)
+==========================================
+1. Data instance id format in line with core.
+2. Fixed back and foreground colours for input, select and textarea's to be 'regionmaincolor' and 'regionmaintextcolor' respectively.
+
 Change Log in version 405.1.3 (2024100504)
 ==========================================
 1. Improve FontAwesome class name processing for setting values.

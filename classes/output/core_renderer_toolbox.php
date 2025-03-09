@@ -469,7 +469,7 @@ trait core_renderer_toolbox {
             $USER->adaptable_user_pref['block' . $bc->blockinstanceid . 'hidden'] = PARAM_BOOL;
         }
         if (!empty($bc->blockinstanceid)) {
-            $bc->attributes['data-instanceid'] = $bc->blockinstanceid;
+            $bc->attributes['data-instance-id'] = $bc->blockinstanceid;
         }
         if ($bc->blockinstanceid && !empty($skiptitle)) {
             $bc->attributes['aria-labelledby'] = 'instance-' . $bc->blockinstanceid . '-header';
@@ -552,7 +552,7 @@ trait core_renderer_toolbox {
                     html_writer::tag('div', '', [
                         'id' => 'instance-'.$bc->blockinstanceid.'-action',
                         'class' => 'block-action block-collapsible',
-                        'data-instanceid' => $bc->blockinstanceid,
+                        'data-instance-id' => $bc->blockinstanceid,
                         'title' => get_string('blockshowhide', 'theme_adaptable'),
                     ]);
                 $this->page->requires->js_call_amd(

@@ -38,7 +38,7 @@ class CollapseBlock {
         if (CollapseBlock.noInit) {
             CollapseBlock.noInit = false;
             $('.block-collapsible').click(function() {
-                var instanceId = $(this).data('instanceid');
+                var instanceId = $(this).data('instance-id');
                 var blockInstance = $('#inst' + instanceId);
 
                 $('#inst' + instanceId + ' .content').slideToggle('slow', function() {
