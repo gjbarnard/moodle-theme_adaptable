@@ -1,3 +1,13 @@
+Change Log in version 405.1.5 (2024100506)
+==========================================
+1. Fix visited 'btn-outline-secondary' text.  Note: Need to consider text colours for Bootstrap background ones?
+2. Update theme version of FontAwesome free to 6.7.2 from 6.7.1.
+3. Fix 'currentlanguage' assignment to non-existent class attribute in custom_menu_item.
+4. Fix 'Accessibility Issue with breadcrumb navigation' - ref: https://moodle.org/mod/forum/discuss.php?d=467094.
+5. Fix incorrect breadcrumb logic in relation to the 'enablehome', 'enablemyhome' (both not relevant to the breadcrumb) and
+   'breadcrumbhome' settings.  Now 'breadcrumbhome' has a new value of 'Off' so that you can switch the display of 'Home' on
+   the breadcrumb independently of the 'Home' on the navbar.
+
 Change Log in version 405.1.4 (2024100505)
 ==========================================
 1. Data instance id format in line with core.

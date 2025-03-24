@@ -1518,13 +1518,14 @@ $string['people'] = 'Participants';
 $string['help'] = 'Help';
 
 $string['breadcrumbseparator'] = 'Breadcrumb separator';
-$string['breadcrumbseparatordesc'] = 'Set the \'<a href="{$a}" target="_blank">Font Awesome Icons</a>\' to be used as item separator in the breadcrumb. enter the icon name without the \'fa-\' prefix.';
+$string['breadcrumbseparatordesc'] = 'Set the \'Font Awesome Icon\' to be used as item separator in the breadcrumb.  To find the FontAwesome(Free) classes for the icon you wish to use, go to <a href="{$a}" target="_blank">Font Awesome free</a> and search for the icon.  You can use the name, such as \'angle-right\' or the complete list of classes, e.g. \'fa-solid fa-angle-right\'.';
 
 $string['breadcrumbhome'] = 'Breadcrumb home';
-$string['breadcrumbhomedesc'] = 'Display home breadcrumb as an icon or as a text.';
+$string['breadcrumbhomedesc'] = 'Display home breadcrumb as an icon, or as a text, or off.';
 
-$string['breadcrumbhometext'] = 'Text';
 $string['breadcrumbhomeicon'] = 'Icon';
+$string['breadcrumbhomeoff'] = 'Off';
+$string['breadcrumbhometext'] = 'Text';
 
 $string['mysitesexclude'] = 'Enable excluding hidden courses';
 $string['mysitesinclude'] = 'Enable including hidden courses';

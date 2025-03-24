@@ -1524,51 +1524,68 @@ trait core_renderer_toolbox {
      */
     public function navbar(): string {
         $items = $this->page->navbar->get_items();
-        $breadcrumbseparator = $this->page->theme->settings->breadcrumbseparator;
-
-        $breadcrumbs = "";
 
         if (empty($items)) {
             return '';
         }
 
+        $breadcrumbs = "";
+        $breadcrumbseparator = "";
+
         $start = true;
+        $first = false; // First item shown?
         foreach ($items as $item) {
-            $item->hideicon = true;
-
-            // Text / Icon home.
+            // Text / Icon / Off home.
             if ($start) {
-                $breadcrumbs .= '<li>';
-
-                if (\theme_adaptable\toolbox::get_setting('enablehome') && \theme_adaptable\toolbox::get_setting('enablemyhome')) {
-                    $breadcrumbs = html_writer::tag('i', '', [
-                        'title' => get_string('home', 'theme_adaptable'),
-                        'class' => 'fa fa-folder-open fa-lg',
-                    ]);
-                } else if (\theme_adaptable\toolbox::get_setting('breadcrumbhome') == 'icon') {
-                    $breadcrumbs .= html_writer::link(
-                        new url('/'),
+                $breadcrumbhome = \theme_adaptable\toolbox::get_setting('breadcrumbhome');
+                if ($breadcrumbhome != 'off') {
+                    $breadcrumbs .= html_writer::start_tag('li');
+                    $homestring = get_string('home', 'theme_adaptable');
+                    if ($breadcrumbhome == 'icon') {
                         // Adds in a title for accessibility purposes.
-                        html_writer::tag('i', '', [
-                            'title' => get_string('home', 'theme_adaptable'),
-                            'class' => 'fa fa-home fa-lg', ])
-                    );
-                    $breadcrumbs .= '</li>';
-                } else {
-                    $breadcrumbs .= html_writer::link(new url('/'), get_string('home', 'theme_adaptable'));
-                    $breadcrumbs .= '</li>';
+                        $homestring = \theme_adaptable\toolbox::getfontawesomemarkup(
+                            'home',
+                            ['fa-lg'],
+                            [],
+                            '',
+                            $homestring
+                        );
+                    }
+                    $breadcrumbs .= html_writer::link(new url('/'), $homestring) . html_writer::end_tag('li');
+                    $first = true; // There is a home.
                 }
                 $start = false;
                 continue; // This effectively removes the 'core' Home / Dashboard / User preference for such item.
             }
-            $breadcrumbs .= '<span class="separator"><i class="fa-' . $breadcrumbseparator . ' fa"></i></span><li>' .
-                $this->render($item) . '</li>';
+            if ($first) {
+                $breadcrumbseparator =
+                \theme_adaptable\toolbox::getfontawesomemarkup(
+                    \theme_adaptable\toolbox::get_setting('breadcrumbseparator'),
+                    ['separator']
+                );
+            } else {
+                $first = true;
+            }
+            $breadcrumbs .= html_writer::tag('li', $breadcrumbseparator . $this->render($item));
         }
 
         $classes = $this->page->theme->settings->responsivebreadcrumb;
 
-        return '<nav role="navigation" aria-label="' . get_string("breadcrumb", "theme_adaptable") .
-            '"><ol  class="breadcrumb ' . $classes . ' align-items-center">' . $breadcrumbs . '</ol></nav>';
+        $breadcrumbclasses = 'breadcrumb align-items-center';
+        $responsivebreadcrumbclasses = \theme_adaptable\toolbox::get_setting('responsivebreadcrumb');
+        if (!empty($responsivebreadcrumbclasses)) {
+            $breadcrumbclasses .= ' ' . $responsivebreadcrumbclasses;
+        }
+
+        return html_writer::tag(
+            'nav',
+            html_writer::tag(
+                'ol',
+                $breadcrumbs,
+                ['class' => $breadcrumbclasses]
+            ),
+            ['role' => 'navigation', 'aria-label' => get_string("breadcrumb", "theme_adaptable")]
+        );
     }
 
     /**
@@ -2592,7 +2609,8 @@ trait core_renderer_toolbox {
             $submenucount++;
             $content = '<li class="nav-item dropdown my-auto">';
             $content .= html_writer::start_tag('a', ['href' => $url,
-                'class' => 'nav-link dropdown-toggle my-auto', 'role' => 'button',
+                'class' => 'nav-link dropdown-toggle my-auto',
+                'role' => 'button',
                 'id' => $menuid . $submenucount,
                 'aria-haspopup' => 'true',
                 'aria-expanded' => 'false',

@@ -210,6 +210,7 @@ if ($ADMIN->fulltree) {
     $radchoices = [
         'text' => get_string('breadcrumbhometext', 'theme_adaptable'),
         'icon' => get_string('breadcrumbhomeicon', 'theme_adaptable'),
+        'off' => get_string('breadcrumbhomeoff', 'theme_adaptable'),
     ];
     $setting = new admin_setting_configselect($name, $title, $description, 'icon', $radchoices);
     $page->add($setting);

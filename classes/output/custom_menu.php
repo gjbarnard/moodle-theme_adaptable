@@ -58,8 +58,8 @@ class custom_menu extends core_custom_menu {
     public function add_custom_menu_items($definition = '', ?string $currentlanguage = null, ?custom_menu_item $menu = null) {
         if (!empty($definition)) {
             $items = self::convert_text_to_menu_nodes($definition, $currentlanguage);
+            $this->currentlanguage = $currentlanguage;
             if (empty($menu)) {
-                $this->currentlanguage = $currentlanguage;
                 foreach ($items as $item) {
                     $sort = $this->lastsort + 1;
                     $item->sort = (int)$sort;
@@ -67,7 +67,6 @@ class custom_menu extends core_custom_menu {
                 }
                 $this->children = array_merge($this->children, $items);
             } else {
-                $menu->currentlanguage = $currentlanguage;
                 $menu->children = array_merge($menu->children, $items);
             }
         }
