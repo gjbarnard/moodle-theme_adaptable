@@ -622,11 +622,16 @@ class toolbox {
             $theicon = trim($theicon);
             if (mb_strpos($theicon, ' ') === false) { // No spaces, so find.
                 $fav = self::get_setting('fav');
+                $hasprefix = (mb_strpos($theicon, 'fa') !== false);
                 if (!empty($fav)) {
                     $toolbox = self::get_instance();
-                    $classes[] = $toolbox->get_fa6_from_fa4($theicon);
+                    $classes[] = $toolbox->get_fa6_from_fa4($theicon, $hasprefix);
                 } else {
-                    $classes[] = 'fa fa-' . $theicon;
+                    $iconprefix = 'fa ';
+                    if (!$hasprefix) {
+                        $iconprefix .= 'fa-';
+                    }
+                    $classes[] = $iconprefix . $theicon;
                 }
             } else {
                 // Spaces so full icon specified.

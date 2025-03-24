@@ -104,7 +104,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/newstickercount';
     $title = get_string('newstickercount', 'theme_adaptable');
     $description = get_string('newstickercountdesc', 'theme_adaptable');
-    $default = THEME_ADAPTABLE_DEFAULT_TOOLSMENUSCOUNT;
+    $default = THEME_ADAPTABLE_DEFAULT_NEWSTICKERCOUNT;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices0to12);
     $page->add($setting);
 

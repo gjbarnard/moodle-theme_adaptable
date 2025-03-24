@@ -334,7 +334,7 @@
         };
 
         Bar.prototype.done = function() {
-            return this.progress >= 100;
+            return this.progress >= 99;
         };
 
         return Bar;

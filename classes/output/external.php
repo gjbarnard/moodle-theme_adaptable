@@ -26,6 +26,7 @@
 
 namespace theme_adaptable\output;
 
+use context_system;
 use core_external\external_api;
 use core_external\external_function_parameters;
 use core_external\external_multiple_structure;
@@ -33,6 +34,7 @@ use core_external\external_single_structure;
 use core_external\external_value;
 use core_external\external_warnings;
 use core\external\output\icon_system\load_fontawesome_map;
+use core\output\icon_system;
 use core_user;
 
 /**
@@ -54,7 +56,7 @@ class external extends external_api {
      * @return array the mapping
      */
     public static function load_fontawesome_icon_map() {
-        $instance = \core\output\icon_system::instance('\\theme_adaptable\\output\\icon_system_fontawesome');
+        $instance = icon_system::instance('\\theme_adaptable\\output\\icon_system_fontawesome');
 
         $map = $instance->get_icon_name_map();
         $result = [];
@@ -113,7 +115,7 @@ class external extends external_api {
         $warnings = [];
         $saved = [];
 
-        $context = \context_system::instance();
+        $context = context_system::instance();
         $PAGE->set_context($context);
 
         $userscache = [];

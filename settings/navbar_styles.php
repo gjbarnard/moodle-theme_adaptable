@@ -20,6 +20,9 @@
  * @package    theme_adaptable
  * @copyright  2015 Jeremy Hopkins (Coventry University)
  * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @copyright  2024 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
@@ -87,11 +90,19 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
 
-    $name = 'theme_adaptable/navbardisplaysubmenuarrow';
-    $title = get_string('navbardisplaysubmenuarrow', 'theme_adaptable');
-    $description = get_string('navbardisplaysubmenuarrowdesc', 'theme_adaptable');
+    $name = 'theme_adaptable/navbardisplaytitles';
+    $title = get_string('navbardisplaytitles', 'theme_adaptable');
+    $description = get_string('navbardisplaytitlesdesc', 'theme_adaptable');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $page->add($setting);
+
+    $name = 'theme_adaptable/navbardisplaymenuarrow';
+    $title = get_string('navbardisplaymenuarrow', 'theme_adaptable');
+    $description = get_string('navbardisplaymenuarrowdesc', 'theme_adaptable');
     $default = false;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
     // Dropdown border radius.

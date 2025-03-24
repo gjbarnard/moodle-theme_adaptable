@@ -15,19 +15,38 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Navbar tools menu
+ * Navbar user favourites and tools menu.
  *
  * @package    theme_adaptable
  * @copyright  2015 Jeremy Hopkins (Coventry University)
  * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @copyright  2024 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 defined('MOODLE_INTERNAL') || die;
 
-// Settings for tools menus.
+// Settings for user favourites and tools menus.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_navbar_tools_menu',
-        get_string('toolsmenu', 'theme_adaptable'), true);
+    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_navbar_userfavtools_menu',
+        get_string('navbaruserfavtoolsmenus', 'theme_adaptable'), true);
+
+    $page->add(new admin_setting_heading(
+        'theme_adaptable_userfavmenu',
+        get_string('userfavmenu', 'theme_adaptable'),
+        format_text(
+            get_string('userfavmenudesc', 'theme_adaptable'),
+            FORMAT_MARKDOWN
+        )
+    ));
+
+    $name = 'theme_adaptable/enableuserfavmenu';
+    $title = get_string('enableuserfavmenu', 'theme_adaptable');
+    $description = get_string('enableuserfavmenudesc', 'theme_adaptable');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $page->add($setting);
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_toolsmenu',
@@ -69,19 +88,19 @@ if ($ADMIN->fulltree) {
         $title = get_string('toolsmenutitle', 'theme_adaptable') . ' ' . $toolsmenusindex;
         $description = get_string('toolsmenutitledesc', 'theme_adaptable');
         $default = get_string('toolsmenutitledefault', 'theme_adaptable');
-        $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_RAW);
+        $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_TEXT, '101');
         $page->add($setting);
 
         $name = 'theme_adaptable/toolsmenu' . $toolsmenusindex;
         $title = get_string('toolsmenu', 'theme_adaptable') . ' ' . $toolsmenusindex;
         $description = get_string('toolsmenudesc', 'theme_adaptable');
-        $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_RAW, '50', '10');
+        $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_TEXT, '50', '10');
         $page->add($setting);
 
         $name = 'theme_adaptable/toolsmenu' . $toolsmenusindex . 'field';
         $title = get_string('toolsmenufield', 'theme_adaptable');
         $description = get_string('toolsmenufielddesc', 'theme_adaptable');
-        $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_RAW);
+        $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_TEXT, '101');
         $page->add($setting);
     }
 

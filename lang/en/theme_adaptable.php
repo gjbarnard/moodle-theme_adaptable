@@ -135,7 +135,7 @@ $string['settingsmessagescolors'] = 'Messages pop-up colours';
 $string['settingsfootercolors'] = 'Footer colours';
 $string['settingsfonts'] = 'Fonts';
 $string['settingsanalytics'] = 'Analytics';
-$string['settingsblocksgeneral'] = 'General';
+$string['settingsblocksconfiguration'] = 'Configuration';
 $string['settingsborders'] = 'Borders';
 $string['settingscolors'] = 'Colours';
 $string['settingscourses'] = 'Courses';
@@ -143,12 +143,11 @@ $string['settingstopicsweeks'] = 'Topics / Weeks';
 $string['settingsblockicons'] = 'Icons';
 
 // Admin Settings Strings.
-$string['settingspageblocksettings'] = 'Block';
 $string['settingspagealertsettings'] = 'Alerts';
-$string['frontpageblockregionsettings'] = 'Block region builder';
-$string['dashboardblockregionsettings'] = 'Dashboard block region builder';
+$string['settingspageblocksettings'] = 'Block';
 $string['coursepageblockregionsettings'] = 'Course page block region builder';
-$string['frontpageblocksettings'] = 'Marketing blocks';
+$string['dashboardblockregionsettings'] = 'Dashboard block region builder';
+$string['settingspagefrontpageblockregionsettings'] = 'Frontpage block region builder';
 $string['frontpageslidersettings'] = 'Frontpage slider';
 $string['frontpagecoursesettings'] = 'Frontpage courses list';
 $string['frontpagesettingsheading'] = 'Frontpage rendering';
@@ -159,6 +158,8 @@ $string['frontpagerendereroption1'] = 'Tiles';
 $string['frontpagerendereroption2'] = 'Tiles w/ overlay';
 $string['frontpagerendereroption3'] = 'Moodle default';
 $string['frontpagerendereroption4'] = 'Coventry tiles';
+$string['frontpageblocksettings'] = 'Marketing blocks';
+$string['settingspagegeneralsettings'] = 'General';
 $string['informationblocksettings'] = 'Information blocks';
 $string['newstickersettings'] = 'News ticker';
 
@@ -314,6 +315,9 @@ $string['blocklayoutlayoutcount2'] = ' block regions. You are currently using: '
 
 $string['blocklayoutlayoutrow'] = 'Block region row';
 $string['blocklayoutlayoutrowdesc'] = 'Add / set layout for block region row on front page.';
+
+$string['blockregioneditingtitleshown'] = 'Show the block region title when editing';
+$string['blockregioneditingtitleshowndesc'] = 'You can show / hide the block region title when editing.';
 
 $string['dashblocklayoutlayoutrow'] = 'Dashboard block region row ';
 $string['dashblocklayoutlayoutrowdesc'] = 'Add / set layout for block region row on Dashboard page.';
@@ -491,10 +495,13 @@ $string['navbarlinksettingsheading'] = 'Customize the links on the navigation ba
 $string['navbarlinksettingsdesc'] = 'Allows you to control the links that appear on the navigation bar.';
 
 $string['navbardisplayicons'] = 'Display icons';
-$string['navbardisplayiconsdesc'] = 'Display icons next to main menu headings';
+$string['navbardisplayiconsdesc'] = 'Display an icon next to the menu title.  Note: This is ignored when \'custommenutitle\' isn\'t set for the custom menu.';
 
-$string['navbardisplaysubmenuarrow'] = 'Display sub-menu arrow';
-$string['navbardisplaysubmenuarrowdesc'] = 'Display sub-menu arrow (downward facing) when a menu heading has sub-menu options.';
+$string['navbardisplaytitles'] = 'Display titles';
+$string['navbardisplaytitlesdesc'] = 'Display the menu title.  Notes: Ignored when \'navbardisplayicons\' is unset and also ignored when \'custommenutitle\' isn\'t set for the custom menu.';
+
+$string['navbardisplaymenuarrow'] = 'Display menu arrow';
+$string['navbardisplaymenuarrowdesc'] = 'Display menu arrow (downward facing) for a menu title.';
 
 $string['home'] = 'Home';
 $string['enablemy'] = 'Dashboard';
@@ -584,10 +591,13 @@ $string['enablemysitesdesc'] = 'Display a dropdown with a users courses';
 $string['enablemysitesrestriction'] = 'Restrict user\'s courses dropdown to a custom profile field';
 $string['enablemysitesrestrictiondesc'] = 'Restrict dropdown with a user\'s courses by custom profile field. E.g. usertype=staff.';
 
-$string['mysitessortoverride'] = 'Enable my courses custom sort';
+$string['mysitessortoverride'] = 'My courses custom sort';
 $string['mysitessortoverridedesc'] = 'Use custom profile fields or generic strings (year etc) to collapse past courses in sub menu.';
 $string['mysitessortoverridefield'] = 'My Courses Custom Profile Field(s) or Strings';
 $string['mysitessortoverridefielddesc'] = 'Comma delimited list of profile fields or strings to check for in course short codes.';
+
+$string['enableusermysitessortoverride'] = 'Enable user my courses custom sort';
+$string['enableusermysitessortoverridedesc'] = 'Allow the user to set their own value for \'My courses custom sort\', including defaulting to the theme setting value set by \'mysitessortoverride\'.';
 
 $string['mysitessortoverrideoff'] = 'Display all enrolled courses in single flat list';
 $string['mysitessortoverridestrings'] = 'Display enrolled containing strings in first list, others in sub menu';
@@ -672,8 +682,11 @@ $string['footerlinkcolordesc'] = 'Footer blocks link colour.';
 $string['headerbkcolor'] = 'Top header background colour';
 $string['headerbkcolordesc'] = 'Set the top header background colour.';
 
-$string['msgbadgecolor'] = 'Message badge background colour';
-$string['msgbadgecolordesc'] = 'Set the background colour for the messages badge / bubble in the header (displays number of unread messages)';
+$string['notbadgecolour'] = 'Notifications badge colour';
+$string['notbadgecolourdesc'] = 'Set the colour for the notifications badge / bubble in the header (displays number of unread notifications)';
+
+$string['notbadgebackgroundcolour'] = 'Notifications badge background colour';
+$string['notbadgebackgroundcolourdesc'] = 'Set the background colour for the notifications badge / bubble in the header (displays number of unread notifications)';
 
 $string['messagingbackgroundcolor'] = 'Messages main window background colour';
 $string['messagingbackgroundcolordesc'] = 'Set the background colour for the messages main chat window.';
@@ -1063,6 +1076,31 @@ $string['none'] = 'None';
 $string['slight'] = 'Slight';
 $string['standard'] = 'Standard';
 
+// General.
+$string['pageloadingprogress'] = 'Page loading progress';
+$string['pageloadingprogressdesc'] = 'Show the page loading progress.';
+
+$string['pageloadingprogresstheme'] = 'Page loading theme';
+$string['pageloadingprogressthemedesc'] = 'Set the page loading theme.';
+
+$string['pageloadingprogressthemebarbershop'] = 'Barber shop';
+$string['pageloadingprogressthemebigcounter'] = 'Big counter';
+$string['pageloadingprogressthemebounce'] = 'Bounce';
+$string['pageloadingprogressthemecenteratom'] = 'Center atom';
+$string['pageloadingprogressthemecentercircle'] = 'Center circle';
+$string['pageloadingprogressthemecenterradar'] = 'Center radar';
+$string['pageloadingprogressthemecentersimple'] = 'Center simple';
+$string['pageloadingprogressthemecornerindicator'] = 'Corner indicator';
+$string['pageloadingprogressthemefillleft'] = 'Fill left';
+$string['pageloadingprogressthemeflash'] = 'Flash';
+$string['pageloadingprogressthemeflattop'] = 'Flat top';
+$string['pageloadingprogressthemeloadingbar'] = 'Loading bar';
+$string['pageloadingprogressthememacosx'] = 'Mac OSX';
+$string['pageloadingprogressthememinimal'] = 'Minimal';
+
+$string['loadingcolor'] = 'Page loading colour';
+$string['loadingcolordesc'] = 'The loading bar colour.';
+
 // Login button.
 $string['logintextbutton'] = 'Log in';
 $string['logintextbuttonwhenoidc'] = 'Guest/Manual Login';
@@ -1177,6 +1215,9 @@ $string['menusettingsheading'] = 'Customize menus in the upper header the header
 $string['logo'] = 'Logo';
 $string['logodesc'] = 'Upload a logo for use on your site.  Recommended size is 200px by 80px.';
 
+$string['logoalt'] = 'Logo description';
+$string['logoaltdesc'] = 'Provide a description of your logo for accessibility.  Multilang compatible.';
+
 $string['favicon'] = 'Favicon';
 $string['favicondesc'] = 'Upload a favicon for use on your site using the core setting \'core_admin | favicon\' under \'Site Administration\' -> \'Appearance\' -> \'Logos\'.';
 
@@ -1185,9 +1226,6 @@ $string['enableavailablecoursesdesc'] = 'Display "Available Courses" text in the
 
 $string['thiscourse'] = 'This course';
 $string['coursesections'] = 'Course sections';
-
-$string['loadingcolor'] = 'Loading colour';
-$string['loadingcolordesc'] = 'The loading bar colour in the top of the page.';
 
 $string['sitetitle'] = 'Display site title';
 $string['sitetitledesc'] = 'Display the default Moodle site title from <a href="./../admin/settings.php?section=frontpagesettings" target="_blank">Front Page Settings</a> or enter a custom site title in the text box below.';
@@ -1462,8 +1500,8 @@ $string['dangericoncolordesc'] = 'Set the colour of the warning/danger icon main
 $string['helptarget'] = 'Help target';
 $string['helptargetdesc'] = 'Do you want the help link to open in a new window?';
 
-$string['hideinforum'] = 'Hide help and tools in forums';
-$string['hideinforumdesc'] = 'When using fixed width and all menu options the forum search box spills onto the line below. Turning this option on will hide tools and help menu items in forums allowing it to display properly.';
+$string['hideinforum'] = 'Hide help, user favourites and tools in forums';
+$string['hideinforumdesc'] = 'When using fixed width and all menu options the forum search box spills onto the line below.  Turning this option on will hide help, user favourites and tools menu items in forums allowing it to display properly.';
 
 $string['targetnewwindow'] = 'New window';
 $string['targetsamewindow'] = 'Same window';
@@ -1480,13 +1518,14 @@ $string['people'] = 'Participants';
 $string['help'] = 'Help';
 
 $string['breadcrumbseparator'] = 'Breadcrumb separator';
-$string['breadcrumbseparatordesc'] = 'Set the \'<a href="{$a}" target="_blank">Font Awesome Icons</a>\' to be used as item separator in the breadcrumb. enter the icon name without the \'fa-\' prefix.';
+$string['breadcrumbseparatordesc'] = 'Set the \'Font Awesome Icon\' to be used as item separator in the breadcrumb.  To find the FontAwesome(Free) classes for the icon you wish to use, go to <a href="{$a}" target="_blank">Font Awesome free</a> and search for the icon.  You can use the name, such as \'angle-right\' or the complete list of classes, e.g. \'fa-solid fa-angle-right\'.';
 
 $string['breadcrumbhome'] = 'Breadcrumb home';
-$string['breadcrumbhomedesc'] = 'Display home breadcrumb as an icon or as a text.';
+$string['breadcrumbhomedesc'] = 'Display home breadcrumb as an icon, or as a text, or off.';
 
-$string['breadcrumbhometext'] = 'Text';
 $string['breadcrumbhomeicon'] = 'Icon';
+$string['breadcrumbhomeoff'] = 'Off';
+$string['breadcrumbhometext'] = 'Text';
 
 $string['mysitesexclude'] = 'Enable excluding hidden courses';
 $string['mysitesinclude'] = 'Enable including hidden courses';
@@ -1512,9 +1551,9 @@ $string['custommenutitle'] = 'Custom menu title';
 $string['custommenutitledesc'] = 'Set the title of the custom menu title that will contain all of the custom menus on the navbar.  If empty then each top level entry will create a new menu on the navbar.';
 
 $string['headernavbarcustommenucoreheading'] = 'Core settings';
-$string['headernavbarcustommenucoreheadingdesc'] = 'Duplicated for convenience.';
+$string['headernavbarcustommenucoreheadingdesc'] = 'Shown for convenience.  Please navigate to \'Advanced theme settings\' under \'Appearance\'.';
 
-$string['custommenuitemscoredesc'] = 'A custom menu may be configured here.  Enter each menu item on a new line.  Lines starting with a hyphen will appear as menu items in the previous top level menu and ### makes a divider.';
+$string['custommenuitemscoredesc'] = 'A custom menu may be configured in the core setting.  Enter each menu item on a new line.  Lines starting with a hyphen will appear as menu items in the previous top level menu and ### makes a divider.';
 $string['customusermenuitemscoredesc'] = 'You can configure the contents of the user menu (with the exception of the log out link, which is automatically added).  Each line is separated by pipe characters and consists of 1) a string in "langstringname, componentname" form or as plain text, 2) a URL, and 3) a Font Awesome icon name or CSS classes (optional).  Dividers can be used by adding a line of one or more # characters where desired.  To find the FontAwesome(Free) classes for the icon you wish to use, go to <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome free</a> and search for the icon.  You can use the name, such as \'graduation-cap\' or the complete list of classes \'fa-solid fa-graduation-cap\'.  For example:
 <pre>
 messages,message|/message/index.php|fa-regular fa-comment
@@ -1522,6 +1561,8 @@ privatefiles,moodle|/user/files.php|folder-tree
 </pre>
 Note: The default core value may contain duplicates, please adjust as desired.
 ';
+$string['headernavbarcustommenucoreempty'] = 'Setting \'<small>{$a}</small>\' is empty.';
+$string['headernavbarcustommenucorenotempty'] = 'Setting \'<small>{$a}</small>\' is:<br><br>';
 
 // Tool menus.
 $string['newmenudesc'] = 'Configure links to be shown under a top header menu.';
@@ -1570,6 +1611,21 @@ $string['newmenu'] = 'Top menu dropdown';
 $string['newmenutitle'] = 'Top menu title';
 $string['newmenutitledesc'] = 'The title of the dropdown list that will appear in the header of your site.';
 $string['newmenutitledefault'] = 'Menu';
+
+$string['navbaruserfavtoolsmenus'] = 'Navbar user favourites and tools menus';
+
+$string['userfavmenu'] = 'User favourites menu';
+$string['userfavmenudesc'] = 'The user will be able to create their own favourites menu saved as a user preference.  The format of each line is \'text|url|title|langs|fontawesome classes\'.  Only enter what you require.  If you don\'t need something but do need another thing further along then leave it blank but still use the \'|\' delimiter.  For example: \'text|url|||fontawesome classes\'.  To find the FontAwesome(Free) classes for the icon you wish to use, go to <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome free</a> and search for the icon.  You can use the name, such as \'graduation-cap\' or the complete list of classes \'fa-solid fa-graduation-cap\'.  For example:<pre>
+Courses
+-All courses|/course/|||graduation-cap
+-Course search|/course/search.php
+-###
+-FAQ|https://example.org/faq
+-Exam Clock|https://mysite.localhost|Exam Clock||clock
+</pre>';
+
+$string['enableuserfavmenu'] = 'Enable user favourites menu';
+$string['enableuserfavmenudesc'] = 'It is recommended you leave this off if the menu is not in use for preformance reasons.';
 
 $string['enabletoolsmenus'] = 'Enable tool menus';
 $string['enabletoolsmenusdesc'] = 'It is recommended you leave this off if menus are not in use for preformance reasons.';

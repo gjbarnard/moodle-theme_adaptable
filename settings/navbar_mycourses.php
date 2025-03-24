@@ -20,6 +20,9 @@
  * @package    theme_adaptable
  * @copyright  2015 Jeremy Hopkins (Coventry University)
  * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @copyright  2024 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
@@ -84,6 +87,13 @@ if ($ADMIN->fulltree) {
         'last' => get_string('mysitessortoverridelast', 'theme_adaptable'),
     ];
     $setting = new admin_setting_configselect($name, $title, $description, 'myoverview', $choices);
+    $page->add($setting);
+
+    $name = 'theme_adaptable/enableusermysitessortoverride';
+    $title = get_string('enableusermysitessortoverride', 'theme_adaptable');
+    $description = get_string('enableusermysitessortoverridedesc', 'theme_adaptable');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
 
     $name = 'theme_adaptable/mysitessortoverridefield';

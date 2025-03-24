@@ -74,7 +74,7 @@ class behat_theme_adaptable_behat_navigation extends behat_navigation {
      *
      * This can be used on front page, course, category or modules pages.
      *
-     * @override /^I navigate to "(?P<nodetext_string>(?:[^"]|\\")*)" in current page administration$/
+     * @Given /^I navigate to "(?P<nodetext_string>(?:[^"]|\\")*)" in current page administration$/
      *
      * @throws ExpectationException
      * @param string $nodetext navigation node to click, may contain path, for example "Reports > Overview"
@@ -170,7 +170,7 @@ class behat_theme_adaptable_behat_navigation extends behat_navigation {
 
     /**
      * Click on an entry in the user menu.
-     * @override /^I follow "(?P<nodetext_string>(?:[^"]|\\")*)" in the user menu$/
+     * @Given /^I follow "(?P<nodetext_string>(?:[^"]|\\")*)" in the user menu$/
      *
      * @param string $nodetext
      */
