@@ -29,7 +29,6 @@
 
 import $ from 'jquery';
 import jqueryeasingInit from 'theme_adaptable/jqueryeasing';
-import pace from 'theme_adaptable/pace';
 import log from 'core/log';
 
 const adaptable = () => {
@@ -345,9 +344,6 @@ const options = (data) => {
 export const init = (data) => {
     log.debug('Adaptable ES6 init');
     jqueryeasingInit();
-    pace.start({
-        document: false
-    });
     /* Conditional javascript to resolve anchor link clicking issue with sticky navbar.
        in old bootstrap version. Re: issue #919.
        Original issue / solution discussion here: https://github.com/twbs/bootstrap/issues/1768. */

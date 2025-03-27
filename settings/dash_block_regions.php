@@ -21,6 +21,9 @@
  * @copyright  2017 Manoj Solanki (Coventry University)
  * @copyright  2015 Jeremy Hopkins (Coventry University)
  * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @copyright  2024 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
@@ -53,7 +56,7 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Dashboard block region builder.
-    $noregions = 20; // // Number of block regions defined in config.php - frnt-market- etc.
+    $noregions = 20; // Number of block regions defined in config.php - frnt-market- etc.
     ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = \theme_adaptable\toolbox::admin_settings_layout_builder(
         $page,
         'dashblocklayoutlayoutrow',

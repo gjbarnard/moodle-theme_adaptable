@@ -48,27 +48,35 @@ define('THEME_ADAPTABLE_DEFAULT_SLIDERCOUNT', '3');
 function theme_adaptable_pre_scss($theme) {
     $regionmaincolor = \theme_adaptable\toolbox::get_setting('regionmaincolor', false, $theme->name, '#ffffff');
     $fontcolor = \theme_adaptable\toolbox::get_setting('fontcolor', false, $theme->name, '#333333');
-    $fontcolorrgba = \theme_adaptable\toolbox::hex2rgba(\theme_adaptable\toolbox::get_setting('fontcolor'), 0.25);
-    $prescss = '$body-bg: ' . $regionmaincolor . ';';
-    $prescss = '$body-color: ' . $fontcolor . ';';
-    $prescss .= '$primary: ' . \theme_adaptable\toolbox::get_setting('primarycolour', false, $theme->name, '#00796b') . ';';
-    $prescss .= '$secondary: ' . \theme_adaptable\toolbox::get_setting('secondarycolour', false, $theme->name, '#009688') . ';';
-    $prescss .= '$nav-tabs-border-color: $secondary;';
-    $prescss .= '$dialogue-base-bg: ' . $regionmaincolor . ';';
-    $prescss .= '$nav-tabs-link-active-border-color: ' . $fontcolorrgba .' ' . $fontcolorrgba . ' transparent;';
-    $prescss .= '$nav-tabs-link-hover-border-color: transparent transparent '. $fontcolor . ';';
+    $fontcolorrgba = \theme_adaptable\toolbox::hex2rgba($fontcolor, 0.25);
+    $prescss = '$body-bg: ' . $regionmaincolor . ';' . PHP_EOL;
+    $prescss = '$body-color: ' . $fontcolor . ';' . PHP_EOL;
+    $prescss .= '$primary: ' .
+        \theme_adaptable\toolbox::get_setting('primarycolour', false, $theme->name, '#00796b') . ';' . PHP_EOL;
+    $prescss .= '$secondary: ' .
+        \theme_adaptable\toolbox::get_setting('secondarycolour', false, $theme->name, '#009688') . ';' . PHP_EOL;
+    $prescss .= '$loadingcolor: ' .
+        \theme_adaptable\toolbox::get_setting('loadingcolor', false, $theme->name, '#00B3A1') . ';' . PHP_EOL;
+    $loadingcolor = \theme_adaptable\toolbox::get_setting('loadingcolor', false, $theme->name, '#00B3A1');
+    $loadingcolorrgba = \theme_adaptable\toolbox::hex2rgba($loadingcolor, 0.2);
+    $prescss .= '$loadingcolor: ' . $loadingcolor . ';' . PHP_EOL;
+    $prescss .= '$loadingcolorrgba: ' . $loadingcolorrgba . ';' . PHP_EOL;
+    $prescss .= '$nav-tabs-border-color: $secondary;' . PHP_EOL;
+    $prescss .= '$dialogue-base-bg: ' . $regionmaincolor . ';' . PHP_EOL;
+    $prescss .= '$nav-tabs-link-active-border-color: ' . $fontcolorrgba .' ' . $fontcolorrgba . ' transparent;' . PHP_EOL;
+    $prescss .= '$nav-tabs-link-hover-border-color: transparent transparent '. $fontcolor . ';' . PHP_EOL;
     $prescss .= '$courseindex-link-color: ' .
-        \theme_adaptable\toolbox::get_setting('courseindexitemcolor', false, $theme->name, '#495057') . ';';
+        \theme_adaptable\toolbox::get_setting('courseindexitemcolor', false, $theme->name, '#495057') . ';' . PHP_EOL;
     $prescss .= '$courseindex-link-hover-color: ' .
-        \theme_adaptable\toolbox::get_setting('courseindexitemhovercolor', false, $theme->name, '#e6e6e6') . ';';
+        \theme_adaptable\toolbox::get_setting('courseindexitemhovercolor', false, $theme->name, '#e6e6e6') . ';' . PHP_EOL;
     $prescss .= '$courseindex-link-color-selected: ' .
-        \theme_adaptable\toolbox::get_setting('courseindexpageitemcolor', false, $theme->name, '#ffffff') . ';';
+        \theme_adaptable\toolbox::get_setting('courseindexpageitemcolor', false, $theme->name, '#ffffff') . ';' . PHP_EOL;
     $prescss .= '$courseindex-item-page-bg: ' .
-        \theme_adaptable\toolbox::get_setting('courseindexpageitembgcolor', false, $theme->name, '#0f6cbf') . ';';
+        \theme_adaptable\toolbox::get_setting('courseindexpageitembgcolor', false, $theme->name, '#0f6cbf') . ';' . PHP_EOL;
     $prescss .= '$drawer-bg-color: #fff;';  // Currently no setting for 'block region' background.
     $prescss .= '$input-btn-focus-color: rgba(' .
         \theme_adaptable\toolbox::get_setting('inputbuttonfocuscolour', false, $theme->name, '#0f6cc0') . ', ' .
-        \theme_adaptable\toolbox::get_setting('inputbuttonfocuscolouropacity', false, $theme->name, '0.75') . ');';
+        \theme_adaptable\toolbox::get_setting('inputbuttonfocuscolouropacity', false, $theme->name, '0.75') . ');' . PHP_EOL;
 
     return $prescss;
 }
@@ -120,6 +128,7 @@ function theme_adaptable_get_main_scss_content($theme) {
         'login',
         'menu',
         'modal',
+        'notifications',
         'responsive',
         'search',
         'secondarynavigation',
@@ -235,7 +244,8 @@ function theme_adaptable_process_scss($scss, $theme) {
         '[[setting:headerbgimagetextcolour]]' => '#ffffff',
         '[[setting:headertextcolor]]' => '#ffffff',
         '[[setting:headertextcolor2]]' => '#ffffff',
-        '[[setting:msgbadgecolor]]' => '#E53935',
+        '[[setting:notbadgecolour]]' => '#ffffff',
+        '[[setting:notbadgebackgroundcolour]]' => '#e53935',
         '[[setting:blockbackgroundcolor]]' => '#FFFFFF',
         '[[setting:blockheaderbackgroundcolor]]' => '#FFFFFF',
         '[[setting:blockbordercolor]]' => '#59585D',
@@ -431,6 +441,9 @@ function theme_adaptable_process_scss($scss, $theme) {
     $defaults['[[setting:regionmaincolorrgba]]'] = \theme_adaptable\toolbox::hex2rgba($defaults['[[setting:regionmaincolor]]'], 0.75);
     $defaults['[[setting:linkcolorrgba]]'] = \theme_adaptable\toolbox::hex2rgba($defaults['[[setting:linkcolor]]'], 0.75);
     $defaults['[[setting:linkhoverrgba]]'] = \theme_adaptable\toolbox::hex2rgba($defaults['[[setting:linkhover]]'], 0.75);
+
+    // The navbardisplaymenuarrow setting.
+    $defaults['[[setting:navbardisplaymenuarrow]]'] = (empty($theme->settings->navbardisplaymenuarrow)) ? 'content: none;' : '';
 
     // Replace the CSS with values from the $defaults array.
     $scss = strtr($scss, $defaults);

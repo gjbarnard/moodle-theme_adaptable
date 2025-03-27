@@ -71,12 +71,13 @@ class primary extends \core\navigation\output\primary {
             if (!empty($target)) {
                 $thenode->target = $target;
             }
+            $thenode->text = $node->get_text(); // Ensure an icon is shown when no text is.  Ref: 'navbardisplaytitles'.
             $primarynodes[] = $thenode;
         }
-        $mobileprimarynav = array_merge($primarynodes, $this->get_custom_menu($output));
+        // Custom menu items obtained in navigation_menu_content().
 
         return [
-            'mobileprimarynav' => $mobileprimarynav,
+            'mobileprimarynav' => $primarynodes,
         ];
     }
 }

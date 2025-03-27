@@ -102,6 +102,23 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, 2023092506, 'theme', 'adaptable');
     }
 
+    if ($oldversion < 2023092507) {
+        $value = get_config('theme_adaptable', 'navbardisplaysubmenuarrow');
+        if (!empty($value)) {
+            set_config('navbardisplaymenuarrow', $value, 'theme_adaptable');
+            // Prevent replacement when upgrade has already happened in a version for an older Moodle!
+            unset_config('navbardisplaysubmenuarrow', 'theme_adaptable');
+        }
+
+        $value = get_config('theme_adaptable', 'msgbadgecolor');
+        if (!empty($value)) {
+            set_config('notbadgebackgroundcolour', $value, 'theme_adaptable');
+            // Prevent replacement when upgrade has already happened in a version for an older Moodle!
+            unset_config('msgbadgecolor', 'theme_adaptable');
+        }
+        upgrade_plugin_savepoint(true, 2023092507, 'theme', 'adaptable');
+    }
+
     // Automatic 'Purge all caches'....
     purge_all_caches();
 

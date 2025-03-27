@@ -60,29 +60,33 @@ if ($ADMIN->fulltree) {
         format_text(get_string('headernavbarcustommenucoreheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
     ));
 
-    $page->add(new admin_setting_configtextarea(
-        'custommenuitems',
+    $custommenuitems = get_config('core', 'custommenuitems');
+    if (empty($custommenuitems)) {
+        $custommenuitems = get_string('headernavbarcustommenucoreempty', 'theme_adaptable', 'custommenuitems');
+    } else {
+        $custommenuitems = get_string('headernavbarcustommenucorenotempty', 'theme_adaptable', 'custommenuitems') .
+            '<small>' . nl2br($custommenuitems) . '</small>';
+    }
+    $page->add(new admin_setting_description(
+        'theme_adaptable/custommenuitems',
         new lang_string('custommenuitems', 'admin'),
-        get_string('custommenuitemscoredesc', 'theme_adaptable').'<br><br>'.
-        get_string('fontawesomesettingdesc', 'theme_adaptable'),
-        '',
-        PARAM_RAW,
-        '50',
-        '10'
+        $custommenuitems.'<br><br>'.
+        get_string('custommenuitemscoredesc', 'theme_adaptable').'<br>'.
+        get_string('fontawesomesettingdesc', 'theme_adaptable')
     ));
 
-    $defaultsettingcustomusermenuitems = [
-        'messages,message|/message/index.php|fa-regular fa-comment',
-        'privatefiles,moodle|/user/files.php|folder-tree',
-    ];
-    $page->add(new admin_setting_configtextarea(
-        'customusermenuitems',
+    $customusermenuitems = get_config('core', 'customusermenuitems');
+    if (empty($customusermenuitems)) {
+        $customusermenuitems = get_string('headernavbarcustommenucoreempty', 'theme_adaptable', 'customusermenuitems');
+    } else {
+        $customusermenuitems = get_string('headernavbarcustommenucorenotempty', 'theme_adaptable', 'customusermenuitems') .
+            '<small>' . nl2br($customusermenuitems) . '</small>';
+    }
+    $page->add(new admin_setting_description(
+        'theme_adaptable/customusermenuitems',
         new lang_string('customusermenuitems', 'admin'),
-        new lang_string('customusermenuitemscoredesc', 'theme_adaptable'),
-        implode("\n", $defaultsettingcustomusermenuitems),
-        PARAM_RAW,
-        '50',
-        '10'
+        $customusermenuitems.'<br><br>'.
+        get_string('customusermenuitemscoredesc', 'theme_adaptable')
     ));
 
     $asettings->add($page);

@@ -41,7 +41,7 @@ if ($ADMIN->fulltree) {
     $description = get_string('headerbgimagedesc', 'theme_adaptable');
     $setting = new \theme_adaptable\admin_setting_configstoredfiles(
         $name, $title, $description, 'headerbgimage',
-        ['accepted_types' => '*.jpg,*.jpeg,*.jfif,*.png', 'maxfiles' => 1]
+        ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
     );
     $page->add($setting);
 
@@ -80,8 +80,16 @@ if ($ADMIN->fulltree) {
     $description = get_string('logodesc', 'theme_adaptable');
     $setting = new \theme_adaptable\admin_setting_configstoredfiles(
         $name, $title, $description, 'logo',
-        ['accepted_types' => '*.jpg,*.jpeg,*.jfif,*.png', 'maxfiles' => 1]
+        ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
     );
+    $page->add($setting);
+
+    // Logo description text.
+    $name = 'theme_adaptable/logoalt';
+    $title = get_string('logoalt', 'theme_adaptable');
+    $description = get_string('logoaltdesc', 'theme_adaptable');
+    $default = get_string('logo', 'theme_adaptable');
+    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
     $page->add($setting);
 
     // Page Header Height.
@@ -202,6 +210,7 @@ if ($ADMIN->fulltree) {
     $radchoices = [
         'text' => get_string('breadcrumbhometext', 'theme_adaptable'),
         'icon' => get_string('breadcrumbhomeicon', 'theme_adaptable'),
+        'off' => get_string('breadcrumbhomeoff', 'theme_adaptable'),
     ];
     $setting = new admin_setting_configselect($name, $title, $description, 'icon', $radchoices);
     $page->add($setting);
@@ -232,7 +241,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/searchboxpadding';
     $title = get_string('searchboxpadding', 'theme_adaptable');
     $description = get_string('searchboxpaddingdesc', 'theme_adaptable');
-    $setting = new admin_setting_configtext($name, $title, $description, '0 0 10px 0');
+    $setting = new admin_setting_configtext($name, $title, $description, '0 0 0 0');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 

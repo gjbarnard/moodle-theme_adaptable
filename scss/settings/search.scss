@@ -24,6 +24,13 @@
 
 .headersearch {
     padding: [[setting:searchboxpadding]];
+
+    abbr[title] {
+        border-bottom: none;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
     .btn {
         color: [[setting:headertextcolor2]];
     }
@@ -34,19 +41,17 @@
     .btn {
         box-shadow: none;
     }
+
     .btn-close {
         border-width: 0;
+        .icon {
+            vertical-align: middle;
+        }
     }
-}
 
-#adaptable-page-header-wrapper #header2 a.btn-open i {
-    color: [[setting:headertextcolor]];
-}
-
-.headersearch abbr[title]{
-    border-bottom: none;
-    cursor: pointer;
-    text-decoration: none;
+    input {
+        padding: 1.1rem;
+    }
 }
 
 .headersearch .form-inline,
@@ -60,22 +65,40 @@
     height: 35px;
 }
 
-#adaptable-page-header-wrapper .navbarsearchsocial form .icon {
-    color: [[setting:fontcolor]];
+#adaptable-page-header-wrapper {
+    .navbarsearchsocial form,
+    .headersearch .show {
+        .icon {
+            color: [[setting:fontcolor]];
+            font-size: 16px;
+        }
+    }
 }
 
 .headersearch .simplesearchform .btn-submit,
 #adaptable-page-header-wrapper .above-header .navbar .navbarsearchsocial button {
     border-radius: 0;
 }
-.navbarsearchsocial .btn-open {
-    border-width: 0;
-    font-size: 1.2em;
-}
 
-#adaptable-page-header-wrapper .navbarsearchsocial .icon {
-    margin-right: 0;
-    padding-right: 0;
+#adaptable-page-header-wrapper .navbarsearchsocial {
+    .btn-close {
+        padding-right: 0;
+        padding-top: 3px;
+        right: 2rem;
+    }
+
+    .btn-open {
+        border-width: 0;
+
+        .icon {
+            font-size: 16px;
+        }
+    }
+
+    .icon {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
 }
 
 .simplesearchform .collapse.show,
