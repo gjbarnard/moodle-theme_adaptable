@@ -27,12 +27,17 @@
 
 // Main elements selectors.
 html,
-body {
+body,
+.body {
     background-color: [[setting:maincolor]];
     color: [[setting:fontcolor]];
     font-family: [[setting:fontname]], sans-serif;
     font-size: [[setting:fontsize]];
     font-weight: [[setting:fontweight]] !important;
+}
+
+html,
+body {
     line-height: normal;
     margin: 0;
     padding: 0;
@@ -61,8 +66,8 @@ h6 {
 input,
 select,
 textarea {
-    background-color: [[setting:maincolor]];
-    color: [[setting:fontcolor]];
+    background-color: [[setting:regionmaincolor]];
+    color: [[setting:regionmaintextcolor]];
     font-family: [[setting:fontname]], sans-serif;
     font-size: [[setting:fontsize]];
     font-weight: [[setting:fontweight]] !important;
@@ -258,10 +263,6 @@ div.signuppanel h2 {
 
 a.component-expand .badge {
     margin: 0.8em 0.8em 0.4em 0.8em;
-}
-
-.navbar .count-container {
-    background-color: [[setting:msgbadgecolor]];
 }
 
 .badge-primary {
@@ -1359,28 +1360,6 @@ a.cimbox {
 
 .helplink {
     text-align: center;
-}
-
-// Pace Settings.
-.pace {
-  pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-.pace-inactive {
-    display: none;
-}
-
-.pace .pace-progress {
-    background-color: [[setting:loadingcolor]];
-    height: 2px;
-    position: fixed;
-    top: 0;
-    right: 100%;
-    width: 100%;
-    z-index: 2000;
 }
 
 // Hidden admin blocks.

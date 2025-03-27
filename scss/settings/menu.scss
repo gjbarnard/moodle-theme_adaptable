@@ -39,9 +39,14 @@
     margin-right: -[[setting:menufontpadding]];
 }
 
-// Remove caret from main navbar menu.
-#adaptable-page-header-wrapper #main-navbar .dropdown-toggle::after {
-    content: none;
+// Remove caret from navbar menus.
+#adaptable-page-header-wrapper {
+    .above-header,
+    #main-navbar {
+        .dropdown-toggle::after {
+            [[setting:navbardisplaymenuarrow]]
+        }
+    }
 }
 
 #adaptable-page-header-wrapper {
@@ -162,11 +167,8 @@
     color: inherit;
 }
 
-#adaptable-page-header-wrapper #header2 a i {
-    padding-right: 4px;
-}
-
 #adaptable-page-header-wrapper .above-header a.dropdown-toggle {
+    margin-bottom: 2px;
     margin-top: 2px;
 }
 
@@ -369,7 +371,6 @@
 
 #adaptable-page-header-wrapper #main-navbar .navbar-nav .nav-item .dropdown-menu > .nav-item .dropdown-menu {
     max-height: 400px;
-    overflow-x: auto;
     top: -1px;
 }
 
@@ -403,19 +404,6 @@
     background: none;
     margin: 0;
     padding: 0;
-}
-
-#adaptable-page-header-wrapper #main-navbar .action-menu .dropdown-toggle::after {
-    border-bottom: 0;
-    border-left: .5em solid transparent;
-    border-right: .5em solid transparent;
-    border-top: .5em solid;
-    content: "";
-    display: inline-block;
-    height: 0;
-    margin-left: .255em;
-    vertical-align: .255em;
-    width: 0;
 }
 
 #adaptable-page-header-wrapper #main-navbar .action-menu a.dropdown-toggle i {

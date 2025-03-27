@@ -40,7 +40,6 @@ $functions = [
         'methodname' => 'set_user_preferences',
         'description' => 'Set user preferences.',
         'type' => 'write',
-        'capabilities' => 'moodle/site:config',
         'loginrequired' => false,
         'ajax' => true,
     ],
@@ -48,8 +47,8 @@ $functions = [
 
 $services = [
     'Adaptable theme FontAwesome map' => [
-            'functions' => ['theme_adaptable_output_load_fontawesome_icon_map'],
-            'restrictedusers' => 0,
-            'enabled' => 1,
+        'functions' => ['theme_adaptable_output_load_fontawesome_icon_map'],
+        'restrictedusers' => 0,
+        'enabled' => 1,
     ],
 ];

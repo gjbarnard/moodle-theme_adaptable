@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
     $page = new \theme_adaptable\admin_settingspage(
         'theme_adaptable_frontpage_block_regions',
-        get_string('frontpageblockregionsettings', 'theme_adaptable')
+        get_string('settingspagefrontpageblockregionsettings', 'theme_adaptable')
     );
 
     $page->add(new admin_setting_heading(
