@@ -423,12 +423,17 @@ class toolbox {
 
         // Pre-process files - using 'theme_adaptable_pluginfile' in lib.php as a reference.
         $filestoreport = '';
+        $fileschanged = '';
         $preprocessfilesettings = $currentprops[self::FILEPROPNAMES];
 
         // Process the file properties.
         foreach ($preprocessfilesettings as $preprocessfilesetting) {
-            self::put_prop_file_preprocess($pluginfrankenstyle, $preprocessfilesetting, $props, $filestoreport);
+            self::put_prop_file_preprocess($pluginfrankenstyle, $preprocessfilesetting, $props, $filestoreport, $fileschanged);
             unset($currentprops[self::PROPS][$preprocessfilesetting]);
+        }
+
+        if ($fileschanged) {
+            $report .= get_string('putpropertiesreportfileschanged', $pluginfrankenstyle) . PHP_EOL . $fileschanged . PHP_EOL;
         }
 
         if ($filestoreport) {
@@ -540,9 +545,9 @@ class toolbox {
      * @param int $key
      * @param array $props
      * @param string $filestoreport
-     *
+     * @param string $fileschanged
      */
-    private static function put_prop_file_preprocess($pluginfrankenstyle, $key, &$props, &$filestoreport) {
+    private static function put_prop_file_preprocess($pluginfrankenstyle, $key, &$props, &$filestoreport, &$fileschanged) {
         if (!empty($props[$key])) {
             if ($props[$key][0] == '{') { // Is a JSON encoded file(s).
                 $name = $pluginfrankenstyle.'/'.$key;
@@ -551,7 +556,25 @@ class toolbox {
                 $setting = new \theme_adaptable\admin_setting_configstoredfiles(
                     $name, $title, $description, $key, null
                 );
-                $setting->base64decode($props[$key]);
+                $changed = $setting->base64decode($props[$key]);
+                if (!empty($changed[\theme_adaptable\admin_setting_configstoredfiles::REMOVEDFILES])) {
+                    foreach ($changed[\theme_adaptable\admin_setting_configstoredfiles::REMOVEDFILES] as $removedfilename) {
+                        $fileschanged .= get_string(
+                            'propertyfileremoved',
+                            $pluginfrankenstyle,
+                            ['filename' => $removedfilename, 'settingname' => $key]
+                        ) . PHP_EOL;
+                    }
+                }
+                if (!empty($changed[\theme_adaptable\admin_setting_configstoredfiles::ADDEDFILES])) {
+                    foreach ($changed[\theme_adaptable\admin_setting_configstoredfiles::ADDEDFILES] as $addedfilename) {
+                        $fileschanged .= get_string(
+                            'propertyfileadded',
+                            $pluginfrankenstyle,
+                            ['filename' => $addedfilename, 'settingname' => $key]
+                        ) . PHP_EOL;
+                    }
+                }
             } else {
                 $filestoreport .= '\'' . $key . '\' ' . get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' .
                     \core_text::substr($props[$key], 1) . '\'.' . PHP_EOL;
@@ -599,11 +622,16 @@ class toolbox {
             $theicon = trim($theicon);
             if (mb_strpos($theicon, ' ') === false) { // No spaces, so find.
                 $fav = self::get_setting('fav');
+                $hasprefix = (mb_strpos($theicon, 'fa') !== false);
                 if (!empty($fav)) {
                     $toolbox = self::get_instance();
-                    $classes[] = $toolbox->get_fa6_from_fa4($theicon);
+                    $classes[] = $toolbox->get_fa6_from_fa4($theicon, $hasprefix);
                 } else {
-                    $classes[] = 'fa fa-' . $theicon;
+                    $iconprefix = 'fa ';
+                    if (!$hasprefix) {
+                        $iconprefix .= 'fa-';
+                    }
+                    $classes[] = $iconprefix . $theicon;
                 }
             } else {
                 // Spaces so full icon specified.

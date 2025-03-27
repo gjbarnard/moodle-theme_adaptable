@@ -153,11 +153,6 @@ class admin_setting_configstoredfile_putprops extends \admin_setting_configstore
             }
         }
 
-        /*$validated = $this->validate($data);
-        if ($validated !== true) {
-            return $validated;
-        }*/
-
         return '';
     }
 }

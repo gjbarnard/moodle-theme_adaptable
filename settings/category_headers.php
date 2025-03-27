@@ -104,7 +104,7 @@ if ($ADMIN->fulltree) {
             }
             $setting = new \theme_adaptable\admin_setting_configstoredfiles(
                 $name, $title, $description, 'categoryheaderbgimage' . $customheaderid,
-                ['accepted_types' => '*.jpg,*.jpeg,*.jfif,*.png', 'maxfiles' => 1]
+                ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
             );
             $page->add($setting);
 
@@ -140,7 +140,7 @@ if ($ADMIN->fulltree) {
             }
             $setting = new \theme_adaptable\admin_setting_configstoredfiles(
                 $name, $title, $description, 'categoryheaderlogo' . $customheaderid,
-                ['accepted_types' => '*.jpg,*.jpeg,*.jfif,*.png', 'maxfiles' => 1]
+                ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
             );
             $page->add($setting);
 

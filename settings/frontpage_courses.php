@@ -72,7 +72,7 @@ if ($ADMIN->fulltree) {
     $description = get_string('frontpagerendererdefaultimagedesc', 'theme_adaptable');
     $setting = new \theme_adaptable\admin_setting_configstoredfiles(
         $name, $title, $description, 'frontpagerendererdefaultimage',
-        ['accepted_types' => '*.jpg,*.jpeg,*.jfif,*.png', 'maxfiles' => 1]
+        ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
     );
     $page->add($setting);
 

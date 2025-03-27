@@ -45,6 +45,12 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
     /** @var object the owner if set */
     protected $owner;
 
+    /** @var string Added files */
+    public const ADDEDFILES = 'added';
+
+    /** @var string Removed files */
+    public const REMOVEDFILES = 'removed';
+
     /**
      * Create new stored files setting.
      *
@@ -289,9 +295,16 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
 
     /**
      * Base 64 decode.
+     *
+     * @param string $settingarrjson JSON of setting.
+     *
+     * @return array Added and removed filenames.
      */
     public function base64decode($settingarrjson) {
         global $USER;
+
+        $changed = [self::ADDEDFILES => [], self::REMOVEDFILES => []];
+
         $component = is_null($this->plugin) ? 'theme_adaptable' : $this->plugin;
         $syscontext = context_system::instance();
 
@@ -329,6 +342,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
             $syscontext->id, $component, $this->filearea, 0, 'sortorder,filepath,filename', false);  // Item id could not be 0!
         foreach ($files as $file) {
             if (!empty($file)) {
+                $changed[self::REMOVEDFILES][] = $file->get_filename();
                 $file->delete();
             }
         }
@@ -348,6 +362,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
                 'mimetype' => $draftfile->get_mimetype(),
             ];
             $settingfile = $fs->create_file_from_string($filerecord, $draftfile->get_content()); // Replacement.
+            $changed[self::ADDEDFILES][] = $settingfile->get_filename();
 
             $draftfile->delete(); // Finished with draft.
         }
@@ -365,6 +380,8 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
         if (!empty($callbackfunction) && is_callable($callbackfunction)) {
             $callbackfunction($this->get_full_name());
         }
+
+        return $changed;
     }
 
     // Adapted from theme_config class.

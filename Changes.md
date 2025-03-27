@@ -1,3 +1,40 @@
+Change Log in version 401.1.15 (2022112316)
+===========================================
+1. Better file upload icon and for when FA4 shims disabled.
+2. Block region tidy when editing, 'Add block' button for each region and added 'blockregioneditingtitleshown' setting
+   under 'Block' with a default of true.
+3. Fix 'newstickercount' incorrect default value.
+4. Add Pace themes from https://codebyzach.github.io/pace/ and add 'pageloadingprogress' and 'pageloadingprogresstheme' settings
+   to new 'General' tab.
+5. Block regions to Frontpage block regions rename.
+6. Prevent an open Adaptable settings window overwriting core settings in another.
+7. Setting tabs fully alphabetical.
+8. Add theme user settings, initially 'My courses custom sort' - Sponsors only functionality.
+9. Larger tools menu title and field setting boxes.  The former to help with multilang support.
+10. Fix navbar search magnifying glass position.
+11. Tools menu settings should be 'PARAM_TEXT'.
+12. Allow sub-sub menus.
+13. Add 'navbardisplaytitles' setting to show / hide the navbar titles, disabled when 'navbardisplayicons' is unset.
+14. Rename 'navbardisplaysubmenuarrow' to 'navbardisplaymenuarrow' and fix places where this didn't apply.
+15. Fix original header search icon colour when open.
+16. Fix header search position and default setting value.
+17. Tidy header search.
+18. Update theme version of FontAwesome free to 6.7.1 from 6.6.0.
+19. Add 'logoalt' setting to provide a description of your logo for accessibility.  Multilang compatible.
+20. Convert 'msgbadgecolor' into 'notbadgebackgroundcolour' and create 'notbadgecolour' so that both the background and font colour
+    can be set for the notifications.
+21. Fix duplicate custom menu items in 'mobileprimarynav' drawer.
+22. Improve FontAwesome class name processing for setting values.
+23. Data instance id format in line with core.
+24. Fixed back and foreground colours for input, select and textarea's to be 'regionmaincolor' and 'regionmaintextcolor' respectively.
+25. Update theme version of FontAwesome free to 6.7.2 from 6.7.1.
+26. Fix 'currentlanguage' assignment to non-existent class attribute in custom_menu_item.
+27. Fix visited 'btn-outline-secondary' text.  Note: Need to consider text colours for Bootstrap background ones?
+28. Fix 'Accessibility Issue with breadcrumb navigation' - ref: https://moodle.org/mod/forum/discuss.php?d=467094.
+29. Fix incorrect breadcrumb logic in relation to the 'enablehome', 'enablemyhome' (both not relevant to the breadcrumb) and
+    'breadcrumbhome' settings.  Now 'breadcrumbhome' has a new value of 'Off' so that you can switch the display of 'Home' on
+    the breadcrumb independently of the 'Home' on the navbar.
+
 Change Log in version 401.1.14 (2022112315)
 ===========================================
 1. Yes, I can be superstitious at times.

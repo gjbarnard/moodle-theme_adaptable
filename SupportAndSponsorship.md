@@ -2,8 +2,8 @@ The Adaptable story
 ===================
 Adaptable is based upon the popular BCU theme, developed for Coventry University.  Since the main developer decided to leave the
 project, I (Gareth) was asked to assist in maintenance and improvements.  Coventry University has now moved away from Moodle and
-passed the project onto me to manage as its lead.  I will keep the theme alive, maintained and supported for as long as there is a
-willingness to fund my time to do so.  The theme is complex and takes time, skill, knowledge and talent to develop.  This is why
+passed the project onto me to manage as its lead.  I will keep the theme alive, maintained and supported for as long as there is
+a willingness to fund my time to do so.  The theme is complex and takes time, skill, knowledge and talent to develop.  This is why
 I'm asking for your financial support in my endeavours.
 
 If you would like to sponsor me, get support or fund improvements, then please do get in touch via:
@@ -11,23 +11,19 @@ If you would like to sponsor me, get support or fund improvements, then please d
 - gMail eMail | gjbarnard at gMail dt com.
 - My website eMail | contact at gjbarnard dt co dt uk.
 - GitHub | Please outline your issue / improvement on '[Adaptable issues](https://github.com/gjbarnard/moodle-theme_adaptable/issues)'.
-- @gjbarnard | [X](https://x.com/gjbarnard).
 
 Sponsorship information
 -----------------------
-By becoming a sponsor you help to keep the theme alive and working as underlying technologies change and the core Moodle software moves
-forward.  In return I’ll provide you access to additional functionality for the theme and prioritise questions from sponsors through a
-sponsors only area on GitHub.
+By becoming a sponsor you help to keep the theme alive and working as underlying technologies change and the core Moodle software
+moves forward.  In return I’ll provide you access to additional functionality for the theme, early access to updates and prioritise
+questions from sponsors through a sponsors only area on GitHub.
 
-Sponsorship is not support or a contract to provide such, nor is it a commitment to provide updates, future versions or improvements.
-What it is though is an incentive to me to keep the theme going and maintained, and intend to do so for as long as possible.
+Sponsorship is not support or a contract to provide such (Though I will help you through the installation of the additional
+functionality), nor is it a commitment to provide updates, future versions or improvements.  What it is though is an incentive
+to me to keep the theme going and maintained, and intend to do so for as long as possible.
 
-How much you offer for sponsorship is up to you to decide and for us to then agree upon based upon the use and value of the theme to you.
-Sponsorship can be a one off payment or many payments over time, the choice is yours.
-
-Please contact me using the details above along with how much you'd like to offer and an outline of who you are and how much you
-use the theme.  I will then outline the steps that need to be taken so that you can become a sponsor.  Note that I can only do
-business to business transactions.
+Please contact me using the details above.  I will then reply with the steps that need to be taken so that you can become a sponsor.
+Note that I'm a self employed sole trader and can only do business to business transactions at the time of typing.
 
 Improvements and bespoke work
 -----------------------------
@@ -36,8 +32,8 @@ complexity without actually removing functionality.  There is though the possibi
 creating a child theme that adds the specific functionality that you require.
 
 If you would like your own customised version or a new child theme of Boost / Classic, then typically with a setting and a few style
-changes this is usually two to three hours work.  At my current rate this will be between 94 and 141 GBP.  I charge by the minute with
-a minimum time of fifteen.  Please contact me for further details with an outline of what you would like.
+changes this is usually two to three hours work.  I charge by the minute with a minimum time of fifteen.  Please contact me for
+further details with an outline of what you would like.
 
 Open source software
 ====================
@@ -94,5 +90,4 @@ Currently developed and maintained by
 G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
 
 - Moodle profile | [Moodle.org](http://moodle.org/user/profile.php?id=442195)
-- @gjbarnard | [X](https://twitter.com/gjbarnard).
 - Web profile | [gjbarnard.co.uk](https://gjbarnard.co.uk)

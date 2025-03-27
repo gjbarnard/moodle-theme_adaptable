@@ -40,7 +40,7 @@ if ($ADMIN->fulltree) {
     $description = get_string('homebkdesc', 'theme_adaptable');
     $setting = new \theme_adaptable\admin_setting_configstoredfiles(
         $name, $title, $description, 'homebk',
-        ['accepted_types' => '*.jpg,*.jpeg,*.jfif,*.png', 'maxfiles' => 1]
+        ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
