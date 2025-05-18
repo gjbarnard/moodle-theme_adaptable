@@ -212,7 +212,6 @@ trait core_renderer_toolbox {
                         foreach ($customitems[1] as $item) {
                             $retval[] = $item;
                         }
-                        $retval[] = $divider;
                     }
                 break;
             }
@@ -475,9 +474,6 @@ trait core_renderer_toolbox {
             $bc->attributes['aria-labelledby'] = 'instance-' . $bc->blockinstanceid . '-header';
         } else if (!empty($bc->arialabel)) {
             $bc->attributes['aria-label'] = $bc->arialabel;
-        }
-        if ($bc->dockable) {
-            $bc->attributes['data-dockable'] = 1;
         }
         if ($bc->collapsible == block_contents::HIDDEN) {
             $bc->add_class('hidden');
@@ -1633,12 +1629,7 @@ trait core_renderer_toolbox {
         $overridetype = 'off';
 
         $themesettings = \theme_adaptable\toolbox::get_settings();
-        $navbardisplayicons = (!empty($themesettings->navbardisplayicons));
-        $navbardisplaytitles = (!empty($themesettings->navbardisplaytitles));
-        if (!$navbardisplaytitles && !$navbardisplayicons) {
-            // Can't have nothing!
-            $navbardisplaytitles = true;
-        }
+        list($navbardisplayicons, $navbardisplaytitles) = $this->navbar_display($themesettings);
 
         $branchsort = 9998;
 
@@ -1887,6 +1878,23 @@ trait core_renderer_toolbox {
         }
 
         return $menu;
+    }
+
+    /**
+     * Returns the values of the navbar display in terms of icon and title.
+     *
+     * @param stdClass $themesettings Theme settings.
+     * @return array $navbardisplayicons and $navbardisplaytitles.
+     */
+    private function navbar_display($themesettings) {
+        $navbardisplayicons = (!empty($themesettings->navbardisplayicons));
+        $navbardisplaytitles = (!empty($themesettings->navbardisplaytitles));
+        if (!$navbardisplaytitles && !$navbardisplayicons) {
+            // Can't have nothing!
+            $navbardisplaytitles = true;
+        }
+
+        return [$navbardisplayicons, $navbardisplaytitles];
     }
 
     /**
@@ -3079,91 +3087,6 @@ trait core_renderer_toolbox {
         }
 
         return '';
-    }
-
-    /**
-     * Mobile settings menu.
-     *
-     * TODO: Possibly make a Mustache template for all of the menu?
-     *
-     * @return string Markup.
-     */
-    public function context_mobile_settings_menu() {
-        $output = '';
-
-        $showcourseitems = false;
-        $context = $this->page->context;
-        $items = $this->page->navbar->get_items();
-        $currentnode = end($items);
-
-        // We are on the course home page.
-        if (
-            ($context->contextlevel == CONTEXT_COURSE) &&
-            !empty($currentnode) &&
-            ($currentnode->type == navigation_node::TYPE_COURSE || $currentnode->type == navigation_node::TYPE_SECTION)
-        ) {
-            $showcourseitems = true;
-        }
-
-        $courseformat = course_get_format($this->page->course);
-        // This is a single activity course format, always show the course menu on the activity main page.
-        if (
-            $context->contextlevel == CONTEXT_MODULE &&
-            !$courseformat->has_view_page()
-        ) {
-            $this->page->navigation->initialise();
-            $activenode = $this->page->navigation->find_active_node();
-            // If the settings menu has been forced then show the menu.
-            if ($this->page->is_settings_menu_forced()) {
-                $showcourseitems = true;
-            } else if (
-                !empty($activenode) && ($activenode->type == navigation_node::TYPE_ACTIVITY ||
-                $activenode->type == navigation_node::TYPE_RESOURCE)
-            ) {
-                /* We only want to show the menu on the first page of the activity.  This means
-                   the breadcrumb has no additional nodes. */
-                if ($currentnode && ($currentnode->key == $activenode->key && $currentnode->type == $activenode->type)) {
-                    $showcourseitems = true;
-                }
-            }
-        }
-
-        if ($showcourseitems) {
-            $settingsnode = $this->page->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE);
-            if ($settingsnode) {
-                $displaykeys = ['turneditingonoff', 'editsettings']; // In the order we want.
-                $displaykeyscount = count($displaykeys);
-                $displaynodes = [];
-                foreach ($settingsnode->children as $node) {
-                    if ($node->display) {
-                        if (in_array($node->key, $displaykeys)) {
-                            $displaynodes[$node->key] = $node;
-                        }
-                        if (count($displaynodes) == $displaykeyscount) {
-                            break;
-                        }
-                    }
-                }
-
-                foreach ($displaykeys as $displaykey) { // Ensure order.
-                    if (!empty($displaynodes[$displaykey])) {
-                        $currentnode = $displaynodes[$displaykey];
-                        $output .= '<a class="list-group-item list-group-item-action " href="' . $currentnode->action . '">';
-                        $output .= '<div class="m-l-0">';
-                        $output .= '<div class="media">';
-                        $output .= '<span class="media-left">';
-                        $output .= $this->render($currentnode->icon);
-                        $output .= '</span>';
-                        $output .= '<span class="media-body ">' . $currentnode->text . '</span>';
-                        $output .= '</div>';
-                        $output .= '</div>';
-                        $output .= '</a >';
-                    }
-                }
-            }
-        }
-
-        return $output;
     }
 
     /**

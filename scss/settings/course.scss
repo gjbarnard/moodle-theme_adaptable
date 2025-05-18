@@ -39,19 +39,28 @@
 
 // Course Tiles.
 
-// Remove 'Available courses' label.
-#frontpage-available-course-list h2 {
-    display: [[setting:enableavailablecourses]];
-}
-
 // Display the course list container.
-
 #frontpage-available-course-list {
     display: block;
     flex-flow: row wrap;
-    justify-content: space-between;
     flex-grow: 1;
     flex-wrap: wrap;
+    justify-content: space-between;
+
+    // Remove 'Available courses' label.
+    h2 {
+        display: [[setting:enableavailablecourses]];
+    }
+}
+
+#frontpage-available-course-list,
+#frontpage-course-list,
+.course-search-result {
+    .coursebox {
+        border: 0;
+        margin-bottom: 0;
+        padding: 0;
+    }
 }
 
 #page-site-index .courses {
@@ -156,12 +165,9 @@
 }
 
 .coursebox {
-    padding: 0;
     border: 0;
     border-radius: 0;
-      flex-grow: 2 !important;
-        flex-shrink: 2 !important;
-          flex-basis: 90% !important;
+    padding: 0;
 }
 
 #page .covtiles.panel {

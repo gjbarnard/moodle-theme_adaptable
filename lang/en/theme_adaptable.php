@@ -219,7 +219,7 @@ $string['tickertextprofilefielddesc'] = 'Add access rule using for custom profil
 $string['ticker'] = 'Announcements';
 
 $string['tickerwidth'] = 'Fixed width';
-$string['tickerfullscreen'] = 'Full screen width';
+$string['tickerfullscreen'] = 'Full view width';
 
 // Slideshow.
 $string['slideshowsettings'] = 'Slideshow';
@@ -250,8 +250,8 @@ $string['slidervisibleloggedout'] = 'Logged out';
 $string['slidervisibleloggedin'] = 'Logged in';
 $string['slidervisibleloggedinout'] = 'Logged in or out';
 
-$string['sliderfullscreen'] = 'Slider full screen';
-$string['sliderfullscreendesc'] = 'Check this box to make the slider full screen (100% width).';
+$string['sliderfullscreen'] = 'Slider full view';
+$string['sliderfullscreendesc'] = 'Check this box to make the slider full view (100% width).';
 
 $string['slideroption2'] = 'Choose slider type';
 $string['slideroption2desc'] = 'Choose slider type <strong>and then click SAVE</strong> to see colour settings for your chosen slider.';
@@ -414,8 +414,8 @@ $string['marketingdeprecated'] = 'Marketing blocks are deprecated, please migrat
 $string['infobox'] = 'Frontpage info box';
 $string['infoboxdesc'] = 'Frontpage info block HTML.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.<br><strong>Note: </strong><i>This element is only used for compatibility with BCU and will be removed in coming versions.</i>';
 
-$string['infoboxfullscreen'] = 'Make infobox full screen';
-$string['infoboxfullscreendesc'] = 'Turning this option on will make the infobox full screen.';
+$string['infoboxfullscreen'] = 'Make infobox full view';
+$string['infoboxfullscreendesc'] = 'Turning this option on will make the infobox full view.';
 
 $string['infobox2'] = 'Frontpage secondary info box';
 $string['infobox2desc'] = 'Frontpage secondary info box.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.<br><strong>Note: </strong><i>This element is only used for compatibility with BCU and will be removed in coming versions.</i>';
@@ -477,7 +477,7 @@ $string['moodledocsdesc'] = 'Display the Moodle docs link in the footer.';
 
 // NavBar.
 $string['stickynavbar'] = 'Sticky navbar at the top';
-$string['stickynavbardesc'] = 'Stick the navbar at the top of the screen when scrolling down.';
+$string['stickynavbardesc'] = 'Stick the navbar at the top of the view when scrolling down.';
 
 $string['navbarcachetime'] = 'Navbar cache time';
 $string['navbarcachetimedesc'] = 'The number of minutes the navigation bar is cached for.';
@@ -818,10 +818,10 @@ $string['mobilemenubkcolor'] = 'Mobile menu background colour';
 $string['mobilemenubkcolordesc'] = 'Set the main menu background colour on mobile devices (collapsed).';
 
 $string['selectiontext'] = 'Selection text colour';
-$string['selectiontextdesc'] = 'Set the text colour when a text in the screen is selected.';
+$string['selectiontextdesc'] = 'Set the text colour when a text is selected.';
 
 $string['selectionbackground'] = 'Selection background colour';
-$string['selectionbackgrounddesc'] = 'Set the background colour when a text in the screen is selected.';
+$string['selectionbackgrounddesc'] = 'Set the background colour when a text is selected.';
 
 // Courses.
 $string['coursesettings'] = 'Courses';
@@ -1253,19 +1253,19 @@ $string['displayloginbutton'] = 'Button';
 $string['displayloginbox'] = 'Login Box';
 $string['displayloginno'] = 'No Login Box';
 
-$string['fullscreen'] = 'Full screen';
+$string['fullscreen'] = 'Full view';
 $string['standardview'] = 'Standard view';
 $string['sitelinkslabel'] = 'Site links';
 
 $string['enablezoom'] = 'Enable Zoom';
-$string['enablezoomdesc'] = 'Allow users to toggle between fullscreen and fixed width.';
+$string['enablezoomdesc'] = 'Allow users to toggle between full view and fixed width.';
 $string['enablezoomshowtext'] = 'Show text for Enable Zoom';
-$string['enablezoomshowtextdesc'] = 'Shows the text beside the button.';
+$string['enablezoomshowtextdesc'] = 'DEPRECATED, use \'navbardisplaytitles\' instead.';
 
 $string['defaultzoom'] = 'Default Zoom';
-$string['defaultzoomdesc'] = 'Default screen size when enable zoom is disabled or the user has not made a preference.  Choose between fullscreen and fixed width.';
+$string['defaultzoomdesc'] = 'Default view size when enable zoom is disabled or the user has not made a preference.  Choose between full view and fixed width.';
 $string['normal'] = 'Fixed width';
-$string['wide'] = 'Fullscreen';
+$string['wide'] = 'Full view';
 
 $string['enableshowhideblocks'] = 'Enable Show Hide Blocks';
 $string['enableshowhideblocksdesc'] = 'Allows users to show / hide all blocks.';
@@ -1276,11 +1276,11 @@ $string['blockshowhide'] = 'Show / hide the block';
 $string['enablenavbarwhenloggedout'] = 'Enable navbar when logged out';
 $string['enablenavbarwhenloggedoutdesc'] = 'Shows the navbar even when logged out.  Limited to help and tools menu only.';
 
-$string['fullscreenwidth'] = 'Full screen width';
-$string['fullscreenwidthdesc'] = 'Set the max width of the theme when it is in full screen mode / zoom.';
+$string['fullscreenwidth'] = 'Full view width';
+$string['fullscreenwidthdesc'] = 'Set the max width of the theme when it is in full view mode / zoom.';
 
-$string['standardscreenwidth'] = 'Standard screen width.';
-$string['standardscreenwidthdesc'] = 'Set the width of the screen when toggled to "standard" view (also see related enablezoom and defaultzoom settings).';
+$string['standardscreenwidth'] = 'Standard view width.';
+$string['standardscreenwidthdesc'] = 'Set the width of the view when toggled to "standard" view (also see related enablezoom and defaultzoom settings).';
 
 // Help Links.
 $string['headernavbarhelpheading'] = 'Help links and options';
@@ -1903,7 +1903,7 @@ $string['privacy:metadata:preference:draweropenblock'] = 'The state of the block
 $string['privacy:request:preference:draweropenblock'] = 'The user preference "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the block drawer.';
 $string['privacy:metadata:preference:themeadaptablezoom'] = 'The state of the zoom.';
 $string['privacy:request:preference:themeadaptablezoom'] = 'The user preference "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the zoom.';
-$string['privacy:metadata:preference:themeadaptablefull'] = 'The state of the full screen.';
+$string['privacy:metadata:preference:themeadaptablefull'] = 'The state of the full view.';
 $string['privacy:request:preference:themeadaptablefull'] = 'The user preference "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the zoom.';
 $string['privacy:metadata:preference:themeadaptablealertkey'] = 'The the given alert.';
 $string['privacy:request:preference:themeadaptablealertkey'] = 'The user preference "{$a->name}" for alert id "{$a->alertid}" has the value "{$a->value}" for the given alert, \'undismissable\' or any other \'alertkey\' representing that the alert existed for the user.';

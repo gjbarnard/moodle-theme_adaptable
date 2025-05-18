@@ -1041,18 +1041,9 @@ input[type="radio"], input[type="checkbox"] {
     width: 1px;
 }
 
-button.close {
-    -webkit-appearance: none;
-    background: none;
-    border: 0;
-    cursor: pointer;
-    padding: 0;
-}
-
 .close {
     color: #000;
     filter: alpha(opacity=20);
-    float: right;
     font-size: 21px;
     font-weight: 700;
     line-height: 1;

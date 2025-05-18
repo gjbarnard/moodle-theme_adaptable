@@ -23,7 +23,8 @@
     {
         "coursemenucontent": "",
         "enablezoom": true,
-        "enablezoomshowtext": true,
+        "navbardisplayicons": true,
+        "navbardisplaytitles": true,
         "navigationmenu": "",
         "othermenucontent": "",
         "pageheadingbutton": "",
@@ -74,18 +75,22 @@
                         {{#enablezoom}}
                         <li class="nav-item mx-0 hbll">
                             <a class="nav-link moodlewidth" href="javascript:void(0);" title="{{#str}}fullscreen, theme_adaptable{{/str}}">
+                                {{#navbardisplayicons}}
                                 <i class="fa fa-expand fa-lg" aria-hidden="true"></i>
-                                {{#enablezoomshowtext}}
+                                {{/navbardisplayicons}}
+                                {{#navbardisplaytitles}}
                                 <span class="zoomdesc">{{#str}}fullscreen, theme_adaptable{{/str}}</span>
-                                {{/enablezoomshowtext}}
+                                {{/navbardisplaytitles}}
                             </a>
                         </li>
                         <li class="nav-item mx-0 sbll">
                             <a class="nav-link moodlewidth" href="javascript:void(0);" title="{{#str}}standardview, theme_adaptable{{/str}}">
+                                {{#navbardisplayicons}}
                                 <i class="fa fa-compress fa-lg" aria-hidden="true"></i>
-                                {{#enablezoomshowtext}}
+                                {{/navbardisplayicons}}
+                                {{#navbardisplaytitles}}
                                 <span class="zoomdesc">{{#str}}standardview, theme_adaptable{{/str}}</span>
-                                {{/enablezoomshowtext}}
+                                {{/navbardisplaytitles}}
                             </a>
                         </li>
                         {{/enablezoom}}

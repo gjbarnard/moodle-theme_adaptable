@@ -1,3 +1,15 @@
+Change Log in version 405.1.6 (2024100507)
+==========================================
+1. Remove redundant 'dockable'.
+2. Remove redundant 'context_mobile_settings_menu' method.
+3. Fix course box filling whole width on the front page.
+4. Fix courses not showing in their boxes for the combination list on the front page.
+5. Improve the look of the course boxes on the front page.
+6. Clarify the difference between 'screen' and the browser 'view' as 'Full screen' has a different meaning.
+7. Change 'enablezoomshowtext' functionality to use 'navbardisplayicons' and 'navbardisplaytitles' instead.
+8. Tidy alert position and reactive to 'view' state (Full or Standard).
+9. Remove duplicate divider when showing custom user menu items 'customusermenuitems' on the user dropdown.
+
 Change Log in version 405.1.5 (2024100506)
 ==========================================
 1. Fix visited 'btn-outline-secondary' text.  Note: Need to consider text colours for Bootstrap background ones?
