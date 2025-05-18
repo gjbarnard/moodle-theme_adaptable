@@ -27,9 +27,8 @@
 
 // Default style for all the buttons.
 .btn {
-    background-image: none;
-    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
     border-bottom-color: #b3b3b3;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
     border-radius: [[setting:buttonradius]];
     border-style: solid;
     box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
@@ -216,18 +215,6 @@ a#adaptable-message-user-button:focus,
     text-decoration: none !important;
 }
 
-button.close {
-    box-shadow: none !important;
-    color: #777;
-    opacity: 1 !important;
-    text-shadow: none !important;
-}
-
-#editingbutton {
-    padding-right: 10px;
-    line-height: 22px;
-}
-
 .navbar #editingbutton .singlebutton {
     line-height: inherit;
 }
@@ -407,7 +394,7 @@ button[name="resetbutton"]:hover,
 
 // Remove border from progress icon button styling that is present due to previous styles
 // defined for a links used with button styling.
-a.btn[data-toggle="popover"] {
+a.btn[data-bs-toggle="popover"] {
     margin-left: 5px;
     border: none;
     background-color: transparent !important;

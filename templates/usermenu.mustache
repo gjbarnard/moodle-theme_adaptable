@@ -31,7 +31,7 @@
 }}
 
 <a class="nav-link dropdown-toggle my-auto" role="button" href="#"
-id="usermenu" data-toggle="dropdown"
+id="usermenu" data-bs-toggle="dropdown"
 aria-haspopup="true" aria-expanded="false"
 aria-controls="usermenu-dropdown"
 aria-label="{{#str}}usermenu, theme_adaptable{{/str}}"
@@ -49,8 +49,6 @@ title="{{username}}">
     {{/showusername}}
 </a>
 
-<div class="dropdown-menu dropdown-menu-right" role="menu"
-id="usermenu-dropdown"
-aria-labelledby="usermenu" >
+<div class="dropdown-menu dropdown-menu-end" role="menu" id="usermenu-dropdown" aria-labelledby="usermenu">
     {{{userprofilemenu}}}
 </div>

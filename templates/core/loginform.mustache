@@ -100,11 +100,11 @@
         </div>
     {{/maintenance}}
     {{#error}}
-        <a href="#" id="loginerrormessage" class="sr-only">{{error}}</a>
+        <a href="#" id="loginerrormessage" class="visually-hidden">{{error}}</a>
         <div class="alert alert-danger" role="alert">{{error}}</div>
     {{/error}}
     {{#cansignup}}
-        <a href="{{signupurl}}" class="sr-only">{{#str}} tocreatenewaccount {{/str}}</a>
+        <a href="{{signupurl}}" class="visually-hidden">{{#str}} tocreatenewaccount {{/str}}</a>
     {{/cansignup}}
     {{#hasoidc}}
         {{#hasidentityproviders}}
@@ -144,7 +144,7 @@
         {{> theme_adaptable/corepartials/loginguest }}
     {{/canloginasguest}}
     {{#hasoidc}}
-    <button class="loginbtn btn btn-secondary btn-block mt-2" type="button" data-toggle="collapse" data-target="#loginmanual"
+    <button class="loginbtn btn btn-secondary btn-block mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#loginmanual"
         aria-expanded="false" aria-controls="loginmanual">
         {{#str}} logintextmanualbutton, theme_adaptable {{/str}}
     </button>
@@ -176,7 +176,7 @@
             <div class="login-languagemenu">
                 {{>core/action_menu}}
             </div>
-            <div class="divider border-left align-self-center mx-3"></div>
+            <div class="divider border-start align-self-center mx-3"></div>
         {{/languagemenu}}
         <button type="button" class="btn btn-secondary" {{!
         }} data-modal="alert"{{!

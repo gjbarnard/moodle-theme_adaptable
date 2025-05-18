@@ -44,26 +44,6 @@
     }
 }
 
-.modal-backdrop {
-    background-color: #000;
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 1040;
-
-    &.fade {
-        opacity: 0;
-    }
-}
-
-.modal-backdrop,
-.modal-backdrop.fade.in {
-    filter: alpha(opacity=80);
-    opacity: .8;
-}
-
 .modal-title h5 {
     font-size: 24px;
     font-weight: bold;
@@ -76,6 +56,10 @@
     h3 {
         line-height: 30px;
         margin: 0;
+    }
+
+    .close {
+        margin-left: auto;
     }
 }
 

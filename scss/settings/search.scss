@@ -30,10 +30,6 @@
         cursor: pointer;
         text-decoration: none;
     }
-
-    .btn {
-        color: [[setting:headertextcolor2]];
-    }
 }
 
 .headersearch,
@@ -101,9 +97,25 @@
     }
 }
 
-.simplesearchform .collapse.show,
-.simplesearchform .collapsing {
-    background-color: transparent;
-    height: auto;
-    position: relative;
+.simplesearchform {
+    .btn-close {
+        background-image: none;
+    }
+    .btn-close,
+    .btn-clear {
+        bottom: auto;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .icon {
+            vertical-align: top;
+        }
+    }
+
+    .collapse.show,
+    .collapsing {
+        background-color: transparent;
+        height: auto;
+        position: relative;
+    }
 }

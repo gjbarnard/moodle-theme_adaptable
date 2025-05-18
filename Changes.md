@@ -1,3 +1,27 @@
+Change Log in version 500.0.1 (2025040800)
+==========================================
+1. Change to 'Badge' colours, ref: https://moodledev.io/docs/5.0/guides/bs5migration#badges.  Not sure why the colours were
+   hard coded here.  Removal of this SCSS will give greater flexibility to be consistent with the Bootstrap defined values.
+2. Make settings tabs work.
+3. BS data JS updates, ref: https://moodledev.io/docs/5.0/guides/bs5migration#refactor-bs5-data-attributes.
+4. Remove redundant 'dockable'.
+5. Fix user settings modal.
+6. Remove redundant 'context_mobile_settings_menu' method.
+7. Fix 'Navbar search' because of MDL-75669 JS code breaks if more than one 'search_input_navbar' is on a page.
+8. Change 'Directional utilities', ref: https://moodledev.io/docs/5.0/guides/bs5migration#directional-utilities.
+9. Change 'Screen reader utilities', ref: https://moodledev.io/docs/5.0/guides/bs5migration#screen-reader-utilities.
+10. Change 'Font utility classes', ref: https://moodledev.io/docs/5.0/guides/bs5migration#font-utility-classes.
+11. Change 'Refactor dropdowns positioning classes', ref: https://moodledev.io/docs/5.0/guides/bs5migration#refactor-dropdowns-positioning-classes.
+12. Change 'Refactor custom form elements', ref: https://moodledev.io/docs/5.0/guides/bs5migration#refactor-custom-form-elements.
+14. Fix course box filling whole width on the front page.
+15. Fix courses not showing in their boxes for the combination list on the front page.
+16. Improve the look of the course boxes on the front page.
+17. Clarify the difference between 'screen' and the browser 'view' as 'Full screen' has a different meaning.
+18. Change 'enablezoomshowtext' functionality to use 'navbardisplayicons' and 'navbardisplaytitles' instead.
+19. Fix modal close button location.
+20. Tidy alert position and reactive to 'view' state (Full or Standard).
+21. Remove duplicate divider when showing custom user menu items 'customusermenuitems' on the user dropdown.
+
 Change Log in version 405.1.5 (2024100506)
 ==========================================
 1. Fix visited 'btn-outline-secondary' text.  Note: Need to consider text colours for Bootstrap background ones?

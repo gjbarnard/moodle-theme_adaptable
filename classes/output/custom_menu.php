@@ -171,7 +171,7 @@ class custom_menu extends core_custom_menu {
                     $lastdepth--;
                 }
                 if ($itemfa) {
-                    $itemtext = \theme_adaptable\toolbox::getfontawesomemarkup($itemfa, ['mr-1']) . $itemtext;
+                    $itemtext = \theme_adaptable\toolbox::getfontawesomemarkup($itemfa, ['me-1']) . $itemtext;
                 }
                 $lastitem = $lastitem->add($itemtext, $itemurl, $itemtitle, $linenumber + 1);
                 $lastdepth++;

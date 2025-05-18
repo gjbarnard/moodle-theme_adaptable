@@ -46,7 +46,7 @@
                 {{#hasmobileprimarynav}}
                 <button class="navbar-toggler nav-link aabtn d-block d-lg-none px-1 my-1 border-0" data-toggler="drawers" data-action="toggle" data-target="theme_adaptable-drawers-primary">
                     {{{mobileprimarynavicon}}}
-                    <span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
+                    <span class="visually-hidden">{{#str}}sidepanel, core{{/str}}</span>
                 </button>
                 {{/hasmobileprimarynav}}
 
@@ -54,7 +54,7 @@
                 {{^menuslinkright}}
                 <div class="my-auto m-1">{{{topmenus}}}</div>
                 {{/menuslinkright}}
-                    <ul class="navbar-nav ml-auto my-auto">
+                    <ul class="navbar-nav ms-auto my-auto">
                         {{#menuslinkright}}
                         <li class="my-auto m-1">{{{topmenus}}}</li>
                         {{/menuslinkright}}
@@ -70,7 +70,7 @@
                         {{/shownavbar}}
 
                         {{#langmenu}}
-                        <li class="nav-item dropdown ml-2 my-auto">{{{output.lang_menu}}}</li>
+                        <li class="nav-item dropdown ms-2 my-auto">{{{output.lang_menu}}}</li>
                         {{/langmenu}}
 
                         {{{output.page_heading_menu}}}

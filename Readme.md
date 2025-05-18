@@ -49,10 +49,10 @@ This theme has been developed by the following:
 
 Required release of Moodle
 ==========================
-This version works with Moodle 4.5 version 2024100700.00 (Build: 20241007) and above within the MOODLE_405_STABLE branch until the
+This version works with Moodle 5.0 version 20250414.00 (Build: 20250414) and above within the MOODLE_500_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/405/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/500/en/Installing_Moodle)'.
 
 Installation
 ============
@@ -124,7 +124,7 @@ Testing:
 Translation:
 
 - GermÃ¡n Valero (EspaÃ±ol - MÃ©xico)
-- Jordi Rodilla (CatalÃ   - Andorra)
+- Jordi Rodilla (CatalÃ - Andorra)
 
 Licenses
 ========

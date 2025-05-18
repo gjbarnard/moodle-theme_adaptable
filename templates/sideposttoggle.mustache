@@ -31,17 +31,17 @@
 }}
 <div class="drawer-toggles d-flex">
     {{#hassidepost}}
-    <div class="drawer-toggler drawer-{{#left}}left{{/left}}{{^left}}right{{/left}}-toggle ml-auto d-print-none">
+    <div class="drawer-toggler drawer-{{#left}}left{{/left}}{{^left}}right{{/left}}-toggle ms-auto d-print-none">
         <button
             class="btn icon-no-margin"
             data-toggler="drawers"
             data-action="toggle"
             data-target="theme_adaptable-drawers-sidepost"
-            data-toggle="tooltip"
-            data-placement="{{#left}}left{{/left}}{{^left}}right{{/left}}"
+            data-bs-toggle="tooltip"
+            data-bs-placement="{{#left}}left{{/left}}{{^left}}right{{/left}}"
             title="{{#str}}opendrawerblocks, core{{/str}}"
         >
-            <span class="sr-only">{{#str}}opendrawerblocks, core{{/str}}</span>
+            <span class="visually-hidden">{{#str}}opendrawerblocks, core{{/str}}</span>
             <span class="dir-{{#left}}ltr{{/left}}{{^left}}rtl{{/left}}-hide">{{#pix}}t/blocks_drawer, core{{/pix}}</span>
             <span class="dir-{{#left}}rtl{{/left}}{{^left}}ltr{{/left}}-hide">{{#pix}}t/blocks_drawer_rtl, core{{/pix}}</span>
         </button>

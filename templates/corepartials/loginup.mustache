@@ -32,7 +32,7 @@
     <form class="login-form" action="{{loginurl}}" method="post" id="login">
         <input type="hidden" name="logintoken" value="{{logintoken}}">
         <div class="login-form-username form-group">
-            <label for="username" class="sr-only">
+            <label for="username" class="visually-hidden">
                 {{^canloginbyemail}}
                     {{#str}} username {{/str}}
                 {{/canloginbyemail}}
@@ -48,7 +48,7 @@
                 !}}autocomplete="username">
         </div>
         <div class="login-form-password form-group">
-            <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
+            <label for="password" class="visually-hidden">{{#str}} password {{/str}}</label>
             <input type="password" name="password" id="password" value="" {{!
                 !}}class="form-control form-control-lg" {{!
                 !}}placeholder="{{#cleanstr}}password{{/cleanstr}}" {{!

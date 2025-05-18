@@ -31,7 +31,7 @@ import log from 'core/log';
  */
 export const init = () => {
     const stickyTabs = () => {
-        const tabels = document.querySelectorAll('a[data-toggle="tab"]');
+        const tabels = document.querySelectorAll('a[data-bs-toggle="tab"]');
         if (tabels.length) {
             const action = document.querySelector('form#adminsettings');
             tabels.forEach(tabel => {

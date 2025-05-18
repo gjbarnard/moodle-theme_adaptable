@@ -645,7 +645,7 @@ class toolbox {
         $attributes['class'] = implode(' ', $classes);
         if (!empty($title)) {
             $attributes['title'] = $title;
-            $content .= html_writer::tag('span', $title, ['class' => 'sr-only']);
+            $content .= html_writer::tag('span', $title, ['class' => 'visually-hidden']);
         }
         return html_writer::tag('span', $content, $attributes);
     }

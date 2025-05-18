@@ -32,6 +32,7 @@ namespace theme_adaptable\output\core;
 
 use core\output\html_writer;
 use core\url;
+use core_course_category;
 use core_course_list_element;
 use coursecat_helper;
 use lang_string;
@@ -41,6 +42,37 @@ use stdClass;
  * Overridden Core Course Renderer for Adaptable theme.
  */
 class course_renderer extends \core_course_renderer {
+    /**
+     * Returns HTML to print tree with course categories and courses for the frontpage
+     *
+     * @return string
+     */
+    public function frontpage_combo_list() {
+        global $CFG;
+        // TODO MDL-10965 improve.
+        $tree = core_course_category::top();
+        if (!$tree->get_children_count()) {
+            return '';
+        }
+        $chelper = new coursecat_helper();
+        $chelper->set_subcat_depth($CFG->maxcategorydepth);
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED); // Diff from core.
+        $chelper->set_categories_display_options([
+            'limit' => $CFG->coursesperpage,
+            'viewmoreurl' => new url(
+                '/course/index.php',
+                ['browse' => 'categories', 'page' => 1]),
+            ]);
+        $chelper->set_courses_display_options([
+            'limit' => $CFG->coursesperpage,
+            'viewmoreurl' => new url(
+                '/course/index.php',
+                ['browse' => 'courses', 'page' => 1]),
+            ]);
+        $chelper->set_attributes(['class' => 'frontpage-category-combo']);
+        return $this->coursecat_tree($chelper, $tree);
+    }
+
     /**
      * Render course tiles in the front page
      *
@@ -108,12 +140,12 @@ class course_renderer extends \core_course_renderer {
 
         // If we display course in collapsed form but the course has summary or course contacts, display the link to the info page.
         if ($showcourses < self::COURSECAT_SHOW_COURSES_EXPANDED) {
-            $arrow = html_writer::tag('span', '', ['class' => 'fa fp-chevron ml-1']);
+            $arrow = html_writer::tag('span', '', ['class' => 'fa fp-chevron ms-1']);
             $content .= html_writer::link(
                 '#coursecollapse' . $course->id,
                 '' . $arrow,
-                ['class' => 'fpcombocollapse collapsed', 'data-toggle' => 'collapse',
-                'data-parent' => '#frontpage-category-combo', ]
+                ['class' => 'fpcombocollapse collapsed', 'data-bs-toggle' => 'collapse',
+                'data-bs-parent' => '#frontpage-category-combo', ]
             );
         }
 

@@ -221,7 +221,7 @@ trait core_renderer_layout {
             // Only used when user is logged in and not on the secure layout.
             if ((isloggedin()) && ($this->page->pagelayout != 'secure')) {
                 $headercontext['loginoruser'] =
-                    '<li class="nav-item dropdown ml-3 ml-md-2 mr-2 mr-md-0">' . $this->user_menu() . '</li>';
+                    '<li class="nav-item dropdown ms-3 ms-md-2 me-2 me-md-0">' . $this->user_menu() . '</li>';
             } else {
                 $headercontext['loginoruser'] = '';
             }
@@ -283,7 +283,9 @@ trait core_renderer_layout {
             if (isloggedin()) {
                 if ($themesettings->enablezoom) {
                     $headercontext['shownavbar']['enablezoom'] = true;
-                    $headercontext['shownavbar']['enablezoomshowtext'] = ($themesettings->enablezoomshowtext);
+                    list($navbardisplayicons, $navbardisplaytitles) = $this->navbar_display($themesettings);
+                    $headercontext['shownavbar']['navbardisplayicons'] = $navbardisplayicons;
+                    $headercontext['shownavbar']['navbardisplaytitles'] = $navbardisplaytitles;
                 }
             }
         }
@@ -376,7 +378,6 @@ trait core_renderer_layout {
         if (!empty($sideposttogglemarkup)) {
             echo $sideposttogglemarkup;
         }
-        echo $this->get_alert_messages();
     }
 
     /**
@@ -406,9 +407,6 @@ trait core_renderer_layout {
         $this->head($bodyclasses);
 
         echo '<div id="page" class="container-fluid">';
-
-        // Display alerts.
-        echo $this->get_alert_messages();
     }
 
     /**
@@ -684,6 +682,7 @@ trait core_renderer_layout {
         [$secondarynavigation, $overflow] = $this->secondarynav();
 
         echo '<div id="maincontainer" class="container outercont">';
+        echo $this->get_alert_messages();
         echo $this->get_news_ticker();
         echo $this->page_navbar();
         echo '<div id="page-content" class="row">';
@@ -726,6 +725,7 @@ trait core_renderer_layout {
         [$secondarynavigation, $overflow] = $this->secondarynav();
 
         echo '<div id="maincontainer" class="container outercont">';
+        echo $this->get_alert_messages();
         echo $this->get_news_ticker();
         echo $this->page_navbar();
         echo '<div id="page-content" class="row">';
@@ -794,6 +794,7 @@ trait core_renderer_layout {
         ];
 
         echo '<div id="maincontainer" class="container outercont">';
+        echo $this->get_alert_messages();
         echo $this->get_news_ticker();
         echo $this->page_navbar();
         echo '<div id="page-content" class="row">';
@@ -990,7 +991,7 @@ trait core_renderer_layout {
         }
 
         echo '<div id="maincontainer" class="container outercont">';
-
+        echo $this->get_alert_messages();
         echo $this->get_news_ticker();
 
         if ((!empty($themesettings->dashblocksenabled)) &&
@@ -1185,6 +1186,10 @@ trait core_renderer_layout {
         }
         $this->yesheader($sidepostdrawer);
 
+        echo '<div class="container">';
+        echo $this->get_alert_messages();
+        echo '</div>';
+
         // Include secondary navigation.
         [$secondarynavigation, $overflow] = $this->secondarynav();
 
@@ -1321,6 +1326,7 @@ trait core_renderer_layout {
         $this->page->set_secondary_navigation(false);
 
         echo '<div class="container outercont">';
+        echo $this->get_alert_messages();
         echo $this->page_navbar();
         echo '<div id="page-content" class="row">';
         echo '<div id="region-main-box" class="col-12">';
@@ -1350,6 +1356,7 @@ trait core_renderer_layout {
         [$secondarynavigation, $overflow] = $this->secondarynav();
 
         echo '<div id="page" class="container outercont">';
+        echo $this->get_alert_messages();
         echo $this->page_navbar();
         echo '<div id="page-content" class="row">';
         echo '<div id="region-main-box" class="col-12">';

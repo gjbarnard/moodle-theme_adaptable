@@ -265,102 +265,6 @@ a.component-expand .badge {
     margin: 0.8em 0.8em 0.4em 0.8em;
 }
 
-.badge-primary {
-    background-color: #1177d1;
-    color: #fff;
-}
-
-.badge-primary[href]:hover,
-.badge-primary[href]:focus {
-    background-color: #0d5ca2;
-    color: #fff;
-    text-decoration: none;
-}
-
-.badge-secondary {
-    background-color: #ced4da;
-    color: #212529;
-}
-
-.badge-secondary[href]:hover,
-.badge-secondary[href]:focus {
-    background-color: #b1bbc4;
-    color: #212529;
-    text-decoration: none;
-}
-
-.badge-success {
-    background-color: #5cb85c;
-    color: #fff;
-}
-
-.badge-success[href]:hover,
-.badge-success[href]:focus {
-    background-color: #449d44;
-    color: #fff;
-    text-decoration: none;
-}
-
-.badge-info {
-    background-color: #5bc0de;
-    color: #212529;
-}
-
-.badge-info[href]:hover,
-.badge-info[href]:focus {
-    background-color: #31b0d5;
-    color: #212529;
-    text-decoration: none;
-}
-
-.badge-warning {
-    background-color: #f0ad4e;
-    color: #212529;
-}
-
-.badge-warning[href]:hover,
-.badge-warning[href]:focus {
-    background-color: #ec971f;
-    color: #212529;
-    text-decoration: none;
-}
-
-.badge-danger {
-    background-color: #d9534f;
-    color: #fff;
-}
-
-.badge-danger[href]:hover,
-.badge-danger[href]:focus {
-    background-color: #c9302c;
-    color: #fff;
-    text-decoration: none;
-}
-
-.badge-light {
-    background-color: #f8f9fa;
-    color: #212529;
-}
-
-.badge-light[href]:hover,
-.badge-light[href]:focus {
-    background-color: #dae0e5;
-    color: #212529;
-    text-decoration: none;
-}
-
-.badge-dark {
-    background-color: #373a3c;
-    color: #fff;
-}
-
-.badge-dark[href]:hover,
-.badge-dark[href]:focus {
-    background-color: #1f2021;
-    color: #fff;
-    text-decoration: none;
-}
-
 .slidewrap {
     margin-bottom: [[setting:slidermarginbottom]];
     margin-top: [[setting:slidermargintop]];
@@ -1030,7 +934,7 @@ input[type="radio"], input[type="checkbox"] {
     }
 }
 
-.sr-only {
+.visually-hidden {
     border: 0;
     clip: rect(0, 0, 0, 0);
     height: 1px;
@@ -1041,18 +945,9 @@ input[type="radio"], input[type="checkbox"] {
     width: 1px;
 }
 
-button.close {
-    -webkit-appearance: none;
-    background: none;
-    border: 0;
-    cursor: pointer;
-    padding: 0;
-}
-
 .close {
     color: #000;
     filter: alpha(opacity=20);
-    float: right;
     font-size: 21px;
     font-weight: 700;
     line-height: 1;
