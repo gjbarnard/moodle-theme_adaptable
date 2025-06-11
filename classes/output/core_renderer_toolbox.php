@@ -385,7 +385,7 @@ trait core_renderer_toolbox {
         if ($withlinks) {
             $navitemcount = count($navitems);
             $idx = 0;
-            foreach ($navitems as $key => $value) {
+            foreach ($navitems as $value) {
 
                 switch ($value->itemtype) {
                     case 'divider':
@@ -1053,7 +1053,6 @@ trait core_renderer_toolbox {
     public function get_flexible_blocks(
         $region,
         $layoutrow = 'informationblockslayoutrow',
-        $settingname = 'information',
         $classes = [],
         $tag = 'aside') {
         $editing = $this->page->user_is_editing();
@@ -1275,11 +1274,11 @@ trait core_renderer_toolbox {
     }
 
     /**
-     * Returns footer visibility setting
+     * Is the footer visible?
      *
      * @return boolean Visibility.
      */
-    public function get_footer_visibility() {
+    public function is_footer_visible() {
         global $COURSE;
         $value = $this->page->theme->settings->footerblocksplacement;
 
@@ -1307,7 +1306,7 @@ trait core_renderer_toolbox {
         $fields = [];
         $blockcount = 0;
 
-        if (!$this->get_footer_visibility()) {
+        if (!$this->is_footer_visible()) {
             return '';
         }
 
@@ -1565,8 +1564,6 @@ trait core_renderer_toolbox {
             $breadcrumbs .= html_writer::tag('li', $breadcrumbseparator . $this->render($item));
         }
 
-        $classes = $this->page->theme->settings->responsivebreadcrumb;
-
         $breadcrumbclasses = 'breadcrumb align-items-center';
         $responsivebreadcrumbclasses = \theme_adaptable\toolbox::get_setting('responsivebreadcrumb');
         if (!empty($responsivebreadcrumbclasses)) {
@@ -1625,8 +1622,6 @@ trait core_renderer_toolbox {
         $menu = new custom_menu();
 
         $access = true;
-        $overridelist = false;
-        $overridetype = 'off';
 
         $themesettings = \theme_adaptable\toolbox::get_settings();
         list($navbardisplayicons, $navbardisplaytitles) = $this->navbar_display($themesettings);
@@ -2477,9 +2472,10 @@ trait core_renderer_toolbox {
            in target URLS. Ref: Issue 617 on Adaptable theme issues on Bitbucket. */
         $custommenuitems = $class . $label . $close . "||" . $title . "\n";
         $arr = explode("\n", $menu);
+        $arrkeys = array_keys($arr);
 
         // We want to force everything inputted under this menu.
-        foreach ($arr as $key => $value) {
+        foreach ($arrkeys as $key) {
             $arr[$key] = '-' . $arr[$key];
         }
 
@@ -2585,7 +2581,7 @@ trait core_renderer_toolbox {
         $content = '';
         foreach ($menu->get_children() as $item) {
             if ((!empty($menuid)) && (stristr($menuid, 'drawer'))) {
-                $content .= $this->render_custom_menu_item_drawer($item, 0, $menuid, false);
+                $content .= $this->render_custom_menu_item_drawer($item, $menuid, false);
             } else {
                 $content .= $this->render_custom_menu_item($item, 0, $menuid);
             }
@@ -2675,13 +2671,12 @@ trait core_renderer_toolbox {
      * This code renders the custom menu items for the bootstrap dropdown menu.
      *
      * @param custom_menu_item $menunode
-     * @param int $level = 0
      * @param int $menuid
      * @param bool $indent
      *
      * @return string
      */
-    protected function render_custom_menu_item_drawer(custom_menu_item $menunode, $level = 0, $menuid = '', $indent = false) {
+    protected function render_custom_menu_item_drawer(custom_menu_item $menunode, $menuid = '', $indent = false) {
         static $submenucount = 0;
 
         if ($menunode->has_children()) {
@@ -2697,7 +2692,7 @@ trait core_renderer_toolbox {
             $content .= '<ul class="collapse" id="' . $menuid . $submenucount . '">';
             $indent = true;
             foreach ($menunode->get_children() as $menunode) {
-                $content .= $this->render_custom_menu_item_drawer($menunode, 1, $menuid . $submenucount, $indent);
+                $content .= $this->render_custom_menu_item_drawer($menunode, $menuid . $submenucount, $indent);
             }
             $content .= '</ul></li>';
         } else {

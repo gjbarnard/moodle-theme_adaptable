@@ -1,3 +1,11 @@
+Change Log in version 500.0.2 (2025040801)
+==========================================
+1. Don't fix quiz page width when taking the quiz.  Full view functionality can be used if required.
+2. Fix description of 'enablemyhome' setting.
+3. Fix name and description of 'enablemycourses' setting.
+4. Fix setting import / export missing setting strings for files.
+5. Fix default font of sans-serif not being applied.
+
 Change Log in version 500.0.1 (2025040800)
 ==========================================
 1. Change to 'Badge' colours, ref: https://moodledev.io/docs/5.0/guides/bs5migration#badges.  Not sure why the colours were

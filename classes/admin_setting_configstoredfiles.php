@@ -53,6 +53,9 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
     /** @var string Removed files */
     public const REMOVEDFILES = 'removed';
 
+    /** @var string Error  */
+    public const ERROR = 'error';
+
     /**
      * Create new stored files setting.
      *
@@ -238,9 +241,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
      * Base 64 encode.
      */
     public function base64encode() {
-        global $PAGE, $USER;
         $component = is_null($this->plugin) ? 'theme_adaptable' : $this->plugin;
-        $itemid = theme_get_revision();
         $syscontext = context_system::instance();
 
         $fs = get_file_storage();
@@ -249,8 +250,6 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
 
         $settingfiles = [];
         foreach ($files as $file) {
-            $filename = $file->get_filename();
-            $orginalcreated = $file->get_timecreated();
             $filecontent = $file->get_content();
             $base64enc = base64_encode($filecontent);
 
@@ -286,7 +285,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
     public function base64decode($settingarrjson) {
         global $USER;
 
-        $changed = [self::ADDEDFILES => [], self::REMOVEDFILES => []];
+        $changed = [self::ADDEDFILES => [], self::REMOVEDFILES => [], self::ERROR => ''];
 
         $component = is_null($this->plugin) ? 'theme_adaptable' : $this->plugin;
         $syscontext = context_system::instance();
@@ -359,6 +358,9 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
             $filepath = $file->get_filepath().$file->get_filename();
         }
         $result = ($this->config_write($this->filearea, $filepath) ? '' : get_string('errorsetting', 'admin'));
+        if (!empty($result)) {
+            $changed[self::ERROR] = $result;
+        }
         $callbackfunction = $this->updatedcallback;
         if (!empty($callbackfunction) && is_callable($callbackfunction)) {
             $callbackfunction($this->get_full_name());

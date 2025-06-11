@@ -65,14 +65,14 @@ if ($ADMIN->fulltree) {
 
     $name = 'theme_adaptable/enablemyhome';
     $title = get_string('myhome');
-    $description = get_string('enablemydesc', 'theme_adaptable', get_string('myhome'));
+    $description = get_string('enablemydesc', 'theme_adaptable', $title);
     $default = true;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
 
     $name = 'theme_adaptable/enablemycourses';
-    $title = get_string('mycourses');
-    $description = get_string('enablemydesc', 'theme_adaptable', get_string('mycourses'));
+    $title = get_string('courses');
+    $description = get_string('enablemydesc', 'theme_adaptable', $title);
     $default = true;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);

@@ -100,6 +100,7 @@ class admin_setting_configstoredfile_putprops extends \admin_setting_configstore
      */
     public function write_setting($data) {
         global $USER;
+        $validated = '';
 
         if (!empty($data)) {
             if (!is_number($data)) {
@@ -107,7 +108,6 @@ class admin_setting_configstoredfile_putprops extends \admin_setting_configstore
                 return get_string('errorsetting', 'admin');
             }
             $fs = get_file_storage();
-            $component = is_null($this->plugin) ? 'core' : $this->plugin;
             // Make sure the settings form was not open for more than 4 days and draft areas deleted in the meantime.
             // But we can safely ignore that if the destination area is empty, so that the user is not prompt
             // with an error because the draft area does not exist, as they did not use it.
@@ -153,6 +153,6 @@ class admin_setting_configstoredfile_putprops extends \admin_setting_configstore
             }
         }
 
-        return '';
+        return $validated;
     }
 }

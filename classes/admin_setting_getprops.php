@@ -230,21 +230,21 @@ class admin_setting_getprops extends \admin_setting {
             $propsexporturl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops' => 1, ]);
             $propsexportbutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
-                $propsexporturl->out(true) . '" data-bs-toggle="tooltip" data-placement="bottom" title="'.
+                $propsexporturl->out(true) . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="'.
                 get_string('propertiesexporthelp', $this->pluginfrankenstyle) . '">' .
                 $this->savepropsbuttonname . '</a></div></div>';
 
             $propsexportfilestoourl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops_filestoo' => 1, ]);
             $propsexportfilestoobutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
-                $propsexportfilestoourl->out(true) . '" data-bs-toggle="tooltip" data-placement="bottom" title="'.
+                $propsexportfilestoourl->out(true) . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="'.
                 get_string('propertiesexportfilestoohelp', $this->pluginfrankenstyle) . '">' .
                 $this->savepropsfilestoobuttonname . '</a></div></div>';
 
             $propsexportfilestoofilesurl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops_filestoofile' => 1, ]);
             $propsexportfilestoofilebutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
-                $propsexportfilestoofilesurl->out(true) . '" data-bs-toggle="tooltip" data-placement="bottom" title="'.
+                $propsexportfilestoofilesurl->out(true) . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="'.
                 get_string('propertiesexportfilestoofilehelp', $this->pluginfrankenstyle) . '">' .
                 $this->savepropsfilestoofilebuttonname . '</a></div></div>';
 

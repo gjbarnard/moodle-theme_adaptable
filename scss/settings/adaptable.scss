@@ -31,7 +31,7 @@ body,
 .body {
     background-color: [[setting:maincolor]];
     color: [[setting:fontcolor]];
-    font-family: [[setting:fontname]], sans-serif;
+    font-family: [[setting:fontname]];
     font-size: [[setting:fontsize]];
     font-weight: [[setting:fontweight]] !important;
 }
@@ -58,7 +58,7 @@ h5,
 h6 {
     margin: 0 0 10px;
     color: [[setting:fontheadercolor]];
-    font-family: [[setting:fontheadername]], sans-serif;
+    font-family: [[setting:fontheadername]];
     font-weight: [[setting:fontheaderweight]] !important;
 }
 
@@ -68,7 +68,7 @@ select,
 textarea {
     background-color: [[setting:regionmaincolor]];
     color: [[setting:regionmaintextcolor]];
-    font-family: [[setting:fontname]], sans-serif;
+    font-family: [[setting:fontname]];
     font-size: [[setting:fontsize]];
     font-weight: [[setting:fontweight]] !important;
 }
@@ -108,7 +108,7 @@ a:focus {
 .course_category_tree .category > .info > .categoryname {
     border-bottom: 0 solid #eee;
     color: [[setting:fontheadercolor]];
-    font-family: [[setting:fontheadername]], sans-serif !important;
+    font-family: [[setting:fontheadername]] !important;
     font-size: 24px;
     font-weight: [[setting:fontheaderweight]] !important;
     margin-bottom: 20px;
@@ -163,7 +163,7 @@ div.signuppanel h2 {
 #headertitle h6 {
     color: [[setting:fonttitlecolor]];
 
-    font-family: [[setting:fonttitlename]], sans-serif;
+    font-family: [[setting:fonttitlename]];
     font-size: [[setting:fonttitlesize]];
     font-weight: [[setting:fonttitleweight]] !important;
 
@@ -218,7 +218,7 @@ div.signuppanel h2 {
 }
 
 .headermenu .usermendrop a {
-    font-family: [[setting:fontname]], sans-serif;
+    font-family: [[setting:fontname]];
     font-size: [[setting:topmenufontsize]];
 }
 
@@ -248,7 +248,7 @@ div.signuppanel h2 {
 
 .usermenu2.nav a.dropdown-toggle {
     color: [[setting:headertextcolor]];
-    font-family: [[setting:fontname]], sans-serif;
+    font-family: [[setting:fontname]];
     font-size: [[setting:topmenufontsize]];
 }
 
@@ -708,7 +708,7 @@ table.mceLayout2 iframe {
     label,
     > p {
         color: [[setting:fontheadercolor]];
-        font-family: [[setting:fontheadername]], sans-serif !important;
+        font-family: [[setting:fontheadername]] !important;
         font-size: 18px;
         font-weight: [[setting:fontheaderweight]] !important;
         padding-bottom: 10px;
@@ -1382,12 +1382,6 @@ a.cimbox {
     max-width: 100%;
     min-width: 30px;
 }
-
-// Fix quiz page width.
-#page-mod-quiz-attempt .container {
-    width: 100% !important;
-}
-
 
 // Fix glossary print option.
 #page-mod-glossary-view .glossarycontrol {

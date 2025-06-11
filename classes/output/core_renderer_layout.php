@@ -38,7 +38,6 @@ trait core_renderer_layout {
      * Yes header.
      */
     public function yesheader($sidepostdrawer) {
-        global $USER;
         $themesettings = \theme_adaptable\toolbox::get_settings();
 
         $bodyclasses = [];
@@ -68,9 +67,6 @@ trait core_renderer_layout {
         if (!empty($themesettings->pageloadingprogress)) {
             $this->page->requires->js_call_amd('theme_adaptable/pace_init', 'init', [$themesettings->pageloadingprogresstheme]);
         }
-
-        // Layout.
-        $left = (!right_to_left());
 
         // Navbar Menu.
         $shownavbar = false;
@@ -122,8 +118,6 @@ trait core_renderer_layout {
         } else {
             $bodyclasses[] = 'standard';
         }
-
-        $left = $themesettings->blockside;
 
         $courseindexheader = false;
         $courseindexopen = false;
@@ -389,7 +383,6 @@ trait core_renderer_layout {
         $bodyclasses = [];
         $bodyclasses[] = 'theme_adaptable';
         $bodyclasses[] = 'two-column';
-        $standardscreenwidthclass = 'standard';
         if (!empty($themesettings->standardscreenwidth)) {
             $bodyclasses[] = $themesettings->standardscreenwidth;
         } else {
@@ -438,7 +431,7 @@ trait core_renderer_layout {
                 switch ($themesettings->fontname) {
                     case 'default':
                     case 'sans-serif':
-                        // Use 'sans-serif'.
+                        // Use the default being 'sans-serif', see 'theme_adaptable_process_scss()'.
                     break;
 
                     default:
@@ -454,7 +447,7 @@ trait core_renderer_layout {
                 switch ($themesettings->fontheadername) {
                     case 'default':
                     case 'sans-serif':
-                        // Use 'sans-serif'.
+                        // Use the default being 'sans-serif', see 'theme_adaptable_process_scss()'.
                     break;
 
                     default:
@@ -602,8 +595,6 @@ trait core_renderer_layout {
      * Yes footer.
      */
     public function yesfooter() {
-        global $USER;
-
         $themesettings = \theme_adaptable\toolbox::get_settings();
 
         $context = new stdClass;

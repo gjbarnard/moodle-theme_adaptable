@@ -336,14 +336,11 @@ function theme_adaptable_process_scss($scss, $theme) {
         '[[setting:mobile]]' => '22',
         '[[setting:socialpaddingside]]' => 16,
         '[[setting:socialpaddingtop]]' => '0%',
-        '[[setting:fontname]]' => 'sans-serif',
         '[[setting:fontsize]]' => '95%',
-        '[[setting:fontheadername]]' => 'sans-serif',
         '[[setting:fontcolor]]' => '#333333',
         '[[setting:fontheadercolor]]' => '#333333',
         '[[setting:fontweight]]' => '400',
         '[[setting:fontheaderweight]]' => '400',
-        '[[setting:fonttitlename]]' => 'sans-serif',
         '[[setting:fonttitleweight]]' => '400',
         '[[setting:fonttitlesize]]' => '48px',
         '[[setting:fonttitlecolor]]' => '#ffffff',
@@ -413,6 +410,25 @@ function theme_adaptable_process_scss($scss, $theme) {
             $defaults['[[setting:' . $key . ']]'] = $val;
         }
     }
+
+    // Font name defaults.  This allows you to change the default here if you wish.
+    $fontdefaults = [
+        '[[setting:fontname]]' => 'sans-serif',
+        '[[setting:fontheadername]]' => 'sans-serif',
+        '[[setting:fonttitlename]]' => 'sans-serif',
+    ];
+    $fontsettingnames = [
+        'fontname',
+        'fontheadername',
+        'fonttitlename',
+    ];
+    foreach ($fontsettingnames as $fontsettingname) {
+        if ((!empty($theme->settings->$fontsettingname)) && ($theme->settings->$fontsettingname != 'default')) {
+            $fontdefaults['[[setting:' . $fontsettingname . ']]'] = $theme->settings->$fontsettingname;
+        }
+    }
+    // Replace the CSS with values from the $fontdefaults array.
+    $scss = strtr($scss, $fontdefaults);
 
     $homebkg = '';
     if (!empty($theme->settings->homebk)) {
@@ -667,8 +683,6 @@ function theme_adaptable_pluginfile($course, $cm, $context, $filearea, $args, $f
             return $theme->setting_file_serve('customjsfiles', $args, $forcedownload, $options);
         } else if ($filearea === 'homebk') {
             return $theme->setting_file_serve('homebk', $args, $forcedownload, $options);
-        } else if ($filearea === 'pagebackground') {
-            return $theme->setting_file_serve('pagebackground', $args, $forcedownload, $options);
         } else if ($filearea === 'frontpagerendererdefaultimage') {
             return $theme->setting_file_serve('frontpagerendererdefaultimage', $args, $forcedownload, $options);
         } else if ($filearea === 'headerbgimage') {
@@ -683,8 +697,6 @@ function theme_adaptable_pluginfile($course, $cm, $context, $filearea, $args, $f
             return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
         } else if (preg_match("/^categoryheaderlogo[1-9][0-9]*$/", $filearea)) { // Link: http://regexpal.com/ useful.
             return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
-        } else if ($filearea === 'adaptablemarkettingimages') {
-            return $theme->setting_file_serve('adaptablemarkettingimages', $args, $forcedownload, $options);
         } else {
             send_file_not_found();
         }

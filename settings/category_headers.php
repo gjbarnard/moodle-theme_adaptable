@@ -90,7 +90,7 @@ if ($ADMIN->fulltree) {
 
             // Background image.
             $name = 'theme_adaptable/categoryheaderbgimage' . $customheaderid;
-            $title = get_string('categoryheaderbgimage', 'theme_adaptable', ['id' => $customheaderid,
+            $title = get_string('categoryheaderbgimagetitle', 'theme_adaptable', ['id' => $customheaderid,
                 'name' => $catinfo['name'], ]);
             if (empty($catinfo['children'])) {
                 $description = get_string('categoryheaderbgimagedesc', 'theme_adaptable', ['id' => $customheaderid,
@@ -129,7 +129,7 @@ if ($ADMIN->fulltree) {
 
             // Logo.
             $name = 'theme_adaptable/categoryheaderlogo' . $customheaderid;
-            $title = get_string('categoryheaderlogo', 'theme_adaptable', ['id' => $customheaderid,
+            $title = get_string('categoryheaderlogotitle', 'theme_adaptable', ['id' => $customheaderid,
                 'name' => $catinfo['name'], ]);
             if (empty($catinfo['children'])) {
                 $description = get_string('categoryheaderlogodesc', 'theme_adaptable', ['id' => $customheaderid,

@@ -112,11 +112,6 @@ class course_renderer extends \core_course_renderer {
         }
 
         $content = '';
-        $classes = trim($additionalclasses);
-
-        if ($showcourses < self::COURSECAT_SHOW_COURSES_EXPANDED) {
-            $classes .= ' collapsed';
-        }
 
         // Number of tiles per row: 12=1 tile / 6=2 tiles / 4 (default)=3 tiles / 3=4 tiles / 2=6 tiles.
         $spanclass = $this->page->theme->settings->frontpagenumbertiles;
