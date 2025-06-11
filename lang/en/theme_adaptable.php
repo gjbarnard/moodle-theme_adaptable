@@ -226,8 +226,9 @@ $string['slideshowsettings'] = 'Slideshow';
 $string['slideshowsettingsheading'] = 'Customize the carousel on the front page.';
 $string['slideshowdesc'] = 'Upload the images, add the links and description for the carousel on the front page.';
 
-$string['sliderimage'] = 'Slider picture';
+$string['sliderimage'] = 'Slider image';
 $string['sliderimagedesc'] = 'Add an image for your slide.  The recommended size is 1600px x 400px or higher.';
+$string['p'] = 'Slider image file';
 
 $string['slidercaption'] = 'Slider caption';
 $string['slidercaptiondesc'] = 'Add a caption for your slide';
@@ -505,7 +506,8 @@ $string['navbardisplaymenuarrowdesc'] = 'Display menu arrow (downward facing) fo
 
 $string['home'] = 'Home';
 $string['enablemy'] = 'Dashboard';
-$string['enablemydesc'] = 'Display a link to the Dashboard page.';
+
+$string['enablemydesc'] = 'Display a link to \'{$a}\'.';
 
 $string['enableprofile'] = 'User profile';
 $string['enableprofiledesc'] = 'Display a link to the users profile.';
@@ -945,7 +947,7 @@ $string['fontsettings'] = 'Fonts';
 $string['fontsettingsheading'] = 'Modify the fonts used throughout the theme.';
 $string['fontdesc'] = 'You can select the fonts that you would like to use throughout the theme.';
 
-$string['fontdefault'] = 'Default';
+$string['fontdefault'] = 'Default, being \'sans-serif\'';
 
 $string['fav'] = 'FontAwesome 6 Free';
 $string['favdesc'] = 'Use the themes version of FontAwesome 6 Free for icons.  Note: Please see the license in the fonts folder of the theme.';
@@ -2021,13 +2023,15 @@ $string['categoryhavecustomheaderdesc'] = 'Select the top level categories that 
 $string['categoryheaderheader'] = 'Settings for the top level category \'{$a->name}\' with id \'{$a->id}\'.';
 $string['categoryheaderheaderdesc'] = 'Set the settings for the top level category \'{$a->name}\' with id \'{$a->id}\'.';
 $string['categoryheaderheaderdescchildren'] = 'Set the settings for the top level category \'{$a->name}\' with id \'{$a->id}\' and its children \'{$a->children}\'.';
-$string['categoryheaderbgimage'] = 'Category \'{$a->name}\' with id \'{$a->id}\' background image';
+$string['categoryheaderbgimage'] = 'Category background image';
+$string['categoryheaderbgimagetitle'] = 'Category \'{$a->name}\' with id \'{$a->id}\' background image';
 $string['categoryheaderbgimagedesc'] = 'Set a background image for the top level category \'{$a->name}\' with id \'{$a->id}\' in the header.  Minimum size is 1600x180px (1900x180px recommended).  The image will cover the full header.';
 $string['categoryheaderbgimagedescchildren'] = 'Set a background image for the top level category \'{$a->name}\' with id \'{$a->id}\' and its children \'{$a->children}\' in the header.  Minimum size is 1600x180px (1900x180px recommended).  The image will cover the full header.';
 $string['categoryheaderbgimagetextcolour'] = 'Category \'{$a->name}\' with id \'{$a->id}\' background image text colour';
 $string['categoryheaderbgimagetextcolourdesc'] = 'Set a background image text colour for the top level category \'{$a->name}\' with id \'{$a->id}\' in the header.';
 $string['categoryheaderbgimagetextcolourdescchildren'] = 'Set a background image text colour for the top level category \'{$a->name}\' with id \'{$a->id}\' and its children \'{$a->children}\' in the header.';
-$string['categoryheaderlogo'] = 'Category \'{$a->name}\' with id \'{$a->id}\' logo';
+$string['categoryheaderlogo'] = 'Category logo';
+$string['categoryheaderlogotitle'] = 'Category \'{$a->name}\' with id \'{$a->id}\' logo';
 $string['categoryheaderlogodesc'] = 'Set a logo for the top level category \'{$a->name}\' with id \'{$a->id}\' in the header.  Recommended size is 200px by 80px.';
 $string['categoryheaderlogodescchildren'] = 'Set a logo for the top level category \'{$a->name}\' with id \'{$a->id}\' and its children \'{$a->children}\' in the header.  Recommended size is 200px by 80px.';
 $string['categoryheadercustomtitle'] = 'Category \'{$a->name}\' with id \'{$a->id}\' custom title';

@@ -1,3 +1,11 @@
+Change Log in version 405.1.7 (2024100508)
+==========================================
+1. Don't fix quiz page width when taking the quiz.  Full view functionality can be used if required.
+2. Fix description of 'enablemyhome' setting.
+3. Fix name and description of 'enablemycourses' setting.
+4. Fix setting import / export missing setting strings for files.
+5. Fix default font of sans-serif not being applied.
+
 Change Log in version 405.1.6 (2024100507)
 ==========================================
 1. Remove redundant 'dockable'.

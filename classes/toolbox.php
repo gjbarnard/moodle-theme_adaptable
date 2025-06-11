@@ -62,8 +62,8 @@ class toolbox {
     /**
      * @var array File Property Names - using 'theme_adaptable_pluginfile' in lib.php as a reference.
      */
-    private const FILEPROPERTYNAMES = ['logo', 'customjsfiles', 'favicon', 'homebk', 'pagebackground',
-        'frontpagerendererdefaultimage', 'headerbgimage', 'loginbgimage', 'adaptablemarkettingimages', ];
+    private const FILEPROPERTYNAMES = ['logo', 'customjsfiles', 'favicon', 'homebk', 'frontpagerendererdefaultimage',
+        'headerbgimage', 'loginbgimage', ];
 
     /**
      * Gets the toolbox singleton.
@@ -374,7 +374,8 @@ class toolbox {
 
             foreach ($fileprops as $fileprop) {
                 $name = $pluginfrankenstyle.'/'.$fileprop;
-                $title = get_string($fileprop, $pluginfrankenstyle);
+                // Remove any number to get a common string.
+                $title = get_string(preg_replace('/[0-9]+/', '', $fileprop), $pluginfrankenstyle);
                 $description = $title;
                 $setting = new \theme_adaptable\admin_setting_configstoredfiles(
                     $name, $title, $description, $fileprop, null
@@ -554,7 +555,8 @@ class toolbox {
         if (!empty($props[$key])) {
             if ($props[$key][0] == '{') { // Is a JSON encoded file(s).
                 $name = $pluginfrankenstyle.'/'.$key;
-                $title = get_string($key, $pluginfrankenstyle);
+                // Remove any number to get a common string.
+                $title = get_string(preg_replace('/[0-9]+/', '', $key), $pluginfrankenstyle);
                 $description = $title;
                 $setting = new \theme_adaptable\admin_setting_configstoredfiles(
                     $name, $title, $description, $key, null
@@ -577,6 +579,9 @@ class toolbox {
                             ['filename' => $addedfilename, 'settingname' => $key]
                         ) . PHP_EOL;
                     }
+                }
+                if (!empty($changed[\theme_adaptable\admin_setting_configstoredfiles::ERROR])) {
+                    $filestoreport .= $changed[\theme_adaptable\admin_setting_configstoredfiles::ERROR] . PHP_EOL;
                 }
             } else {
                 $filestoreport .= '\'' . $key . '\' ' . get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' .

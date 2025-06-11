@@ -34,7 +34,7 @@
     border-style: solid;
     box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
     cursor: pointer;
-    font-family: [[setting:fontname]], sans-serif;
+    font-family: [[setting:fontname]];
     margin-bottom: 0;
     padding: 6px 12px 6px;
     text-align: center;
@@ -93,7 +93,7 @@ a#adaptable-message-user-button,
     box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
     color: [[setting:buttontextcolor]];
     cursor: pointer;
-    font-family: [[setting:fontname]], sans-serif;
+    font-family: [[setting:fontname]];
     padding: .4rem 1rem;
     text-shadow: none;
     transition: background .2s ease-out;
@@ -298,7 +298,7 @@ td.submit input[disabled],
 #id_cancel,
 input[name="addcancel"],
 button[name="resetbutton"] {
-    font-family: [[setting:fontname]], sans-serif;
+    font-family: [[setting:fontname]];
     font-size: 14px;
     line-height: 20px;
     height: 36px;
