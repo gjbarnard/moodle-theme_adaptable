@@ -1,3 +1,10 @@
+Change Log in version 405.1.8 (2024100509)
+==========================================
+1. Change 'currentcolor' to set the left border of the current section instead of the background to avoid contrast issues.
+2. Apply 'coursesectionheader...' settings to the 'course-section-header' CSS class not just the 'sectionname' class.
+3. Fix dropdown menu for RTL and adjust on mouseover.
+4. Improve dropdown sub-menu accessibility.
+
 Change Log in version 405.1.7 (2024100508)
 ==========================================
 1. Don't fix quiz page width when taking the quiz.  Full view functionality can be used if required.

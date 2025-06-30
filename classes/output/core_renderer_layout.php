@@ -53,7 +53,7 @@ trait core_renderer_layout {
         theme_adaptable_initialise_full();
         $bodyclasses[] = theme_adaptable_get_full();
 
-        $optionsdata = ['data' => []];
+        $optionsdata = ['data' => ['rtl' => right_to_left()]];
 
         // Main navbar.
         if (isset($themesettings->stickynavbar) && $themesettings->stickynavbar == 1) {

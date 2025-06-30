@@ -769,7 +769,7 @@ $string['sectionheadingcolor'] = 'Section heading text colour';
 $string['sectionheadingcolordesc'] = 'Set the colour for section headings text.';
 
 $string['collapsedtopicscoloursenabled'] = 'Collapsed Topics toggle fore and backgound colour settings';
-$string['collapsedtopicscoloursenableddesc'] = 'Use Collapsed Topics fore and bacground colour settings instead of Adaptable\'s \'sectionheadingcolor\' and \'coursesectionheaderbg\' settings.';
+$string['collapsedtopicscoloursenableddesc'] = 'Use Collapsed Topics fore and background colour settings instead of Adaptable\'s \'sectionheadingcolor\' and \'coursesectionheaderbg\' settings.';
 
 $string['homebk'] = 'Frontpage background image';
 $string['homebkdesc'] = 'Upload an image that will be a background image on the homepage.';
