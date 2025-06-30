@@ -376,8 +376,14 @@ body:not(.editing) .sitetopic ul.section,
     margin-left: 5px;
 }
 
-.course-content ul li.section .side {
-    display: none;
+.course-content ul {
+    li.section .side {
+        display: none;
+    }
+    // Show in Collapsed Topics.
+    &.ctopics li.section .side {
+        display: block;
+    }
 }
 
 .editing .course-content ul li.section .side {
@@ -414,7 +420,7 @@ body:not(.editing) .sitetopic ul.section,
     margin: 0;
 }
 
-.sectionname {
+.course-section-header {
     background-color: [[setting:coursesectionheaderbg]];
     border-bottom: [[setting:coursesectionheaderborderstyle]] [[setting:coursesectionheaderbordercolor]] [[setting:coursesectionheaderborderwidth]];
     border-bottom-left-radius: [[setting:coursesectionheaderborderradiusbottom]];
@@ -446,9 +452,9 @@ body:not(.editing) .sitetopic ul.section,
     padding: 0 20px;
 }
 
-// Current Section.
-#page .course-content ul li.section.main.current{
-    background-color: [[setting:currentcolor]];
+// Current section.
+.course-section.current > .section-item::before {
+    border-left-color: [[setting:currentcolor]];
 }
 
 .course-content ul li.section.hidden .sectionname,

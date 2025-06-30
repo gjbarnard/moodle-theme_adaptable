@@ -1,3 +1,12 @@
+Change Log in version 500.1.0 (2025040802)
+==========================================
+1. Stable release for Moodle 5.0.
+2. Fix grade table header position.
+3. Change 'currentcolor' to set the left border of the current section instead of the background to avoid contrast issues.
+4. Apply 'coursesectionheader...' settings to the 'course-section-header' CSS class not just the 'sectionname' class.
+5. Fix dropdown menu for RTL and adjust on mouseover.
+6. Improve dropdown sub-menu accessibility.
+
 Change Log in version 500.0.2 (2025040801)
 ==========================================
 1. Don't fix quiz page width when taking the quiz.  Full view functionality can be used if required.
