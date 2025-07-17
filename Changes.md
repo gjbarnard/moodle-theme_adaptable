@@ -1,3 +1,10 @@
+Change Log in version 500.1.1 (2025040803)
+==========================================
+1. Fix sub dropdown menu showing outside of the browser window.
+2. Remove 'backcolor' as now duplicates what 'maincolor' does.  Please use that instead for the background of the page. - #41.
+3. Fix width of frontpage course list panel widths when window width is less than 576px.
+4. Fix images 'marketing' blocks not showing - #42.
+
 Change Log in version 500.1.0 (2025040802)
 ==========================================
 1. Stable release for Moodle 5.0.

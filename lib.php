@@ -202,7 +202,6 @@ function theme_adaptable_process_scss($scss, $theme) {
         '[[setting:linkhover]]' => '#009688',
         '[[setting:dimmedtextcolor]]' => '#6a737b',
         '[[setting:maincolor]]' => '#ffffff',
-        '[[setting:backcolor]]' => '#FFFFFF',
         '[[setting:primarycolour]]' => '#00796b',
         '[[setting:secondarycolour]]' => '#009688',
         '[[setting:regionmaincolor]]' => '#ffffff',
@@ -697,6 +696,8 @@ function theme_adaptable_pluginfile($course, $cm, $context, $filearea, $args, $f
             return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
         } else if (preg_match("/^categoryheaderlogo[1-9][0-9]*$/", $filearea)) { // Link: http://regexpal.com/ useful.
             return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
+        } else if ($filearea === 'adaptablemarkettingimages') {
+            return $theme->setting_file_serve('adaptablemarkettingimages', $args, $forcedownload, $options);
         } else {
             send_file_not_found();
         }

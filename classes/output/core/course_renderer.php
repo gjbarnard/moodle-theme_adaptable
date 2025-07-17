@@ -119,7 +119,7 @@ class course_renderer extends \core_course_renderer {
         // Display course tiles depending the number per row.
         $content .= html_writer::start_tag(
             'div',
-            ['class' => 'col-xs-12 col-sm-' . $spanclass . ' panel panel-default coursebox ' . $additionalcss]
+            ['class' => 'col-12 col-sm-' . $spanclass . ' panel panel-default coursebox ' . $additionalcss]
         );
 
         // Add the course name.
