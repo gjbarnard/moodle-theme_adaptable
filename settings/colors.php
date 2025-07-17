@@ -58,15 +58,6 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Site background color.
-    $name = 'theme_adaptable/backcolor';
-    $title = get_string('backcolor', 'theme_adaptable');
-    $description = get_string('backcolordesc', 'theme_adaptable');
-    $previewconfig = null;
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#fff', $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
     // Site primary colour.
     $name = 'theme_adaptable/primarycolour';
     $title = get_string('primarycolour', 'theme_adaptable');

@@ -648,9 +648,6 @@ $string['linkhoverdesc'] = 'Set the colour of links (on hover) in the theme, use
 $string['dimmedtextcolor'] = 'Dimmed text colour';
 $string['dimmedtextcolordesc'] = 'The dimmed text CSS class (dimmed_text) is used by Moodle to indicate when something is disabled / not visible.  To set that colour in the theme, use html hex code.';
 
-$string['backcolor'] = 'Background colour';
-$string['backcolordesc'] = 'Set the background colour.';
-
 $string['primarycolour'] = 'Primary colour';
 $string['primarycolourdesc'] = 'Set the primary colour.  This is the Bootstrap \'primary\' colour that is used within the SCSS.';
 

@@ -30,6 +30,7 @@ html,
 body,
 .body {
     background-color: [[setting:maincolor]];
+    background-size: 100% auto;
     color: [[setting:fontcolor]];
     font-family: [[setting:fontname]];
     font-size: [[setting:fontsize]];
@@ -41,12 +42,6 @@ body {
     line-height: normal;
     margin: 0;
     padding: 0;
-}
-
-#page-my-index, // Overridden from Boost theme to ignore background colour set on dashboard.
-body {
-    background-color: [[setting:backcolor]];
-    background-size: 100% auto;
 }
 
 // Headings.

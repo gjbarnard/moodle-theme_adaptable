@@ -319,7 +319,7 @@ const options = (data) => {
     // Bootstrap sub-menu functionality.
     // See: https://bootstrapthemes.co/demo/resource/bootstrap-4-multi-dropdown-hover-navbar/.
 
-    $('.dropdown-menu a.dropdown-toggle').on('click keypress mouseover', function () {
+    $('.navbar .dropdown-menu a.dropdown-toggle').on('click keypress mouseover', function () {
         var $el = $(this);
         var $parent = $(this).offsetParent(".dropdown-menu");
 
@@ -332,6 +332,19 @@ const options = (data) => {
                 $el.next().css({ "top": $el[0].offsetTop, "right": $parent.outerWidth() - 4 });
             } else {
                 $el.next().css({ "top": $el[0].offsetTop, "left": $parent.outerWidth() - 4 });
+            }
+
+            // Get the jQuery element and then get the DOM element to call getBoundingClientRect() on.
+            var bounding = $el.next()[0].getBoundingClientRect();
+            if ((bounding.left < 0) ||
+                (bounding.right > window.innerWidth) ||
+                (bounding.right > document.documentElement.clientWidth)) {
+                // Outside of the window, so flip sides.
+                if (data.rtl) {
+                    $el.next().css({ "right": "auto", "left": $parent.outerWidth() - 4 });
+                } else {
+                    $el.next().css({ "left": "auto", "right": $parent.outerWidth() - 4 });
+                }
             }
         }
 

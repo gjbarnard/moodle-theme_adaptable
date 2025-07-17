@@ -1,3 +1,9 @@
+Change Log in version 405.1.9 (2024100510)
+==========================================
+1. Fix sub dropdown menu showing outside of the browser window.
+2. Remove 'backcolor' as now duplicates what 'maincolor' does.  Please use that instead for the background of the page. - #41.
+3. Fix images 'marketing' blocks not showing - #42.
+
 Change Log in version 405.1.8 (2024100509)
 ==========================================
 1. Change 'currentcolor' to set the left border of the current section instead of the background to avoid contrast issues.
