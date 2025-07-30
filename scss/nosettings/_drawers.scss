@@ -71,10 +71,16 @@
     }
 }
 
-.drawer-left,
-.drawer-right {
-    height: 100vh;
-    top: 0;
+.drawer {
+    &.drawer-left,
+    &.drawer-right {
+        height: 100vh;
+        top: 0;
+    }
+
+    &.drawer-right {
+        width: 100%;
+    }
 }
 
 #page.drawers {

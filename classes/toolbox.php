@@ -629,9 +629,11 @@ class toolbox {
         if (!empty($theicon)) {
             $theicon = trim($theicon);
             if (mb_strpos($theicon, ' ') === false) { // No spaces, so find.
+                // Decide what to do if shims are enabled or not.
                 $fav = self::get_setting('fav');
+                $faiv = self::get_setting('faiv');
                 $hasprefix = (mb_strpos($theicon, 'fa') !== false);
-                if (!empty($fav)) {
+                if ((!empty($fav)) && (empty($faiv))) {
                     $toolbox = self::get_instance();
                     $classes[] = $toolbox->get_fa6_from_fa4($theicon, $hasprefix);
                 } else {

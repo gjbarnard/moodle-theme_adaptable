@@ -320,6 +320,9 @@ $string['blocklayoutlayoutrowdesc'] = 'Add / set layout for block region row on 
 $string['blockregioneditingtitleshown'] = 'Show the block region title when editing';
 $string['blockregioneditingtitleshowndesc'] = 'You can show / hide the block region title when editing.';
 
+$string['sidepostdrawerwidth'] = 'Side post drawer width';
+$string['sidepostdrawerwidthdesc'] = 'Any valid CSS width attribute length and unit.  If in doubt, use pixels.';
+
 $string['dashblocklayoutlayoutrow'] = 'Dashboard block region row ';
 $string['dashblocklayoutlayoutrowdesc'] = 'Add / set layout for block region row on Dashboard page.';
 
@@ -946,12 +949,12 @@ $string['fontdesc'] = 'You can select the fonts that you would like to use throu
 
 $string['fontdefault'] = 'Default, being \'sans-serif\'';
 
-$string['fav'] = 'FontAwesome 6 Free';
-$string['favdesc'] = 'Use the themes version of FontAwesome 6 Free for icons.  Note: Please see the license in the fonts folder of the theme.';
+$string['fav'] = 'FontAwesome Free';
+$string['favdesc'] = 'Use the themes version of FontAwesome 7 Free for icons.  Note: Please see the license in the fonts folder of the theme.';
 $string['favoff'] = 'Core FontAwesome 6 Free version';
-$string['fa6name'] = 'Theme FontAwesome 6 Free version';
+$string['fa6name'] = 'Theme FontAwesome 7 Free version';
 $string['faiv'] = 'FontAwesome Free v4 shims';
-$string['faivdesc'] = 'When using the themes FontAwesome 6 Free for the icons add support for version 4 icon class names.';
+$string['faivdesc'] = 'When using the themes FontAwesome 7 Free for the icons add support for version 4 icon class names.';
 
 $string['googlefonts'] = 'Google fonts';
 $string['googlefontsdesc'] = 'Enable <a href="{$a}" target="_blank">Google Fonts</a> for the font names you stipulate except for \'Default\'.  When \'disabled\', you have the opportunity to serve the fonts yourself through CSS / theme modification or have them already installed on the users devices.  When \'enabled\' select the subset needed (latin is always included) and enter the right font weight or the font will not displayed.  <b>NOTE: Adaptable is GPLv3 licensed and may contain bugs, please verify for yourself that when disabled that Google fonts are not being used!</b>';

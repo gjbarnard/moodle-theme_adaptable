@@ -80,6 +80,8 @@ function theme_adaptable_pre_scss($theme) {
     $prescss .= '$input-btn-focus-color: rgba(' .
         \theme_adaptable\toolbox::get_setting('inputbuttonfocuscolour', false, $theme->name, '#0f6cc0') . ', ' .
         \theme_adaptable\toolbox::get_setting('inputbuttonfocuscolouropacity', false, $theme->name, '0.75') . ');' . PHP_EOL;
+    $prescss .= '$drawer-right-width: ' .
+        \theme_adaptable\toolbox::get_setting('sidepostdrawerwidth', false, $theme->name, '315px') . ';' . PHP_EOL;
 
     return $prescss;
 }
@@ -100,20 +102,30 @@ function theme_adaptable_get_main_scss_content($theme) {
 
     $scss = '$enable-rounded: false !default;'; // Todo: A setting?
 
+    $fav = (!empty(\theme_adaptable\toolbox::get_setting('fav')));
+    if ($fav) {
+        // Stop core from being imported, but import the variables for the Moodle scss.
+        $scss .= PHP_EOL . '// Minimal Core FontAwesome.' . PHP_EOL;
+        $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/fontawesome/_variables.scss');
+    }
+
     $scss .= theme_boost_get_main_scss_content($boosttheme);
 
     $basedir = ((!empty($CFG->themedir)) && (is_dir($CFG->themedir . '/adaptable'))) ? $CFG->themedir : $CFG->dirroot . '/theme';
     $basedir .= '/adaptable';
 
-    if (!empty(\theme_adaptable\toolbox::get_setting('fav'))) {
+    if ($fav) {
+        // Stop core from being imported, but import the variables for the Moodle scss.
+        $scss .= '// Removed Core FontAwesome.' . PHP_EOL;
+        $scss = str_replace('@import "fontawesome";', '//@import "fontawesome";', $scss);
         $scss .= '// Import Theme FontAwesome.' . PHP_EOL;
-        $scss .= '@import "fontawesome/fontawesome";' . PHP_EOL;
-        $scss .= '@import "fontawesome/brands";' . PHP_EOL;
-        $scss .= '@import "fontawesome/regular";' . PHP_EOL;
-        $scss .= '@import "fontawesome/solid";' . PHP_EOL;
+        $scss .= file_get_contents($basedir . '/scss/fontawesome/fontawesome.css');
+        $scss .= file_get_contents($basedir . '/scss/fontawesome/brands.css');
+        $scss .= file_get_contents($basedir . '/scss/fontawesome/regular.css');
+        $scss .= file_get_contents($basedir . '/scss/fontawesome/solid.css');
         if (!empty(\theme_adaptable\toolbox::get_setting('faiv'))) {
-            $scss .= '@import "fontawesome/v4-compatibility";' . PHP_EOL;
-            $scss .= '@import "fontawesome/v4-shims";' . PHP_EOL;
+            $scss .= file_get_contents($basedir . '/scss/fontawesome/v4-font-face.css');
+            $scss .= file_get_contents($basedir . '/scss/fontawesome/v4-shims.css');
         }
     }
 
@@ -483,7 +495,11 @@ function theme_adaptable_process_scss($scss, $theme) {
  * @param theme_config $theme The theme config object.
  * @return string The parsed CSS The parsed CSS.
  */
-function theme_adaptable_process_customcss($css, $theme) {
+function theme_adaptable_process_css($css, $theme) {
+    if (!empty(\theme_adaptable\toolbox::get_setting('fav'))) {
+        // Change references to 6 to 7.
+        $css = str_replace('Font Awesome 6 Free";', 'Font Awesome 7 Free";', $css);
+    }
 
     // Set custom CSS.
     if (!empty($theme->settings->customcss)) {

@@ -248,7 +248,7 @@ $THEME->scss = function (theme_config $theme) {
     return theme_adaptable_get_main_scss_content($theme);
 };
 
-$THEME->csspostprocess = 'theme_adaptable_process_customcss';
+$THEME->csspostprocess = 'theme_adaptable_process_css';
 $THEME->haseditswitch = false;
 $THEME->usescourseindex = true;
 $THEME->iconsystem = '\\theme_adaptable\\output\\icon_system_fontawesome';

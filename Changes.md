@@ -1,3 +1,9 @@
+Change Log in version 500.1.2 (2025040804)
+==========================================
+1. Fix 'Activity navigation does not update when module becomes visible because of access restrictions'.
+2. Add 'sidepostdrawerwidth' setting for the side post block drawer on the 'Block' settings tab to control the width.
+3. Upgrade theme version ('fav' setting) of Font Awesome to 7.0.0.
+
 Change Log in version 500.1.1 (2025040803)
 ==========================================
 1. Fix sub dropdown menu showing outside of the browser window.

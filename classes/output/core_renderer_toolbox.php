@@ -620,9 +620,9 @@ trait core_renderer_toolbox {
     /**
      * Returns standard navigation between activities in a course.
      *
-     * @return string the navigation HTML.
+     * @return stdClass the navigation context for the template.
      */
-    public function activity_navigation() {
+    public function create_activity_navigation() {
         // First we should check if we want to add navigation.
         if (!$this->page->theme->settings->courseactivitynavigationenabled) {
             return '';
@@ -675,7 +675,9 @@ trait core_renderer_toolbox {
 
         // If there is only one mod then do nothing.
         if ($nummods == 1) {
-            return '';
+            $data = new stdClass;
+            $data->nonav = true;
+            return $data;
         }
 
         // Get an array of just the course module ids used to get the cmid value based on their position in the course.
@@ -697,9 +699,23 @@ trait core_renderer_toolbox {
             $nextmod = $mods[$modids[$position + 1]];
         }
 
+        // Context generation.
         $activitynav = new \core_course\output\activity_navigation($prevmod, $nextmod, $activitylist);
-        $renderer = $this->page->get_renderer('core', 'course');
-        return $renderer->render($activitynav);
+
+        $courserenderer = $this->page->get_renderer('core', 'course');
+
+        return $courserenderer->activity_navigation_data($activitynav);
+    }
+
+    /**
+     * Returns standard navigation between activities in a course.
+     *
+     * @return string the navigation HTML.
+     */
+    public function activity_navigation() {
+        $data = $this->create_activity_navigation();
+
+        return $this->render_from_template('theme_adaptable/core_course/activity_navigation', $data);
     }
 
     /**
@@ -793,7 +809,8 @@ trait core_renderer_toolbox {
         } else {
             $icon .= ' only';
         }
-        return html_writer::tag('a', html_writer::tag('i', '', ['class' => $icon . ' fa fa-fw']) .
+        // Font Awesome 6 -> fa-fw and 7 -> fa-width-auto.
+        return html_writer::tag('a', html_writer::tag('i', '', ['class' => $icon . ' fa fa-fw fa-width-auto']) .
             $buttontitle, ['href' => $url, 'class' => 'btn ' . $btn, 'title' => $title]);
     }
 

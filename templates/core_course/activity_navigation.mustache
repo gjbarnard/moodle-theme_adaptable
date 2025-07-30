@@ -65,20 +65,29 @@
         }
     }
 }}
-<nav class="activity_footer activity-navigation">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="float-start">
-            {{#prevlink}}{{> core/action_link }}{{/prevlink}}
+<div id="adaptable-activity-navigation">
+    {{^nonav}}
+    <nav class="activity_footer activity-navigation">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="float-start">
+                {{#prevlink}}{{> core/action_link }}{{/prevlink}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="float-end">
+                {{#nextlink}}{{> core/action_link }}{{/nextlink}}
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="float-end">
-            {{#nextlink}}{{> core/action_link }}{{/nextlink}}
-            </div>
-        </div>
+    </nav>
+    <div class="jumpnav">
+        {{#activitylist}}{{> core/url_select }}{{/activitylist}}
     </div>
-</nav>
-<div class="jumpnav">
-    {{#activitylist}}{{> core/url_select }}{{/activitylist}}
+    {{/nonav}}
 </div>
+{{#js}}
+require(['theme_adaptable/activity_navigation'], function(component) {
+    component.init('adaptable-activity-navigation');
+});
+{{/js}}
