@@ -41,6 +41,15 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, true);
     $page->add($setting);
 
+    // Side post drawer width.
+    $name = 'theme_adaptable/sidepostdrawerwidth';
+    $title = get_string('sidepostdrawerwidth', 'theme_adaptable');
+    $description = get_string('sidepostdrawerwidthdesc', 'theme_adaptable');
+    $default = '315px';
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_TEXT);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     $name = 'theme_adaptable/frontpageuserblocksenabled';
     $title = get_string('frontpageuserblocksenabled', 'theme_adaptable');
     $description = get_string('frontpageuserblocksenableddesc', 'theme_adaptable');

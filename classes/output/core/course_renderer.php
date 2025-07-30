@@ -361,14 +361,12 @@ class course_renderer extends \core_course_renderer {
 
     // New methods added for activity styling below.  Adapted from snap theme by Moodleroooms.
     /**
-     * Renders the activity navigation.
-     *
-     * Defer to template.
+     * Gets the activity navigation data.
      *
      * @param \core_course\output\activity_navigation $page
-     * @return string html for the page
+     * @return stdClass Context.
      */
-    public function render_activity_navigation(\core_course\output\activity_navigation $page) {
+    public function activity_navigation_data(\core_course\output\activity_navigation $page) {
         $data = $page->export_for_template($this->output);
 
         /* Add in extra data for our own overridden activity_navigation template.
@@ -407,6 +405,20 @@ class course_renderer extends \core_course_renderer {
             $data->activitylist->classes = 'jumpmenu';
         }
 
-        return $this->output->render_from_template('core_course/activity_navigation', $data);
+        return $data;
+    }
+
+    /**
+     * Renders the activity navigation.
+     *
+     * Defer to template.
+     *
+     * @param \core_course\output\activity_navigation $page
+     * @return string html for the page
+     */
+    public function render_activity_navigation(\core_course\output\activity_navigation $page) {
+        $data = $this->activity_navigation_data($page);
+
+        return $this->output->render_from_template('theme_adaptable/core_course/activity_navigation', $data);
     }
 }

@@ -27,6 +27,12 @@
 defined('MOODLE_INTERNAL') || die;
 
 $functions = [
+    'theme_adaptable_activity_navigation' => [
+        'classname'     => 'theme_adaptable\output\external\activity_navigation',
+        'description'   => 'Get the activity navigation.',
+        'type'          => 'read',
+        'ajax'          => true,
+    ],
     'theme_adaptable_output_load_fontawesome_icon_map' => [
         'classname' => 'theme_adaptable\output\external',
         'methodname' => 'load_fontawesome_icon_map',
