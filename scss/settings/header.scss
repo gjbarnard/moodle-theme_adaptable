@@ -23,27 +23,41 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
-#header2 {
+#adaptable-page-header-wrapper .main-header-row {
     background-color: transparent;
     border-bottom: none;
     clear: both;
     margin-bottom: 0;
-    min-height: [[setting:pageheaderheight]];
-
-    // Override default boost max height for header2.
-    .navbar {
-        max-height: 150px;
-    }
-
-    .row {
-        margin: 0 0 0 -15px;
-        min-height: [[setting:pageheaderheight]];
-    }
+    min-height: [[setting:headermainrowminheight]];
 }
 
 #adaptable-page-header-wrapper #header2 i,
 #adaptable-page-header-wrapper #page-header i {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.10);
+}
+
+#headertitle,
+#headertitle a,
+#headertitle p,
+#headertitle h1,
+#headertitle h2,
+#headertitle h3,
+#headertitle h4,
+#headertitle h5,
+#headertitle h6 {
+    color: [[setting:fonttitlecolor]];
+
+    font-family: [[setting:fonttitlename]];
+    font-size: [[setting:fonttitlesize]];
+    font-weight: [[setting:fonttitleweight]] !important;
+
+    line-height: 120%;
+    margin: 0;
+    overflow: visible;
+    position: relative;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    width: auto;
 }
 
 .headerbgimage {
@@ -65,8 +79,8 @@
 
 // Header.
 #adaptable-page-header-wrapper {
-    background-color: [[setting:headerbkcolor2]];
-    color: [[setting:headertextcolor2]];
+    background-color: [[setting:headermainrowbkcolour]];
+    color: [[setting:headermainrowtextcolour]];
     z-index: 10;
 
     &.sticky {
@@ -83,17 +97,5 @@
     .dropdown-submenu:hover > a,
     .dropdown-submenu:focus > a {
         background-image: none;
-    }
-}
-
-#page-header {
-    background-color: transparent;
-    border-bottom: none;
-    clear: both;
-    margin-bottom: 0;
-    padding-top: 0;
-
-    > div:first-of-type {
-        min-height: [[setting:pageheaderheight]];
     }
 }

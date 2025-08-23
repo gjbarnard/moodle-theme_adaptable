@@ -44,13 +44,13 @@
 }}
 {{#maturity}}
 <div class="alert alert-{{maturityalert}} mb-3">
-<h3>{{versioninfo}}</h3>
+<h3>{{versioninfo}}{{#localversioninfo}} {{localversioninfo}}{{/localversioninfo}}</h3>
 <p>{{{maturity}}}</p>
 {{{privacynote}}}
 </div>
 {{/maturity}}
 {{^maturity}}
-<h3>{{versioninfo}}</h3>
+<h3>{{versioninfo}}{{#localversioninfo}} {{localversioninfo}}{{/localversioninfo}}</h3>
 {{privacynote}}}
 {{/maturity}}
 {{#versioncheck}}

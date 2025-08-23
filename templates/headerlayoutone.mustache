@@ -15,7 +15,7 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template theme_adaptable/headerstyleone
+    @template theme_adaptable/headerlayoutone
 
     Header style one.
 
@@ -23,12 +23,12 @@
     {
         "hasmobileprimarynav": true,
         "headerbg": "",
-        "langmenu": false,
+        "langmenu": "",
         "loginoruser": "",
         "menuslinkright": false,
         "mobileprimarynavicon": "Markup",
         "pageheaderoriginal": true,
-        "responsiveheader": "d-none d-lg-block",
+        "responsiveheader": "d-none d-lg-flex",
         "responsivesearchicon": "",
         "searchandsocialheader": "",
         "searchandsocialnavbar": "",
@@ -51,13 +51,13 @@
                 {{/hasmobileprimarynav}}
 
                 <div class="collapse navbar-collapse">
-                {{^menuslinkright}}
+                {{^menuslinkright}}{{#topmenus}}
                 <div class="my-auto m-1">{{{topmenus}}}</div>
-                {{/menuslinkright}}
-                    <ul class="navbar-nav ms-auto my-auto">
-                        {{#menuslinkright}}
+                {{/topmenus}}{{/menuslinkright}}
+                    <ul id="adaptable-user-nav" class="navbar-nav ms-auto my-auto">
+                        {{#menuslinkright}}{{#topmenus}}
                         <li class="my-auto m-1">{{{topmenus}}}</li>
-                        {{/menuslinkright}}
+                        {{/topmenus}}{{/menuslinkright}}
 
                         {{#searchandsocialnavbar}}
                         <li class="nav-item navbarsearchsocial mx-md-1 my-auto{{searchandsocialnavbarextra}}">
@@ -66,12 +66,12 @@
                         {{/searchandsocialnavbar}}
 
                         {{#shownavbar}}
-                        <li id="nav-popover-container" class="my-auto mx-md-1 d-flex">{{{output.navbar_plugin_output}}}</li>
+                        <li id="nav-popover-container" class="my-auto d-flex">
+                            {{{output.navbar_plugin_output}}}
+                        </li>
                         {{/shownavbar}}
 
-                        {{#langmenu}}
-                        <li class="nav-item dropdown ms-2 my-auto">{{{output.lang_menu}}}</li>
-                        {{/langmenu}}
+                        {{{langmenu}}}
 
                         {{{output.page_heading_menu}}}
 
@@ -82,54 +82,56 @@
         </div>
     </div>
 
-    <div id="page-header" class="container {{responsiveheader}}">
-        <div class="row d-flex justify-content-start align-items-center h-100">
-            {{#pageheaderoriginal}}
-            <div class="col-lg-8 p-0">
-                <div class="bd-highlight d-flex">
-                    {{#headerlogo}}{{{headerlogo}}}{{/headerlogo}}
-                    {{#headertitle}}{{{headertitle}}}{{/headertitle}}
+    <div id="page-header" class="main-header-row{{#responsiveheader}} {{responsiveheader}}{{/responsiveheader}}">
+        <div class="container">
+            <div class="row d-flex justify-content-start align-items-center h-100">
+                {{#pageheaderoriginal}}
+                <div class="col-lg-8 p-0">
+                    <div class="bd-highlight d-flex">
+                        {{#headerlogo}}{{{headerlogo}}}{{/headerlogo}}
+                        {{#headertitle}}{{{headertitle}}}{{/headertitle}}
+                    </div>
+                    <div id="course-header">
+                        {{{output.course_header}}}
+                    </div>
                 </div>
-                <div id="course-header">
-                    {{{output.course_header}}}
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex justify-content-end">
-                {{#searchandsocialheader}}
-                    {{{searchandsocialheader}}}
-                {{/searchandsocialheader}}
-            </div>
-            {{/pageheaderoriginal}}
-
-            {{^pageheaderoriginal}}
-            <div class="col-8">
-                <div class="d-flex justify-content-between align-items-center h-100 bd-highlight">
-                    {{#headertitle}}
-                        {{{headertitle}}}
-                    {{/headertitle}}
+                <div class="col-lg-4 d-flex justify-content-end">
                     {{#searchandsocialheader}}
                         {{{searchandsocialheader}}}
                     {{/searchandsocialheader}}
                 </div>
-            </div>
-            <div class="col-4 p-0">
-                {{#headerlogo}}
-                <div class="d-flex justify-content-end bd-highlight">
-                    {{{headerlogo}}}
+                {{/pageheaderoriginal}}
+
+                {{^pageheaderoriginal}}
+                <div class="col-8">
+                    <div class="d-flex justify-content-between align-items-center h-100 bd-highlight">
+                        {{#headertitle}}
+                            {{{headertitle}}}
+                        {{/headertitle}}
+                        {{#searchandsocialheader}}
+                            {{{searchandsocialheader}}}
+                        {{/searchandsocialheader}}
+                    </div>
                 </div>
-                {{/headerlogo}}
+                <div class="col-4 p-0">
+                    {{#headerlogo}}
+                    <div class="d-flex justify-content-end bd-highlight">
+                        {{{headerlogo}}}
+                    </div>
+                    {{/headerlogo}}
+                </div>
+                {{/pageheaderoriginal}}
+            </div>
+            {{^pageheaderoriginal}}
+            <div class="row">
+                <div class="col-12 p-0 my-auto">
+                    <div id="course-header">
+                        {{{output.course_header}}}
+                    </div>
+                </div>
             </div>
             {{/pageheaderoriginal}}
         </div>
-        {{^pageheaderoriginal}}
-        <div class="row">
-            <div class="col-12 p-0 my-auto">
-                <div id="course-header">
-                    {{{output.course_header}}}
-                </div>
-            </div>
-        </div>
-        {{/pageheaderoriginal}}
     </div>
 
     {{#shownavbar}}

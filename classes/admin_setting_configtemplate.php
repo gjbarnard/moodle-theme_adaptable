@@ -24,14 +24,26 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+namespace theme_adaptable;
+
 /**
  * Template admin setting.
  */
-class adaptable_admin_setting_configtemplate extends admin_setting_configtextarea {
+class admin_setting_configtemplate extends \admin_setting_configtextarea {
     /**
      * @var $templatename The name of the template.
      */
     private $templatename;
+
+    /**
+     * @var $rows The rows.
+     */
+    protected $rows;
+
+    /**
+     * @var $cols The columns.
+     */
+    protected $cols;
 
     /**
      * Constructor
@@ -55,12 +67,12 @@ class adaptable_admin_setting_configtemplate extends admin_setting_configtextare
         $cols = '60',
         $rows = '8'
     ) {
+        parent::__construct($name, $visiblename, $description, $defaultsetting, $paramtype, $cols, $rows);
+
         $this->rows = $rows;
         $this->cols = $cols;
 
         $this->templatename = $templatename;
-
-        parent::__construct($name, $visiblename, $description, $defaultsetting, $paramtype);
     }
 
     /**

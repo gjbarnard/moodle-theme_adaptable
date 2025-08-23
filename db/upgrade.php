@@ -31,6 +31,7 @@
  * @return bool Success.
  */
 function xmldb_theme_adaptable_upgrade($oldversion = 0) {
+    global $OUTPUT;
 
     if ($oldversion < 2020073101) {
         if (get_config('theme_adaptable', 'fontname') == 'default') {
@@ -58,19 +59,6 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
         }
 
         upgrade_plugin_savepoint(true, 2020073107, 'theme', 'adaptable');
-    }
-
-    // Method check after purge to reload updated local_toolbox if needed.
-    $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
-    if (is_object($localtoolbox)) {
-        if (method_exists($localtoolbox, 'supported_methods')) {
-            // Method check.  Will throw upgrade_exception if one or more are missing.
-            $methods = ['get_custom_js'];
-            $unsupportedmethods = $localtoolbox->supported_methods($methods, '401.0.4 - 2023102203');
-            if (!empty($unsupportedmethods)) {
-                echo $unsupportedmethods;
-            }
-        }
     }
 
     if ($oldversion < 2024032801) {
@@ -122,6 +110,77 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
         }
 
         upgrade_plugin_savepoint(true, 2024100503, 'theme', 'adaptable');
+    }
+
+    // Check / report on versions.
+    $versions = \theme_adaptable\toolbox::get_file_versions();
+    $themeversion = $versions['theme'];
+    if ($themeversion['version'] != null) {
+        echo $OUTPUT->notification(
+            $themeversion['release'] . ' - '.$themeversion['version'],
+            'info',
+            false,
+            'Adaptable theme release and version',
+            'i/circleinfo'
+        );
+
+        $localversion = $versions['local'];
+        if ($localversion['version'] != null) {
+            echo $OUTPUT->notification(
+                $localversion['release'] . ' - '.$localversion['version'],
+               'info',
+               false,
+               'Adaptable local release and version',
+                'i/circleinfo'
+            );
+            if ($themeversion['version'] != $localversion['version']) {
+                echo $OUTPUT->notification(
+                    'Adaptable theme and local versions must match!' .
+                    '  Rectify by updating local_adaptable otherwise errors may occur.',
+                    'warning',
+                    false,
+                    'Version issue',
+                    'i/warning'
+                );
+            }
+        }
+
+        // Method check.
+        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        if (is_object($localtoolbox)) {
+            if (method_exists($localtoolbox, 'supported_methods')) {
+                // Method check.
+                $methods = ['get_custom_js'];
+                $unsupportedmethods = $localtoolbox->supported_methods($methods, $themeversion['version']);
+                if (!empty($unsupportedmethods)) {
+                    echo $OUTPUT->notification(
+                        '',
+                        'warning',
+                        false,
+                        $unsupportedmethods,
+                        'i/warning'
+                    );
+                }
+            }
+        }
+    }
+
+    // Feature version to keep track of changes across versions for major releases of Moodle.
+    $currentfeatureversion = get_config('theme_adaptable', 'feature_version');
+    $props = [];
+    $changed = \theme_adaptable\toolbox::process_settings_name_updates($props, 'theme_adaptable', $currentfeatureversion);
+    if (!empty($changed)) {
+        $title = get_string('settingschangenotificationtitle', 'theme_adaptable');
+        foreach ($changed as $change) {
+            echo $OUTPUT->notification($change, 'info', false, $title, 'i/circleinfo');
+        }
+    }
+
+    // Feature version for this version.
+    set_config('feature_version', 2025080200, 'theme_adaptable');
+
+    if ($oldversion < 2025040805) {
+        upgrade_plugin_savepoint(true, 2025040805, 'theme', 'adaptable');
     }
 
     // Automatic 'Purge all caches'....

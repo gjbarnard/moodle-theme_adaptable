@@ -32,7 +32,7 @@ if ($ADMIN->fulltree) {
         get_string('menusheading', 'theme_adaptable'),
         format_text(
             get_string('menustitledesc', 'theme_adaptable').'<br><br>'.
-            get_string('fontawesomesettingdesc', 'theme_adaptable'),
+            get_string('fontawesomesettingdesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free'),
             FORMAT_MARKDOWN
         )
     ));
@@ -60,7 +60,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/menuslinkicon';
     $title = get_string('menuslinkicon', 'theme_adaptable');
     $description = get_string('menuslinkicondesc', 'theme_adaptable');
-    $setting = new admin_setting_configtext($name, $title, $description, 'fa-link');
+    $setting = new admin_setting_configtext($name, $title, $description, 'fa-link', PARAM_TEXT, '30');
     $page->add($setting);
 
     $name = 'theme_adaptable/disablemenuscoursepages';
@@ -99,14 +99,14 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/topmenuscount';
     $title = get_string('topmenuscount', 'theme_adaptable');
     $description = get_string('topmenuscountdesc', 'theme_adaptable');
-    $default = THEME_ADAPTABLE_DEFAULT_TOPMENUSCOUNT;
+    $default = 1;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices0to12);
     $page->add($setting);
 
     // If we don't have a menuscount yet, default to the preset.
     $topmenuscount = get_config('theme_adaptable', 'topmenuscount');
     if (!$topmenuscount) {
-        $topmenuscount = THEME_ADAPTABLE_DEFAULT_TOPMENUSCOUNT;
+        $topmenuscount = $default;
     }
 
     for ($topmenusindex = 1; $topmenusindex <= $topmenuscount; $topmenusindex++) {

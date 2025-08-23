@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Config HTML editor
+ * Adaptable's config HTML editor
  *
  * @package    theme_adaptable
  * @copyright  2015 Jeremy Hopkins (Coventry University)
@@ -26,7 +26,11 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+namespace theme_adaptable;
+
+use context_user;
 use core\url;
+use stdClass;
 
 /**
  * Class to configure html editor for admin settings allowing use of repositories.
@@ -36,7 +40,7 @@ use core\url;
  * Special thanks to Iban Cardona i Subiela (http://icsbcn.blogspot.com.es/2015/03/use-image-repository-in-theme-settings.html)
  * This post laid the ground work for most of the code featured in this file.
  */
-class adaptable_setting_confightmleditor extends admin_setting_configtext {
+class adaptable_admin_setting_confightmleditor extends \admin_setting_configtext {
     /** @var int number of rows */
     private $rows;
 

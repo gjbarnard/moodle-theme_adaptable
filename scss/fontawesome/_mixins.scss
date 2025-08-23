@@ -1,0 +1,15 @@
+// mixins
+// --------------------------
+
+@mixin fa-icon {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-feature-settings: normal;
+  font-style: normal;
+  font-variant: normal;
+  //font-weight: normal; // Breaks as somehow set to 400?
+  line-height: 1;
+  text-align: center;
+  text-rendering: auto;
+}

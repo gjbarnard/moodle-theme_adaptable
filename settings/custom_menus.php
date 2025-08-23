@@ -72,7 +72,7 @@ if ($ADMIN->fulltree) {
         new lang_string('custommenuitems', 'admin'),
         $custommenuitems.'<br><br>'.
         get_string('custommenuitemscoredesc', 'theme_adaptable').'<br>'.
-        get_string('fontawesomesettingdesc', 'theme_adaptable')
+        get_string('fontawesomesettingdesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free')
     ));
 
     $customusermenuitems = get_config('core', 'customusermenuitems');
@@ -86,7 +86,7 @@ if ($ADMIN->fulltree) {
         'theme_adaptable/customusermenuitems',
         new lang_string('customusermenuitems', 'admin'),
         $customusermenuitems.'<br><br>'.
-        get_string('customusermenuitemscoredesc', 'theme_adaptable')
+        get_string('customusermenuitemscoredesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free')
     ));
 
     $asettings->add($page);

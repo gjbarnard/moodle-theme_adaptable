@@ -22,6 +22,11 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
+// Bootstrap text for background(s).
+.bg-secondary {
+    color: var(--ad-secondary-text) !important;
+}
+
 .progress {
     width: 100%;
 }

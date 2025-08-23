@@ -32,14 +32,13 @@
         ]
     }
 }}
-<div id="searchinput-navbar-{{uniqid}}" class="simplesearchform">
+<div id="searchinput-navbar-{{uniqid}}" class="simplesearchform adsimplesearchform">
     <div class="collapse" id="searchform-navbar-{{uniqid}}">
         <form autocomplete="off" action="{{{ action }}}" method="get" accept-charset="utf-8" class="mform d-flex flex-wrap align-items-center searchform-navbar">
             {{#hiddenfields}}
                 <input type="hidden" name="{{ name }}" value="{{ value }}">
             {{/hiddenfields}}
             <div class="input-group">
-
                 <input type="text"
                     id="searchinput-{{uniqid}}"
                     class="form-control withclear"
@@ -52,15 +51,15 @@
                 <label for="searchinput-{{uniqid}}">
                     <span class="visually-hidden">{{{ searchstring }}}</span>
                 </label>
-                <a class="btn btn-close"
+                <button class="btn btn-close adsimplesearchclose"
                     data-action="closesearch"
                     data-bs-toggle="collapse"
-                    href="#searchform-navbar-{{uniqid}}"
-                    role="button"
+                    data-bs-target="#searchform-navbar-{{uniqid}}"
+                    type="button"
                 >
                     {{#pix}} e/cancel, core {{/pix}}
                     <span class="visually-hidden">{{#str}} closebuttontitle {{/str}}</span>
-                </a>
+                </button>
                 <button type="submit" class="btn btn-submit" data-action="submit">
                     {{#pix}} a/search, core {{/pix}}
                     <span class="visually-hidden">{{{ searchstring }}}</span>
@@ -68,19 +67,19 @@
             </div>
         </form>
     </div>
-    <a
+    <button
         class="rounded-0 nav-link icon-no-margin"
         data-bs-toggle="collapse"
+        data-bs-target="#searchform-navbar-{{uniqid}}"
         data-action="opensearch"
-        href="#searchform-navbar-{{uniqid}}"
-        role="button"
+        type="button"
         aria-expanded="false"
         aria-controls="searchform-navbar-{{uniqid}}"
         title="{{#str}} togglesearch {{/str}}"
     >
         {{#pix}} a/search, core {{/pix}}
         <span class="visually-hidden">{{#str}} togglesearch {{/str}}</span>
-    </a>
+    </button>
 </div>
 
 {{#js}}

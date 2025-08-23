@@ -104,7 +104,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/newstickercount';
     $title = get_string('newstickercount', 'theme_adaptable');
     $description = get_string('newstickercountdesc', 'theme_adaptable');
-    $default = THEME_ADAPTABLE_DEFAULT_NEWSTICKERCOUNT;
+    $default = 1;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices0to12);
     $page->add($setting);
 
@@ -112,7 +112,7 @@ if ($ADMIN->fulltree) {
     $newstickercount = get_config('theme_adaptable', 'newstickercount');
 
     if (!$newstickercount) {
-        $newstickercount = THEME_ADAPTABLE_DEFAULT_NEWSTICKERCOUNT;
+        $newstickercount = $default;
     }
 
     for ($newstickerindex = 1; $newstickerindex <= $newstickercount; $newstickerindex++) {
@@ -120,7 +120,7 @@ if ($ADMIN->fulltree) {
         $title = get_string('tickertext', 'theme_adaptable') . ' ' . $newstickerindex;
         $description = get_string('tickertextdesc', 'theme_adaptable');
         $default = '';
-        $setting = new adaptable_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
         $page->add($setting);
 
         $name = 'theme_adaptable/tickertext' . $newstickerindex . 'profilefield';

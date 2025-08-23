@@ -38,8 +38,8 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/responsiveheader';
     $title = get_string('responsiveheader', 'theme_adaptable');
     $description = get_string('responsiveheaderdesc', 'theme_adaptable');
-    $default = 'd-none d-lg-block';
-    $choices = $screensizeblock;
+    $default = 'd-none d-lg-flex';
+    $choices = $screensizeflex;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
@@ -69,39 +69,11 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
-    // Hide course title.
-    $name = 'theme_adaptable/responsivecoursetitle';
-    $title = get_string('responsivecoursetitle', 'theme_adaptable');
-    $description = get_string('responsivecoursetitledesc', 'theme_adaptable');
-    $default = 'd-none d-lg-inline-block';
-    $choices = $screensizeinlineblock;
-    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-    $page->add($setting);
-
     // Hide header title.
     $name = 'theme_adaptable/responsiveheadertitle';
     $title = get_string('responsiveheadertitle', 'theme_adaptable');
     $description = get_string('responsiveheadertitledesc', 'theme_adaptable');
-    $existing = get_config('theme_adaptable', 'responsivecoursetitle');
-    if (!empty($existing)) {
-        $default = $existing;
-    } else {
-        $default = 'd-none d-lg-inline-block';
-    }
-    $choices = $screensizeinlineblock;
-    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-    $page->add($setting);
-
-    // Hide site title.
-    $name = 'theme_adaptable/responsivesitetitle';
-    $title = get_string('responsivesitetitle', 'theme_adaptable');
-    $description = get_string('responsivesitetitledesc', 'theme_adaptable');
-    $existing = get_config('theme_adaptable', 'responsivecoursetitle');
-    if (!empty($existing)) {
-        $default = $existing;
-    } else {
-        $default = 'd-none d-lg-inline-block';
-    }
+    $default = 'd-none d-lg-inline-block';
     $choices = $screensizeinlineblock;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);

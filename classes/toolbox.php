@@ -27,8 +27,15 @@
 
 namespace theme_adaptable;
 
+defined('MOODLE_INTERNAL') || die;
+
+use core\url;
 use core\output\html_writer;
 use core\output\theme_config;
+use stdClass;
+
+global $CFG;
+require_once($CFG->dirroot . '/theme/boost/lib.php');
 
 /**
  * Class definition for toolbox.
@@ -102,7 +109,7 @@ class toolbox {
                 $itemid = \theme_get_revision();
                 $syscontext = \context_system::instance();
 
-                $settingurl = \core\url::make_file_url(
+                $settingurl = url::make_file_url(
                     "$CFG->wwwroot/pluginfile.php",
                     "/$syscontext->id/theme_$theconfig->name/$setting/$itemid" . $thesetting
                 );
@@ -176,6 +183,37 @@ class toolbox {
     }
 
     /**
+     * Config text constructor
+     *
+     * @param string $name Setting name.
+     * @param string $themename Frankenstyle.
+     * @param mixed $value Setting value.
+     * @param mixed $paramtype int Means PARAM_XXX type, PARAM_RAW and regex NOT supported!
+     * @param bool $throwexception Throw a moodle_exception with the error message generated.
+     * @return mixed true or error message string.
+     */
+    public static function validate_setting($name, $themename, $value, $paramtype, $throwexception = true) {
+        $validated = true;
+
+        $cleaned = clean_param($value, $paramtype);
+        if ("$value" !== "$cleaned") {
+            $errordata = ['name' => $themename.'|'.$name, 'value' => $value];
+            if ($throwexception) {
+                throw new \core\exception\moodle_exception(
+                    'invalidsettingvalue',
+                    'theme_adaptable',
+                    '',
+                    $errordata
+                );
+            } else {
+                $validated = get_string('invalidsettingvalue', 'theme_adaptable', $errordata);
+            }
+        }
+
+        return $validated;
+    }
+
+    /**
      * Returns the given theme.
      *
      * @param string $themename null(default of 'adaptable' used)|theme name.
@@ -208,6 +246,628 @@ class toolbox {
             }
         }
         return self::$localinstance;
+    }
+
+    /**
+     * Gets the pre SCSS for the theme.
+     *
+     * @param theme_config $theme The theme configuration object.
+     * @return string SCSS.
+     */
+    public static function pre_scss($theme) {
+        $regionmaincolour = self::get_setting('regionmaincolour', false, $theme->name, '#ffffff');
+        $fontcolour = self::get_setting('fontcolour', false, $theme->name, '#333333');
+        $fontcolorrgba = self::hex2rgba($fontcolour, 0.25);
+        $prescss = '$body-bg: ' . $regionmaincolour . ';' . PHP_EOL;
+        $prescss = '$body-color: ' . $fontcolour . ';' . PHP_EOL;
+        $prescss .= '$primary: ' .
+            self::get_setting('primarycolour', false, $theme->name, '#00796b') . ';' . PHP_EOL;
+        $prescss .= '$secondary: ' .
+            self::get_setting('secondarycolour', false, $theme->name, '#009688') . ';' . PHP_EOL;
+        $prescss .= '$ad-secondary-text: ' .
+            self::get_setting('secondarycolourtext', false, $theme->name, '#fafafa') . ';' . PHP_EOL;
+        $prescss .= '$loadingcolor: ' .
+            self::get_setting('loadingcolor', false, $theme->name, '#00B3A1') . ';' . PHP_EOL;
+        $loadingcolor = self::get_setting('loadingcolor', false, $theme->name, '#00B3A1');
+        $loadingcolorrgba = self::hex2rgba($loadingcolor, 0.2);
+        $prescss .= '$loadingcolor: ' . $loadingcolor . ';' . PHP_EOL;
+        $prescss .= '$loadingcolorrgba: ' . $loadingcolorrgba . ';' . PHP_EOL;
+        $prescss .= '$nav-tabs-border-color: $secondary;' . PHP_EOL;
+        $prescss .= '$dialogue-base-bg: ' . $regionmaincolour . ';' . PHP_EOL;
+        $prescss .= '$nav-tabs-link-active-border-color: ' . $fontcolorrgba .' ' . $fontcolorrgba . ' transparent;' . PHP_EOL;
+        $prescss .= '$nav-tabs-link-hover-border-color: transparent transparent '. $fontcolour . ';' . PHP_EOL;
+        $prescss .= '$courseindex-link-color: ' .
+            self::get_setting('courseindexitemcolor', false, $theme->name, '#495057') . ';' . PHP_EOL;
+        $prescss .= '$courseindex-link-hover-color: ' .
+            self::get_setting('courseindexitemhovercolor', false, $theme->name, '#e6e6e6') . ';' . PHP_EOL;
+        $prescss .= '$courseindex-link-color-selected: ' .
+            self::get_setting('courseindexpageitemcolor', false, $theme->name, '#ffffff') . ';' . PHP_EOL;
+        $prescss .= '$courseindex-item-page-bg: ' .
+            self::get_setting('courseindexpageitembgcolor', false, $theme->name, '#0f6cbf') . ';' . PHP_EOL;
+        $prescss .= '$drawer-bg-color: #fff;';  // Currently no setting for 'block region' background.
+        $prescss .= '$input-btn-focus-color: rgba(' .
+            self::get_setting('inputbuttonfocuscolour', false, $theme->name, '#0f6cc0') . ', ' .
+            self::get_setting('inputbuttonfocuscolouropacity', false, $theme->name, '0.75') . ');' . PHP_EOL;
+        $prescss .= '$drawer-right-width: ' .
+            self::get_setting('sidepostdrawerwidth', false, $theme->name, '315px') . ';' . PHP_EOL;
+
+        // Adaptable specific settings.
+        $prescss .= '$ad-main-colour: ' .
+            self::get_setting('maincolour', false, $theme->name, '#fff') . ';' . PHP_EOL;
+        $prescss .= '$ad-regionmain-colour: ' . $regionmaincolour . ';' . PHP_EOL;
+        $prescss .= '$ad-regionmaintext-colour: ' .
+            self::get_setting('regionmaintextcolour', false, $theme->name, '#000') . ';' . PHP_EOL;
+        $prescss .= '$ad-font-colour: ' . $fontcolour . ';' . PHP_EOL;
+        $prescss .= '$ad-link-colour: ' .
+            self::get_setting('linkcolour', false, $theme->name, '#51666C') . ';' . PHP_EOL;
+        $prescss .= '$ad-linkhover-colour: ' .
+            self::get_setting('linkhover', false, $theme->name, '#009688') . ';' . PHP_EOL;
+        $prescss .= '$ad-dimmedtext-colour: ' .
+            self::get_setting('dimmedtextcolour', false, $theme->name, '#6A737B') . ';' . PHP_EOL;
+        $prescss .= '$ad-selectiontext-colour: ' .
+            self::get_setting('selectiontext', false, $theme->name, '#000') . ';' . PHP_EOL;
+        $prescss .= '$ad-selectionbackground-colour: ' .
+            self::get_setting('selectionbackground', false, $theme->name, '#00B3A1') . ';' . PHP_EOL;
+
+        // Font sizes.
+        $fontsize = self::get_setting('fontsize', false, $theme->name, '95%');
+        $fontsize = admin_setting_font::validate_and_convert($fontsize);
+        if (!empty($fontsize)) { // Unlikely that an invalid value is stored, otherwise don't use!
+            if (is_numeric($fontsize)) {
+                // Stored as a multiplier, so just add 'rem'.
+                $fontsize = $fontsize . 'rem';
+            }
+            $prescss .= '$font-size-base: ' . $fontsize . ';' . PHP_EOL;
+        }
+
+        $prescss .= self::process_header_font_size(1, 'fontheaderlevel1', $theme->name, '2.5');
+        $prescss .= self::process_header_font_size(2, 'fontheaderlevel2', $theme->name, '2');
+        $prescss .= self::process_header_font_size(3, 'fontheaderlevel3', $theme->name, '1.75');
+        $prescss .= self::process_header_font_size(4, 'fontheaderlevel4', $theme->name, '1.5');
+        $prescss .= self::process_header_font_size(5, 'fontheaderlevel5', $theme->name, '1.25');
+        $prescss .= self::process_header_font_size(6, 'fontheaderlevel6', $theme->name, '1');
+
+        return $prescss;
+    }
+
+    /**
+     * Process a header setting.
+     *
+     * @param int $level Level number.
+     * @param string $settingname Setting name.
+     * @param string $themename Theme name.
+     * @param string $default Default.
+     *
+     * @return string SCSS.
+     */
+    private static function process_header_font_size($level, $settingname, $themename, $default) {
+        $scss = '';
+
+        $setting = self::get_setting($settingname, false, $themename, $default);
+        $setting = admin_setting_font::validate_and_convert($setting);
+        if (!empty($setting)) { // Unlikely that an invalid value is stored, otherwise don't use!
+            if (is_numeric($setting)) {
+                // Stored as a multiplier.
+                $scss = '$h'.$level.'-font-size: $font-size-base * ' . $setting . ';' . PHP_EOL;
+            } else {
+                // Stored as a size.
+                $scss = '$h'.$level.'-font-size: ' . $setting . ';' . PHP_EOL;
+            }
+        }
+
+        return $scss;
+    }
+
+    /**
+     * Returns the main SCSS content.
+     *
+     * @param theme_config $theme The theme config object.
+     * @return string SCSS.
+     */
+    public static function get_main_scss_content($theme) {
+        global $CFG;
+
+        static $boosttheme = null;
+        if (empty($boosttheme)) {
+            $boosttheme = theme_config::load('boost'); // Needs to be the Boost theme so that we get its settings.
+        }
+
+        $scss = '$enable-rounded: false !default;'; // Todo: A setting?
+
+        $fav = (!empty(self::get_setting('fav')));
+        if ($fav) {
+            $scss .= '// Import Theme FontAwesome part one.' . PHP_EOL;
+            $scss .= '@import "fontawesome/functions";' . PHP_EOL;
+            $scss .= '@import "fontawesome/variables";' . PHP_EOL;
+        }
+
+        $scss .= theme_boost_get_main_scss_content($boosttheme);
+
+        // Our replacement mixins and fixes both versions of Font Awesome with us.
+        $scss .= '@import "fontawesome/mixins";' . PHP_EOL;
+        $scss .= '@import "fontawesome/fixes";' . PHP_EOL;
+
+        $basedir = ((!empty($CFG->themedir)) && (is_dir($CFG->themedir . '/adaptable')))
+            ? $CFG->themedir : $CFG->dirroot . '/theme';
+        $basedir .= '/adaptable';
+
+        if ($fav) {
+            // Stop core from being imported, but we've imported our functions / variables for the Moodle scss to use.
+            $scss .= '// Remove Core FontAwesome.' . PHP_EOL;
+            $scss = str_replace('@import "fontawesome";', '//@import "fontawesome";', $scss);
+            $scss .= '// Import Theme FontAwesome part two.' . PHP_EOL;
+            $scss .= file_get_contents($basedir . '/scss/fontawesome/fontawesome.css');
+            $scss .= file_get_contents($basedir . '/scss/fontawesome/brands.css');
+            $scss .= file_get_contents($basedir . '/scss/fontawesome/regular.css');
+            $scss .= file_get_contents($basedir . '/scss/fontawesome/solid.css');
+            if (!empty(self::get_setting('faiv'))) {
+                $scss .= file_get_contents($basedir . '/scss/fontawesome/v4-font-face.css');
+                $scss .= file_get_contents($basedir . '/scss/fontawesome/v4-shims.css');
+            }
+        }
+
+        $scss .= file_get_contents($basedir . '/scss/main.scss');
+
+        static $settingssheets = [
+            'adaptable',
+            'admin',
+            'alerts',
+            'blocks',
+            'button',
+            'core',
+            'course',
+            'extras',
+            'footer',
+            'form',
+            'grade',
+            'header',
+            'login',
+            'menu',
+            'misc',
+            'modal',
+            'navigation',
+            'news-ticker',
+            'notifications',
+            'quiz',
+            'responsive',
+            'search-social',
+            'secondarynavigation',
+            'tabs',
+            'print',
+            'categorycustom',
+        ];
+
+        $settingsscss = '';
+        foreach ($settingssheets as $settingsheet) {
+            $settingsscss .= file_get_contents($basedir . '/scss/settings/' . $settingsheet . '.scss');
+        }
+
+        $scss .= self::process_scss($settingsscss, $theme);
+
+        return $scss;
+    }
+
+    /**
+     * Parses SCSS before it is parsed by the SCSS compiler.
+     *
+     * This function can make alterations and replace patterns within the SCSS.
+     *
+     * @param string $scss The SCSS.
+     * @param theme_config $theme The theme config object.
+     * @return string The parsed SCSS.
+     */
+    private static function process_scss($scss, $theme) {
+
+        // Set category custom CSS.
+        $localtoolbox = self::get_local_toolbox();
+        if (is_object($localtoolbox)) {
+            $scss = $localtoolbox->set_categorycustomcss($scss, $theme->settings);
+        }
+
+        // Collapsed Topics colours.
+        if (empty($theme->settings->collapsedtopicscoloursenabled)) {
+            $scss .= '.theme_adaptable .course-content ul.ctopics li.section {'. PHP_EOL;
+            $scss .= '.content .toggle span.the_toggle h3.sectionname,' . PHP_EOL;
+            $scss .= '.content .toggle span.the_toggle h3.sectionname a,' . PHP_EOL;
+            $scss .= '.content .toggle span.the_toggle h3.sectionname a:hover,' . PHP_EOL;
+            $scss .= '.content .toggle span.the_toggle h3.sectionname a:focus,' . PHP_EOL;
+            $scss .= '.content.sectionhidden h3.sectionname' . PHP_EOL;
+            $scss .= '.content.sectionhidden h3.sectionname a,' . PHP_EOL;
+            $scss .= '.content.sectionhidden h3.sectionname a:hover,' . PHP_EOL;
+            $scss .= '.content.sectionhidden h3.sectionname a:focus {' . PHP_EOL;
+            $scss .= '    color: [[setting:sectionheadingcolor]];' . PHP_EOL;
+            $scss .= '}' . PHP_EOL;
+            $scss .= '}' . PHP_EOL;
+
+            $scss .= '.theme_adaptable .course-content ul.ctopics li.section .content {' . PHP_EOL;
+            $scss .= 'div.toggle,' . PHP_EOL;
+            $scss .= 'div.toggle:hover,' . PHP_EOL;
+            $scss .= 'div.toggle:focus {' . PHP_EOL;
+            $scss .= '    background-color: [[setting:coursesectionheaderbg]];' . PHP_EOL;
+            $scss .= '}' . PHP_EOL;
+            $scss .= '}' . PHP_EOL;
+
+            $scss .= '.theme_adaptable .course-content ul.ctopics li.section {' .PHP_EOL;
+            $scss .= '.content .toggle span,' . PHP_EOL;
+            $scss .= '.content .toggle span:hover,' . PHP_EOL;
+            $scss .= '.content .toggle span:focus,' . PHP_EOL;
+            $scss .= '.content.sectionhidden,' . PHP_EOL;
+            $scss .= '.content.sectionhidden:hover,' . PHP_EOL;
+            $scss .= '.content.sectionhidden:focus {' . PHP_EOL;
+            $scss .= '    color: inherit;' . PHP_EOL;
+            $scss .= '}' . PHP_EOL;
+            $scss .= '}' . PHP_EOL;
+        }
+
+        // Define the default settings for the theme in case they've not been set.
+        static $defaults = [
+            '[[setting:primarycolour]]' => '#00796b',
+            '[[setting:secondarycolour]]' => '#009688',
+            '[[setting:rendereroverlaycolor]]' => '#3A454b',
+            '[[setting:rendereroverlayfontcolor]]' => '#FFFFFF',
+            '[[setting:buttoncolor]]' => '#51666C',
+            '[[setting:buttontextcolor]]' => '#ffffff',
+            '[[setting:buttonhovercolor]]' => '#009688',
+            '[[setting:buttontexthovercolor]]' => '#eeeeee',
+            '[[setting:buttonfocuscolour]]' => '#0f6cc0',
+            '[[setting:buttontextfocuscolour]]' => '#eeeeee',
+            '[[setting:buttoncolorscnd]]' => '#51666C',
+            '[[setting:buttontextcolorscnd]]' => '#ffffff',
+            '[[setting:buttonhovercolorscnd]]' => '#009688',
+            '[[setting:buttoncolorcancel]]' => '#c64543',
+            '[[setting:buttontextcolorcancel]]' => '#ffffff',
+            '[[setting:buttonhovercolorcancel]]' => '#e53935',
+            '[[setting:buttonlogincolor]]' => '#c64543',
+            '[[setting:buttonloginhovercolor]]' => '#e53935',
+            '[[setting:buttonlogintextcolor]]' => '#0084c2',
+            '[[setting:buttonloginpadding]]' => '0',
+            '[[setting:buttonloginheight]]' => '24px',
+            '[[setting:buttonloginmargintop]]' => '2px',
+            '[[setting:buttonradius]]' => '5px',
+            '[[setting:buttondropshadow]]' => '0',
+            '[[setting:headertoprowdividingline]]' => '#ffffff',
+            '[[setting:footerdividingline]]' => '#ffffff',
+            '[[setting:breadcrumb]]' => '#b4bbbf',
+            '[[setting:breadcrumbtextcolor]]' => '#444444',
+            '[[setting:breadcrumbseparator]]' => 'angle-right',
+            '[[setting:loadingcolor]]' => '#00B3A1',
+            '[[setting:messagepopupbackground]]' => '#fff000',
+            '[[setting:messagepopupcolor]]' => '#333333',
+            '[[setting:messagingbackgroundcolor]]' => '#FFFFFF',
+            '[[setting:footerbkcolor]]' => '#424242',
+            '[[setting:footertextcolor]]' => '#ffffff',
+            '[[setting:footertextcolor2]]' => '#ffffff',
+            '[[setting:footerlinkcolor]]' => '#ffffff',
+            '[[setting:headertoprowbkcolour]]' => '#00796B',
+            '[[setting:headermainrowbkcolour]]' => '#009688',
+            '[[setting:headerbgimagetextcolour]]' => '#ffffff',
+            '[[setting:headertoprowtextcolour]]' => '#ffffff',
+            '[[setting:headermainrowtextcolour]]' => '#ffffff',
+            '[[setting:notbadgecolour]]' => '#ffffff',
+            '[[setting:notbadgebackgroundcolour]]' => '#e53935',
+            '[[setting:blockbackgroundcolor]]' => '#FFFFFF',
+            '[[setting:blockheaderbackgroundcolor]]' => '#FFFFFF',
+            '[[setting:blockbordercolor]]' => '#59585D',
+            '[[setting:blockregionbackgroundcolor]]' => 'transparent',
+            '[[setting:marketblockbordercolor]]' => '#e8eaeb',
+            '[[setting:marketblocksbackgroundcolor]]' => 'transparent',
+            '[[setting:blockheaderbordertop]]' => '1px',
+            '[[setting:blockheaderborderleft]]' => '0',
+            '[[setting:blockheaderborderright]]' => '0',
+            '[[setting:blockheaderborderbottom]]' => '0',
+            '[[setting:blockmainbordertop]]' => '0',
+            '[[setting:blockmainborderleft]]' => '0',
+            '[[setting:blockmainborderright]]' => '0',
+            '[[setting:blockmainborderbottom]]' => '0',
+            '[[setting:blockheaderbordertopstyle]]' => 'dashed',
+            '[[setting:blockmainbordertopstyle]]' => 'solid',
+            '[[setting:blockheadertopradius]]' => '0',
+            '[[setting:blockheaderbottomradius]]' => '0',
+            '[[setting:blockmaintopradius]]' => '0',
+            '[[setting:blockmainbottomradius]]' => '0',
+            '[[setting:coursesectionbgcolor]]' => '#FFFFFF',
+            '[[setting:coursesectionheaderbg]]' => '#FFFFFF',
+            '[[setting:coursesectionheaderbordercolor]]' => '#F3F3F3',
+            '[[setting:coursesectionheaderborderstyle]]' => 'none',
+            '[[setting:coursesectionheaderborderwidth]]' => '0px',
+            '[[setting:coursesectionheaderborderradiustop]]' => '0px',
+            '[[setting:coursesectionheaderborderradiusbottom]]' => '0px',
+            '[[setting:coursesectionborderstyle]]' => '1px',
+            '[[setting:coursesectionborderwidth]]' => '1px',
+            '[[setting:coursesectionbordercolor]]' => '#e8eaeb',
+            '[[setting:coursesectionborderradius]]' => '0px',
+            '[[setting:coursesectionactivityiconsize]]' => '24px',
+            '[[setting:coursesectionactivityheadingcolour]]' => '#0066cc',
+            '[[setting:coursesectionactivityborderwidth]]' => '2px',
+            '[[setting:coursesectionactivityborderstyle]]' => 'dashed',
+            '[[setting:coursesectionactivitybordercolor]]' => '#eeeeee',
+            '[[setting:coursesectionactivityleftborderwidth]]' => '3px',
+            '[[setting:coursesectionactivityassignleftbordercolor]]' => '#0066cc',
+            '[[setting:coursesectionactivityassignbgcolor]]' => '#FFFFFF',
+            '[[setting:coursesectionactivityforumleftbordercolor]]' => '#990099',
+            '[[setting:coursesectionactivityforumbgcolor]]' => '#FFFFFF',
+            '[[setting:coursesectionactivityquizleftbordercolor]]' => '#FF3333',
+            '[[setting:coursesectionactivityquizbgcolor]]' => '#FFFFFF',
+            '[[setting:coursesectionactivitymargintop]]' => '2px',
+            '[[setting:coursesectionactivitymarginbottom]]' => '2px',
+            '[[setting:tilesbordercolor]]' => '#3A454b',
+            '[[setting:slidermargintop]]' => '20px',
+            '[[setting:slidermarginbottom]]' => '20px',
+            '[[setting:currentcolor]]' => '#d9edf7',
+            '[[setting:sectionheadingcolor]]' => '#3A454b',
+            '[[setting:menufontsize]]' => '14px',
+            '[[setting:menufontpadding]]' => '20px',
+            '[[setting:menubkcolor]]' => '#ffffff',
+            '[[setting:menufontcolor]]' => '#444444',
+            '[[setting:menubkhovercolor]]' => '#00B3A1',
+            '[[setting:menufonthovercolor]]' => '#ffffff',
+            '[[setting:menubordercolor]]' => '#00B3A1',
+            '[[setting:mobilemenubkcolor]]' => '#F9F9F9',
+            '[[setting:navbardropdownborderradius]]' => '0',
+            '[[setting:navbardropdownhovercolor]]' => '#EEE',
+            '[[setting:navbardropdowntextcolor]]' => '#007',
+            '[[setting:navbardropdowntexthovercolor]]' => '#000',
+            '[[setting:navbardropdowntransitiontime]]' => '0.0s',
+            '[[setting:covbkcolor]]' => '#3A454b',
+            '[[setting:covfontcolor]]' => '#ffffff',
+            '[[setting:editonbk]]' => '#4caf50',
+            '[[setting:editoffbk]]' => '#f44336',
+            '[[setting:edithorizontalpadding]]' => '4px',
+            '[[setting:editfont]]' => '#ffffff',
+            '[[setting:sliderh3color]]' => '#ffffff',
+            '[[setting:sliderh4color]]' => '#ffffff',
+            '[[setting:slidersubmitbgcolor]]' => '#51666C',
+            '[[setting:slidersubmitcolor]]' => '#ffffff',
+            '[[setting:slider2h3color]]' => '#000000',
+            '[[setting:slider2h4color]]' => '#000000',
+            '[[setting:slider2h3bgcolor]]' => '#000000',
+            '[[setting:slider2h4bgcolor]]' => '#ffffff',
+            '[[setting:slideroption2color]]' => '#51666C',
+            '[[setting:slideroption2submitcolor]]' => '#ffffff',
+            '[[setting:slideroption2a]]' => '#51666C',
+            '[[setting:socialsize]]' => '37px',
+            '[[setting:mobile]]' => '22',
+            '[[setting:socialpaddingside]]' => 16,
+            '[[setting:socialpaddingtop]]' => '0%',
+            '[[setting:fontheadercolor]]' => '#333333',
+            '[[setting:fontweight]]' => '400',
+            '[[setting:fontheaderweight]]' => '400',
+            '[[setting:fonttitleweight]]' => '400',
+            '[[setting:fonttitlesize]]' => '48px',
+            '[[setting:fonttitlecolor]]' => '#ffffff',
+            '[[setting:searchboxpadding]]' => '0 0 0 0',
+            '[[setting:enablesavecanceloverlay]]' => true,
+            '[[setting:headermainrowminheight]]' => '72px',
+            '[[setting:emoticonsize]]' => '16px',
+            '[[setting:fullscreenwidth]]' => '98%',
+            '[[setting:coursetitlemaxwidth]]' => '20',
+            '[[setting:responsiveheader]]' => 'd-none d-lg-flex',
+            '[[setting:responsivesocial]]' => 'd-none d-lg-block',
+            '[[setting:responsivesocialsize]]' => '34px',
+            '[[setting:responsivelogo]]' => 'd-none d-lg-inline-block',
+            '[[setting:responsivesectionnav]]' => '1',
+            '[[setting:responsiveticker]]' => 'd-none d-lg-block',
+            '[[setting:responsivebreadcrumb]]' => 'd-none d-md-flex',
+            '[[setting:responsiveslider]]' => 'd-none d-lg-block',
+            '[[setting:responsivepagefooter]]' => 'd-none d-lg-block',
+            '[[setting:hidefootersocial]]' => 1,
+            '[[setting:enableavailablecourses]]' => 'inherit',
+            '[[setting:enableticker]]' => true,
+            '[[setting:enabletickermy]]' => true,
+            '[[setting:tickerwidth]]' => '',
+            '[[setting:tickerheaderbackgroundcolour]]' => '#00796b',
+            '[[setting:tickerheadertextcolour]]' => '#eee',
+            '[[setting:tickerconstainerbackgroundcolour]]' => '#009688',
+            '[[setting:tickerconstainertextcolour]]' => '#eee',
+            '[[setting:onetopicactivetabbackgroundcolor]]' => '#d9edf7',
+            '[[setting:onetopicactivetabtextcolor]]' => '#000000',
+            '[[setting:fontblockheaderweight]]' => '400',
+            '[[setting:fontblockheadersize]]' => '22px',
+            '[[setting:fontblockheadercolor]]' => '#3A454b',
+            '[[setting:blockiconsheadersize]]' => '20px',
+            '[[setting:alertcolorinfo]]' => '#3a87ad',
+            '[[setting:alertbackgroundcolorinfo]]' => '#d9edf7',
+            '[[setting:alertbordercolorinfo]]' => '#bce8f1',
+            '[[setting:alertcolorsuccess]]' => '#468847',
+            '[[setting:alertbackgroundcolorsuccess]]' => '#dff0d8',
+            '[[setting:alertbordercolorsuccess]]' => '#d6e9c6',
+            '[[setting:alertcolorwarning]]' => '#8a6d3b',
+            '[[setting:alertbackgroundcolorwarning]]' => '#fcf8e3',
+            '[[setting:alertbordercolorwarning]]' => '#fbeed5',
+            '[[setting:forumheaderbackgroundcolor]]' => '#ffffff',
+            '[[setting:forumbodybackgroundcolor]]' => '#ffffff',
+            '[[setting:introboxbackgroundcolor]]' => '#ffffff',
+            '[[setting:tabbedlayoutdashboardcolorselected]]' => '#06c',
+            '[[setting:tabbedlayoutdashboardcolorunselected]]' => '#eee',
+            '[[setting:tabbedlayoutcoursepagetabcolorselected]]' => '#06c',
+            '[[setting:tabbedlayoutcoursepagetabcolorunselected]]' => '#eee',
+            '[[setting:frontpagenumbertiles]]' => '4',
+            '[[setting:gdprbutton]]' => 1,
+            '[[setting:infoiconcolor]]' => '#5bc0de',
+            '[[setting:dangericoncolor]]' => '#d9534f',
+            '[[setting:loginheader]]' => 0,
+            '[[setting:loginfooter]]' => 0,
+            '[[setting:printpageorientation]]' => 'landscape',
+            '[[setting:printbodyfontsize]]' => '11pt',
+            '[[setting:printmargin]]' => '2cm 1cm 2cm 2cm',
+            '[[setting:printlineheight]]' => '1.2',
+        ];
+
+        // Get all the defined settings for the theme and replace defaults.
+        foreach ($theme->settings as $key => $val) {
+            if (((!empty($val)) || (strlen($val) > 0)) && (array_key_exists('[[setting:' . $key . ']]', $defaults))) {
+                $defaults['[[setting:' . $key . ']]'] = $val;
+            }
+        }
+
+        // Font name defaults.  This allows you to change the 'default' here if you wish.
+        $fontdefaults = [
+            '[[setting:fontname]]' => 'sans-serif',
+            '[[setting:fontheadername]]' => 'sans-serif',
+            '[[setting:fonttitlename]]' => 'sans-serif',
+        ];
+        $fontsettingnames = [
+            'fontname',
+            'fontheadername',
+            'fonttitlename',
+        ];
+        foreach ($fontsettingnames as $fontsettingname) {
+            if ((!empty($theme->settings->$fontsettingname)) && ($theme->settings->$fontsettingname != 'default')) {
+                $fontdefaults['[[setting:' . $fontsettingname . ']]'] = $theme->settings->$fontsettingname;
+            }
+        }
+        // Replace the CSS with values from the $fontdefaults array.
+        $scss = strtr($scss, $fontdefaults);
+
+        $homebkg = '';
+        if (!empty($theme->settings->homebk)) {
+            $homebkg = $theme->setting_file_url('homebk', 'homebk');
+            $homebkg = 'background-image: url("' . $homebkg . '");';
+        }
+        $defaults['[[setting:homebkg]]'] = $homebkg;
+
+        if (is_object($localtoolbox)) {
+            // DEPRECATED.  Here to allow initial update of local_adaptable.
+            $theme->settings->headerbkcolor2 = $theme->settings->headermainrowbkcolour;
+            $retr = $localtoolbox->login_style($theme);
+            $defaults['[[setting:loginbgimage]]'] = $retr->loginbgimage;
+            $defaults['[[setting:loginbgstyle]]'] = $retr->loginbgstyle;
+            $defaults['[[setting:loginbgopacity]]'] = $retr->loginbgopacity;
+        } else {
+            $defaults['[[setting:loginbgimage]]'] = '';
+            $defaults['[[setting:loginbgstyle]]'] = '';
+            $defaults['[[setting:loginbgopacity]]'] = '';
+        }
+
+        $socialpaddingsidehalf = '16';
+        if (!empty($theme->settings->socialpaddingside)) {
+            $socialpaddingsidehalf = '' . $theme->settings->socialpaddingside / 2;
+        }
+        $defaults['[[setting:socialpaddingsidehalf]]'] = $socialpaddingsidehalf;
+
+        // Add in rgba colours.
+        $defaults['[[setting:fontcolorrgba]]'] = self::hex2rgba('#333333', 0.25);
+        $defaults['[[setting:regionmaincolorrgba]]'] = self::hex2rgba('#ffffff', 0.75);
+        $defaults['[[setting:linkcolorrgba]]'] = self::hex2rgba('#51666C', 0.75);
+        $defaults['[[setting:linkhoverrgba]]'] = self::hex2rgba('#009688', 0.75);
+
+        // The navbardisplaymenuarrow setting.
+        $defaults['[[setting:navbardisplaymenuarrow]]'] = (empty($theme->settings->navbardisplaymenuarrow)) ? 'content: none;' : '';
+
+        // Replace the CSS with values from the $defaults array.
+        $scss = strtr($scss, $defaults);
+        if (empty($theme->settings->tilesshowallcontacts) || $theme->settings->tilesshowallcontacts == false) {
+            $scss = self::set_tilesshowallcontacts($scss, false);
+        } else {
+            $scss = self::set_tilesshowallcontacts($scss, true);
+        }
+
+        return $scss;
+    }
+
+    /**
+     * Set display of course contacts on front page tiles
+     * @param string $css
+     * @param string $display
+     * @return $string
+     */
+    private static function set_tilesshowallcontacts($css, $display) {
+        $tag = '[[setting:tilesshowallcontacts]]';
+        if ($display) {
+            $replacement = 'block';
+        } else {
+            $replacement = 'none';
+        }
+        $css = str_replace($tag, $replacement, $css);
+        return $css;
+    }
+
+    /**
+     * Returns version file number(s) for the theme and local plugin.
+     *
+     * @return array Theme and local versions.
+     */
+    public static function get_file_versions() {
+        $theme = \core_component::get_all_plugins_list('theme');
+        $local = \core_component::get_all_plugins_list('local');
+
+        $themeversion = null;
+        $localversion = null;
+
+        if (!empty($theme['adaptable'])) {
+            $themeversion = self::get_version_file_info($theme['adaptable']);
+        }
+        if (!empty($local['adaptable'])) {
+            $localversion = self::get_version_file_info($local['adaptable']);
+        }
+
+        return ['theme' => $themeversion, 'local' => $localversion];
+    }
+
+    /**
+     * Returns version and release in the version.php file at the supplied storage location.
+     *
+     * @param $fullplug Plugin location on storage.
+     * @return array Version and release or null if not there.
+     */
+    private static function get_version_file_info($fullplug) {
+        $plugin = new stdClass();
+        $plugin->release = null;
+        $plugin->version = null;
+        include($fullplug . '/version.php');
+
+        return ['version' => $plugin->version, 'release' => $plugin->release];
+    }
+
+    /**
+     * Get the user preference for the zoom (show / hide block) function.
+     *
+     * @return string User preference.
+     */
+    public static function get_zoom() {
+        return get_user_preferences('theme_adaptable_zoom', '');
+    }
+
+    /**
+     * Set user preferences for zoom (show / hide block) function.
+     */
+    public static function initialise_zoom() {
+        global $USER;
+        $USER->adaptable_user_pref['theme_adaptable_zoom'] = PARAM_TEXT;
+    }
+
+    /**
+     * Set the user preference for full screen
+     */
+    public static function initialise_full() {
+        if (self::get_setting('enablezoom')) {
+            global $USER;
+            $USER->adaptable_user_pref['theme_adaptable_full'] = PARAM_TEXT;
+        }
+    }
+
+    /**
+     * Get the user preference for the zoom function.
+     */
+    public static function get_full() {
+        $fullpref = '';
+        if ((isloggedin()) && (self::get_setting('enablezoom'))) {
+            $fullpref = get_user_preferences('theme_adaptable_full', '');
+        }
+
+        if (empty($fullpref)) { // Zoom disabled, not logged in or user not chosen preference.
+            $defaultzoom = self::get_setting('defaultzoom');
+            if (empty($defaultzoom)) {
+                $defaultzoom = 'normal';
+            }
+            if ($defaultzoom == 'normal') {
+                $fullpref = 'nofull';
+            } else {
+                $fullpref = 'fullin';
+            }
+        }
+
+        return $fullpref;
     }
 
     /**
@@ -278,34 +938,53 @@ class toolbox {
 
         if ($theirprops) {
             // In a format where we can update our props from their props.
-            $data = new \stdClass();
+            // Need id and value pairs in order to be able to update existing records using the id.
+            $data = new stdClass();
             $data->id = 0;
             $data->value = $CFG->version;
             $ourprops['moodle_version'] = $data;
-            // Convert 'version' to 'plugin_version'.
+            // Convert 'version' to 'plugin_version' and put second.
             foreach ($themeprops as $themeprop) {
                 if ($themeprop->name == 'version') {
-                    $data = new \stdClass();
+                    $data = new stdClass();
                     $data->id = $themeprop->id;
-                    $data->name = 'plugin_version';
                     $data->value = $themeprop->value;
                     $ourprops['plugin_version'] = $data;
                     unset($themeprops[$themeprop->id]);
                     break;
                 }
             }
+            // Put 'feature_version' third.
             foreach ($themeprops as $themeprop) {
-                $data = new \stdClass();
+                if ($themeprop->name == 'feature_version') {
+                    $data = new stdClass();
+                    $data->id = $themeprop->id;
+                    $data->value = $themeprop->value;
+                    $ourprops['feature_version'] = $data;
+                    unset($themeprops[$themeprop->id]);
+                    break;
+                }
+            }
+            foreach ($themeprops as $themeprop) {
+                $data = new stdClass();
                 $data->id = $themeprop->id;
                 $data->value = $themeprop->value;
                 $ourprops[$themeprop->name] = $data;
             }
         } else {
             $ourprops['moodle_version'] = $CFG->version;
-            // Put the plugin version next so that it will be at the top of the table.
+            // Put the plugin version next so that it will be second in the table.
             foreach ($themeprops as $themeprop) {
                 if ($themeprop->name == 'version') {
                     $ourprops['plugin_version'] = $themeprop->value;
+                    unset($themeprops[$themeprop->id]);
+                    break;
+                }
+            }
+            // Put the feature version next so that it will be third in the table.
+            foreach ($themeprops as $themeprop) {
+                if ($themeprop->name == 'feature_version') {
+                    $ourprops['feature_version'] = $themeprop->value;
                     unset($themeprops[$themeprop->id]);
                     break;
                 }
@@ -404,26 +1083,65 @@ class toolbox {
         $currentprops = self::compile_properties($pluginfrankenstyle, $props);
 
         // Build the report.
+        // Report Moodle version.
         $report = get_string('putpropertyreport', $pluginfrankenstyle) . PHP_EOL;
-        $report .= get_string('putpropertyproperties', $pluginfrankenstyle) . ' \'Moodle\' ' .
-            get_string('putpropertyversion', $pluginfrankenstyle) . ' ' . $props['moodle_version'] . '.' . PHP_EOL;
+        $report .= get_string('putpropertyproperties', $pluginfrankenstyle,
+            [
+                'name' => 'Moodle',
+                'version' => $props['moodle_version'],
+            ]
+        ) . PHP_EOL;
         unset($props['moodle_version']);
-        $report .= get_string('putpropertyour', $pluginfrankenstyle) . ' \'Moodle\' ' .
-            get_string('putpropertyversion', $pluginfrankenstyle) . ' ' .
-            $currentprops[self::PROPS]['moodle_version']->value . '.' . PHP_EOL;
+        $report .= get_string('putpropertyour', $pluginfrankenstyle,
+            [
+                'name' => 'Moodle',
+                'version' => $currentprops[self::PROPS]['moodle_version']->value,
+            ]
+        ) . PHP_EOL;
         unset($currentprops[self::PROPS]['moodle_version']);
+
+        // Report plugin version.
         $pluginversionkey = 'plugin_version';
         if (array_key_exists('theme_version', $props)) {
             // Old properties.
             $pluginversionkey = 'theme_version';
         }
-        $report .= get_string('putpropertyproperties', $pluginfrankenstyle) . ' \'' . $pluginname . '\' ' .
-            get_string('putpropertyversion', $pluginfrankenstyle) . ' ' . $props[$pluginversionkey] . '.' . PHP_EOL;
+        $report .= get_string('putpropertyproperties', $pluginfrankenstyle,
+            [
+                'name' => $pluginname,
+                'version' => $props[$pluginversionkey],
+            ]
+        ) . PHP_EOL;
         unset($props[$pluginversionkey]);
-        $report .= get_string('putpropertyour', $pluginfrankenstyle) . ' \'' . $pluginname . '\' ' .
-            get_string('putpropertyversion', $pluginfrankenstyle) . ' ' .
-            $currentprops[self::PROPS]['plugin_version']->value . '.' . PHP_EOL . PHP_EOL;
+        $report .= get_string('putpropertyour', $pluginfrankenstyle,
+            [
+                'name' => $pluginname,
+                'version' => $currentprops[self::PROPS]['plugin_version']->value,
+            ]
+        ) . PHP_EOL;
         unset($currentprops[self::PROPS][$pluginversionkey]);
+
+        // Report feature version if there.
+        if (array_key_exists('feature_version', $props)) {
+            $report .= get_string('putpropertyfeatureversion', $pluginfrankenstyle,
+                [
+                    'name' => $pluginname,
+                    'version' => $props['feature_version'],
+                ]
+            ) . PHP_EOL;
+            $propsfeatureversion = $currentprops[self::PROPS]['feature_version']->value;
+            unset($props['feature_version']);
+        } else {
+            // Does not exist, so check for all possible changes.
+            $propsfeatureversion = 0;
+        }
+        $report .= get_string('putpropertyourfeatureversion', $pluginfrankenstyle,
+            [
+                'name' => $pluginname,
+                'version' => $currentprops[self::PROPS]['feature_version']->value,
+            ]
+        ) . PHP_EOL . PHP_EOL;
+        unset($currentprops[self::PROPS]['feature_version']);
 
         // Pre-process files - using 'theme_adaptable_pluginfile' in lib.php as a reference.
         $filestoreport = '';
@@ -446,6 +1164,14 @@ class toolbox {
 
         // Need to ignore and report on any unknown settings.
         $report .= get_string('putpropertiessettingsreport', $pluginfrankenstyle) . PHP_EOL;
+
+        // Process any settings updates first.
+        $updated = '';
+        $updates = self::process_settings_name_updates($props, $pluginfrankenstyle, $propsfeatureversion);
+        foreach ($updates as $update) {
+            $updated .= $update . PHP_EOL;
+        }
+
         $changed = '';
         $unchanged = '';
         $added = '';
@@ -474,6 +1200,9 @@ class toolbox {
             }
         }
 
+        if (!empty($updated)) {
+            $report .= get_string('putpropertiesupdated', $pluginfrankenstyle) . PHP_EOL . $updated . PHP_EOL;
+        }
         if (!empty($changed)) {
             $report .= get_string('putpropertieschanged', $pluginfrankenstyle) . PHP_EOL . $changed . PHP_EOL;
         }
@@ -534,6 +1263,7 @@ class toolbox {
             // Navbar menu....
             '^toolsmenu[1-9][0-9]?title$|' .
             '^toolsmenu[1-9][0-9]?$|' .
+            '^toolsmenu[1-9][0-9]?icon$|' .
             // Ticker text....
             '^tickertext[1-9][0-9]?$|' .
             '^tickertext[1-9][0-9]?profilefield$' .
@@ -592,6 +1322,226 @@ class toolbox {
     }
 
     /**
+     * Process updates to settings based upon feature version.
+     * Note: Does not cope with file props!
+     *
+     * @param array $props Reference to the properties from the properties import.
+     * @param string $pluginfrankenstyle Frankenstyle name of the plugin.
+     * @param int $propsfeatureversion Feature version before upgrade / value in properties.
+     *
+     * @return array Of changes as localised strings.
+     */
+    public static function process_settings_name_updates(&$props, $pluginfrankenstyle, $propsfeatureversion) {
+        $upgrading = (empty($props));
+        $changes = [];
+        $changed = [];
+
+        // From and to = change, only from = remove and 'to' only will use setting default value.
+        if ($propsfeatureversion < 2025080200) {
+            // Changes in 2025080200.
+            $change = new stdClass();
+            $change->from = 'topmenufontsize';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'coursepageheaderhidesitetitle';
+            $change->to = 'coursepageheaderhidetitle';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'enableheading';
+            $change->to = 'enablecoursetitle';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'enablezoomshowtext';
+            $change->to = 'navbardisplaytitles';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'responsivecoursetitle';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'responsivesitetitle';
+            $change->to = 'responsiveheadertitle';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'jssection';
+            $change->to = 'customjs';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'jssectionrestricted';
+            $change->to = 'customjsrestricted';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'pageheaderheight';
+            $change->to = 'headermainrowminheight';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'dividingline';
+            $change->to = 'headertoprowdividingline';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'dividingline2';
+            $change->to = 'footerdividingline';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'headerbkcolor';
+            $change->to = 'headertoprowbkcolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'headertextcolor';
+            $change->to = 'headertoprowtextcolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'headerbkcolor2';
+            $change->to = 'headermainrowbkcolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'headertextcolor2';
+            $change->to = 'headermainrowtextcolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'responsiveheader';
+            $change->to = 'responsiveheader';
+            $change->convert = function ($value) {
+                return str_replace('block', 'flex', $value);
+            };
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'maincolor';
+            $change->to = 'maincolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'fontcolor';
+            $change->to = 'fontcolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'regionmaincolor';
+            $change->to = 'regionmaincolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'regionmaintextcolor';
+            $change->to = 'regionmaintextcolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'linkcolor';
+            $change->to = 'linkcolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'dimmedtextcolor';
+            $change->to = 'dimmedtextcolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'coursepageblocksliderenabled';
+            $change->to = 'coursepageblockinfoenabled';
+            $changes[] = $change;
+        }
+
+        if ((!empty($changes)) && ($upgrading)) {
+            $props = self::compile_properties($pluginfrankenstyle)[self::PROPS];
+        }
+
+        foreach ($changes as $change) {
+            if (array_key_exists($change->from, $props)) {
+                // Make the change.
+                if (!empty($change->to)) {
+                    // Replacement.
+                    if (!array_key_exists($change->to, $props)) {
+                        // Replacement not defined, make new to be the old value.
+                        if ($upgrading) {
+                            set_config($change->to, $props[$change->from], $pluginfrankenstyle);
+                        } else {
+                            // Set in properties as version will have this new setting and in effect
+                            // the property file is updating it, possibly.
+                            $props[$change->to] = $props[$change->from];
+                        }
+                        $changed[] = get_string('settingschangechanged', $pluginfrankenstyle,
+                            [
+                                'from' => $change->from,
+                                'to' => $change->to,
+                                'value' => $props[$change->from],
+                            ]
+                        );
+                    } else if (($change->from == $change->to) && (!empty($change->convert))) {
+                        // Existing variable conversion.
+                        $fromvalue = $props[$change->from];
+                        $tovalue = ($change->convert)($fromvalue);
+                        if ($fromvalue == $tovalue) {
+                            // No actual change!
+                            continue;
+                        }
+                        if ($upgrading) {
+                            set_config($change->to, $tovalue, $pluginfrankenstyle);
+                        } else {
+                            // Set in properties as version will have this new setting and in effect
+                            // the property file is updating it, possibly.
+                            $props[$change->to] = $tovalue;
+                        }
+                        $changed[] = get_string('settingschangevalue', $pluginfrankenstyle,
+                            [
+                                'from' => $change->from,
+                                'valuefrom' => $fromvalue,
+                                'valueto' => $tovalue,
+                            ]
+                        );
+                    } else {
+                        // Else replacement already defined, just remove old setting as new has superceded it.
+                        $changed[] = get_string('settingschangealreadydefined', $pluginfrankenstyle,
+                            [
+                                'from' => $change->from,
+                                'to' => $change->to,
+                                'fromvalue' => $props[$change->from],
+                                'tovalue' => $props[$change->to],
+                            ]
+                        );
+                    }
+                    if (!$upgrading) {
+                        if (!((!empty($change->to)) && ($change->from == $change->to))) {
+                            // Remove from properties so not shown as ignored, rather that it is reported in
+                            // 'changed / alreadydefined'.
+                            unset($props[$change->from]);
+                        } // Else is a change of value;
+                    }
+                } else if ($upgrading) { // Else deletion.
+                    $changed[] = get_string('settingschangedeleted', $pluginfrankenstyle,
+                        [
+                            'from' => $change->from,
+                            'value' => $props[$change->from],
+                        ]
+                    );
+                }
+                if ($upgrading) {
+                    if (!((!empty($change->to)) && ($change->from == $change->to))) {
+                        // Remove from, being the old.
+                        unset_config($change->from, $pluginfrankenstyle);
+                    } // Else is a change of value;
+                } // Else as no longer exists, then will be reported as 'Ignored'.
+            } // Else change does not appear in the properties file when importing or the database when upgrading.
+        }
+
+        return $changed;
+    }
+
+    /**
      * States if the Kaltura plugin is installed.
      * Ref: https://moodle.org/plugins/view.php?id=447
      *
@@ -618,16 +1568,50 @@ class toolbox {
     /**
      * Get the FontAwesome markup.
      *
-     * @param string $theicon Icon name.
-     * @param array $classes - Optional extra classes to add.
-     * @param array $attributes - Optional attributes to add.
+     * @param string $theicon Icon name or setting name containing the icon name.
+     * @param array $options - Array of named options:
+     *    'attributes' => Array - optional attributes to add.
+     *    'classes' => Array - optional extra classes to add.
+     *    'content' => String - optional content.
+     *    'modulerenderer' => core_renderer - If a core_renderer instance, get icon for module where the module name is in
+     *         $theicon.  Required for module name fallback.
+     *    'settingicondefault' => String - Indicates that the icon name is a setting and this is the
+     *         default icon to use if the setting value is empty.
+     *    'settingthemename' => String - Indicates the setting theme name to use.  If not stated then
+     *         will be 'adaptable'.  Use lower case, the bit after the underscore in the frankenstyle name.
+     *    'title' => String - optional title.
      * @param string $content - Optional content.
      *
      * @return string markup or empty string if no icon specified.
      */
-    public static function getfontawesomemarkup($theicon, $classes = [], $attributes = [], $content = '', $title = '') {
+    public static function getfontawesomemarkup($theicon, $options = []) {
+        $markup = '';
         if (!empty($theicon)) {
+            // Function 'extract' (https://www.php.net/manual/en/function.extract.php) is forbidden!
+            // So have our own similar functionality!
+            if (!empty($options['settingicondefault'])) { // Setting not icon.
+                $settingthemename = (empty($options['settingthemename'])) ? '' : $options['settingthemename'];
+                $theicon = self::get_setting($theicon, false, $settingthemename, $options['settingicondefault']);
+            }
             $theicon = trim($theicon);
+
+            if (!empty($options['modulerenderer'])) { // Module not icon.
+                $modname = $theicon;
+                $theicon = self::get_module_fa($theicon);
+                if (empty($theicon)) {
+                    // Return the rendered pix_icon 'monologo'.
+                    return $options['modulerenderer']->pix_icon(
+                        'monologo',
+                        get_string('pluginname', 'mod_' . $modname),
+                        $modname
+                    );
+                }
+            }
+
+            $attributes = (empty($options['attributes'])) ? [] : $options['attributes'];
+            $classes = (empty($options['classes'])) ? [] : $options['classes'];
+            $content = (empty($options['content'])) ? '' : $options['content'];
+
             if (mb_strpos($theicon, ' ') === false) { // No spaces, so find.
                 // Decide what to do if shims are enabled or not.
                 $fav = self::get_setting('fav');
@@ -647,14 +1631,69 @@ class toolbox {
                 // Spaces so full icon specified.
                 $classes[] = $theicon;
             }
+            $attributes['aria-hidden'] = 'true';
+            $classes[] = 'afaicon';
+            $classes[] = 'fa-fw';
+            $attributes['class'] = implode(' ', $classes);
+            if (!empty($title)) {
+                $attributes['title'] = $title;
+                $content .= html_writer::tag('span', $title, ['class' => 'visually-hidden']);
+            }
+            $markup = html_writer::tag('i', $content, $attributes);
         }
-        $attributes['aria-hidden'] = 'true';
-        $attributes['class'] = implode(' ', $classes);
-        if (!empty($title)) {
-            $attributes['title'] = $title;
-            $content .= html_writer::tag('span', $title, ['class' => 'visually-hidden']);
+        return $markup;
+    }
+
+    /**
+     * Get the Font Awesome icon classes from the module name.
+     *
+     * @param string $modulename The module name.
+     *
+     * @return string Icon css classes or empty if not found.
+     */
+    protected static function get_module_fa($modulename) {
+        $icon = '';
+
+        switch ($modulename) {
+            case 'assign':
+                $icon = 'fa-solid fa-file-pen';
+            break;
+            case 'choice':
+                $icon = 'fa-solid fa-arrows-split-up-and-left';
+            break;
+            case 'data':
+                $icon = 'fa-solid fa-database';
+            break;
+            case 'feedback':
+                $icon = 'fa-regular fa-comment-dots';
+            break;
+            case 'forum':
+                $icon = 'fa-solid fa-people-group';
+            break;
+            case 'glossary':
+                $icon = 'fa-solid fa-box-archive';
+            break;
+            case 'imscp':
+                $icon = 'fa-solid fa-box';
+            break;
+            case 'lesson':
+                $icon = 'fa-solid fa-chalkboard-user';
+            break;
+            case 'page':
+                $icon = 'fa-solid fa-file-lines';
+            break;
+            case 'quiz':
+                $icon = 'fa-solid fa-person-circle-question';
+            break;
+            case 'wiki':
+                $icon = 'fa-solid fa-circle-nodes';
+            break;
+            case 'workshop':
+                $icon = 'fa-solid fa-people-arrows';
+            break;
         }
-        return html_writer::tag('span', $content, $attributes);
+
+        return $icon;
     }
 
     /**

@@ -58,24 +58,10 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    $name = 'theme_adaptable/jssection';
-    $title = get_string('jssection', 'theme_adaptable');
-    $description = get_string('jssectiondesc', 'theme_adaptable');
-    $default = '';
-    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
-    $page->add($setting);
-
     // Section for custom JavaScript, restricted by profile field.
     $name = 'theme_adaptable/customjsrestricted';
     $title = get_string('customjsrestricted', 'theme_adaptable');
     $description = get_string('customjsrestricteddesc', 'theme_adaptable');
-    $default = '';
-    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
-    $page->add($setting);
-
-    $name = 'theme_adaptable/jssectionrestricted';
-    $title = get_string('jssectionrestricted', 'theme_adaptable');
-    $description = get_string('jssectionrestricteddesc', 'theme_adaptable');
     $default = '';
     $setting = new admin_setting_configtextarea($name, $title, $description, $default);
     $page->add($setting);

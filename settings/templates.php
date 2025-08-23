@@ -57,15 +57,6 @@ if ($ADMIN->fulltree) {
 
     $overridetemplates = get_config('theme_adaptable', 'templatessel');
     if ($overridetemplates) {
-        if (file_exists("{$CFG->dirroot}/theme/adaptable/settings/adaptable_admin_setting_configtemplate.php")) {
-            require_once($CFG->dirroot . '/theme/adaptable/settings/adaptable_admin_setting_configtemplate.php');
-        } else if (
-            !empty($CFG->themedir) &&
-            file_exists("{$CFG->themedir}/adaptable/settings/adaptable_admin_setting_configtemplate.php")
-        ) {
-            require_once($CFG->themedir . '/adaptable/settings/adaptable_admin_setting_configtemplate.php');
-        }
-
         $overridetemplates = explode(',', $overridetemplates);
         foreach ($overridetemplates as $overridetemplate) {
             $overridetemplatesetting = str_replace('/', '_', $overridetemplate);
@@ -88,7 +79,7 @@ if ($ADMIN->fulltree) {
             $title = get_string('overriddentemplate', 'theme_adaptable', $overridetemplate);
             $description = get_string('overriddentemplatedesc', 'theme_adaptable', $overridetemplate);
             $default = '';
-            $setting = new adaptable_admin_setting_configtemplate($name, $title, $description, $default, $overridetemplate);
+            $setting = new \theme_adaptable\admin_setting_configtemplate($name, $title, $description, $default, $overridetemplate);
             $temppage->add($setting);
 
             $asettings->add($temppage);

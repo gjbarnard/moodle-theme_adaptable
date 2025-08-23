@@ -78,14 +78,14 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/alertcount';
     $title = get_string('alertcount', 'theme_adaptable');
     $description = get_string('alertcountdesc', 'theme_adaptable');
-    $default = THEME_ADAPTABLE_DEFAULT_ALERTCOUNT;
+    $default = 1;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices0to12);
     $page->add($setting);
 
     $alertcount = get_config('theme_adaptable', 'alertcount');
     // If we don't have an an alertcount yet, default to the preset.
     if (!$alertcount) {
-        $alertcount = THEME_ADAPTABLE_DEFAULT_ALERTCOUNT;
+        $alertcount = $default;
     }
 
     for ($alertindex = 1; $alertindex <= $alertcount; $alertindex++) {
@@ -115,7 +115,7 @@ if ($ADMIN->fulltree) {
         $title = get_string('alerttext', 'theme_adaptable');
         $description = get_string('alerttextdesc', 'theme_adaptable');
         $default = '';
-        $setting = new adaptable_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
         $page->add($setting);
 
         // Alert Type.
@@ -187,7 +187,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/alerticoninfo';
     $title = get_string('alerticoninfo', 'theme_adaptable');
     $description = get_string('alerticoninfodesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free');
-    $setting = new admin_setting_configtext($name, $title, $description, 'info-circle');
+    $setting = new admin_setting_configtext($name, $title, $description, 'info-circle', PARAM_TEXT, '30');
     $page->add($setting);
 
     // Alert success colours.
@@ -218,7 +218,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/alerticonsuccess';
     $title = get_string('alerticonsuccess', 'theme_adaptable');
     $description = get_string('alerticonsuccessdesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free');
-    $setting = new admin_setting_configtext($name, $title, $description, 'bullhorn');
+    $setting = new admin_setting_configtext($name, $title, $description, 'bullhorn', PARAM_TEXT, '30');
     $page->add($setting);
 
     // Alert warning colours.
@@ -249,7 +249,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/alerticonwarning';
     $title = get_string('alerticonwarning', 'theme_adaptable');
     $description = get_string('alerticonwarningdesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free');
-    $setting = new admin_setting_configtext($name, $title, $description, 'exclamation-triangle');
+    $setting = new admin_setting_configtext($name, $title, $description, 'exclamation-triangle', PARAM_TEXT, '30');
     $page->add($setting);
 
     $asettings->add($page);

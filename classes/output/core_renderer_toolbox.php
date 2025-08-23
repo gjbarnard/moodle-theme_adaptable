@@ -36,8 +36,10 @@ use core\output\html_writer;
 use core\output\pix_icon;
 use core\url;
 use core_block\output\block_contents;
+use core_text;
 use custom_menu as core_custom_menu;
 use navigation_node;
+use theme_adaptable\toolbox;
 use stdClass;
 
 /**
@@ -116,38 +118,38 @@ trait core_renderer_toolbox {
            Icon in fifth param. */
         $usermenuitems = [];
         $usermenuitems[] = ['enablemy', 'link', false, new url('/my'), get_string('myhome'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('dashboard', ['me-1']), ];
+            toolbox::getfontawesomemarkup('dashboard'), ];
         $usermenuitems[] = ['enableprofile', 'link', false, new url('/user/profile.php'), get_string('viewprofile'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('user', ['me-1']), ];
+            toolbox::getfontawesomemarkup('user'), ];
         $usermenuitems[] = ['enableeditprofile', 'link', false, new url('/user/edit.php'), get_string('editmyprofile'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('cog', ['me-1']), ];
+            toolbox::getfontawesomemarkup('cog'), ];
         $usermenuitems[] = ['enableaccesstool', 'link', false, new url('/local/accessibilitytool/manage.php'),
             get_string('enableaccesstool', 'theme_adaptable'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('low-vision', ['me-1']), ];
+            toolbox::getfontawesomemarkup('low-vision'), ];
         $usermenuitems[] = ['enableprivatefiles', 'link', false, new url('/user/files.php'),
-            get_string('privatefiles', 'block_private_files'), \theme_adaptable\toolbox::getfontawesomemarkup('file', ['me-1']), ];
-        if (\theme_adaptable\toolbox::kalturaplugininstalled()) {
+            get_string('privatefiles', 'block_private_files'), toolbox::getfontawesomemarkup('file'), ];
+        if (toolbox::kalturaplugininstalled()) {
             $usermenuitems[] = [false, 'link', false, new url('/local/mymedia/mymedia.php'),
                 get_string('nav_mymedia', 'local_mymedia'), $this->pix_icon('my-media', '', 'local_mymedia'), ];
         }
         $usermenuitems[] = ['enablegrades', 'link', false, new url('/grade/report/overview/index.php'), get_string('grades'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('list-alt', ['me-1']), ];
+            toolbox::getfontawesomemarkup('list-alt'), ];
         $usermenuitems[] = ['enablebadges', 'link', false, new url('/badges/mybadges.php'), get_string('badges'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('certificate', ['me-1']), ];
+            toolbox::getfontawesomemarkup('certificate'), ];
         $usermenuitems[] = ['enablepref', 'link', '2015051100', new url('/user/preferences.php'), get_string('preferences'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('cog', ['me-1']), ];
+            toolbox::getfontawesomemarkup('cog'), ];
         $usermenuitems[] = ['enablenote', 'link', false, new url('/message/edit.php'), get_string('notifications'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('paper-plane', ['me-1']), ];
+            toolbox::getfontawesomemarkup('paper-plane'), ];
         $usermenuitems[] = [false, 'divider'];
         $usermenuitems[] = ['enableblog', 'link', false, new url('/blog/index.php'), get_string('enableblog', 'theme_adaptable'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('rss', ['me-1']), ];
+            toolbox::getfontawesomemarkup('rss'), ];
         $usermenuitems[] = ['enableposts', 'link', false, new url('/mod/forum/user.php'),
-            get_string('enableposts', 'theme_adaptable'), \theme_adaptable\toolbox::getfontawesomemarkup('commenting', ['me-1']), ];
+            get_string('enableposts', 'theme_adaptable'), toolbox::getfontawesomemarkup('commenting'), ];
         $usermenuitems[] = ['enablefeed', 'link', false, new url('/report/myfeedback/index.php'),
-            get_string('enablefeed', 'theme_adaptable'), \theme_adaptable\toolbox::getfontawesomemarkup('bullhorn', ['me-1']), ];
+            get_string('enablefeed', 'theme_adaptable'), toolbox::getfontawesomemarkup('bullhorn'), ];
         $usermenuitems[] = ['enablecalendar', 'link', false, new url('/calendar/view.php'),
             get_string('pluginname', 'block_calendar_month'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('calendar', ['me-1']), ];
+            toolbox::getfontawesomemarkup('calendar'), ];
 
         // Custom user menu items postion.
         $usermenuitems[] = [false, 'user'];
@@ -158,19 +160,19 @@ trait core_renderer_toolbox {
             $url = new url('/course/switchrole.php', ['id' => $COURSE->id, 'sesskey' => sesskey(),
             'switchrole' => '0', 'returnurl' => $returnurl]);
             $usermenuitems[] = [false, 'link', false, $url, get_string('switchrolereturn'),
-                \theme_adaptable\toolbox::getfontawesomemarkup('user-o', ['me-1']), ];
+                toolbox::getfontawesomemarkup('user-o'), ];
         } else {
             $context = context_course::instance($COURSE->id);
             if (has_capability('moodle/role:switchroles', $context)) {
                 $returnurl = $this->page->url->out_as_local_url(false);
                 $url = new url('/course/switchrole.php', ['id' => $COURSE->id, 'switchrole' => '-1', 'returnurl' => $returnurl]);
                 $usermenuitems[] = [false, 'link', false, $url, get_string('switchroleto'),
-                    \theme_adaptable\toolbox::getfontawesomemarkup('user-o', ['me-1']), ];
+                    toolbox::getfontawesomemarkup('user-o'), ];
             }
         }
 
         $usermenuitems[] = [false, 'link', false, new url('/login/logout.php', ['sesskey' => sesskey()]), get_string('logout'),
-            \theme_adaptable\toolbox::getfontawesomemarkup('sign-out', ['me-1']), ];
+            toolbox::getfontawesomemarkup('sign-out'), ];
 
         foreach ($usermenuitems as $usermenuitem) {
             switch($usermenuitem[1]) {
@@ -288,7 +290,7 @@ trait core_renderer_toolbox {
             // Font Awesome processing.
             if (array_key_exists(2, $bits)) {
                 $fa = trim($bits[2]);
-                $child->title = \theme_adaptable\toolbox::getfontawesomemarkup($fa, ['me-1']) . $child->title;
+                $child->title = toolbox::getfontawesomemarkup($fa) . $child->title;
             }
 
             // Add this child to the list of children.
@@ -335,7 +337,7 @@ trait core_renderer_toolbox {
         }
 
         // Adaptable modified.
-        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $themesettings = toolbox::get_settings();
 
         $avatarclasses = "avatars";
         $userpic = $this->user_picture($user, ['link' => false, 'visibletoscreenreaders' => false,
@@ -630,14 +632,13 @@ trait core_renderer_toolbox {
 
         $context = $this->page->context;
         if (
-            ($this->page->pagelayout !== 'incourse' && $this->page->pagelayout !== 'frametop')
-            || $context->contextlevel != CONTEXT_MODULE
-        ) {
-            return '';
-        }
-
-        // If the activity is in stealth mode, show no links.
-        if ($this->page->cm->is_stealth()) {
+            (
+                ($this->page->pagelayout !== 'incourse' && $this->page->pagelayout !== 'frametop')
+                || $context->contextlevel != CONTEXT_MODULE
+            )
+            ||
+            ($this->page->cm->is_stealth()) // If the activity is in stealth mode, show no links.
+         ) {
             return '';
         }
 
@@ -675,9 +676,7 @@ trait core_renderer_toolbox {
 
         // If there is only one mod then do nothing.
         if ($nummods == 1) {
-            $data = new stdClass;
-            $data->nonav = true;
-            return $data;
+            return '';
         }
 
         // Get an array of just the course module ids used to get the cmid value based on their position in the course.
@@ -715,7 +714,10 @@ trait core_renderer_toolbox {
     public function activity_navigation() {
         $data = $this->create_activity_navigation();
 
-        return $this->render_from_template('theme_adaptable/core_course/activity_navigation', $data);
+        if (!empty($data)) {
+            return $this->render_from_template('theme_adaptable/core_course/activity_navigation', $data);
+        }
+        return '';
     }
 
     /**
@@ -735,10 +737,10 @@ trait core_renderer_toolbox {
      */
     public function get_alert_messages() {
         $markup = '';
-        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        $localtoolbox = toolbox::get_local_toolbox();
 
         if (is_object($localtoolbox)) {
-            $themesettings = \theme_adaptable\toolbox::get_settings();
+            $themesettings = toolbox::get_settings();
             $markup = $localtoolbox->get_alert_messages($themesettings, $this->page, $this);
         }
 
@@ -752,10 +754,10 @@ trait core_renderer_toolbox {
      */
     public function get_course_alerts() {
         $markup = '';
-        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        $localtoolbox = toolbox::get_local_toolbox();
 
         if (is_object($localtoolbox)) {
-            $themesettings = \theme_adaptable\toolbox::get_settings();
+            $themesettings = toolbox::get_settings();
             $markup = $localtoolbox->get_course_alerts($themesettings, $this->page, $this);
         }
 
@@ -769,10 +771,10 @@ trait core_renderer_toolbox {
      */
     public function get_all_tracking_methods() {
         $markup = '';
-        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        $localtoolbox = toolbox::get_local_toolbox();
 
         if (is_object($localtoolbox)) {
-            $themesettings = \theme_adaptable\toolbox::get_settings();
+            $themesettings = toolbox::get_settings();
             $markup = $localtoolbox->get_all_tracking_methods($themesettings, $this->page, $this);
         }
 
@@ -802,15 +804,15 @@ trait core_renderer_toolbox {
             $title = get_string('turneditingon');
             $icon = 'fa-edit';
         }
-        $editingtext = \theme_adaptable\toolbox::get_setting('displayeditingbuttontext');
+        $editingtext = toolbox::get_setting('displayeditingbuttontext');
         $buttontitle = '';
         if ($editingtext) {
             $buttontitle = $title;
         } else {
             $icon .= ' only';
         }
-        // Font Awesome 6 -> fa-fw and 7 -> fa-width-auto.
-        return html_writer::tag('a', html_writer::tag('i', '', ['class' => $icon . ' fa fa-fw fa-width-auto']) .
+
+        return html_writer::tag('a', html_writer::tag('i', '', ['class' => $icon . ' fa']) .
             $buttontitle, ['href' => $url, 'class' => 'btn ' . $btn, 'title' => $title]);
     }
 
@@ -842,7 +844,7 @@ trait core_renderer_toolbox {
                 $message->smallmessage = html_to_text($message->smallmessage);
             }
             if (strlen($message->smallmessage) > 18) {
-                $messagecontent->text = \core_text::substr($message->smallmessage, 0, 15) . '...';
+                $messagecontent->text = core_text::substr($message->smallmessage, 0, 15) . '...';
             } else {
                 $messagecontent->text = $message->smallmessage;
             }
@@ -863,12 +865,12 @@ trait core_renderer_toolbox {
      * @return string
      */
     public function socialicons() {
-        $socialiconlist = \theme_adaptable\toolbox::get_setting('socialiconlist');
+        $socialiconlist = toolbox::get_setting('socialiconlist');
         if (empty($socialiconlist)) {
             return '';
         }
 
-        $target = \theme_adaptable\toolbox::get_setting('socialtarget', false, null, '_blank');
+        $target = toolbox::get_setting('socialtarget', false, null, '_blank');
 
         $retval = '';
         $lines = explode("\n", $socialiconlist);
@@ -877,7 +879,7 @@ trait core_renderer_toolbox {
             if (strstr($line, '|')) {
                 $fields = explode('|', $line);
                 $retval .= '<a target="' . $target . '" title="' . $fields[1] . '" href="' . $fields[0] . '">';
-                $retval .= \theme_adaptable\toolbox::getfontawesomemarkup($fields[2]);
+                $retval .= toolbox::getfontawesomemarkup($fields[2]);
                 $retval .= '</a>';
             }
         }
@@ -893,10 +895,10 @@ trait core_renderer_toolbox {
      */
     public function get_news_ticker() {
         $retval = '';
-        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        $localtoolbox = toolbox::get_local_toolbox();
 
         if (is_object($localtoolbox)) {
-            $themesettings = \theme_adaptable\toolbox::get_settings();
+            $themesettings = toolbox::get_settings();
             $retval = $localtoolbox->get_news_ticker($themesettings, $this->page, $this);
         }
 
@@ -930,20 +932,20 @@ trait core_renderer_toolbox {
             $fields[] = $customrowsetting;
         } else {
             for ($i = 1; $i <= 5; $i++) {
-                $marketrow = $settingsname . $i;
+                $row = $settingsname . $i;
 
                 /* Need to check if the setting exists as this function is now
                    called for variable row numbers in block regions (e.g. course page
                    which is a single row of block regions). */
 
-                if (isset($this->page->theme->settings->$marketrow)) {
-                    $marketrow = $this->page->theme->settings->$marketrow;
+                if (isset($this->page->theme->settings->$row)) {
+                    $row = $this->page->theme->settings->$row;
                 } else {
-                    $marketrow = '0-0-0-0';
+                    $row = '0-0-0-0';
                 }
 
-                if ($marketrow != '0-0-0-0') {
-                    $fields[] = $marketrow;
+                if ($row != '0-0-0-0') {
+                    $fields[] = $row;
                 }
             }
         }
@@ -1045,7 +1047,7 @@ trait core_renderer_toolbox {
     protected function block_region_title($region, $editing = true) {
         $title = '';
 
-        $shown = (($editing && \theme_adaptable\toolbox::get_setting('blockregioneditingtitleshown')) || (!$editing));
+        $shown = (($editing && toolbox::get_setting('blockregioneditingtitleshown')) || (!$editing));
         if ($shown) {
             $title = html_writer::tag(
                 'p',
@@ -1073,7 +1075,7 @@ trait core_renderer_toolbox {
         $classes = [],
         $tag = 'aside') {
         $editing = $this->page->user_is_editing();
-        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $themesettings = toolbox::get_settings();
 
         if (!$editing) {
             $visiblestate = 3;
@@ -1231,7 +1233,7 @@ trait core_renderer_toolbox {
      * @return string Markup.
      */
     public function get_marketing_blocks($layoutrow = 'marketlayoutrow', $settingname = 'market') {
-        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $themesettings = toolbox::get_settings();
         $visiblestate = 3;
         if (!empty($themesettings->marketingvisible)) {
             $visiblestate = $themesettings->marketingvisible;
@@ -1276,7 +1278,7 @@ trait core_renderer_toolbox {
                     $fieldname = $settingname . $blockcount;
                     if (isset($themesettings->$fieldname)) {
                         // Add HTML format.
-                        $retval .= \theme_adaptable\toolbox::get_setting($fieldname, 'format_moodle');
+                        $retval .= toolbox::get_setting($fieldname, 'format_moodle');
                     }
                     $retval .= '</div>';
                 }
@@ -1349,10 +1351,10 @@ trait core_renderer_toolbox {
                         $output .= '<div class="left-col col-' . $val . '">';
                         if (!empty($this->page->theme->settings->$footerheader)) {
                             $output .= '<h3>';
-                            $output .= \theme_adaptable\toolbox::get_setting($footerheader, 'format_html');
+                            $output .= toolbox::get_setting($footerheader, 'format_html');
                             $output .= '</h3>';
                         }
-                        $output .= \theme_adaptable\toolbox::get_setting($footercontent, 'format_html');
+                        $output .= toolbox::get_setting($footercontent, 'format_html');
                         $output .= '</div>';
                     }
                 }
@@ -1360,10 +1362,36 @@ trait core_renderer_toolbox {
             $output .= '</div>';
         }
         if (!empty($output)) {
-            $output = '<div class="container blockplace1">' . $output . '</div>';
+            $output = '<div class="container">' . $output . '</div>';
         }
 
         return $output;
+    }
+
+    /**
+     * Returns course-specific information to be output on any course page in the footer area
+     * (for the current course)
+     *
+     * @return string The markup.
+     */
+    public function course_footer() {
+        $coursefooter = parent::course_footer();
+
+        if (!empty($coursefooter)) {
+            $coursefooter = html_writer::tag('div',
+                html_writer::tag('div',
+                    html_writer::tag(
+                        'div',
+                        $coursefooter,
+                        ['id' => 'course-footer', 'class' => 'col-12']
+                    ),
+                    ['class' => 'row']
+                ),
+                ['class' => 'container']
+            );
+        }
+
+        return $coursefooter;
     }
 
     /**
@@ -1442,7 +1470,7 @@ trait core_renderer_toolbox {
 
                 if (!empty($this->page->theme->settings->$slidercaption)) {
                     $retval .= '<div class="flex-caption">';
-                    $retval .= \theme_adaptable\toolbox::get_setting($slidercaption, 'format_html');
+                    $retval .= toolbox::get_setting($slidercaption, 'format_html');
                     $retval .= '</div>';
                 }
                 $retval .= $closelink . '</li>';
@@ -1453,7 +1481,7 @@ trait core_renderer_toolbox {
     }
 
     /**
-     * Renders the breadcrumb navbar.
+     * Renders the navbar.
      *
      * @return string Markup or empty string if 'nonavbar' for the given page layout in the config.php file is true.
      */
@@ -1486,11 +1514,12 @@ trait core_renderer_toolbox {
                     }
 
                     $coursetitlemaxwidth = (!empty($this->page->theme->settings->coursetitlemaxwidth)
-                        ? $this->page->theme->settings->coursetitlemaxwidth : 0);
+                        ? $this->page->theme->settings->coursetitlemaxwidth : 20);
+                    toolbox::validate_setting('coursetitlemaxwidth', 'theme_adaptable', $coursetitlemaxwidth, PARAM_INT);
                     // Check max width of course title and trim if appropriate.
                     if (($coursetitlemaxwidth > 0) && ($coursetitle <> '')) {
                         if (strlen($coursetitle) > $coursetitlemaxwidth) {
-                            $coursetitle = \core_text::substr($coursetitle, 0, $coursetitlemaxwidth) . " ...";
+                            $coursetitle = core_text::substr($coursetitle, 0, $coursetitlemaxwidth) . " ...";
                         }
                     }
 
@@ -1541,26 +1570,26 @@ trait core_renderer_toolbox {
             return '';
         }
 
-        $breadcrumbs = "";
-        $breadcrumbseparator = "";
+        $breadcrumbs = '';
+        $breadcrumbseparator = '';
 
         $start = true;
         $first = false; // First item shown?
         foreach ($items as $item) {
             // Text / Icon / Off home.
             if ($start) {
-                $breadcrumbhome = \theme_adaptable\toolbox::get_setting('breadcrumbhome');
+                $breadcrumbhome = toolbox::get_setting('breadcrumbhome');
                 if ($breadcrumbhome != 'off') {
                     $breadcrumbs .= html_writer::start_tag('li');
                     $homestring = get_string('home', 'theme_adaptable');
                     if ($breadcrumbhome == 'icon') {
                         // Adds in a title for accessibility purposes.
-                        $homestring = \theme_adaptable\toolbox::getfontawesomemarkup(
+                        $homestring = toolbox::getfontawesomemarkup(
                             'home',
-                            ['fa-lg'],
-                            [],
-                            '',
-                            $homestring
+                            [
+                                'classes' => ['fa-lg'],
+                                'title' => $homestring,
+                            ]
                         );
                     }
                     $breadcrumbs .= html_writer::link(new url('/'), $homestring) . html_writer::end_tag('li');
@@ -1570,11 +1599,15 @@ trait core_renderer_toolbox {
                 continue; // This effectively removes the 'core' Home / Dashboard / User preference for such item.
             }
             if ($first) {
-                $breadcrumbseparator =
-                \theme_adaptable\toolbox::getfontawesomemarkup(
-                    \theme_adaptable\toolbox::get_setting('breadcrumbseparator'),
-                    ['separator']
-                );
+                if (empty($breadcrumbseparator)) { // Only get once!
+                    $breadcrumbseparator = toolbox::getfontawesomemarkup(
+                        'breadcrumbseparator',
+                        [
+                            'classes' => ['separator'],
+                            'settingicondefault' => 'angle-right',
+                        ]
+                    );
+                }
             } else {
                 $first = true;
             }
@@ -1582,7 +1615,7 @@ trait core_renderer_toolbox {
         }
 
         $breadcrumbclasses = 'breadcrumb align-items-center';
-        $responsivebreadcrumbclasses = \theme_adaptable\toolbox::get_setting('responsivebreadcrumb');
+        $responsivebreadcrumbclasses = toolbox::get_setting('responsivebreadcrumb');
         if (!empty($responsivebreadcrumbclasses)) {
             $breadcrumbclasses .= ' ' . $responsivebreadcrumbclasses;
         }
@@ -1621,9 +1654,9 @@ trait core_renderer_toolbox {
     public function page_heading_menu() {
         $retr = parent::page_heading_menu();
 
-        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        $localtoolbox = toolbox::get_local_toolbox();
         if (is_object($localtoolbox)) {
-            $themesettings = \theme_adaptable\toolbox::get_settings();
+            $themesettings = toolbox::get_settings();
             $retr = $localtoolbox->get_user_settings($themesettings, $this->page, $this).$retr;
         }
         return $retr;
@@ -1640,7 +1673,7 @@ trait core_renderer_toolbox {
 
         $access = true;
 
-        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $themesettings = toolbox::get_settings();
         list($navbardisplayicons, $navbardisplaytitles) = $this->navbar_display($themesettings);
 
         $branchsort = 9998;
@@ -1650,7 +1683,7 @@ trait core_renderer_toolbox {
                 $branchlabel = '';
                 $branchtitle = get_string('home', 'theme_adaptable');
                 if ($navbardisplayicons) {
-                    $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('home', ['fa-lg', 'me-1']);
+                    $branchlabel .= toolbox::getfontawesomemarkup('home', ['classes' => ['fa-lg']]);
                 }
                 if ($navbardisplaytitles) {
                     $branchlabel .= '<span class="menutitle">' . $branchtitle . '</span>';
@@ -1668,7 +1701,7 @@ trait core_renderer_toolbox {
                 $branchlabel = '';
                 $branchtitle = get_string('myhome');
                 if ($navbardisplayicons) {
-                    $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('dashboard', ['fa-lg', 'me-1']);
+                    $branchlabel .= toolbox::getfontawesomemarkup('dashboard', ['classes' => ['fa-lg']]);
                 }
                 if ($navbardisplaytitles) {
                     $branchlabel .= '<span class="menutitle">' . $branchtitle . '</span>';
@@ -1682,7 +1715,7 @@ trait core_renderer_toolbox {
                 $branchlabel = '';
                 $branchtitle = get_string('courses');
                 if ($navbardisplayicons) {
-                    $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('th', ['fa-lg', 'me-1']);
+                    $branchlabel .= toolbox::getfontawesomemarkup('th', ['classes' => ['fa-lg']]);
                 }
                 if ($navbardisplaytitles) {
                     $branchlabel .= '<span class="menutitle">' . $branchtitle . '</span>';
@@ -1696,7 +1729,7 @@ trait core_renderer_toolbox {
                 $branchlabel = '';
                 $branchtitle = get_string('events', 'theme_adaptable');
                 if ($navbardisplayicons) {
-                    $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('calendar', ['fa-lg', 'me-1']);
+                    $branchlabel .= toolbox::getfontawesomemarkup('calendar', ['classes' => ['fa-lg']]);
                 }
                 if ($navbardisplaytitles) {
                     $branchlabel .= '<span class="menutitle">' . $branchtitle . '</span>';
@@ -1707,7 +1740,7 @@ trait core_renderer_toolbox {
                 $branch = $menu->add($branchlabel, $branchurl, $branchtitle, $branchsort);
             }
 
-            $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+            $localtoolbox = toolbox::get_local_toolbox();
             if (is_object($localtoolbox)) {
                 $localtoolbox->get_mycourses(
                     $menu,
@@ -1724,7 +1757,7 @@ trait core_renderer_toolbox {
                     $branchlabel = '';
                     if ($navbardisplayicons) {
                         $branchlabel .=
-                            \theme_adaptable\toolbox::getfontawesomemarkup('sitemap', ['me-1', 'fa-lg']);
+                            toolbox::getfontawesomemarkup('sitemap', ['classes' => ['fa-lg']]);
                     }
                     if ($navbardisplaytitles) {
                         $branchlabel .= '<span class="menutitle">' . $branchtitle . '</span>';
@@ -1743,12 +1776,11 @@ trait core_renderer_toolbox {
                     $branchmenusort = 10000;
                     if ($themesettings->displayparticipants) {
                         $branchtitle = get_string('people', 'theme_adaptable');
-                        $branchlabel = \theme_adaptable\toolbox::getfontawesomemarkup(
+                        $branchlabel = toolbox::getfontawesomemarkup(
                             'users',
-                            ['icon', 'me-1'],
-                            [],
-                            '',
-                            $branchtitle
+                            [
+                                'title' => $branchtitle,
+                            ]
                         );
                         $branchlabel .= '<span class="menutitle">' . $branchtitle . '</span>';
                         $branchurl = new url('/user/index.php', ['id' => $this->page->course->id]);
@@ -1758,7 +1790,7 @@ trait core_renderer_toolbox {
                     // Display Grades.
                     if ($themesettings->displaygrades) {
                         $branchtitle = get_string('grades');
-                        $branchlabel = $this->pix_icon('i/grades', $branchtitle, '');
+                        $branchlabel = $this->pix_icon('i/grades', $branchtitle);
                         $branchlabel .= '<span class="menutitle">' . $branchtitle . '</span>';
                         $branchurl = new url('/grade/report/index.php', ['id' => $this->page->course->id]);
                         $branchmenusort++;
@@ -1766,7 +1798,7 @@ trait core_renderer_toolbox {
                     }
 
                     // Kaltura video gallery.
-                    if (\theme_adaptable\toolbox::kalturaplugininstalled()) {
+                    if (toolbox::kalturaplugininstalled()) {
                         $branchtitle = get_string('nav_mediagallery', 'local_kalturamediagallery');
                         $branchlabel = $this->pix_icon('media-gallery', $branchtitle, 'local_kalturamediagallery');
                         $branchlabel .= '<span class="menutitle">' . $branchtitle . '</span>';
@@ -1794,12 +1826,18 @@ trait core_renderer_toolbox {
                     }
 
                     // Display activities.
-                    $data = theme_adaptable_get_course_activities();
+                    $data = $this->get_course_activities();
                     foreach ($data as $modname => $modfullname) {
                         $branchmenusort++;
                         $branchlabel = '';
                         if ($modname === 'resources') {
-                            $branchlabel .= $this->pix_icon('monologo', get_string('pluginname', 'mod_page'), 'mod_page');
+                            $branchlabel .= toolbox::getfontawesomemarkup(
+                                'page',
+                                [
+                                    'modulerenderer' => $this,
+                                    'title' => $modfullname,
+                                ]
+                            );
                             $branchlabel .= '<span class="menutitle">' . $modfullname . '</span>';
                             $branch->add(
                                 $branchlabel,
@@ -1808,7 +1846,13 @@ trait core_renderer_toolbox {
                                 $branchmenusort
                             );
                         } else {
-                            $branchlabel .= $this->pix_icon('monologo', get_string('pluginname', 'mod_' . $modname), $modname);
+                            $branchlabel .= toolbox::getfontawesomemarkup(
+                                $modname,
+                                [
+                                    'modulerenderer' => $this,
+                                    'title' => $modfullname,
+                                ]
+                            );
                             $branchlabel .= '<span class="menutitle">' . $modfullname . '</span>';
                             $branch->add(
                                 $branchlabel,
@@ -1823,7 +1867,7 @@ trait core_renderer_toolbox {
         }
 
         if ($navbardisplayicons) {
-            $helpicon = \theme_adaptable\toolbox::getfontawesomemarkup('life-ring', ['fa-lg']);
+            $helpicon = toolbox::getfontawesomemarkup('life-ring', ['classes' => ['fa-lg']]);
         } else {
             $helpicon = '';
         }
@@ -1869,13 +1913,13 @@ trait core_renderer_toolbox {
         // Custom menu.
         if ((!empty($CFG->custommenuitems)) &&
             (empty($themesettings->disablecustommenu))) {
-            $custommenutitle = \theme_adaptable\toolbox::get_setting('custommenutitle', 'format_plain');
+            $custommenutitle = toolbox::get_setting('custommenutitle', 'format_plain');
             $branch = null;
             if (!empty($custommenutitle)) {
                 $branchlabel = '';
                 $branchtitle = $custommenutitle;
                 if ($navbardisplayicons) {
-                    $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup('ellipsis', ['me-1', 'fa-lg']);
+                    $branchlabel .= toolbox::getfontawesomemarkup('ellipsis', ['classes' => ['fa-lg']]);
                 }
                 if ($navbardisplaytitles) {
                     $branchlabel .= '<span class="menutitle">' . $branchtitle . '</span>';
@@ -1887,6 +1931,16 @@ trait core_renderer_toolbox {
             }
 
             $menu->add_custom_menu_items($CFG->custommenuitems, current_language(), $branch);
+        }
+
+        // Favourites menu.
+        foreach ($this->userfav_menu_items() as $userfavmenuitem) {
+            $menu->add_custom_menu_items($userfavmenuitem, current_language());
+        }
+
+        // Tools menu.
+        foreach ($this->tools_menu_items() as $toolsmenuitem) {
+            $menu->add_custom_menu_items($toolsmenuitem, current_language());
         }
 
         return $menu;
@@ -1946,12 +2000,12 @@ trait core_renderer_toolbox {
         if (!empty($sectionsformnenu)) { // Rare but possible!
             $branchtitle = get_string('sections', 'theme_adaptable');
             $branchlabel = '';
-            $branchlabel .= \theme_adaptable\toolbox::getfontawesomemarkup(
+            $branchlabel .= toolbox::getfontawesomemarkup(
                 'list-ol',
-                ['icon', 'fa-lg'],
-                [],
-                '',
-                $branchtitle
+                [
+                    'classes' => ['icon', 'fa-lg'],
+                    'title' => $branchtitle,
+                ]
             );
             $branchlabel .= '<span class="menutitle">' . $branchtitle . '</span>';
             $branch = $menu->add($branchlabel, null, $branchtitle, 100003);
@@ -1983,18 +2037,18 @@ trait core_renderer_toolbox {
 
     /**
      * Returns html to render user favourites menu on the main navigation bar.
+     * @deprecated Replaced by userfav_menu_items().
      *
      * @param string $menuid The id to use when creating menu.  Used so this could be called for a nav drawer style display.
      *
-     *
-     * @return string
+     * @return string Markup.
      */
     public function userfav_menu() {
         $retval = '';
-        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        $localtoolbox = toolbox::get_local_toolbox();
 
         if (is_object($localtoolbox)) {
-            $themesettings = \theme_adaptable\toolbox::get_settings();
+            $themesettings = toolbox::get_settings();
             $retval = $localtoolbox->userfav_menu($themesettings, $this->page, $this);
         }
 
@@ -2002,20 +2056,54 @@ trait core_renderer_toolbox {
     }
 
     /**
+     * Returns array of custom menu items for the user favourites menu(s).
+     *
+     * @return array Of custom menu items.
+     */
+    public function userfav_menu_items() {
+        $retval = '';
+        $localtoolbox = toolbox::get_local_toolbox();
+
+        if (is_object($localtoolbox)) {
+            $themesettings = toolbox::get_settings();
+            $retval = $localtoolbox->userfav_menu_items($themesettings, $this->page, $this);
+        }
+
+        return $retval;
+    }
+
+    /**
      * Returns html to render tools menu on the main navigation bar.
+     * @deprecated Replaced by tools_menu_items().
      *
      * @param string $menuid The id to use when creating menu.  Used so this could be called for a nav drawer style display.
      *
-     *
-     * @return string
+     * @return string Markup.
      */
     public function tools_menu($menuid = '') {
         $retval = '';
-        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        $localtoolbox = toolbox::get_local_toolbox();
 
         if (is_object($localtoolbox)) {
-            $themesettings = \theme_adaptable\toolbox::get_settings();
+            $themesettings = toolbox::get_settings();
             $retval = $localtoolbox->tools_menu($themesettings, $this->page, $this, $menuid);
+        }
+
+        return $retval;
+    }
+
+    /**
+     * Returns array of custom menu items for the tools menu(s).
+     *
+     * @return array Of custom menu items.
+     */
+    protected function tools_menu_items() {
+        $retval = [];
+        $localtoolbox = toolbox::get_local_toolbox();
+
+        if (is_object($localtoolbox)) {
+            $themesettings = toolbox::get_settings();
+            $retval = $localtoolbox->tools_menu_items($themesettings, $this->page, $this);
         }
 
         return $retval;
@@ -2034,7 +2122,7 @@ trait core_renderer_toolbox {
 
         $logosetarea = '';
 
-        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        $localtoolbox = toolbox::get_local_toolbox();
         if (is_object($localtoolbox)) {
             $logosetarea = $localtoolbox->get_logo($currenttopcat, $logosetarea, $this->page->theme->settings);
         }
@@ -2049,7 +2137,7 @@ trait core_renderer_toolbox {
                 $this->page->theme->settings->responsivelogo;
             $logomarkup = '<div class="pb-2 pe-3 pt-2 bd-highlight' . $responsivelogo . '">';
             $logo = '<img src=' . $this->page->theme->setting_file_url($logosetarea, $logosetarea) . ' id="logo"';
-            $logo .= ' alt="' . \theme_adaptable\toolbox::get_setting('logoalt', true) . '">';
+            $logo .= ' alt="' . toolbox::get_setting('logoalt', true) . '">';
 
             if ($shownavbar) {
                 // Logo is not a link to site homepage when there is a navbar.
@@ -2074,14 +2162,14 @@ trait core_renderer_toolbox {
      * @return string Markup.
      */
     public function get_title($currenttopcat) {
-        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $themesettings = toolbox::get_settings();
 
         $titlemarkup = '';
         $categoryheadercustomtitle = '';
 
         // If course id is not the site id then we display course title.
         if ($this->page->course->id != SITEID) {
-            $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+            $localtoolbox = toolbox::get_local_toolbox();
             if (is_object($localtoolbox)) {
                 $categoryheadercustomtitle = $localtoolbox->get_title($currenttopcat, $categoryheadercustomtitle, $themesettings);
             }
@@ -2133,7 +2221,7 @@ trait core_renderer_toolbox {
         global $SITE;
 
         $sitetitle = '';
-        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $themesettings = toolbox::get_settings();
 
         switch ($themesettings->sitetitle) {
             case 'default':
@@ -2166,7 +2254,7 @@ trait core_renderer_toolbox {
         global $COURSE;
 
         $coursetitle = '';
-        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $themesettings = toolbox::get_settings();
 
         switch ($themesettings->enablecoursetitle) {
             case 'fullname':
@@ -2184,12 +2272,14 @@ trait core_renderer_toolbox {
             // Pre-process to avoid any filter issue.
             $coursetitle = format_string($coursetitle);
 
+            // Twenty is default.
             $coursetitlemaxwidth =
-                (!empty($themesettings->coursetitlemaxwidth) ? $themesettings->coursetitlemaxwidth : 0);
+                (!empty($themesettings->coursetitlemaxwidth) ? $themesettings->coursetitlemaxwidth : 20);
+            toolbox::validate_setting('coursetitlemaxwidth', 'theme_adaptable', $coursetitlemaxwidth, PARAM_INT);
             // Check max width of course title and trim if appropriate.
             if (($coursetitlemaxwidth > 0) && ($coursetitle <> '')) {
-                if (\core_text::strlen($coursetitle) > $coursetitlemaxwidth) {
-                    $coursetitle = \core_text::substr($coursetitle, 0, $coursetitlemaxwidth) . " ...";
+                if (core_text::strlen($coursetitle) > $coursetitlemaxwidth) {
+                    $coursetitle = core_text::substr($coursetitle, 0, $coursetitlemaxwidth) . " ...";
                 }
             }
         }
@@ -2225,7 +2315,7 @@ trait core_renderer_toolbox {
         $menus = [];
         $visibility = true;
         $nummenus = 0;
-        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $themesettings = toolbox::get_settings();
 
         if (!empty($themesettings->menuuseroverride)) {
             $visibility = $this->check_menu_user_visibility();
@@ -2477,17 +2567,17 @@ trait core_renderer_toolbox {
      * @param string $menu
      * @param string $label
      * @param string $title
-     * @param string $class
+     * @param string $open
      * @param string $close
      *
      * @return string
      */
-    public function parse_custom_menu($menu, $label, $title, $class = '', $close = '') {
+    public function parse_custom_menu($menu, $label, $title, $open = '', $close = '') {
 
         /* Top level menu option.  No URL added after $close (previously was #).
            Done to fix current jquery / Bootstrap version incompatibility with using #
            in target URLS. Ref: Issue 617 on Adaptable theme issues on Bitbucket. */
-        $custommenuitems = $class . $label . $close . "||" . $title . "\n";
+        $custommenuitems = $open . $label . $close . "||" . $title . "\n";
         $arr = explode("\n", $menu);
         $arrkeys = array_keys($arr);
 
@@ -2524,7 +2614,6 @@ trait core_renderer_toolbox {
      */
     public function lang_menu($showtext = true) {
         global $CFG;
-        $langmenu = new custom_menu();
 
         $addlangmenu = true;
         $langs = get_string_manager()->get_list_of_translations();
@@ -2533,21 +2622,29 @@ trait core_renderer_toolbox {
         }
 
         if ($addlangmenu) {
+            $langmenu = new custom_menu();
             $strlang = get_string('language');
-            $currentlang = current_language();
 
-            if (isset($langs[$currentlang])) {
-                $currentlang = $langs[$currentlang];
-            } else {
-                $currentlang = $strlang;
+            $langmenuclasses = [];
+
+            $currentlang = '';
+            if ($showtext) {
+                $currentlang = current_language();
+
+                if (isset($langs[$currentlang])) {
+                    $currentlang = $langs[$currentlang];
+                } else {
+                    $currentlang = $strlang;
+                }
+                $langmenuclasses[] = 'ms-1';
             }
 
-            if ($showtext != true) {
-                $currentlang = '';
-            }
+            $langmenuclasses[] = 'langdesc';
 
+            $langmenumarkup = toolbox::getfontawesomemarkup('globe', ['classes' => ['fa-lg']]) .
+                '<span class="'. implode(' ', $langmenuclasses).'">' . $currentlang . '</span>';
             $this->language = $langmenu->add(
-                '<i class="icon fa fa-globe fa-lg"></i><span class="langdesc">' . $currentlang . '</span>',
+                $langmenumarkup,
                 new url($this->page->url),
                 $strlang,
                 10000
@@ -2556,8 +2653,9 @@ trait core_renderer_toolbox {
             foreach ($langs as $langtype => $langname) {
                 $this->language->add($langname, new url($this->page->url, ['lang' => $langtype]), $langname);
             }
+            return $this->render_custom_menu($langmenu, '', '', 'langmenu');
         }
-        return $this->render_custom_menu($langmenu, '', '', 'langmenu');
+        return '';
     }
 
     /**
@@ -2613,7 +2711,7 @@ trait core_renderer_toolbox {
      *
      * @param custom_menu_item $menunode
      * @param int $level = 0
-     * @param int $menuid
+     * @param string $menuid
      *
      * @return string
      */
@@ -2628,7 +2726,7 @@ trait core_renderer_toolbox {
         }
         if ($menunode->has_children()) {
             $submenucount++;
-            $content = '<li class="nav-item dropdown my-auto">';
+            $content = '<li class="nav-item dropdown my-auto' . ((empty($menuid) ? '' : ' ' . $menuid)). '">';
             $content .= html_writer::start_tag('a', ['href' => $url,
                 'class' => 'nav-link dropdown-toggle my-auto',
                 'role' => 'button',
@@ -2750,9 +2848,9 @@ trait core_renderer_toolbox {
      */
     public function generate_login(&$logincontent) {
         $retr = null;
-        $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
+        $localtoolbox = toolbox::get_local_toolbox();
         if (is_object($localtoolbox)) {
-            $themesettings = \theme_adaptable\toolbox::get_settings();
+            $themesettings = toolbox::get_settings();
             $retr = $localtoolbox->generate_login($logincontent, $themesettings);
         } else {
             $retr = new stdClass();
@@ -2991,7 +3089,7 @@ trait core_renderer_toolbox {
         $context = $this->page->context;
 
         $coursecontext = context_course::instance($this->page->course->id);
-        if (!\theme_adaptable\toolbox::get_setting('editcognocourseupdate')) {
+        if (!toolbox::get_setting('editcognocourseupdate')) {
             if (!has_capability('moodle/course:update', $coursecontext)) {
                 return '';
             }
@@ -3108,7 +3206,7 @@ trait core_renderer_toolbox {
      * @return string
      */
     public function region_main_settings_menu() {
-        if (!\theme_adaptable\toolbox::get_setting('editcognocourseupdate')) {
+        if (!toolbox::get_setting('editcognocourseupdate')) {
             $coursecontext = context_course::instance($this->page->course->id);
             if (!has_capability('moodle/course:update', $coursecontext)) {
                 return '';
@@ -3280,5 +3378,108 @@ trait core_renderer_toolbox {
         }
 
         return $output;
+    }
+
+    /**
+     * Output any settings errors when saving settings.
+     */
+    protected function output_settings_errors() {
+        if (($this->page->pagetype == 'admin-setting-themesettingadaptable') ||
+            ($this->page->pagetype == 'admin-setting-theme_adaptable_importexport')) {
+            $adminroot = admin_get_root();
+            if (!empty($adminroot->errors)) {
+                foreach ($adminroot->errors as $error) {
+                    // Ref: adminsetting::get_id() in lib/adminlib.php.
+                    $errorid = [];
+                    $regexres = preg_match('/id_s_([^_]*)_(.[^_]*)_(.*)/', $error->id, $errorid);
+                    if (!empty($regexres)) {
+                        $settingname = $errorid[1] . '_' . $errorid[2] . ' | ' . $errorid[3];
+                        $errorstring = get_string(
+                            'settingerror',
+                            'theme_adaptable',
+                            [
+                                'name' => $settingname,
+                                'error' => $error->error,
+                            ]
+                        );
+                        echo $this->notification($errorstring, 'error', true);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Get course activities for this course menu.
+     *
+     * @return array Of associated lang_string instances.
+     */
+    protected function get_course_activities() {
+        // A copy of block_activity_modules.
+        $course = $this->page->course;
+        $modinfo = get_fast_modinfo($course);
+        $modfullnames = [];
+        $archetypes = [];
+
+        foreach ($modinfo->cms as $cm) {
+            // Exclude activities which are not visible or have no link (=label).
+            if (!$cm->uservisible || !$cm->has_view()) {
+                continue;
+            }
+            if (array_key_exists($cm->modname, $modfullnames)) {
+                continue;
+            }
+            if (!array_key_exists($cm->modname, $archetypes)) {
+                $archetypes[$cm->modname] = plugin_supports('mod', $cm->modname, FEATURE_MOD_ARCHETYPE, MOD_ARCHETYPE_OTHER);
+            }
+            if ($archetypes[$cm->modname] == MOD_ARCHETYPE_RESOURCE) {
+                if (!array_key_exists('resources', $modfullnames)) {
+                    $modfullnames['resources'] = get_string('resources');
+                }
+            } else {
+                $modfullnames[$cm->modname] = $cm->modplural;
+            }
+        }
+        \core_collator::asort($modfullnames);
+
+        return $modfullnames;
+    }
+
+    /**
+     * Get the current page to allow us to check if the block is allowed to display.
+     *
+     * @return string The page name, which is either "frontpage", "dashboard", "coursepage", "coursesectionpage" or empty string.
+     */
+    protected function get_current_page() {
+        // This will store the kind of activity page type we find. E.g. It will get populated with 'section' or similar.
+        $currentpage = '';
+
+        // We expect $this->page->url to exist.  It should!
+        $url = $this->page->url;
+
+        if ($this->page->pagetype == 'site-index') {
+            $currentpage = 'frontpage';
+        } else if ($this->page->pagetype == 'my-index') {
+            $currentpage = 'dashboard';
+        }
+        // Check if course home page.
+        if (empty($currentpage)) {
+            if ($url !== null) {
+                // Check if this is the course view page.
+                if (strstr($url->raw_out(), 'course/view.php')) {
+                    $currentpage = 'coursepage';
+
+                    // Check url paramaters.  Count should be 1 if course home page. Use this to check if section page.
+                    $urlparams = $url->params();
+
+                    // Allow the block to display on course sections too if the relevant setting is on.
+                    if ((count($urlparams) > 1) && (array_key_exists('section', $urlparams))) {
+                        $currentpage = 'coursesectionpage';
+                    }
+                }
+            }
+        }
+
+        return $currentpage;
     }
 }

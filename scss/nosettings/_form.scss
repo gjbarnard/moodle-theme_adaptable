@@ -35,6 +35,25 @@ fieldset {
     }
 }
 
+.form-colorpicker input {
+    display: inline;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 1px;
+}
+
+.mform .fitem div.fitemtitle,
+.userprofile dl.list dt,
+.form-horizontal .control-label {
+    width: 250px;
+}
+
+.mform .fitem div.fitemtitle {
+    text-align: right;
+}
+
 .col-form-label.d-inline {
     float: right;
     margin: 3px 5px 5px 0;

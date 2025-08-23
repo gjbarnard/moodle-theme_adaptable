@@ -1,6 +1,8 @@
 // Adaptable SCSS that does not contain settings.
+@import "nosettings/adaptable";
 @import "nosettings/admin";
 @import "nosettings/backup-restore";
+@import "nosettings/block-list";
 @import "nosettings/blocks";
 @import "nosettings/bootstrap";
 @import "nosettings/browser";
@@ -8,7 +10,9 @@
 @import "nosettings/card-blocks";
 @import "nosettings/core";
 @import "nosettings/course";
+@import "nosettings/course-format";
 @import "nosettings/drawers";
+@import "nosettings/footer";
 @import "nosettings/form";
 @import "nosettings/general";
 @import "nosettings/grade";
@@ -16,10 +20,12 @@
 @import "nosettings/layout";
 @import "nosettings/menu";
 @import "nosettings/messages";
+@import "nosettings/misc";
 @import "nosettings/mod";
 @import "nosettings/modal";
 @import "nosettings/navigation";
 @import "nosettings/notifications";
 @import "nosettings/pace";
+@import "nosettings/search";
 @import "nosettings/secondarynavigation";
 @import "nosettings/user";

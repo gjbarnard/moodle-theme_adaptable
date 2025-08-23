@@ -27,6 +27,7 @@
 namespace theme_adaptable\output;
 
 use core\url;
+use theme_adaptable\toolbox;
 use stdClass;
 
 /**
@@ -38,7 +39,7 @@ trait core_renderer_layout {
      * Yes header.
      */
     public function yesheader($sidepostdrawer) {
-        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $themesettings = toolbox::get_settings();
 
         $bodyclasses = [];
         $bodyclasses[] = 'theme_adaptable';
@@ -47,11 +48,11 @@ trait core_renderer_layout {
         $pageclasses = [];
 
         // Screen size.
-        theme_adaptable_initialise_zoom();
-        $bodyclasses[] = theme_adaptable_get_zoom();
+        toolbox::initialise_zoom();
+        $bodyclasses[] = toolbox::get_zoom();
 
-        theme_adaptable_initialise_full();
-        $bodyclasses[] = theme_adaptable_get_full();
+        toolbox::initialise_full();
+        $bodyclasses[] = toolbox::get_full();
 
         $optionsdata = ['data' => ['rtl' => right_to_left()]];
 
@@ -215,7 +216,7 @@ trait core_renderer_layout {
             // Only used when user is logged in and not on the secure layout.
             if ((isloggedin()) && ($this->page->pagelayout != 'secure')) {
                 $headercontext['loginoruser'] =
-                    '<li class="nav-item dropdown ms-3 ms-md-2 me-2 me-md-0">' . $this->user_menu() . '</li>';
+                    '<li class="nav-item dropdown">' . $this->user_menu() . '</li>';
             } else {
                 $headercontext['loginoruser'] = '';
             }
@@ -242,8 +243,6 @@ trait core_renderer_layout {
             $headercontext['shownavbar'] = [
                 'navigationmenu' => $this->navigation_menu('main-navigation'),
                 'output' => $this,
-                'userfavmenu' => $this->userfav_menu(),
-                'toolsmenu' => $this->tools_menu(),
             ];
 
             $navbareditsettings = $themesettings->editsettingsbutton;
@@ -285,10 +284,12 @@ trait core_renderer_layout {
         }
         $headercontext['topmenus'] = $this->get_top_menus(false);
 
+        if (!empty($this->page->layout_options['langmenu'])) {
+            $headercontext['langmenu'] = $this->lang_menu(($adaptableheaderstyle == "style1"));
+        }
+
         if ($adaptableheaderstyle == "style1") {
             $headercontext['menuslinkright'] = (!empty($themesettings->menuslinkright));
-            $headercontext['langmenu'] = (empty($this->page->layout_options['langmenu']) ||
-                $this->page->layout_options['langmenu']);
             $headercontext['responsiveheader'] = $themesettings->responsiveheader;
 
             if (!empty($themesettings->pageheaderlayout)) {
@@ -344,9 +345,8 @@ trait core_renderer_layout {
                     break;
             }
 
-            echo $this->render_from_template('theme_adaptable/headerstyleone', $headercontext);
+            echo $this->render_from_template('theme_adaptable/headerlayoutone', $headercontext);
         } else if ($adaptableheaderstyle == "style2") {
-            $headercontext['responsiveheader'] = $themesettings->responsiveheader;
             if (!empty($themesettings->pageheaderlayouttwo)) {
                 $headercontext['pageheaderoriginal'] = ($themesettings->pageheaderlayouttwo == 'original');
             } else {
@@ -357,11 +357,7 @@ trait core_renderer_layout {
                 $headercontext['navbarsearch'] = $this->search_box();
             }
 
-            if (empty($this->page->layout_options['langmenu']) || $this->page->layout_options['langmenu']) {
-                $headercontext['langmenu'] = $this->lang_menu(false);
-            }
-
-            echo $this->render_from_template('theme_adaptable/headerstyletwo', $headercontext);
+            echo $this->render_from_template('theme_adaptable/headerlayouttwo', $headercontext);
         }
         if ($optionsdata['data']['stickynavbar']) {
             echo '<div id="page" class="' . implode(' ', $pageclasses) . '">';
@@ -378,7 +374,7 @@ trait core_renderer_layout {
      * No header.
      */
     public function noheader() {
-        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $themesettings = toolbox::get_settings();
 
         $bodyclasses = [];
         $bodyclasses[] = 'theme_adaptable';
@@ -389,8 +385,8 @@ trait core_renderer_layout {
             $bodyclasses[] = 'standard';
         }
 
-        theme_adaptable_initialise_full();
-        $bodyclasses[] = theme_adaptable_get_full();
+        toolbox::initialise_full();
+        $bodyclasses[] = toolbox::get_full();
 
         if (!empty($themesettings->pageloadingprogress)) {
             $this->page->requires->js_call_amd('theme_adaptable/pace_init', 'init', [$themesettings->pageloadingprogresstheme]);
@@ -417,7 +413,7 @@ trait core_renderer_layout {
         $headcontext->pagetitle = $this->page_title();
         $siteurl = new url('');
         $headcontext->siteurl = $siteurl->out();
-        $headcontext->maincolor = $themesettings->maincolor;
+        $headcontext->maincolour = $themesettings->maincolour;
 
         if (!empty($themesettings->googlefonts)) {
             // Select fonts used.
@@ -431,7 +427,7 @@ trait core_renderer_layout {
                 switch ($themesettings->fontname) {
                     case 'default':
                     case 'sans-serif':
-                        // Use the default being 'sans-serif', see 'theme_adaptable_process_scss()'.
+                        // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
                     break;
 
                     default:
@@ -447,7 +443,7 @@ trait core_renderer_layout {
                 switch ($themesettings->fontheadername) {
                     case 'default':
                     case 'sans-serif':
-                        // Use the default being 'sans-serif', see 'theme_adaptable_process_scss()'.
+                        // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
                     break;
 
                     default:
@@ -463,7 +459,7 @@ trait core_renderer_layout {
                 switch ($themesettings->fonttitlename) {
                     case 'default':
                     case 'sans-serif':
-                        // Use 'sans-serif'.
+                        // Use the 'sans-serif' font.
                     break;
 
                     default:
@@ -614,11 +610,7 @@ trait core_renderer_layout {
         // If admin settings page, show template for floating save / discard buttons.
         if (strstr($this->page->pagetype, 'admin-setting')) {
             if ($themesettings->enablesavecanceloverlay) {
-                $savediscardcontext = [
-                    'topmargin' => ($themesettings->stickynavbar ? '35px' : '0'),
-                    'savetext' => get_string('savebuttontext', 'theme_adaptable'),
-                    'discardtext' => get_string('discardbuttontext', 'theme_adaptable'),
-                ];
+                $savediscardcontext = ['topmargin' => ($themesettings->stickynavbar ? '35px' : '0')];
                 $context->savediscard = $this->render_from_template('theme_adaptable/savediscard', $savediscardcontext);
             }
         }
@@ -674,8 +666,8 @@ trait core_renderer_layout {
 
         echo '<div id="maincontainer" class="container outercont">';
         echo $this->get_alert_messages();
-        echo $this->get_news_ticker();
         echo $this->page_navbar();
+        echo $this->get_news_ticker();
         echo '<div id="page-content" class="row">';
         echo '<div id="region-main-box" class="col-12">';
         echo '<section id="region-main">';
@@ -717,8 +709,8 @@ trait core_renderer_layout {
 
         echo '<div id="maincontainer" class="container outercont">';
         echo $this->get_alert_messages();
-        echo $this->get_news_ticker();
         echo $this->page_navbar();
+        echo $this->get_news_ticker();
         echo '<div id="page-content" class="row">';
         echo '<div id="region-main-box" class="col-12">';
         echo '<section id="region-main">';
@@ -734,6 +726,8 @@ trait core_renderer_layout {
         if (!empty($overflow)) {
             echo $overflow;
         }
+
+        $this->output_settings_errors();
         echo $this->main_content();
 
         // Display course page block activity bottom region if this is a mod page of type where you're viewing
@@ -786,8 +780,8 @@ trait core_renderer_layout {
 
         echo '<div id="maincontainer" class="container outercont">';
         echo $this->get_alert_messages();
-        echo $this->get_news_ticker();
         echo $this->page_navbar();
+        echo $this->get_news_ticker();
         echo '<div id="page-content" class="row">';
 
         // If course page, display course top block region.
@@ -804,7 +798,7 @@ trait core_renderer_layout {
 
         if (!empty($themesettings->tabbedlayoutcoursepage)) {
             // Use Adaptable tabbed layout.
-            $currentpage = theme_adaptable_get_current_page();
+            $currentpage = $this->get_current_page();
 
             $taborder = explode('-', $themesettings->tabbedlayoutcoursepage);
 
@@ -855,7 +849,7 @@ trait core_renderer_layout {
                     echo '<section id="adaptable-course-tab-content" class="adaptable-tab-section tab-panel">';
 
                     echo $this->get_course_alerts();
-                    if (!empty($themesettings->coursepageblocksliderenabled)) {
+                    if (!empty($themesettings->coursepageblockinfoenabled)) {
                         echo $this->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
                     }
 
@@ -884,7 +878,7 @@ trait core_renderer_layout {
             echo '</main>';
         } else {
             echo $this->get_course_alerts();
-            if (!empty($themesettings->coursepageblocksliderenabled)) {
+            if (!empty($themesettings->coursepageblockinfoenabled)) {
                 echo $this->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
             }
             echo $this->course_content_header();
@@ -1179,6 +1173,11 @@ trait core_renderer_layout {
 
         echo '<div class="container">';
         echo $this->get_alert_messages();
+        echo '<div id="page-navbar" class="col-12">';
+        echo '<nav class="breadcrumb-button">';
+        echo $this->page_heading_button();
+        echo '</nav>';
+        echo '</div>';
         echo '</div>';
 
         // Include secondary navigation.
@@ -1250,11 +1249,6 @@ trait core_renderer_layout {
 
         echo '<div id="maincontainer" class="container outercont">';
         echo '<div id="page-content" class="row">';
-        echo '<div id="page-navbar" class="col-12">';
-        echo '<nav class="breadcrumb-button">';
-        echo $this->page_heading_button();
-        echo '</nav>';
-        echo '</div>';
 
         echo '<div id="region-main-box" class="col-12">';
         echo '<section id="region-main">';
@@ -1270,7 +1264,7 @@ trait core_renderer_layout {
             echo '<div class="hidden-blocks">';
             echo '<div class="row">';
 
-            if (!empty($themesettings->coursepageblocksliderenabled)) {
+            if (!empty($themesettings->coursepageblockinfoenabled)) {
                 echo $this->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
             }
 

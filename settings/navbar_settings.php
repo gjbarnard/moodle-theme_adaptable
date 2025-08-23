@@ -36,7 +36,7 @@ if ($ADMIN->fulltree) {
         new admin_setting_heading(
             'theme_adaptable_navbar_settings',
             get_string('navbarsettingsheading', 'theme_adaptable'),
-            format_text(get_string('navbardesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+            ''
         )
     );
 
@@ -45,6 +45,27 @@ if ($ADMIN->fulltree) {
     $title = get_string('stickynavbar', 'theme_adaptable');
     $description = get_string('stickynavbardesc', 'theme_adaptable');
     $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $page->add($setting);
+
+    $name = 'theme_adaptable/navbardisplayicons';
+    $title = get_string('navbardisplayicons', 'theme_adaptable');
+    $description = get_string('navbardisplayiconsdesc', 'theme_adaptable');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $page->add($setting);
+
+    $name = 'theme_adaptable/navbardisplaytitles';
+    $title = get_string('navbardisplaytitles', 'theme_adaptable');
+    $description = get_string('navbardisplaytitlesdesc', 'theme_adaptable');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $page->add($setting);
+
+    $name = 'theme_adaptable/navbardisplaymenuarrow';
+    $title = get_string('navbardisplaymenuarrow', 'theme_adaptable');
+    $description = get_string('navbardisplaymenuarrowdesc', 'theme_adaptable');
+    $default = false;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
 
@@ -120,14 +141,6 @@ if ($ADMIN->fulltree) {
         'wide' => get_string('wide', 'theme_adaptable'),
     ];
     $setting = new admin_setting_configselect($name, $title, $description, 'wide', $choices);
-    $page->add($setting);
-
-    // Show / hide text for the Full screen button.
-    $name = 'theme_adaptable/enablezoomshowtext';
-    $title = get_string('enablezoomshowtext', 'theme_adaptable');
-    $description = get_string('enablezoomshowtextdesc', 'theme_adaptable');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
 
     $name = 'theme_adaptable/enablenavbarwhenloggedout';

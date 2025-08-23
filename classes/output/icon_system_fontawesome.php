@@ -58,7 +58,8 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
     public function get_core_icon_map() {
         if (empty($this->fav)) {
             $map = parent::get_core_icon_map();
-            $map['core:i/navigationitem'] = 'fa-compass';  // Core has 'fa-fw'!
+            $map['core:i/activities'] = 'fa-solid fa-file-pen';
+            $map['core:i/navigationitem'] = 'anavigationitem fa-circle fa-2xs align-middle';  // Core has 'fa-fw'!
             return $map;
         }
 
@@ -205,6 +206,7 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'theme:fp/view_list_active' => 'fas fa-list',
             'theme:fp/view_tree_active' => 'fas fa-folder',
             'core:i/addblock' => 'fas fa-plus-square',
+            'core:i/activities' => 'fa-solid fa-file-pen',
             'core:i/assignroles' => 'fas fa-user-plus',
             'core:i/asterisk' => 'fas fa-asterisk',
             'core:i/backup' => 'fas fa-file-archive',
@@ -298,7 +300,7 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:i/moremenu' => 'fas fa-ellipsis-h',
             'core:i/move_2d' => 'fas fa-arrows-alt',
             'core:i/muted' => 'fas fa-microphone-slash',
-            'core:i/navigationitem' => 'far fa-compass',
+            'core:i/navigationitem' => 'anavigationitem fas fa-circle fa-2xs align-middle',
             'core:i/ne_red_mark' => 'fas fa-times',
             'core:i/new' => 'fas fa-bolt',
             'core:i/news' => 'far fa-newspaper',
@@ -529,17 +531,35 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
     public function render_pix_icon(\renderer_base $output, pix_icon $icon) {
         $subtype = '\core\output\pix_icon_fontawesome';
         $subpix = new $subtype($icon);
+
         $data = $subpix->export_for_template($output);
 
         if (!$subpix->is_mapped()) {
             $data['unmappedIcon'] = $icon->export_for_template($output);
-        } else if (empty($this->fav)) {
-            $data['key'] = 'fa ' . $data['key'];
+            // If the icon is not mapped, we need to check if it is deprecated.
+            $component = $icon->component;
+            if (empty($component) || $component === 'moodle' || $component === 'core') {
+                $component = 'core';
+            }
+            $iconname = $component . ':' . $icon->pix;
+            if (in_array($iconname, $this->get_deprecated_icons())) {
+                $data['unmappedIcon']['extraclasses'] .= ' deprecated deprecated-'.$iconname;
+            }
+        } else {
+            if (!empty($data['extraclasses'])) {
+                $data['extraclasses'] .= " ";
+            }
+            $data['extraclasses'] .= "fa-fw";
         }
 
-        // MDL-62680.
         if (isset($icon->attributes['aria-hidden'])) {
             $data['aria-hidden'] = $icon->attributes['aria-hidden'];
+        }
+
+        // Flip question mark icon orientation when the `questioniconfollowlangdirection` lang config string is set to `yes`.
+        $isquestionicon = strpos($data['key'], 'fa-question') !== false;
+        if ($isquestionicon && right_to_left() && get_string('questioniconfollowlangdirection', 'langconfig') === 'yes') {
+            $data['extraclasses'] .= " fa-flip-horizontal";
         }
 
         return $output->render_from_template('theme_adaptable/pix_icon_fontawesome', $data);

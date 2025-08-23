@@ -22,6 +22,30 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
+// Added to style the grid of letters etc on participants page.
+.userlist .initialbar {
+    margin-bottom: 10px;
+    .letter {
+        border: 0;
+        height: 1.8em;
+        min-width: 1.8em;
+        &.active {
+            line-height: 2em;
+        }
+        &:hover {
+            color: #fff !important;
+        }
+    }
+}
+
+#profilepic img,
+.userpicture {
+    background-color: #fff;
+    border-radius: 50%;
+    display: inline;
+    margin: 0 4px 0 0;
+}
+
 #page-user-profile,
 .path-user {
     .node_category li {
@@ -34,6 +58,25 @@
     dl {
         margin-bottom: 0;
     }
+}
+
+#person img {
+    border: 6px solid #fff;
+    display: block;
+    margin: 0 auto;
+    max-width: 130px;
+}
+
+.persontitle {
+    padding-top: 40px;
+}
+
+.personpic {
+    text-align: center;
+}
+
+.user-enroller-panel {
+    z-index: 2;
 }
 
 #adaptable_profile_tree .ucol1 {

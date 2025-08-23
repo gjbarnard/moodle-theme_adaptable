@@ -186,7 +186,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/slidercount';
     $title = get_string('slidercount', 'theme_adaptable');
     $description = get_string('slidercountdesc', 'theme_adaptable');
-    $default = THEME_ADAPTABLE_DEFAULT_SLIDERCOUNT;
+    $default = 3;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices0to12);
     $page->add($setting);
 
@@ -194,7 +194,7 @@ if ($ADMIN->fulltree) {
     $slidercount = get_config('theme_adaptable', 'slidercount');
 
     if (!$slidercount) {
-        $slidercount = THEME_ADAPTABLE_DEFAULT_SLIDERCOUNT;
+        $slidercount = $default;
     }
 
     for ($sliderindex = 1; $sliderindex <= $slidercount; $sliderindex++) {
@@ -218,7 +218,7 @@ if ($ADMIN->fulltree) {
         $title = get_string('slidercaption', 'theme_adaptable');
         $description = get_string('slidercaptiondesc', 'theme_adaptable');
         $default = '';
-        $setting = new adaptable_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
         $page->add($setting);
     }
 

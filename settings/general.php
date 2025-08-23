@@ -33,6 +33,21 @@ if ($ADMIN->fulltree) {
         get_string('settingspagegeneralsettings', 'theme_adaptable')
     );
 
+    // Favicon file setting.
+    $name = 'theme_adaptable/favicon';
+    $title = get_string('favicon', 'theme_adaptable');
+    $description = get_string('favicondesc', 'theme_adaptable');
+    $setting = new admin_setting_description($name, $title, $description);
+    $page->add($setting);
+
+    // Enable save / cancel overlay at top of page.
+    $name = 'theme_adaptable/enablesavecanceloverlay';
+    $title = get_string('enablesavecanceloverlay', 'theme_adaptable');
+    $description = get_string('enablesavecanceloverlaydesc', 'theme_adaptable');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $page->add($setting);
+
     $name = 'theme_adaptable/pageloadingprogress';
     $title = get_string('pageloadingprogress', 'theme_adaptable');
     $description = get_string('pageloadingprogressdesc', 'theme_adaptable');

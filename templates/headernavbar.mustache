@@ -29,28 +29,24 @@
         "othermenucontent": "",
         "pageheadingbutton": "",
         "responsiveheader": "d-none d-lg-block",
-        "showcog": true,
-        "userfavmenu": "",
-        "toolsmenu": ""
+        "showcog": true
     }
 }}
 <div id="main-navbar" class="{{responsiveheader}}">
     <div class="container">
         <div class="row">
-            <div class="col-12 p-0">
+            <div class="col-12">
                 <div class="navbar navbar-expand btco-hover-menu">
                     <nav aria-label="{{#str}}sitelinkslabel, theme_adaptable{{/str}}">
                         <ul class="navbar-nav">
                             {{{navigationmenu}}}
-                            {{{userfavmenu}}}
-                            {{{toolsmenu}}}
                         </ul>
                     </nav>
 
                     <ul class="navbar-nav ms-auto d-flex flex-wrap">
                         {{#showcog}}
                         {{#coursemenucontent}}
-                        <li class="nav-item me-2">
+                        <li class="nav-item">
                             <div class="context-header-settings-menu">
                                 {{{coursemenucontent}}}
                             </div>
@@ -58,7 +54,7 @@
                         {{/coursemenucontent}}
 
                         {{#othermenucontent}}
-                        <li class="nav-item me-2">
+                        <li class="nav-item">
                             <div id="region-main-settings-menu" class="region-main-settings-menu">
                                 {{{othermenucontent}}}
                             </div>

@@ -50,13 +50,19 @@
             font: normal normal 900 16px/1 'Font Awesome 6 Free';
         }
     }
+
     &.hidden {
         .block-action:before {
             content: "\f065";
         }
     }
+
     .block-controls .action-menu .menubar {
         justify-content: space-between;
         width: 100%;
+    }
+
+    .list ul {
+        padding-left: 20px;
     }
 }

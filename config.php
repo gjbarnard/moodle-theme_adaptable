@@ -152,13 +152,13 @@ $THEME->layouts = [
         'file' => 'frontpage.php',
         'regions' => $frontlayoutregions,
         'defaultregion' => 'side-post',
+        'options' => ['langmenu' => true],
     ],
     // Server administration scripts.
     'admin' => [
         'file' => 'columns2.php',
         'regions' => $standardregions,
         'defaultregion' => 'side-post',
-
     ],
     // My courses page.
     'mycourses' => [
@@ -232,8 +232,8 @@ $THEME->layouts = [
     'secure' => [
         'file' => 'secure.php',
         'regions' => array_merge($standardregions, ['course-section-a']),
-        'options' => ['nofooter' => true, 'nonavbar' => true],
         'defaultregion' => 'side-post',
+        'options' => ['nofooter' => true, 'nonavbar' => true],
     ],
 ];
 

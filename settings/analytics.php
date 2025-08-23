@@ -65,14 +65,14 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/analyticscount';
     $title = get_string('analyticscount', 'theme_adaptable');
     $description = get_string('analyticscountdesc', 'theme_adaptable');
-    $default = THEME_ADAPTABLE_DEFAULT_ANALYTICSCOUNT;
+    $default = 1;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices0to12);
     $page->add($setting);
 
     // If we don't have an analyticscount yet, default to the preset.
     $analyticscount = get_config('theme_adaptable', 'analyticscount');
     if (!$analyticscount) {
-        $alertcount = THEME_ADAPTABLE_DEFAULT_ANALYTICSCOUNT;
+        $alertcount = $default;
     }
 
     for ($analyticsindex = 1; $analyticsindex <= $analyticscount; $analyticsindex++) {
