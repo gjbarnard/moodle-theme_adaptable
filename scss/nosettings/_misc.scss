@@ -1,0 +1,143 @@
+//
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+//
+//
+// Adaptable Misc style sheet
+// Things I'm not sure about but don't want to remove until had more time to check!
+//
+// @package    theme_adaptable
+// @copyright  2025 G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
+// @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+//
+
+// Fix activity restriction dialog (and others?).
+.moodle-dialogue-content[role="dialog"] .row {
+    margin-left: inherit;
+}
+
+// Edit hover dropdown background.
+.moodle-actionmenu.show[data-enhanced] .menu a:hover {
+    background-color: #c0c0c0;
+}
+
+.moodle-actionmenu.show[data-enhanced] .menu {
+    height: auto;
+}
+
+// Activity chooser styling.
+.moodle-dialogue-base .moodle-dialogue.chooserdialogue {
+    height: 100%;
+    min-width: 90%;
+}
+
+.choosercontainer #chooseform .option label {
+    border-bottom: 1px solid #fff;
+    display: block;
+    font-weight: normal;
+    padding: 0.4em 0 0.7em 0;
+}
+
+.jschooser .choosercontainer #chooseform .alloptions .option .typename {
+    display: inline-block;
+    font-size: 1.2em;
+    width: 65%;
+}
+
+// Only set these options if we're showing the js container.
+.jsenabled .choosercontainer #chooseform .alloptions {
+    max-width: 95%;
+}
+
+.chooserdialogue .moodle-dialogue-wrap {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    margin-left: -3px;
+    margin-top: 15px;
+}
+
+.moodle-dialogue-base .chooserdialogue .moodle-dialogue-wrap .moodle-dialogue-hd,
+.moodle-dialogue-base .chooserdialogue .moodle-dialogue-wrap .moodle-dialogue-hd.yui3-widget-hd {
+    background-image: none;
+    border-bottom: 1px solid #f5f5f5;
+    border-radius: 0;
+    color: #565656;
+    font-size: 16px;
+    min-height: 20px;
+    padding: 10px;
+    text-align: left;
+}
+
+.choosercontainer #chooseform .selected .typesummary,
+.choosercontainer #chooseform .selected .instruction {
+    display: none;
+}
+// End Activity chooser styling.
+
+.tag_list .inline-list a.label-info[href] {
+    color: #fff !important;
+}
+
+// Dialog box styling.
+.moodle-dialogue-base {
+    .moodle-dialogue-wrap .container,
+    .chooserdialogue .moodle-dialogue-wrap .container {
+        width: 100%;
+    }
+
+    button.closebutton,
+    .chooserdialogue button.closebutton,
+    .moodle-dialogue-wrap .moodle-dialogue-hd .closebutton,
+    .chooserdialogue .moodle-dialogue-wrap .moodle-dialogue-hd .yui3-widget-buttons button.yui3-button.closebutton {
+        border-radius: 3px;
+        line-height: 1.2em;
+        margin: 0;
+        opacity: 1;
+        padding: 0;
+        width: 26px;
+    }
+
+    .closebutton::after,
+    .chooserdialogue .closebutton::after
+    .chooserdialogue .moodle-dialogue-wrap .moodle-dialogue-hd .yui3-widget-buttons button.yui3-button.closebutton:after {
+        background: none;
+        color: #777;
+        display: inline-block;
+        opacity: 1;
+        vertical-align: top;
+    }
+
+    .chooserdialogue .moodle-dialogue-wrap .moodle-dialogue-hd .yui3-widget-buttons {
+        padding: 0.6em;
+    }
+}
+
+.badge {
+    padding: .4rem .6em;
+}
+
+a.component-expand .badge {
+    margin: 0.8em 0.8em 0.4em 0.8em;
+}
+
+#mode,
+#forummenu {
+    select {
+        height: 36px;
+    }
+}

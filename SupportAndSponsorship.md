@@ -62,10 +62,6 @@ next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/405/en/Installing_Moodle)'.
 
-Known issues
-================
-See 'Known issues with this version' in 'Changes.md' for the version you are running.
-
 Reporting issues
 ================
 Before reporting an issue, please ensure that you are running the [current](https://moodle.org/plugins/theme_adaptable) version for

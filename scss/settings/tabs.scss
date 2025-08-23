@@ -24,9 +24,10 @@
 //
 
 .tabcontentcontainer input.adaptabletab:checked + label {
-    background-color: [[setting:headerbkcolor]];
-    border-color: [[setting:headerbkcolor]];
-    color: [[setting:headertextcolor]];
+    // TODO: Own colours!  For now leave as what once was.
+    background-color: [[setting:headertoprowbkcolour]];
+    border-color: [[setting:headertoprowbkcolour]];
+    color: [[setting:headertoprowtextcolour]];
 }
 
 .tabcontentcontainer label.adaptabletab {
@@ -44,7 +45,7 @@
 // Tab panel content.
 #adaptable_profile_tree .adaptable-tab.tab-panel {
     border: 1px solid rgba(0,0,0,.125); // Same colour as profile card border.
-    border-top: 4px solid [[setting:headerbkcolor]];
+    border-top: 4px solid [[setting:headertoprowbkcolour]];
 }
 
 // Remove borders on cards in the tabs.

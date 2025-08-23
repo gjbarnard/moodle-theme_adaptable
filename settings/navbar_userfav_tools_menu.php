@@ -36,7 +36,7 @@ if ($ADMIN->fulltree) {
         'theme_adaptable_userfavmenu',
         get_string('userfavmenu', 'theme_adaptable'),
         format_text(
-            get_string('userfavmenudesc', 'theme_adaptable'),
+            get_string('userfavmenudesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free'),
             FORMAT_MARKDOWN
         )
     ));
@@ -48,11 +48,17 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $page->add($setting);
 
+    $name = 'theme_adaptable/userfavmenuicon';
+    $title = get_string('userfavmenuicon', 'theme_adaptable');
+    $description = get_string('userfavmenuicondesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free');
+    $setting = new admin_setting_configtext($name, $title, $description, 'star', PARAM_TEXT, '30');
+    $page->add($setting);
+
     $page->add(new admin_setting_heading(
         'theme_adaptable_toolsmenu',
         get_string('toolsmenu', 'theme_adaptable'),
         format_text(
-            get_string('toolsmenuheadingdesc', 'theme_adaptable'),
+            get_string('toolsmenuheadingdesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free'),
             FORMAT_MARKDOWN
         )
     ));
@@ -67,7 +73,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_adaptable/toolsmenuscount';
     $title = get_string('toolsmenuscount', 'theme_adaptable');
     $description = get_string('toolsmenuscountdesc', 'theme_adaptable');
-    $default = THEME_ADAPTABLE_DEFAULT_TOOLSMENUSCOUNT;
+    $default = 1;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices0to12);
     $page->add($setting);
 
@@ -75,7 +81,7 @@ if ($ADMIN->fulltree) {
     $toolsmenuscount = get_config('theme_adaptable', 'toolsmenuscount');
 
     if (!$toolsmenuscount) {
-        $toolsmenuscount = THEME_ADAPTABLE_DEFAULT_TOOLSMENUSCOUNT;
+        $toolsmenuscount = $default;
     }
 
     for ($toolsmenusindex = 1; $toolsmenusindex <= $toolsmenuscount; $toolsmenusindex++) {
@@ -95,6 +101,12 @@ if ($ADMIN->fulltree) {
         $title = get_string('toolsmenu', 'theme_adaptable') . ' ' . $toolsmenusindex;
         $description = get_string('toolsmenudesc', 'theme_adaptable');
         $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_TEXT, '50', '10');
+        $page->add($setting);
+
+        $name = 'theme_adaptable/toolsmenu' . $toolsmenusindex . 'icon';
+        $title = get_string('toolsmenuicon', 'theme_adaptable') . ' ' . $toolsmenusindex;
+        $description = get_string('toolsmenuicondesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free');
+        $setting = new admin_setting_configtext($name, $title, $description, 'wrench', PARAM_TEXT, '30');
         $page->add($setting);
 
         $name = 'theme_adaptable/toolsmenu' . $toolsmenusindex . 'field';

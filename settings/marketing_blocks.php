@@ -39,14 +39,14 @@ if ($ADMIN->fulltree) {
     $title = get_string('infobox', 'theme_adaptable');
     $description = get_string('infoboxdesc', 'theme_adaptable');
     $default = '';
-    $setting = new adaptable_setting_confightmleditor($name, $title, $description, $default);
+    $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
     $page->add($setting);
 
     $name = 'theme_adaptable/infobox2';
     $title = get_string('infobox2', 'theme_adaptable');
     $description = get_string('infobox2desc', 'theme_adaptable');
     $default = '';
-    $setting = new adaptable_setting_confightmleditor($name, $title, $description, $default);
+    $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
     $page->add($setting);
 
     $name = 'theme_adaptable/infoboxfullscreen';
@@ -80,13 +80,37 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, 'covtiles', $choices);
     $page->add($setting);
 
+    // Market blocks colors heading.
+    $name = 'theme_adaptable/settingsmarketingcolors';
+    $heading = get_string('settingsmarketingcolors', 'theme_adaptable');
+    $setting = new admin_setting_heading($name, $heading, '');
+    $page->add($setting);
+
+    // Market blocks border color.
+    $name = 'theme_adaptable/marketblockbordercolor';
+    $title = get_string('marketblockbordercolor', 'theme_adaptable');
+    $description = get_string('marketblockbordercolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#e8eaeb', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Market blocks background color.
+    $name = 'theme_adaptable/marketblocksbackgroundcolor';
+    $title = get_string('marketblocksbackgroundcolor', 'theme_adaptable');
+    $description = get_string('marketblocksbackgroundcolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, 'transparent', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Marketing block region builder.
     $page->add(new admin_setting_heading(
         'theme_adaptable_marketingbuilder',
         get_string('marketingbuilderheading', 'theme_adaptable'),
         format_text(get_string('marketingbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
     ));
 
-    // Marketing block region builder.
     ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = \theme_adaptable\toolbox::admin_settings_layout_builder(
         $page,
         'marketlayoutrow',
@@ -119,7 +143,7 @@ if ($ADMIN->fulltree) {
         $title = get_string('market', 'theme_adaptable') . $i;
         $description = get_string('marketdesc', 'theme_adaptable');
         $default = '';
-        $setting = new adaptable_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
         $page->add($setting);
     }
 

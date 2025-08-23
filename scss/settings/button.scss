@@ -68,6 +68,7 @@ input[type="button"],
 #searchform_button,
 a.submit,
 #notice .singlebutton + .singlebutton input,
+input.form-reset,
 input.form-submit,
 input#id_submitbutton,
 input#id_submitbutton2,
@@ -218,10 +219,6 @@ a#adaptable-message-user-button:focus,
 
 .navbar #editingbutton .singlebutton {
     line-height: inherit;
-}
-
-.navbar #editingbutton .singlebutton:first-child {
-    margin-right: 6px;
 }
 
 #editingbutton .simplesearchform {
@@ -429,12 +426,12 @@ a.btn-link {
     &.add-sections,
     &.section-modchooser-link {
         background-color: transparent;
-        color: [[setting:linkcolor]] !important;
+        color: var(--ad-link-colour) !important;
 
         &:hover,
         :focus {
             background-color: transparent;
-            color: [[setting:linkhover]] !important;
+            color: var(--ad-linkhover-colour) !important;
         }
     }
 

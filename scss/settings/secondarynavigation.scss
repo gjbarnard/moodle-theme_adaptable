@@ -24,5 +24,5 @@
 
 .secondary-navigation {
     background-color: $body-bg;
-    color: [[setting:regionmaintextcolor]];
+    color: var(--ad-regionmaintext-colour);
 }

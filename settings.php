@@ -29,9 +29,6 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once(__DIR__ . '/libs/admin_confightmleditor.php');
-require_once(__DIR__ . '/lib.php');
-
 unset($settings);
 $settings = null;
 $ADMIN->add('appearance', new admin_category('theme_adaptable', get_string('configtitle', 'theme_adaptable')));
@@ -50,7 +47,7 @@ if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/block_settings.php');
     include(dirname(__FILE__) . '/settings/buttons.php');
     include(dirname(__FILE__) . '/settings/category_headers.php');
-    include(dirname(__FILE__) . '/settings/colors.php');
+    include(dirname(__FILE__) . '/settings/colours.php');
     include(dirname(__FILE__) . '/settings/courses.php');
     include(dirname(__FILE__) . '/settings/course_index.php');
     include(dirname(__FILE__) . '/settings/custom_css.php');
@@ -65,7 +62,7 @@ if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/general.php');
     include(dirname(__FILE__) . '/settings/header.php');
     include(dirname(__FILE__) . '/settings/header_menus.php');
-    include(dirname(__FILE__) . '/settings/header_social.php');
+    include(dirname(__FILE__) . '/settings/header_search_social.php');
     include(dirname(__FILE__) . '/settings/header_user.php');
     include(dirname(__FILE__) . '/settings/information_blocks.php');
     include(dirname(__FILE__) . '/settings/layout.php');

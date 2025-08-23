@@ -35,7 +35,7 @@ class admin_settingspage extends \admin_settingpage {
     private $disabled = false;
 
     /**
-     * see admin_settingpage for details of this mathod.
+     * see admin_settingpage for details of this method.
      *
      * @param string $name The internal name for this external page. Must be unique am  ongst ALL part_of_admin_tree objects.
      * @param string $visiblename The displayed name for this external page. Usually obtained through get_string().

@@ -60,6 +60,52 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, 1);
     $page->add($setting);
 
+    // Footer colors heading.
+    $name = 'theme_adaptable/settingsfootercolours';
+    $heading = get_string('settingsfootercolours', 'theme_adaptable');
+    $setting = new admin_setting_heading($name, $heading, '');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/footerbkcolor';
+    $title = get_string('footerbkcolor', 'theme_adaptable');
+    $description = get_string('footerbkcolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#424242', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/footertextcolor';
+    $title = get_string('footertextcolor', 'theme_adaptable');
+    $description = get_string('footertextcolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/footertextcolor2';
+    $title = get_string('footertextcolor2', 'theme_adaptable');
+    $description = get_string('footertextcolor2desc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/footerlinkcolor';
+    $title = get_string('footerlinkcolor', 'theme_adaptable');
+    $description = get_string('footerlinkcolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/footerdividingline';
+    $title = get_string('footerdividingline', 'theme_adaptable');
+    $description = get_string('footerdividinglinedesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     $page->add(new admin_setting_heading(
         'theme_adaptable_footerbuilder',
         get_string('footerbuilderheading', 'theme_adaptable'),
@@ -107,7 +153,7 @@ if ($ADMIN->fulltree) {
         $title = get_string('footercontent', 'theme_adaptable') . $i;
         $description = get_string('footercontentdesc', 'theme_adaptable') . $i;
         $default = '';
-        $setting = new adaptable_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
         $page->add($setting);
     }
 
@@ -139,7 +185,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('footnote', 'theme_adaptable');
     $description = get_string('footnotedesc', 'theme_adaptable');
     $default = '';
-    $setting = new adaptable_setting_confightmleditor($name, $title, $description, $default);
+    $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
     $page->add($setting);
 
     $asettings->add($page);

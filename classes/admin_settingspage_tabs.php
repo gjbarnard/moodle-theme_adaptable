@@ -143,6 +143,28 @@ class admin_settingspage_tabs extends \theme_boost_admin_settingspage_tabs {
             $context['versioncheck'] .= 'to know more about me.';
         }
 
+        // Local adaptable information.
+        $locals = \core_plugin_manager::instance()->get_present_plugins('local');
+        if (!empty($locals['adaptable'])) {
+            $plugininfo = $locals['adaptable'];
+        } else {
+            $plugininfo = \core_plugin_manager::instance()->get_plugin_info('local_adaptable');
+            if (!empty($plugininfo)) {
+                $plugininfo->version = $plugininfo->versiondisk;
+            }
+        }
+
+        if (!empty($plugininfo)) {
+            $context['localversioninfo'] = get_string(
+                'localversioninfo',
+                'theme_adaptable',
+                [
+                    'release' => $plugininfo->release,
+                    'version' => $plugininfo->version,
+                ]
+            );
+        }
+
         return $OUTPUT->render_from_template('theme_adaptable/adaptable_admin_setting_tabs', $context);
     }
 }

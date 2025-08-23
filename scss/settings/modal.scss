@@ -29,7 +29,7 @@
     .moodle-dialogue-hd.yui3-widget-hd {
         background: none;
         border-bottom: 1px solid #bbb;
-        color: [[setting:fontcolor]];
+        color: var(--ad-font-colour);
         font-size: 15px;
         font-weight: normal;
         letter-spacing: 1px;
@@ -43,7 +43,7 @@
         h1,
         h3,
         h5 {
-            color: [[setting:fontcolor]];
+            color: var(--ad-font-colour);
             padding: 0;
             text-align: center;
             text-shadow: 1px 1px 1px #666 !important;

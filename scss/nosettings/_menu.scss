@@ -28,3 +28,287 @@
     vertical-align: baseline;
     width: 14px;
 }
+
+#adaptable-page-header-wrapper {
+    .nav-link {
+        img.userpicture,
+        .userinitials {
+            margin-right: 0;
+        }
+    }
+
+    .dropdown-menu {
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown .dropdown-toggle {
+            padding: .25rem 1rem;
+        }
+    }
+
+    #dropdownlangmenu0.dropdown-menu {
+        left: auto;
+        right: 0;
+    }
+
+    #main-navbar {
+        .input-group {
+            align-items: center;
+            display: flex;
+        }
+
+        .nav-item {
+            i.only {
+                padding-right: 0;
+            }
+        }
+    }
+
+    .above-header {
+        .navbar button {
+            font-size: 16px;
+            margin: 3px 1px 1px 0;
+            padding: 2px 2px;
+        }
+
+        .dropdown-item {
+            padding: .3rem 0.65rem;
+        }
+
+        .navbar .popover-region-toggle i {
+            font-size: 1.2em;
+        }
+
+        .navbar > li {
+            line-height: 23px;
+        }
+
+        .linksmenu {
+            margin: 2px 15px 0 15px;
+        }
+
+        a.dropdown-toggle {
+            margin-bottom: 2px;
+            margin-top: 2px;
+        }
+    }
+
+    .nav-link {
+        padding: .1rem .2rem .1rem .2rem;
+    }
+
+    #header2 .popover-region-container a i {
+        color: inherit;
+    }
+
+    .context-header-settings-menu .icon {
+        width: auto;
+    }
+}
+
+.navbar .nav > li:last-child > a {
+    border-right: 0 !important;
+}
+
+// The Overlay (background) */
+.overlaymenu {
+    background-color: rgb(0,0,0); // Black fallback color.
+    background-color: rgba(0,0,0, 0.9); // Black w/opacity.
+    height: 0;
+    left: 0;
+    overflow-x: hidden; // Disable horizontal scroll.
+    position: fixed;
+    top: 0;
+    transition: 0.5s; // 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal).
+    width: 100%;
+    z-index: 1090;
+
+    &.open {
+        height: 100%;
+    }
+
+    .overlayclosebtn {
+        position: absolute;
+        right: 45px;
+        top: 20px;
+    }
+}
+
+.overlay-content {
+    margin-top: 30px;
+    position: relative;
+    top: 5%;
+    width: 100%;
+
+    li > a {
+        color: #fff !important;
+        display: block;
+        font-size: 1.5em;
+        padding: 8px;
+        text-decoration: none;
+        transition: 0.3s; // Transition effects on hover (color).
+    }
+
+    ul.overlaylist {
+        list-style: none;
+        margin: 0 auto 30px;
+        max-width: 90%;
+        text-align: left;
+
+        .level-0 a {
+            font-size: 2em;
+            margin-bottom: 1em;
+        }
+
+        .level-2 a:before {
+            content: "-";
+            margin-right: 15px;
+        }
+
+        .level-3 a:before {
+            content: ".";
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+    }
+}
+
+// When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap.
+@media (max-height: 450px) {
+    .overlaymenu a {font-size: 20px}
+    .overlaymenu .closebtn {
+        font-size: 40px;
+        right: 35px;
+        top: 15px;
+    }
+}
+
+// Styling the top menu link when it's configured not to appear on the right.
+#adaptable-page-header-wrapper .topmenuleft {
+    float: left;
+    margin: 0;
+    padding: 10px 0 0 0;
+}
+
+// New dropdown-related classes.  These are mainly for settings.
+
+.navbar {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#region-main-settings-menu .dropdown-menu {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.dropdown-menu.fade {
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.show > .dropdown-menu.fade {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+// Bootstrap hides/shows dropdowns onclick via the class 'show'.
+.dropdown-menu.show {
+    display: block !important; // SHAME - using important as this seems to be overwriten elsewhere.
+}
+
+#adaptable-page-header-wrapper #main-navbar .navbar-nav .nav-item .dropdown-menu > .nav-item .dropdown-menu {
+    max-height: 400px;
+    top: -1px;
+}
+
+// New bootstrap related css classes for hover menus. The below added for Adaptable for Moodle 3.6 onwards.
+
+//=-====Bootstrapthemes.co btco-hover-menu=====
+
+#adaptable-page-header-wrapper {
+    .navbar-nav {
+        margin-bottom: 0;
+    }
+
+    .navbar {
+        .popover-region-toggle {
+            color: inherit;
+            width: inherit;
+        }
+
+        .popover-region {
+            margin-right: 0.25rem;
+            .icon {
+                font-weight: 900; // https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight - override 'bolder' when body has <= 300 weight.
+            }
+        }
+    }
+
+    // Drop-down menu for hover.
+    .btco-hover-menu {
+        background: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #main-navbar .action-menu a.dropdown-toggle .afaicon {
+        @extend .fa-lg;
+        padding: 0;
+    }
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(64, 64, 64);
+}
+
+@media (max-width: 991px) {
+    #adaptable-page-header-wrapper .btco-hover-menu .show > .dropdown-toggle::after{
+        transform: rotate(-90deg);
+    }
+}
+
+@media (min-width: 991px) {
+    #adaptable-page-header-wrapper {
+        .btco-hover-menu {
+            ul li {
+                position:relative;
+            }
+
+            ul {
+                li:hover > ul,
+                ul.dropdown-menu li:hover > ul {
+                    display: block;
+                }
+
+                ul.dropdown-menu {
+                    display: none;
+                    margin-top: 0;
+                    min-width: 180px;
+                    padding: 0;
+                    position: absolute;
+
+                    ul {
+                        display: none;
+                        left: 100%;
+                        min-width: 180px;
+                        position: absolute;
+                        top: 0;
+
+                        ul {
+                            left: -100%;
+                            z-index: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .above-header .btco-hover-menu ul ul.dropdown-menu {
+            min-width: 60px;
+        }
+    }
+}

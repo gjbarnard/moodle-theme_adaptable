@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 //
 //
-// Adaptable search style sheet
+// Adaptable search and social style sheet
 //
 // @package    theme_adaptable
 // @copyright  2021 G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
@@ -30,10 +30,6 @@
         cursor: pointer;
         text-decoration: none;
     }
-
-    .btn {
-        color: [[setting:headertextcolor2]];
-    }
 }
 
 .headersearch,
@@ -47,10 +43,6 @@
         .icon {
             vertical-align: middle;
         }
-    }
-
-    input {
-        padding: 1.1rem;
     }
 }
 
@@ -69,7 +61,7 @@
     .navbarsearchsocial form,
     .headersearch .show {
         .icon {
-            color: [[setting:fontcolor]];
+            color: var(--ad-font-colour);
             font-size: 16px;
         }
     }
@@ -81,12 +73,6 @@
 }
 
 #adaptable-page-header-wrapper .navbarsearchsocial {
-    .btn-close {
-        padding-right: 0;
-        padding-top: 3px;
-        right: 2rem;
-    }
-
     .btn-open {
         border-width: 0;
 
@@ -95,15 +81,62 @@
         }
     }
 
-    .icon {
+    button .icon {
         padding-left: 4px;
         padding-right: 4px;
     }
 }
 
-.simplesearchform .collapse.show,
-.simplesearchform .collapsing {
-    background-color: transparent;
-    height: auto;
-    position: relative;
+.simplesearchform {
+    .btn-close {
+        background-image: none;
+        box-sizing: content-box; // From BS5.
+        height: 1em; // From BS5.
+        width: 1em; // From BS5.
+    }
+    .btn-close,
+    .btn-clear {
+        bottom: auto;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .icon {
+            vertical-align: top;
+        }
+    }
+
+    .collapse.show,
+    .collapsing {
+        background-color: transparent;
+        height: auto;
+        position: relative;
+    }
+}
+
+.socialbox {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    vertical-align: middle;
+
+    a,
+    a:visited {
+        color: [[setting:headermainrowtextcolour]];
+    }
+}
+
+.socialicons {
+    padding-top: [[setting:socialpaddingtop]];
+    a {
+        // Make at least 29px, values look odd but on inspection they are needed to be so for FontAwesome.
+        font-size: [[setting:socialsize]];
+        line-height: [[setting:socialsize]];
+        padding-left: [[setting:socialpaddingsidehalf]]px;
+        padding-right: [[setting:socialpaddingsidehalf]]px;
+        &:first-of-type {
+            margin-left: [[setting:socialpaddingsidehalf]]px;
+        }
+        &:last-of-type {
+            margin-right: [[setting:socialpaddingsidehalf]]px;
+        }
+    }
 }

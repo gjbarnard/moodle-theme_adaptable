@@ -161,26 +161,7 @@
 // Navigation block.
 .jsenabled .block_settings .block_tree .tree_item.branch,
 .block_navigation .block_tree .tree_item.branch {
-    color: [[setting:linkcolor]] !important;
-}
-
-// Fix wrong indentation.
-.block_navigation .block_tree p.hasicon img {
-    padding-right: 0;
-}
-
-.block_navigation ul.block_tree > li > ul,
-.block_navigation ul.block_tree > li > ul > li p.tree_item.branch {
-    padding-left: 0;
-}
-
-.block_navigation ul.block_tree > li > ul > li p.hasicon {
-    padding-left: 1px;
-}
-.block_navigation ul.block_tree > li > p[aria-expanded="true"]:before {
-    content: "\f625"; // gauge-high <- dashboard.
-    font-family: "Font Awesome 6 Free";
-    text-indent: -3px;
+    color: var(--ad-link-colour) !important;
 }
 
 // Course Timeline block.
@@ -341,7 +322,7 @@
 
 // Site Info block.
 .site-info-container {
-    background-color: [[setting:maincolor]];
+    background-color: var(--ad-main-colour);
     padding: 5px 10px;
     height: 120px
 }
@@ -369,6 +350,7 @@
 
 // Quiz editing block header.
 .questionbankwindow.block {
+    overflow: auto;
     padding: 0;
 }
 
@@ -577,23 +559,43 @@ body.has_dock div#dock {
     margin-left: 0;
 }
 
-.block_settings .block_tree .tree_item.branch {
-    padding-left: 5px;
+.block_navigation .block_tree [aria-hidden="true"]:not(.icon) {
+    display: inline-block;
 }
 
-.block_settings .block_tree p.hasicon {
-    padding-left: 5px;
-}
+.block_navigation,
+.block_settings {
+    .block_tree {
+        .tree_item.branch,
+        p.hasicon {
+            padding-left: 0;
+        }
 
-// Add slightly extra margin on right.
-.block_settings .block_tree p.hasicon .icon {
-    margin-right: 4px;
-}
+        p.hasicon {
+            text-indent: 0;
 
-// Circle icon size decreased.
-.block_settings .fa-circle {
-    font-size: 10px;
-    margin-right: .25rem;
+            .afaicon,
+            .icon { // As the JS templates.js instantiates Render() without the current theme name that renderIcon() needs.
+                margin-right: 0.25rem;
+                text-align: center;
+
+                &.anavigationitem {
+                    margin: 0 0.25rem;
+                }
+            }
+
+            .icon {
+                height: auto;
+            }
+        }
+
+        [aria-expanded="true"],
+        [aria-expanded="false"] {
+            > p::before {
+                margin-right: 0.25rem;
+            }
+        }
+    }
 }
 
 // Tabbed layout for course and dashboard.

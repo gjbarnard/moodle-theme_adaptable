@@ -218,7 +218,7 @@
     }
 
     #adaptable-page-header-wrapper .navbar .popover-region {
-        margin: 4px 0 0 4px;
+        margin: 0.25rem 0 0 0.25rem;
     }
 
     .page-header-margin.header-style1 #page {
@@ -290,40 +290,35 @@
         padding: 10px 0;
     }
 
-    // 1 tile.
-    .coursebox.col-12 .coursebtn {
-        width: 30% !important;
-    }
+    .coursebox {
+        // 1 tile.
+        &.box-12 .coursebtn {
+            width: 30% !important;
+        }
 
-    // 2 tiles.
-    .coursebox.col-6 .coursebtn {
-        width: 55% !important;
-    }
+        // 2 tiles.
+        &.box-6 .coursebtn {
+            width: 55% !important;
+        }
 
-    // 3 tiles.
-    .coursebox.col-4 .coursebtn {
-        width: 70% !important;
-    }
+        // 3 tiles.
+        &.box-4 .coursebtn {
+            width: 70% !important;
+        }
 
-    // 4 tiles.
-    .coursebox.col-3 .coursebtn {
-        width: 80% !important;
-    }
+        // 4 tiles.
+        &.box-3 .coursebtn {
+            width: 80% !important;
+        }
 
-    // 6 tiles.
-    .coursebox.col-2 .coursebtn {
-        width: 95% !important;
+        // 6 tiles.
+        &.box-2 .coursebtn {
+            width: 95% !important;
+        }
     }
 
     #page-site-index a.submit {
         width: auto;
-    }
-
-    .headermenu2 {
-        clear: both;
-        float: none;
-        padding: 10px 0;
-        text-align: center;
     }
 
     .flex-caption {
@@ -445,7 +440,7 @@
     }
 
     .socialbox a {
-        color: [[setting:headertextcolor]];
+        color: [[setting:headertoprowtextcolour]];
     }
 
     .socialbox a i {

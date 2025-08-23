@@ -37,3 +37,23 @@
         width: auto;
     }
 }
+
+#adaptable-page-header-wrapper {
+    #header1 .userpicture {
+        height: 25px;
+        width: 25px;
+    }
+
+    #header2 .userpicture {
+        height: 35px;
+        width: 35px;
+    }
+}
+
+#logo {
+    max-width: 250px;
+}
+
+#page-my-index #page-navbar {
+    display: inline;
+}

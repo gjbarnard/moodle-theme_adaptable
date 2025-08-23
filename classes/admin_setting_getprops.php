@@ -157,12 +157,13 @@ class admin_setting_getprops extends \admin_setting {
                 $files = $fs->get_area_files(
                     $syscontext->id, $this->pluginfrankenstyle, 'propertyfiles', 0, 'filepath,filename', false);
                 if (count($files) < 8) {
-                    global $USER;
+                    global $SITE, $USER;
                     $time = time();
                     $datetime = new \DateTime("now", \core_date::get_user_timezone_object());
                     // Appended seconds.
                     $userdate = userdate($datetime->getTimestamp(), get_string('backupnameformat', 'core_langconfig').'%S');
-                    $filename = "Adaptable_".get_string('settings')."_".$userdate.".json";
+                    $filename = "Adaptable_".get_string('settings').((empty($SITE->shortname)) ? '' : '_'.$SITE->shortname).
+                        "_".$userdate.".json";
 
                     $filerecord = [
                         'contextid' => context_user::instance($USER->id)->id,

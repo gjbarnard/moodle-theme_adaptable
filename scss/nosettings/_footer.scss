@@ -1,0 +1,71 @@
+//
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+//
+//
+// Adaptable Footer style sheet
+//
+// @package    theme_adaptable
+// @copyright  2025 G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
+// @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+//
+
+#page-footer {
+    border-top: 0;
+    font-size: 110%;
+    margin: 4px 0 0;
+    text-align: left;
+    word-wrap: break-word;
+
+    > div {
+        padding-bottom: 4px;
+        padding-top: 4px;
+    }
+
+    h3 {
+        word-wrap: break-word;
+    }
+
+    .info {
+        font-size: 90%;
+        line-height: 21px;
+        margin: 0 auto;
+    }
+
+    .logininfo {
+        font-size: 90%;
+        margin: 0 auto 0;
+        width: auto;
+    }
+
+    ol,
+    ul {
+        list-style: none outside none;
+        margin: 0 0;
+    }
+
+    .validators,
+    .purgecaches,
+    .performanceinfo,
+    #load {
+        display: block;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .performanceinfo {
+        margin: 10px 0;
+    }
+}

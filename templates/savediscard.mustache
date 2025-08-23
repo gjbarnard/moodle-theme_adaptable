@@ -21,16 +21,13 @@
 
     Example context (json):
     {
-        "topmargin": "5px",
-        "discardtext": "Cancel",
-        "savetext": "Save"
+        "topmargin": "5px"
     }
 }}
 
-<div id="savediscardsection" style="margin-top: {{{ topmargin }}};">
-<input id="adminresetbutton" class="form-submit" style="float: right; margin-right: 20px;" type="reset"
-    form="adminsettings" value="{{{ discardtext }}}" data-confirm="{{#str}}enablesavecanceloverlayresetconfirm, theme_adaptable{{/str}}" />
-<input id="adminsubmitbutton" style="float: right; margin-right: 20px;" type="submit" form="adminsettings" value=" {{{ savetext }}}" />
+<div id="savediscardsection" style="margin-top: {{ topmargin }};">
+<input id="adminresetbutton" class="form-reset" type="reset" form="adminsettings" value="{{#str}}discardbuttontext, theme_adaptable{{/str}}" data-confirm="{{#str}}enablesavecanceloverlayresetconfirm, theme_adaptable{{/str}}" />
+<input id="adminsubmitbutton" class="form-submit" type="submit" form="adminsettings" value="{{#str}}savebuttontext, theme_adaptable{{/str}}" />
 </div>
 {{#js}}
 require(['theme_adaptable/savebutton'], function(mod) {

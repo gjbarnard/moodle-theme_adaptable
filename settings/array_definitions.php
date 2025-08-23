@@ -192,11 +192,6 @@ if ($ADMIN->fulltree) {
         $from35to100percent[$i . '%'] = $i . '%';
     }
 
-    $from85to110percent = [];
-    for ($i = 85; $i < 111; $i++) {
-        $from85to110percent[$i . '%'] = $i . '%';
-    }
-
     // Seconds.
     $from0to1second = [];
     $floatcount = 0.0;

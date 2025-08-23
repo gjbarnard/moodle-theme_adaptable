@@ -1,37 +1,42 @@
-Adaptable - the most adaptable moodle theme
+Adaptable - the most adaptable Moodle theme
 ===========================================
-Adaptable is a highly customizable responsive two column moodle theme based on the popular BCU theme adding:
+Adaptable is a highly customisable responsive Moodle theme:
 
-- Customizable fonts (Google Fonts)
-- Fully customizable colors
-- Fully customizable block styles (including FA icons)
-- Fully customizable buttons
-- Additional header navigation
-- News Ticker
-- Alternative jQuery slider
-- Alternative front page course styles
-- Additional customizable marketing blocks
-- Additional layout settings for width, slider width, padding of
-  various elements
-- Social icons
-- Mobile settings (customize how theme looks on mobile devices)
-- Dismissible bootstrap alerts
-- Option to add login form in header on front page
-- Logo and Favicon uploader
-- Modern emojis (thanks to EmojiOne)
-- Front Page layout builder
-- Dashboard layout builder
-- Course layout builder
-- Activities status
-- Privacy API (compatible with GDPR)
-- 2 and 3 row header style options 
-- 2 User profile layouts
+- Additional customisable information / marketing blocks.
+- Additional header navigation.
+- Additional layout settings.
+- Alternative frontpage course styles.
+- Alternative slider.
+- Course tabbed layout builder.
+- Custom category headers (Sponsors only functionality).
+- Custom frontpage courses list.
+- Customisable fonts (Google Fonts).
+- Customisable login page (Sponsors only functionality).
+- Customisable navigation bar.
+- Dashboard layout builder.
+- Dismissible bootstrap alerts (Sponsors only functionality).
+- Footer block layout builder.
+- Forum post email template override.
+- Frontpage layout builder.
+- Fully customisable colours.
+- Fully customisable block styles (including Font Awesome icons).
+- Fully customisable buttons.
+- My courses menu (Sponsors only functionality).
+- News ticker (Sponsors only functionality).
+- Print settings.
+- Privacy API.
+- Responsive layout options.
+- Social icons.
+- Tools menus (Sponsors only functionality).
+- Two and three row header style options.
+- User favourites menu - per user (Sponsors only functionality).
+- User profile options.
 
 In addition many fields (menus, news items, alerts and help links) can be targeted using custom profile fields, thus it is possible
-to present different users with different navigation items and notices. It is also possible for individual users to customize where
+to present different users with different navigation items and notices.  It is also possible for individual users to customize where
 they want top menu navigation to appear (disable, home pages only, site wide) using custom profile fields.
 
-Adaptable has a lot of settings and may seem daunting at first, our advice is to simply install with the default settings and play
+Adaptable has a lot of settings and may seem daunting at first, my advice is to simply install with the default settings and play
 with it afterwards.
 
 With a little time you should be able to setup an attractive Moodle site with a high degree of individuality without without
@@ -144,7 +149,3 @@ The Font Awesome font (by Dave Gandy) http://fontawesome.io, is licensed under:
 - Documentation: CC BY 3.0
 - CSS, LESS, and SASS files are licensed under:
 [MIT License](https://opensource.org/licenses/mit-license.html)
-
-Emoji icons provided free by [EmojiOne](http://emojione.com) released under:
-
-- [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)

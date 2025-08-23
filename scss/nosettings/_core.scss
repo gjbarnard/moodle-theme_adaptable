@@ -46,6 +46,41 @@ a.skip {
     left: -1000em;
 }
 
+.icon {
+    margin: 0;
+}
+
+.badge,
+.dropdown-item {
+    .afaicon {
+        text-align: center;
+    }
+}
+
+// Default to have a margin!
+.afaicon,
+#adaptable-user-nav .dropdown-menu .afaicon {
+    margin-right: 0.25rem;
+}
+
+// Specific removals.
+.add-content,
+#adaptable-user-nav,
+.socialicons {
+    .afaicon {
+        margin-right: 0;
+    }
+}
+
+.activity-icon,
+.dropdown-item,
+.dropdown-toggle,
+.option-icon {
+    .icon {
+        margin-right: 0.25rem;
+    }
+}
+
 .modchoosercontainer {
     .btn {
         border: none;

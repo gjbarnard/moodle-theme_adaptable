@@ -56,14 +56,13 @@ if ($ADMIN->fulltree) {
     // Course page top slider block region enabled.
     $page->add(new admin_setting_heading(
         'theme_adaptable_newsslider_heading',
-        get_string('coursepagenewssliderblockregionheading', 'theme_adaptable'),
-        format_text(get_string('coursepagenewssliderblockregionheadingdesc', 'theme_adaptable',
-            'https://moodle.org/plugins/block_news_slider'), FORMAT_MARKDOWN)
+        get_string('coursepageinformationblockregionheading', 'theme_adaptable'),
+        format_text(get_string('coursepageinformationblockregionheadingdesc', 'theme_adaptable'))
     ));
 
-    $name = 'theme_adaptable/coursepageblocksliderenabled';
-    $title = get_string('coursepageblocksliderenabled', 'theme_adaptable');
-    $description = get_string('coursepageblocksliderenableddesc', 'theme_adaptable');
+    $name = 'theme_adaptable/coursepageblockinfoenabled';
+    $title = get_string('coursepageblockinfoenabled', 'theme_adaptable');
+    $description = get_string('coursepageblockinfoenableddesc', 'theme_adaptable');
     $setting = new admin_setting_configcheckbox($name, $title, $description, false);
     $page->add($setting);
 

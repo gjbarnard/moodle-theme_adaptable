@@ -27,4 +27,21 @@
         border: 0 solid transparent;
         padding: map-get($spacers, 3);
     }
+
+    &.hiddenactivity {
+        .activityiconcontainer,
+        .badge {
+            mix-blend-mode: normal;
+        }
+    }
+    // Custom styles for activity cards while editing.
+    .editing & {
+        &:hover:not(:has(.activity:hover)),
+        &.selected {
+            .activityiconcontainer,
+            .badge {
+                mix-blend-mode: normal;
+            }
+        }
+    }
 }

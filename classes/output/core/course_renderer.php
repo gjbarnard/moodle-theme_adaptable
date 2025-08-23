@@ -74,6 +74,27 @@ class course_renderer extends \core_course_renderer {
     }
 
     /**
+     * Renders the list of courses
+     *
+     * This is internal function, please use {@link core_course_renderer::courses_list()} or another public
+     * method from outside of the class
+     *
+     * If list of courses is specified in $courses; the argument $chelper is only used
+     * to retrieve display options and attributes, only methods get_show_courses(),
+     * get_courses_display_option() and get_and_erase_attributes() are called.
+     *
+     * @param coursecat_helper $chelper various display options
+     * @param array $courses the list of courses to display
+     * @param int|null $totalcount total number of courses (affects display mode if it is AUTO or pagination if applicable),
+     *     defaulted to count($courses)
+     * @return string
+     */
+    protected function coursecat_courses(coursecat_helper $chelper, $courses, $totalcount = null) {
+        $chelper->set_attributes($chelper->get_and_erase_attributes('row'));
+        return parent::coursecat_courses($chelper, $courses, $totalcount);
+    }
+
+    /**
      * Render course tiles in the front page
      *
      * @param coursecat_helper $chelper
@@ -114,12 +135,12 @@ class course_renderer extends \core_course_renderer {
         $content = '';
 
         // Number of tiles per row: 12=1 tile / 6=2 tiles / 4 (default)=3 tiles / 3=4 tiles / 2=6 tiles.
-        $spanclass = $this->page->theme->settings->frontpagenumbertiles;
+        $colclass = $this->page->theme->settings->frontpagenumbertiles;
 
         // Display course tiles depending the number per row.
         $content .= html_writer::start_tag(
             'div',
-            ['class' => 'col-xs-12 col-sm-' . $spanclass . ' panel panel-default coursebox ' . $additionalcss]
+            ['class' => 'col-12 col-md-' . $colclass . ' panel panel-default coursebox box-' . $colclass . ' ' . $additionalcss]
         );
 
         // Add the course name.
@@ -168,14 +189,13 @@ class course_renderer extends \core_course_renderer {
                 $icondirection = 'right';
             }
             $arrow = html_writer::tag('span', '', ['class' => 'fa fa-chevron-' . $icondirection]);
-            $btn = html_writer::tag('span', get_string('course', 'theme_adaptable') . ' ' .
-                    $arrow, ['class' => 'get_stringlink']);
+            $btn = html_writer::tag('span', get_string('course') . ' ' . $arrow, ['class' => 'get_stringlink']);
 
             if (($type != 4) || (empty($this->page->theme->settings->covhidebutton))) {
                 $content .= html_writer::link(new url(
                     '/course/view.php',
                     ['id' => $course->id]
-                ), $btn, ['class' => " coursebtn submit btn btn-info btn-sm"]);
+                ), $btn, ['class' => "coursebtn submit btn btn-info btn-sm"]);
             }
         }
 
@@ -353,8 +373,6 @@ class course_renderer extends \core_course_renderer {
             $content .= html_writer::end_tag('div');
             // End coursebox-content.
         }
-
-        $content .= html_writer::tag('div', '', ['class' => 'boxfooter']); // Coursecat.
 
         return $content;
     }

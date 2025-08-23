@@ -117,5 +117,51 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    $name = 'theme_adaptable/tilesbordercolor';
+    $title = get_string('tilesbordercolor', 'theme_adaptable');
+    $description = get_string('tilesbordercolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#3A454b', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Overlay tiles colors heading.
+    $name = 'theme_adaptable/settingscoventryoverlaycolors';
+    $heading = get_string('settingscoventryoverlaycolors', 'theme_adaptable');
+    $setting = new admin_setting_heading($name, $heading, '');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/covbkcolor';
+    $title = get_string('covbkcolor', 'theme_adaptable');
+    $description = get_string('covbkcolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#3A454b', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/covfontcolor';
+    $title = get_string('covfontcolor', 'theme_adaptable');
+    $description = get_string('covfontcolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/rendereroverlaycolor';
+    $title = get_string('rendereroverlaycolor', 'theme_adaptable');
+    $description = get_string('rendereroverlaycolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#3A454b', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_adaptable/rendereroverlayfontcolor';
+    $title = get_string('rendereroverlayfontcolor', 'theme_adaptable');
+    $description = get_string('rendereroverlayfontcolordesc', 'theme_adaptable');
+    $previewconfig = null;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '#FFF', $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     $asettings->add($page);
 }

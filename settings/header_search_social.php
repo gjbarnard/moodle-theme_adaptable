@@ -15,11 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Header social
+ * Header search and social.
  *
  * @package    theme_adaptable
  * @copyright  2015 Jeremy Hopkins (Coventry University)
  * @copyright  2015 Fernando Acedo (3-bits.com)
+ * @copyright  2025 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
@@ -27,13 +30,37 @@ defined('MOODLE_INTERNAL') || die;
 
 // Social links.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_social', get_string('socialsettings', 'theme_adaptable'));
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_search_social', get_string('searchsocialsettings', 'theme_adaptable'));
 
     $page->add(new admin_setting_heading(
-        'theme_adaptable_social',
-        get_string('socialheading', 'theme_adaptable'),
-        format_text(get_string('socialtitledesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+        'theme_adaptable_search_social',
+        get_string('searchsocialheading', 'theme_adaptable'),
+        format_text(get_string('searchsocialtitledesc', 'theme_adaptable'), FORMAT_MARKDOWN)
     ));
+
+    // Choose what to do with the search box and social icons.
+    $name = 'theme_adaptable/headersearchandsocial';
+    $title = get_string('headersearchandsocial', 'theme_adaptable');
+    $description = get_string('headersearchandsocialdesc', 'theme_adaptable');
+    $choices = [
+        'none' => get_string('headersearchandsocialnone', 'theme_adaptable'),
+        'searchmobilenav' => get_string('headersearchandsocialsearchmobilenav', 'theme_adaptable'),
+        'searchheader' => get_string('headersearchandsocialsearchheader', 'theme_adaptable'),
+        'socialheader' => get_string('headersearchandsocialsocialheader', 'theme_adaptable'),
+        'searchnavbar' => get_string('headersearchandsocialsearchnavbar', 'theme_adaptable'),
+        'searchnavbarsocialheader' => get_string('headersearchandsocialsearchnavbarsocialheader', 'theme_adaptable'),
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, 'searchmobilenav', $choices);
+    $page->add($setting);
+
+    // Search box padding.
+    $name = 'theme_adaptable/searchboxpadding';
+    $title = get_string('searchboxpadding', 'theme_adaptable');
+    $description = get_string('searchboxpaddingdesc', 'theme_adaptable');
+    $setting = new admin_setting_configtext($name, $title, $description, '0 0 0 0');
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
 
     $name = 'theme_adaptable/socialsize';
     $title = get_string('socialsize', 'theme_adaptable');

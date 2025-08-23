@@ -26,6 +26,62 @@
     min-height: 40px;
 }
 
+.navbar .nav-collapse.in {
+    border-top: none;
+}
+
+.navbar .nav {
+    display: block;
+    float: left;
+    left: 0;
+    margin: 0 0 0 4px;
+    position: relative;
+
+    > li > a {
+        margin: 0 0 0 0 !important;
+    }
+}
+
+.nav .dropdown-menu li a {
+    border-bottom-color: none !important;
+}
+
+.navbar .singlebutton,
+.navbar input,
+.navbar .singlebutton div,
+.path-mod-data .navbar form {
+    line-height: 18px;
+    margin: 0 0;
+}
+
+#adaptable-page-header-wrapper .navbar {
+    #pre-login-form input {
+        margin: 5px;
+        padding: 2px;
+    }
+
+    a.btn-login,
+    #pre-login-form button.btn-login {
+        height: 30px;
+        margin: 3px 1px 1px 10px;
+        padding: 0 15px;
+    }
+}
+
+.navbar .singlebutton input {
+    padding: 4px 15px;
+    margin-left: 5px;
+}
+
+.navbar #coursesearchnavbar,
+.navbar .wikisearch {
+    margin-top: 3px;
+}
+
+.navbar .forumsearch input[type=text] {
+    padding: 0;
+}
+
 header .nav-item {
     margin-bottom: auto;
     margin-top: auto;
@@ -65,4 +121,55 @@ header .nav-item {
         height: calc(100% - 72px);
         top: 72px;
     }
+}
+
+// Breadcrumb
+#page-navbar {
+    margin-top: 10px;
+
+    .breadcrumb-button {
+        display: block;
+        text-align: right;
+    }
+}
+
+.breadcrumb-button {
+    margin-top: 1px;
+
+    i {
+        margin-right: 0.25rem;
+    }
+}
+
+.breadcrumb {
+    padding: 0 10px;
+    li {
+        margin: 5px 0;
+        text-shadow: none;
+        span {
+            a {
+                text-decoration: none;
+            }
+            &.divider {
+                display: none !important;
+            }
+        }
+        a.firstli {
+            padding-left: 15px;
+            padding-right: 20px;
+        }
+    }
+    > a {
+        display: inline-block;
+        margin: 5px 0;
+    }
+
+    ul i,
+    li.lastli span {
+        text-decoration: none;
+    }
+}
+
+.nav-link {
+    background: none;
 }

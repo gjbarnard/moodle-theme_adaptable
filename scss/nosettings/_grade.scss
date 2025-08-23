@@ -58,3 +58,16 @@
         bottom: -1px;
     }
 }
+
+.path-mod-assign {
+    .gradingtable {
+        thead tr {
+            top: 0;
+        }
+    }
+
+    // img assignment.
+    [data-region="user-info"] .img-rounded {
+        height: 60px;
+    }
+}

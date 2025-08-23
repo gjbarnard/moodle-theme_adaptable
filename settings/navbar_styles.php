@@ -83,28 +83,6 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    $name = 'theme_adaptable/navbardisplayicons';
-    $title = get_string('navbardisplayicons', 'theme_adaptable');
-    $description = get_string('navbardisplayiconsdesc', 'theme_adaptable');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    $page->add($setting);
-
-    $name = 'theme_adaptable/navbardisplaytitles';
-    $title = get_string('navbardisplaytitles', 'theme_adaptable');
-    $description = get_string('navbardisplaytitlesdesc', 'theme_adaptable');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    $page->add($setting);
-
-    $name = 'theme_adaptable/navbardisplaymenuarrow';
-    $title = get_string('navbardisplaymenuarrow', 'theme_adaptable');
-    $description = get_string('navbardisplaymenuarrowdesc', 'theme_adaptable');
-    $default = false;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
     // Dropdown border radius.
     $name = 'theme_adaptable/navbardropdownborderradius';
     $title = get_string('navbardropdownborderradius', 'theme_adaptable');

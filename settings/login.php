@@ -117,7 +117,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('logintextboxtop', 'theme_adaptable');
     $description = get_string('logintextboxtopdesc', 'theme_adaptable');
     $default = '';
-    $setting = new adaptable_setting_confightmleditor($name, $title, $description, $default);
+    $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
     $page->add($setting);
 
     // Bottom text.
@@ -125,7 +125,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('logintextboxbottom', 'theme_adaptable');
     $description = get_string('logintextboxbottomdesc', 'theme_adaptable');
     $default = '';
-    $setting = new adaptable_setting_confightmleditor($name, $title, $description, $default);
+    $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
     $page->add($setting);
 
     $asettings->add($page);

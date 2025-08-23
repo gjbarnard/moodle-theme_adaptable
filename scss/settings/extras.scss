@@ -108,7 +108,7 @@ ul.teachers {
 }
 
 .messaging-area-container .messaging-area .contacts-area .tabs .tab.selected {
-    color: [[setting:linkcolor]] !important;
+    color: var(--ad-link-colour) !important;
 
 }
 
@@ -161,8 +161,8 @@ ul.teachers {
 .msg-title,
 .msg-sender,
 .msg-time {
-    background-color: [[setting:maincolor]];
-    color: [[setting:fontcolor]];
+    background-color: var(--ad-main-colour);
+    color: var(--ad-font-colour);
 }
 
 .msg-time {
@@ -181,7 +181,7 @@ ul.teachers {
     line-height: 25px;
     padding: 0 5px;
     width: auto;
-    color: [[setting:linkcolor]] !important;
+    color: var(--ad-link-colour) !important;
     background: none !important;
     border: 0;
     box-shadow: none;
@@ -208,11 +208,11 @@ ul.teachers {
 }
 
 .messaging-area-container .messaging-area .contacts-area .tabs .tab {
-    color: [[setting:linkcolor]];
+    color: var(--ad-link-colour);
 }
 
 .messaging-area-container .messaging-area .contacts-area .tabs .tab:hover {
-    color: [[setting:linkhover]];
+    color: var(--ad-linkhover-colour);
 }
 
 .messaging-area-container .messaging-area .messages-area .messages-header .actions {
@@ -235,6 +235,7 @@ ul.teachers {
 #newmessageoverlay {
     background-clip: padding-box;
     background-color: #ffffff;
+    border: 3px solid [[setting:messagepopupbackground]];
     border-radius: 6px;
     bottom: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -249,133 +250,139 @@ ul.teachers {
     text-align: left;
     white-space: normal;
     z-index: 1010;
+
+    #newmessagetext {
+        background-color: [[setting:messagepopupbackground]];
+        border-radius: 5px 5px 0 0;
+        color: [[setting:messagepopupcolor]];
+    }
+
+    &.top {
+        margin-top: -10px;
+
+         > .arrow {
+            left: 50%;
+            margin-left: -11px;
+            border-bottom-width: 0;
+            border-top-color: #999;
+            border-top-color: rgba(0, 0, 0, 0.25);
+            bottom: -11px;
+            
+            &:after {
+                border-bottom-width: 0;
+                border-top-color: #fff;
+                bottom: 1px;
+                content: " ";
+                margin-left: -10px;
+            }
+        }
+    }
+
+    &.right {
+        margin-left: 10px;
+
+        > .arrow {
+            border-left-width: 0;
+            border-right-color: #999;
+            border-right-color: rgba(0, 0, 0, 0.25);
+            left: -11px;
+            margin-top: -11px;
+            top: 50%;
+            
+            &:after {
+                border-left-width: 0;
+                border-right-color: #fff;
+                bottom: -10px;
+                content: " ";
+                left: 1px;
+            }
+        }
+    }
+
+    &.bottom {
+        margin-top: 10px;
+
+        > .arrow {
+            border-bottom-color: #999;
+            border-bottom-color: rgba(0, 0, 0, 0.25);
+            border-top-width: 0;
+            left: 50%;
+            margin-left: -11px;
+            top: -11px;
+            
+            &:after {
+                border-bottom-color: #fff;
+                border-top-width: 0;
+                content: " ";
+                margin-left: -10px;
+                top: 1px;
+            }
+        }
+    }
+
+    &.left {
+        margin-left: -10px;
+
+        > .arrow {
+            border-left-color: #999;
+            border-left-color: rgba(0, 0, 0, 0.25);
+            border-right-width: 0;
+            margin-top: -11px;
+            right: -11px;
+            top: 50%;
+
+            &:after {
+                border-left-color: #fff;
+                border-right-width: 0;
+                bottom: -10px;
+                content: " ";
+                right: 1px;
+            }
+        }
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+    #newmessagetext {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 18px;
+        margin: 0;
+        padding: 8px 14px;
+    }
+
+    #usermessage {
+        background-color: #fff;
+        border: 1px dotted rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        margin-top: 5px;
+        padding: 9px 14px;
+    }
+
+    #newmessagelinks {
+        margin: 5px 14px;
+    }
 }
 
-#newmessageoverlay.top {
-    margin-top: -10px;
-}
+.box.message .messagearea .messagehistory .box.center table.message_user_pictures {
+    td#user1,
+    td#user2 {
+        display: block;
+        height: 160px;
+        img.userpicture {
+            border-radius: 50%;
+        }
+    }
 
-#newmessageoverlay.right {
-    margin-left: 10px;
-}
+    td#user1 img.userpicture {
+        border: 3px solid #d6e9c6;
+    }
 
-#newmessageoverlay.bottom {
-    margin-top: 10px;
-}
-
-#newmessageoverlay.left {
-    margin-left: -10px;
-}
-
-#newmessageoverlay.top > .arrow {
-    left: 50%;
-    margin-left: -11px;
-    border-bottom-width: 0;
-    border-top-color: #999;
-    border-top-color: rgba(0, 0, 0, 0.25);
-    bottom: -11px;
-}
-
-#newmessageoverlay.top > .arrow:after {
-    border-bottom-width: 0;
-    border-top-color: #fff;
-    bottom: 1px;
-    content: " ";
-    margin-left: -10px;
-}
-
-#newmessageoverlay.right > .arrow {
-    border-left-width: 0;
-    border-right-color: #999;
-    border-right-color: rgba(0, 0, 0, 0.25);
-    left: -11px;
-    margin-top: -11px;
-    top: 50%;
-}
-
-#newmessageoverlay.right > .arrow:after {
-    border-left-width: 0;
-    border-right-color: #fff;
-    bottom: -10px;
-    content: " ";
-    left: 1px;
-}
-
-#newmessageoverlay.bottom > .arrow {
-    border-bottom-color: #999;
-    border-bottom-color: rgba(0, 0, 0, 0.25);
-    border-top-width: 0;
-    left: 50%;
-    margin-left: -11px;
-    top: -11px;
-}
-
-#newmessageoverlay.bottom > .arrow:after {
-    border-bottom-color: #fff;
-    border-top-width: 0;
-    content: " ";
-    margin-left: -10px;
-    top: 1px;
-}
-
-#newmessageoverlay.left > .arrow {
-    border-left-color: #999;
-    border-left-color: rgba(0, 0, 0, 0.25);
-    border-right-width: 0;
-    margin-top: -11px;
-    right: -11px;
-    top: 50%;
-}
-
-#newmessageoverlay.left > .arrow:after {
-    border-left-color: #fff;
-    border-right-width: 0;
-    bottom: -10px;
-    content: " ";
-    right: 1px;
-}
-
-#newmessageoverlay a {
-    text-decoration: underline;
-}
-
-#newmessageoverlay #newmessagetext {
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 18px;
-    margin: 0;
-    padding: 8px 14px;
-}
-
-#newmessageoverlay #usermessage {
-    background-color: #fff;
-    border: 1px dotted rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    margin-top: 5px;
-    padding: 9px 14px;
-}
-
-#newmessageoverlay #newmessagelinks {
-    margin: 5px 14px;
-}
-
-.box.message .messagearea .messagehistory .box.center table.message_user_pictures td#user1,
-.box.message .messagearea .messagehistory .box.center table.message_user_pictures td#user2 {
-    display: block;
-    height: 160px;
-}
-
-.box.message .messagearea .messagehistory .box.center table.message_user_pictures td#user1 img.userpicture,
-.box.message .messagearea .messagehistory .box.center table.message_user_pictures td#user2 img.userpicture {
-    border-radius: 50%;
-}
-
-.box.message .messagearea .messagehistory .box.center table.message_user_pictures td#user1 img.userpicture {
-    border: 3px solid #d6e9c6;
-}
-
-.box.message .messagearea .messagehistory .box.center table.message_user_pictures td#user2 img.userpicture {
-    border: 3px solid #bce8f1;
+    td#user2 img.userpicture {
+        border: 3px solid #bce8f1;
+    }
 }
 
 .box.message .messagearea .messagehistory .messagehistorytype {
@@ -383,108 +390,122 @@ ul.teachers {
     border-bottom: 1px solid #ddd;
     color: #fff;
     padding: 5px 15px;
-}
 
-.box.message .messagearea .messagehistory .messagehistorytype > li {
-    float: left;
-    margin-bottom: -1px;
-}
+    > li {
+        float: left;
+        margin-bottom: -1px;
 
-.box.message .messagearea .messagehistory .messagehistorytype > li > a {
-    border: 1px solid transparent;
-    border-radius: 4px 4px 0 0;
-    line-height: 1.42857143;
-    margin-right: 2px;
-}
+        > a {
+            border: 1px solid transparent;
+            border-radius: 4px 4px 0 0;
+            line-height: 1.42857143;
+            margin-right: 2px;
+        }
 
-.box.message .messagearea .messagehistory .messagehistorytype > li > a:hover {
-    border-color: #eee #eee #ddd;
-}
+        &:hover {
+            border-color: #eee #eee #ddd;
+        }
 
-.box.message .messagearea .messagehistory .messagehistorytype > li.active > a,
-.box.message .messagearea .messagehistory .messagehistorytype > li.active > a:hover,
-.box.message .messagearea .messagehistory .messagehistorytype > li.active > a:focus {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-bottom-color: transparent;
-    color: #555;
-    cursor: default;
-}
+        &.active {
+            > a,
+            > a:hover,
+            > a:focus {
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-bottom-color: transparent;
+                color: #555;
+                cursor: default;
+            }
+        }
+    }
 
-.box.message .messagearea .messagehistory .messagehistorytype.nav-justified {
-    border-bottom: 0;
-    padding: 10px 0 0 0;
-    width: 100%;
-}
+    &.nav-justified {
+        border-bottom: 0;
+        padding: 10px 0 0 0;
+        width: 100%;
 
-.box.message .messagearea .messagehistory .messagehistorytype.nav-justified > li {
-    float: none;
-}
+        > li {
+            float: none;
 
-.box.message .messagearea .messagehistory .messagehistorytype.nav-justified > li > a {
-    margin-bottom: 5px;
-    text-align: center;
-}
+            > a {
+                margin-bottom: 5px;
+                text-align: center;
+            }
+        }
 
-.box.message .messagearea .messagehistory .messagehistorytype.nav-justified > .dropdown .dropdown-menu {
-    left: auto;
-    top: auto;
+        > .dropdown .dropdown-menu {
+            left: auto;
+            top: auto;
+        }
+    }
 }
 
 #intro.generalbox {
-	background-color: [[setting:introboxbackgroundcolor]];
+    background-color: [[setting:introboxbackgroundcolor]];
 }
 
 // Forum.
-.forumpost .maincontent .left {
-    padding: 0 10px 0 10px;
-}
+.forumpost {
+    background-color: [[setting:forumbodybackgroundcolor]];
 
-.forumpost .row .left {
-    width: auto;
-}
+    .maincontent .left {
+        padding: 0 10px 0 10px;
+    }
 
-.forumpost .options .commands {
-    float: right;
-    margin-left: 0;
-}
+    .row {
+        .left {
+            width: auto;
+        }
 
-.forumpost .subject {
-    font-weight: bold;
+        &.maincontent .left {
+            float: none;
+        }
+    }
+
+    .options .commands {
+        float: right;
+        margin-left: 0;
+    }
+
+    .subject {
+        font-size: 1.8em;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .userpicture {
+        background-color: #fff;
+        border: 5px solid #fff;
+        border-radius: 50%;
+        display: inline;
+        height: 50px !important;
+        margin: 0 10px 0 0;
+        padding: 1px;
+        width: 50px !important;
+    }
+
+    .picture img.userpicture {
+        margin: 0 10px 0 10px;
+    }
+
+    .header {
+        background-color: [[setting:forumheaderbackgroundcolor]];
+        border-radius: 0 0 0 0;
+        padding: 10px 0 10px 0;
+
+        .topic {
+            margin: 0 0 10px 10px;
+        }
+    }
+
+    .content {
+        clear: both;
+        padding: 0 15px;
+    }
 }
 
 .forumsearch input[type=text] {
     margin-bottom: 0 !important;
-}
-
-// Further styling for forum block.
-.forumpost .userpicture {
-    background-color: #fff;
-    border: 5px solid #fff;
-    border-radius: 50%;
-    display: inline;
-    height: 50px !important;
-    margin: 0 10px 0 0;
-    padding: 1px;
-    width: 50px !important;
-}
-
-.forumpost .picture img.userpicture {
-    margin: 0 10px 0 10px;
-}
-
-.forumpost .header .topic {
-    margin: 0 0 10px 10px;
-}
-
-.forumpost {
-    background-color: [[setting:forumbodybackgroundcolor]];
-}
-
-.forumpost .header {
-    padding: 10px 0 10px 0;
-    background-color: [[setting:forumheaderbackgroundcolor]];
-    border-radius: 0 0 0 0;
 }
 
 // Lesson Activity.
@@ -492,10 +513,12 @@ ul.teachers {
     width: auto;
 }
 
-.path-mod-lesson .answeroption .fcheckbox label,
-.path-mod-lesson .mform .fitem.answeroptiongroup fieldset.fgroup label {
-    float: left;
-    padding-left: 40px;
+.path-mod-lesson {
+    .answeroption .fcheckbox label,
+    .mform .fitem.answeroptiongroup fieldset.fgroup label {
+        float: left;
+        padding-left: 40px;
+    }
 }
 
 .lessonbutton a {
@@ -507,13 +530,13 @@ ul.teachers {
     padding: 8px 15px 8px;
     margin: 10px;
     transition: background .2s ease-out;
-}
 
-.lessonbutton a:hover {
-    background-image: none;
-    background-color: [[setting:buttonhovercolor]];
-    box-shadow: 0 -2px 0 0 rgba(0, 0, 0, 0.5) inset;
-    color: [[setting:buttontexthovercolor]] !important;
+    &:hover {
+        background-image: none;
+        background-color: [[setting:buttonhovercolor]];
+        box-shadow: 0 -2px 0 0 rgba(0, 0, 0, 0.5) inset;
+        color: [[setting:buttontexthovercolor]] !important;
+    }
 }
 
 .box {
@@ -525,44 +548,53 @@ ul.teachers {
 }
 
 // Forum Activity.
-#page-mod-forum-discuss .discussioncontrol.displaymode {
-    text-align: left;
-}
+#page-mod-forum-discuss {
+    .discussioncontrol.displaymode {
+        text-align: left;
+    }
 
-#page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect {
-    width: 100%;
+    .discussioncontrols .discussioncontrol .singleselect {
+        width: 100%;
+    }
+
+    .discussioncontrols .discussioncontrol .singleselect select.singleselect {
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        color: #555;
+        display: block;
+        font-size: 14px;
+        height: 38px;
+        line-height: 1.42857143;
+        padding: 8px 12px;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        width: auto;
+    }
+
+    .discussioncontrols .discussioncontrol .singleselect select.singleselect:focus {
+        border-color: #66afe9;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
+        outline: 0;
+    }
+
+    .discussioncontrols input {
+        margin: 0;
+        padding: .6rem 1rem;
+    }
 }
 
 #page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect select.singleselect {
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    color: #555;
-    display: block;
-    font-size: 14px;
-    height: 38px;
-    line-height: 1.42857143;
-    padding: 8px 12px;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    width: auto;
-}
+    &::-moz-placeholder {
+        opacity: 1;
+    }
 
-#page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect select.singleselect:focus {
-    border-color: #66afe9;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
-    outline: 0;
-}
-
-#page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect select.singleselect::-moz-placeholder {
-    opacity: 1;
-}
-
-#page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect select.singleselect::-moz-placeholder,
-#page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect select.singleselect:-ms-input-placeholder,
-#page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect select.singleselect::-webkit-input-placeholder {
-    color: #999;
+    &::-moz-placeholder,
+    &:-ms-input-placeholder,
+    &::-webkit-input-placeholder {
+        color: #999;
+    }
 }
 
 #page-mod-forum-discuss .discussioncontrols .discussioncontrol .singleselect select.singleselect[disabled],
@@ -577,6 +609,15 @@ textarea#page-mod-forum-discuss .discussioncontrols .discussioncontrol .singlese
     height: auto;
 }
 
+.path-mod-forum .indent {
+    margin-left: 3%;
+}
+
+.dir-rtl.path-mod-forum .indent {
+    margin-right: 3%;
+    margin-left: 0;
+}
+
 // For forum page, to add padding to each discussion in the table.  Applies to Moodle 3.6 only.
 .path-mod-forum .forumheaderlist tbody .discussion td {
     padding-bottom: 0.5em;
@@ -587,11 +628,6 @@ textarea#page-mod-forum-discuss .discussioncontrols .discussioncontrol .singlese
 #page-mod-forum-discuss .discussioncontrols .form-inline,
 .forumsearch .form-inline {
     margin: 0;
-}
-
-#page-mod-forum-discuss .discussioncontrols input {
-    margin: 0;
-    padding: .6rem 1rem;
 }
 
 #page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscussion select.urlselect {
@@ -623,7 +659,7 @@ textarea#page-mod-forum-discuss .discussioncontrols .discussioncontrol .singlese
 #page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscussion select.urlselect::-moz-placeholder,
 #page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscussion select.urlselect:-ms-input-placeholder,
 #page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscussion select.urlselect::-webkit-input-placeholder {
-        color: #999;
+    color: #999;
 }
 
 #page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscussion select.urlselect[disabled],
@@ -663,21 +699,6 @@ textarea#page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscu
     width: 50px;
 }
 
-.forumpost .subject {
-    font-size: 1.8em;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.forumpost .content {
-    clear: both;
-    padding: 0 15px;
-}
-
-.forumpost .row.maincontent .left {
-    float: none;
-}
-
 #page-mod-forum-discuss .forumpost .row .options .commands a {
     background-color: #f7f7f7;
     border: 1px solid #b4b4b7;
@@ -695,54 +716,6 @@ textarea#page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscu
     background: #1990d5;
     color: #fff !important;
     font-weight: 400;
-}
-
-.options.clearfix {
-    padding: 15px 5px;
-}
-
-.signuppanel .row .btn {
-    display: none;
-}
-
-#changenumsections .smallicon {
-    width: 24px;
-}
-
-#id_category,
-#id_parent {
-    max-width: 100%;
-}
-
-// News Ticker.
-#ticker,
-#ticker_container {
-    font-size: 16px;
-}
-
-#ticker-wrap {
-    background-color: [[setting:tickerconstainerbackgroundcolour]];
-    color: [[setting:tickerconstainertextcolour]];
-    line-height: 40px;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    position: relative;
-    [[setting:tickerwidth]]
-}
-
-#ticker-announce {
-    background-color: [[setting:tickerheaderbackgroundcolour]];
-    color: [[setting:tickerheadertextcolour]];
-    float: left;
-    font-weight: 600;
-    margin-right: 15px;
-    margin-left: -15px;
-    padding: 0 15px;
-    text-transform: uppercase;
-}
-
-#ticker-wrap #controls {
-    padding-right: 15px;
 }
 
 #play_trigger a,
