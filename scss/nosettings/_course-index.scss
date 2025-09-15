@@ -15,23 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 //
 //
-// Adaptable Bootstrap override styles style sheet
+// Adaptable Course index override styles style sheet.
 //
 // @package    theme_adaptable
-// @copyright  2019 G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
+// @copyright  2025 G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
-// Bootstrap text for background(s).
-.bg-secondary {
-    color: var(--ad-secondary-text) !important;
-}
+.courseindex .courseindex-item {
+    .courseindex-link {
+        color: var(--ad-link-colour);
+        margin-bottom: auto;
+        margin-top: auto;
 
-.progress {
-    width: 100%;
-}
+        &:hover,
+        &:focus {
+            color: var(--ad-linkhover-colour);
+        }
+    }
 
-// In BS 5, position thing.
-.end-0 {
-    right: 0;
+    &.pageitem {
+        .courseindex-link {
+            &:hover,
+            &:focus {
+                color: inherit;
+            }
+        }
+    }
 }

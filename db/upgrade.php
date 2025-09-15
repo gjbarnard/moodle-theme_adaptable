@@ -150,7 +150,7 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
         if (is_object($localtoolbox)) {
             if (method_exists($localtoolbox, 'supported_methods')) {
                 // Method check.
-                $methods = ['get_custom_js'];
+                $methods = ['get_custom_js', 'userfav_menu_items'];
                 $unsupportedmethods = $localtoolbox->supported_methods($methods, $themeversion['version']);
                 if (!empty($unsupportedmethods)) {
                     echo $OUTPUT->notification(
@@ -179,8 +179,8 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     // Feature version for this version.
     set_config('feature_version', 2025080200, 'theme_adaptable');
 
-    if ($oldversion < 2024100512) {
-        upgrade_plugin_savepoint(true, 2024100512, 'theme', 'adaptable');
+    if ($oldversion < 2024100514) {
+        upgrade_plugin_savepoint(true, 2024100514, 'theme', 'adaptable');
     }
 
     // Automatic 'Purge all caches'....
