@@ -67,6 +67,7 @@ if ($ADMIN->fulltree) {
     $description = get_string('navbardisplaymenuarrowdesc', 'theme_adaptable');
     $default = false;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
     // Enable/Disable menu items.

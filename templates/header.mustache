@@ -21,23 +21,61 @@
 
     Example context (json):
     {
-        "settingsmenu": "settings_html",
-        "hasnavbar": false,
+        "coursetitle": "My course",
+        "coursetitleurl": "https://localhost/course/view.php?id=2",
         "navbar": "navbar_if_available",
-        "headerclasses": "d-none d-md-flex"
+        "headerclasses": "d-none d-md-flex",
+        "headeritemsbottom": false
     }
 }}
 
-<div id="page-second-header" class="col-12 pt-3 pb-3 {{{headerclasses}}}">
-    <div class="d-flex flex-fill flex-wrap align-items-center">
-        <div id="page-navbar" class="me-auto">
-            {{{navbar}}}
+<div class="row">
+    <div id="page-second-header" class="col-12 pt-3 pb-3">
+        <div class="d-flex flex-fill flex-wrap align-items-center{{#coursetitle}} position-relative{{/coursetitle}}">
+            {{#navbar}}
+            <div id="page-navbar" class="me-auto {{{headerclasses}}}">
+                {{{navbar}}}
+            </div>
+            {{^headeritemsbottom}}
+            <div class="header-actions-container ms-auto" data-region="header-actions-container">
+                {{#headeractions}}
+                <div class="header-action ms-2">{{{.}}}</div>
+                {{/headeractions}}
+            </div>
+            {{/headeritemsbottom}}
+            {{/navbar}}
+            {{#coursetitle}}
+            <div id="page-coursetitle" class="col-12">
+                <div id="coursetitle" class="p-2 bd-highlight">
+                    <h1>
+                        <a href="{{coursetitleurl}}">
+                            {{coursetitle}}
+                        </a>
+                    </h1>
+                </div>
+            </div>
+            {{/coursetitle}}
         </div>
-        {{#headeractions}}
-        <div class="header-actions-container flex-shrink-0" data-region="header-actions-container">
-            <div class="header-action ms-2">{{{.}}}</div>
+        <div class="d-flex align-items-center">
+            <div class="me-auto d-flex flex-column">
+                {{#contextheader}}
+                <div>
+                    {{{contextheader}}}
+                </div>
+                {{/contextheader}}
+                {{#welcomemessage}}
+                <div>
+                    {{> core/welcome }}
+                </div>
+                {{/welcomemessage}}
+            </div>
+            {{#headeritemsbottom}}
+            <div class="header-actions-container ms-auto" data-region="header-actions-container">
+                {{#headeractions}}
+                <div class="header-action ms-2">{{{.}}}</div>
+                {{/headeractions}}
+            </div>
+            {{/headeritemsbottom}}
         </div>
-        {{/headeractions}}
     </div>
 </div>
-

@@ -59,7 +59,10 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
         if (empty($this->fav)) {
             $map = parent::get_core_icon_map();
             $map['core:i/activities'] = 'fa-solid fa-file-pen';
+            $map['core:i/bulk_edit'] = 'fas fa-pen-to-square';
             $map['core:i/navigationitem'] = 'anavigationitem fa-circle fa-2xs align-middle';  // Core has 'fa-fw'!
+            $map['core:i/viewsection'] = 'far fa-credit-card';
+            $map['core:t/edit_menu'] = 'fas fa-cog';
             return $map;
         }
 
@@ -212,6 +215,7 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:i/backup' => 'fas fa-file-archive',
             'core:i/badge' => 'fas fa-shield-alt',
             'core:i/breadcrumbdivider' => 'fa-angle-right',
+            'core:i/bulk_edit' => 'fas fa-pen-to-square',
             'core:i/bullhorn' => 'fas fa-bullhorn',
             'core:i/calc' => 'fas fa-calculator',
             'core:i/calendar' => 'fas fa-calendar-alt',
@@ -361,6 +365,7 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:i/user' => 'fas fa-user',
             'core:i/users' => 'fas fa-users',
             'core:i/valid' => 'fas fa-check text-success',
+            'core:i/viewsection' => 'far fa-credit-card',
             'core:i/warning' => 'fas fa-exclamation text-warning',
             'core:i/window_close' => 'fas fa-window-close',
             'core:i/withsubcat' => 'fas fa-plus-square',

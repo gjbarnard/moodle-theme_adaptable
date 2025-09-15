@@ -30,6 +30,7 @@
 
 namespace theme_adaptable\output\core;
 
+use context_system;
 use core\output\html_writer;
 use core\url;
 use core_course_category;
@@ -69,29 +70,37 @@ class course_renderer extends \core_course_renderer {
                 '/course/index.php',
                 ['browse' => 'courses', 'page' => 1]),
             ]);
-        $chelper->set_attributes(['class' => 'frontpage-category-combo']);
+        $chelper->set_attributes(['class' => 'frontpage-category-combo row']);
         return $this->coursecat_tree($chelper, $tree);
     }
 
     /**
-     * Renders the list of courses
+     * Returns HTML to print list of available courses for the frontpage.
      *
-     * This is internal function, please use {@link core_course_renderer::courses_list()} or another public
-     * method from outside of the class
-     *
-     * If list of courses is specified in $courses; the argument $chelper is only used
-     * to retrieve display options and attributes, only methods get_show_courses(),
-     * get_courses_display_option() and get_and_erase_attributes() are called.
-     *
-     * @param coursecat_helper $chelper various display options
-     * @param array $courses the list of courses to display
-     * @param int|null $totalcount total number of courses (affects display mode if it is AUTO or pagination if applicable),
-     *     defaulted to count($courses)
-     * @return string
+     * @return string Markup.
      */
-    protected function coursecat_courses(coursecat_helper $chelper, $courses, $totalcount = null) {
-        $chelper->set_attributes($chelper->get_and_erase_attributes('row'));
-        return parent::coursecat_courses($chelper, $courses, $totalcount);
+    public function frontpage_available_courses() {
+        global $CFG;
+
+        $chelper = new coursecat_helper();
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->set_courses_display_options(
+            [
+                'recursive' => true,
+                'limit' => $CFG->frontpagecourselimit,
+                'viewmoreurl' => new url('/course/index.php'),
+                'viewmoretext' => new lang_string('fulllistofcourses'),
+            ]
+        );
+
+        $chelper->set_attributes(['class' => 'frontpage-course-list-all row']);
+        $courses = core_course_category::top()->get_courses($chelper->get_courses_display_options());
+        $totalcount = core_course_category::top()->get_courses_count($chelper->get_courses_display_options());
+        if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
+            // Print link to create a new course, for the 1st available category.
+            return $this->add_new_course_button();
+        }
+
+        return $this->coursecat_courses($chelper, $courses, $totalcount);
     }
 
     /**
@@ -188,14 +197,22 @@ class course_renderer extends \core_course_renderer {
             if ('ltr' === get_string('thisdirection', 'langconfig')) {
                 $icondirection = 'right';
             }
-            $arrow = html_writer::tag('span', '', ['class' => 'fa fa-chevron-' . $icondirection]);
+            $arrow = html_writer::tag('i', '', ['class' => 'fa fa-chevron-' . $icondirection]);
             $btn = html_writer::tag('span', get_string('course') . ' ' . $arrow, ['class' => 'get_stringlink']);
 
             if (($type != 4) || (empty($this->page->theme->settings->covhidebutton))) {
-                $content .= html_writer::link(new url(
-                    '/course/view.php',
-                    ['id' => $course->id]
-                ), $btn, ['class' => "coursebtn submit btn btn-info btn-sm"]);
+                $content .= html_writer::tag(
+                    'div',
+                    html_writer::link(
+                        new url(
+                            '/course/view.php',
+                            ['id' => $course->id]
+                        ),
+                        $btn,
+                        ['class' => "coursebtn submit btn btn-info btn-sm"]
+                    ),
+                    ['class' => "text-center"]
+                );
             }
         }
 

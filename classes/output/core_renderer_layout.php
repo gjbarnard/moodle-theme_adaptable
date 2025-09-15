@@ -666,7 +666,7 @@ trait core_renderer_layout {
 
         echo '<div id="maincontainer" class="container outercont">';
         echo $this->get_alert_messages();
-        echo $this->page_navbar();
+        echo $this->full_header();
         echo $this->get_news_ticker();
         echo '<div id="page-content" class="row">';
         echo '<div id="region-main-box" class="col-12">';
@@ -709,16 +709,13 @@ trait core_renderer_layout {
 
         echo '<div id="maincontainer" class="container outercont">';
         echo $this->get_alert_messages();
-        echo $this->page_navbar();
+        echo $this->full_header();
         echo $this->get_news_ticker();
         echo '<div id="page-content" class="row">';
         echo '<div id="region-main-box" class="col-12">';
         echo '<section id="region-main">';
         echo $this->get_course_alerts();
         echo $this->course_content_header();
-        if ($this->page->pagetype == 'user-profile') {
-            echo $this->context_header();
-        }
         if (!empty($secondarynavigation)) {
             echo $secondarynavigation;
         }
@@ -780,7 +777,7 @@ trait core_renderer_layout {
 
         echo '<div id="maincontainer" class="container outercont">';
         echo $this->get_alert_messages();
-        echo $this->page_navbar();
+        echo $this->full_header();
         echo $this->get_news_ticker();
         echo '<div id="page-content" class="row">';
 
@@ -1312,7 +1309,7 @@ trait core_renderer_layout {
 
         echo '<div class="container outercont">';
         echo $this->get_alert_messages();
-        echo $this->page_navbar();
+        echo $this->full_header();
         echo '<div id="page-content" class="row">';
         echo '<div id="region-main-box" class="col-12">';
         echo '<section id="region-main">';
@@ -1342,7 +1339,7 @@ trait core_renderer_layout {
 
         echo '<div id="page" class="container outercont">';
         echo $this->get_alert_messages();
-        echo $this->page_navbar();
+        echo $this->full_header();
         echo '<div id="page-content" class="row">';
         echo '<div id="region-main-box" class="col-12">';
         echo '<section id="region-main">';

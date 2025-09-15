@@ -47,8 +47,11 @@
     #main-navbar {
         .dropdown-toggle::after {
             [[setting:navbardisplaymenuarrow]]
-            margin-left: 0;
+            margin-left: 0.25rem;
             margin-right: 0;
+        }
+        .icon-no-margin.dropdown-toggle::after {
+            margin-left: 0;
         }
     }
 }

@@ -108,12 +108,7 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices0to12);
     $page->add($setting);
 
-    // If we don't have a menuscount yet, default to the preset.
     $newstickercount = get_config('theme_adaptable', 'newstickercount');
-
-    if (!$newstickercount) {
-        $newstickercount = $default;
-    }
 
     for ($newstickerindex = 1; $newstickerindex <= $newstickercount; $newstickerindex++) {
         $name = 'theme_adaptable/tickertext' . $newstickerindex;

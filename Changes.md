@@ -1,3 +1,24 @@
+Change log in version 500.2.1 (2025040806)
+==========================================
+1. Fix "Information block row displays column mode" - #44.
+2. Fix "Home Navigation Expand/Collapse".
+3. Fix "Missing 'Bulk actions' on course page".
+4. Fix "Persistent Warning after upgrade of theme" - #45.
+5. Fix 'Missing icons in Administration block'.
+6. Fix 'Cannot edit single section page section name at top of the page'.
+7. Fix 'News ticker tickertext setting shown when newstickercount is 0'.
+8. State Font Awesome icon for 'core:i/viewsection'.  Effectively ensuring it is the correct colour.
+9. Fix 'Position of course index link when there is a badge attached to it'.
+10. Fix 'Course index link when hover / focus'.
+11. Tidy course expand / collapse and action menu icons.
+12. Tidy 'Manage course categories and courses' page.
+14. State Font Awesome icon for 'core:i/bulk_edit'.  Effectively ensuring it is the correct colour.
+15. Tidy 'Tiles with overlay' 'frontpagerenderer' setting.
+16. Refix 'Frontpage course boxes' styling as previous fix caused issues on 'course/index.php' page.
+17. Fix 'Use a cog for the header context menu when using core Font Awesome to be consistent with the theme version of the font'.
+18. Fix 'Missing theme reset callback as the 'navbardisplaymenuarrow' setting changes the SCSS'.
+19. Fix 'Missing right margin on navbar zoom icons'.
+
 Change log in version 500.2.0 (2025040805)
 ==========================================
 

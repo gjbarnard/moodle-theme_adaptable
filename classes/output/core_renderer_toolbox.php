@@ -1481,81 +1481,107 @@ trait core_renderer_toolbox {
     }
 
     /**
-     * Renders the navbar.
+     * Renders the header.
      *
      * @return string Markup or empty string if 'nonavbar' for the given page layout in the config.php file is true.
      */
-    public function page_navbar() {
-        $retval = '';
-        if (empty($this->page->layout_options['nonavbar'])) { // Not disabled by 'nonavbar' in config.php.
+    public function full_header() {
+        $editing = $this->page->user_is_editing();
+        $shownavbar = (empty($this->page->layout_options['nonavbar'])); // Disabled by 'nonavbar' in config.php.
+
+        if ($shownavbar) {
             if (!isset($this->page->theme->settings->enabletickermy)) {
                 $this->page->theme->settings->enabletickermy = 0;
             }
 
             // Do not show navbar on dashboard / my home if news ticker is rendering.
-            if (!($this->page->theme->settings->enabletickermy && $this->page->bodyid == "page-my-index")) {
-                $retval = '<div class="row">';
-                if (
-                    ($this->page->theme->settings->breadcrumbdisplay != 'breadcrumb')
-                    && (($this->page->pagelayout == 'course')
-                    || ($this->page->pagelayout == 'incourse'))
-                ) {
-                    global $COURSE;
-                    $retval .= '<div id="page-coursetitle" class="col-12">';
-                    switch ($this->page->theme->settings->breadcrumbdisplay) {
-                        case 'fullname':
-                            // Full Course Name.
-                            $coursetitle = $COURSE->fullname;
-                            break;
-                        case 'shortname':
-                            // Short Course Name.
-                            $coursetitle = $COURSE->shortname;
-                            break;
-                    }
-
-                    $coursetitlemaxwidth = (!empty($this->page->theme->settings->coursetitlemaxwidth)
-                        ? $this->page->theme->settings->coursetitlemaxwidth : 20);
-                    toolbox::validate_setting('coursetitlemaxwidth', 'theme_adaptable', $coursetitlemaxwidth, PARAM_INT);
-                    // Check max width of course title and trim if appropriate.
-                    if (($coursetitlemaxwidth > 0) && ($coursetitle <> '')) {
-                        if (strlen($coursetitle) > $coursetitlemaxwidth) {
-                            $coursetitle = core_text::substr($coursetitle, 0, $coursetitlemaxwidth) . " ...";
-                        }
-                    }
-
-                    switch ($this->page->theme->settings->breadcrumbdisplay) {
-                        case 'fullname':
-                        case 'shortname':
-                            // Full / Short Course Name.
-                            $courseurl = new url('/course/view.php', ['id' => $COURSE->id]);
-                            $retval .= '<div id="coursetitle" class="p-2 bd-highlight"><h1><a href ="'
-                                . $courseurl->out(true) . '">' . format_string($coursetitle) . '</a></h1></div>';
-                            break;
-                    }
-                    $retval .= '</div>';
-                } else {
-                    if (
-                        $this->page->include_region_main_settings_in_header_actions() &&
-                        !$this->page->blocks->is_block_present('settings')
-                    ) {
-                        $this->page->add_header_action(html_writer::div(
-                            $this->region_main_settings_menu(),
-                            'd-print-none',
-                            ['id' => 'region-main-settings-menu']
-                        ));
-                    }
-
-                    $header = new stdClass();
-                    $header->navbar = $this->navbar();
-                    $header->headeractions = $this->page->get_header_actions();
-                    $header->headerclasses = $this->page->theme->settings->responsivebreadcrumb;
-                    $retval .= $this->render_from_template('theme_adaptable/header', $header);
-                }
-                $retval .= '</div>';
+            if ($this->page->theme->settings->enabletickermy && $this->page->bodyid == "page-my-index") {
+                $shownabar = false;
             }
         }
 
-        return $retval;
+        if (
+            $editing &&
+            $this->page->include_region_main_settings_in_header_actions() &&
+            !$this->page->blocks->is_block_present('settings')
+        ) {
+            $this->page->add_header_action(
+                html_writer::div(
+                    $this->region_main_settings_menu(),
+                    'd-print-none',
+                    ['id' => 'region-main-settings-menu']
+                )
+            );
+        }
+
+        $pagetype = $this->page->pagetype;
+        $homepage = get_home_page();
+        $homepagetype = null;
+        // Add a special case since /my/courses is a part of the /my subsystem.
+        if ($homepage == HOMEPAGE_MY || $homepage == HOMEPAGE_MYCOURSES) {
+            $homepagetype = 'my-index';
+        } else if ($homepage == HOMEPAGE_SITE) {
+            $homepagetype = 'site-index';
+        }
+        $header = new stdClass();
+        if (
+            ($this->page->pagetype == 'user-profile') ||
+            (($this->page->pagelayout == 'course') && (str_contains($this->page->url, '/course/section.php')))
+        ) {
+            $header->contextheader = $this->context_header();
+        }
+
+        $header->headeractions = $this->page->get_header_actions();
+
+        if (!empty($pagetype) && !empty($homepagetype) && $pagetype == $homepagetype) {
+            $header->welcomemessage = \core_user::welcome_message();
+        }
+
+        if (
+            ($this->page->theme->settings->breadcrumbdisplay != 'breadcrumb')
+            && (($this->page->pagelayout == 'course')
+            || ($this->page->pagelayout == 'incourse'))
+        ) {
+            $coursetitle = '';
+            switch ($this->page->theme->settings->breadcrumbdisplay) {
+                case 'fullname':
+                    // Full Course Name.
+                    $coursetitle = $this->page->course->fullname;
+                    break;
+                case 'shortname':
+                    // Short Course Name.
+                    $coursetitle = $this->page->course->shortname;
+                    break;
+            }
+
+            if (!empty($coursetitle)) {
+                $coursetitlemaxwidth = (!empty($this->page->theme->settings->coursetitlemaxwidth)
+                ? $this->page->theme->settings->coursetitlemaxwidth : 20);
+                toolbox::validate_setting('coursetitlemaxwidth', 'theme_adaptable', $coursetitlemaxwidth, PARAM_INT);
+                // Check max width of course title and trim if appropriate.
+                if (($coursetitlemaxwidth > 0) && ($coursetitle <> '')) {
+                    if (strlen($coursetitle) > $coursetitlemaxwidth) {
+                        $coursetitle = core_text::substr($coursetitle, 0, $coursetitlemaxwidth) . " ...";
+                    }
+                }
+
+                $courseurl = new url('/course/view.php', ['id' => $this->page->course->id]);
+
+                $header->coursetitle = format_string($coursetitle);
+                $header->coursetitleurl = $courseurl->out();
+            }
+        } else if ($shownavbar) {
+            $header->navbar = $this->navbar();
+        }
+
+        if ((!empty($header->contextheader)) ||
+            (!empty($header->coursetitle))) {
+            $header->headeritemsbottom = true;
+        }
+
+        $header->headerclasses = $this->page->theme->settings->responsivebreadcrumb;
+
+        return $this->render_from_template('theme_adaptable/header', $header);
     }
 
     /**
@@ -2061,12 +2087,14 @@ trait core_renderer_toolbox {
      * @return array Of custom menu items.
      */
     public function userfav_menu_items() {
-        $retval = '';
+        $retval = [];
         $localtoolbox = toolbox::get_local_toolbox();
 
         if (is_object($localtoolbox)) {
-            $themesettings = toolbox::get_settings();
-            $retval = $localtoolbox->userfav_menu_items($themesettings, $this->page, $this);
+            if (method_exists($localtoolbox, 'userfav_menu_items')) { // Todo - Temporary until such time as not.
+                $themesettings = toolbox::get_settings();
+                $retval = $localtoolbox->userfav_menu_items($themesettings, $this->page, $this);
+            }
         }
 
         return $retval;
@@ -2285,21 +2313,6 @@ trait core_renderer_toolbox {
         }
 
         return $coursetitle;
-    }
-
-    /**
-     * Renders the context header for the page.
-     *
-     * @param array $headerinfo Heading information.
-     * @param int $headinglevel What 'h' level to make the heading.
-     * @return string A rendered context header.
-     */
-    public function context_header($headerinfo = null, $headinglevel = 1): string {
-        if (empty($headerinfo)) {
-            $headerinfo = [];
-            $headerinfo['heading'] = $this->get_course_title();
-        }
-        return parent::context_header($headerinfo, $headinglevel);
     }
 
     /**
