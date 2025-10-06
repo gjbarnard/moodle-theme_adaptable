@@ -54,17 +54,17 @@ This theme has been developed by the following:
 
 Required release of Moodle
 ==========================
-This version works with Moodle 5.0 version 20250414.00 (Build: 20250414) and above within the MOODLE_500_STABLE branch until the
+This version works with Moodle 5.1 version 2025100600.00 (Build: 20251006) and above within the MOODLE_501_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/500/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/501/en/Installing_Moodle)'.
 
 Installation
 ============
  1. Ensure you have the release of Moodle as stated above in 'Required release of Moodle'.  This is essential as the
     theme relies on underlying core code that is out of my control.
  2. Login as an administrator and put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
- 3. Copy the extracted 'adaptable' folder to the '/theme/' folder.
+ 3. Copy the extracted 'adaptable' folder to the '/public/theme/' folder.
  4. Go to 'Site administration' -> 'Notifications' and follow standard the 'plugin' update notification.
  5. Select as the theme for the site.
  6. Put Moodle out of Maintenance Mode.
@@ -74,8 +74,8 @@ Upgrading
  1. Ensure you have the release of Moodle as stated above in 'Required release of Moodle'.  This is essential as the
     theme relies on underlying core code that is out of my control.
  2. Login as an administrator and put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
- 3. Make a backup of your old 'adaptable' folder in '/theme/' and then delete the folder.
- 4. Copy the replacement extracted 'adaptable' folder to the '/theme/' folder.
+ 3. Make a backup of your old 'adaptable' folder in '/public/theme/' and then delete the folder.
+ 4. Copy the replacement extracted 'adaptable' folder to the '/public/theme/' folder.
  5. Go to 'Site administration' -> 'Notifications' and follow standard the 'plugin' update notification.
  6. If automatic 'Purge all caches' appears not to work by lack of display etc. then perform a manual 'Purge all caches'
     under 'Home -> Site administration -> Development -> Purge all caches'.
@@ -85,7 +85,7 @@ Uninstallation
 ==============
  1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
  2. Change the theme to another theme of your choice.
- 3. In '/theme/' remove the folder 'adaptable'.
+ 3. In '/public/theme/' remove the folder 'adaptable'.
  4. Go to 'Site administration' -> 'Notifications' and follow standard the 'plugin' update notification.
  5. Put Moodle out of Maintenance Mode.
 

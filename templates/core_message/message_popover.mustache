@@ -15,7 +15,7 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template core_message/message_popover
+    @template theme_adaptable/core_message/message_popover
 
     This template will render the message popover for the navigation bar.
 
@@ -35,13 +35,26 @@
     }
 
 }}
-<div class="pull-right popover-region popover-region-messages collapsed">
-    <a id="message-drawer-toggle-{{uniqid}}" class="nav-link d-inline-block popover-region-toggle position-relative" href="#"
-            role="button">
-        {{#pix}} t/message, core, {{#str}} togglemessagemenu, message {{/str}} {{/pix}}
-        <div class="count-container {{^unreadcount}}hidden{{/unreadcount}}" data-region="count-container"
-        aria-label="{{#str}} unreadconversations, core_message, {{unreadcount}} {{/str}}">{{unreadcount}}</div>
-    </a>
+<div class="popover-region collapsed" data-region="popover-region-messages">
+    <div
+        id="message-drawer-toggle-{{uniqid}}"
+        class="nav-link popover-region-toggle position-relative icon-no-margin"
+        aria-label="{{#str}} togglemessagemenu, message {{/str}}"
+        title="{{#str}} togglemessagemenu, message {{/str}}"
+        role="button"
+        aria-expanded="false"
+        aria-describedby="unread-messages-count-{{uniqid}}"
+    >
+        {{#pix}} t/message, core {{/pix}}
+        <div
+            class="count-container {{^unreadcount}}hidden{{/unreadcount}}"
+            data-region="count-container"
+        >
+            <span aria-hidden="true">{{unreadcount}}</span>
+            <span class="visually-hidden" id="unread-messages-count-{{uniqid}}">{{#str}} unreadconversations, core_message, {{unreadcount}} {{/str}}</span>
+        </div>
+    </div>
+    {{> core_message/message_jumpto }}
 </div>
 
 {{#js}}

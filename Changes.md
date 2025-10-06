@@ -1,3 +1,10 @@
+Change log in version 501.0.1 (2025092500)
+==========================================
+1. Change the icons used for 'groups' to FontAwesome ones.
+2. Improve course section borders.
+3. Remove deprecated icons in M5.1.
+4. Tidy messaging.
+
 Change log in version 500.2.1 (2025040806)
 ==========================================
 1. Fix "Information block row displays column mode" - #44.

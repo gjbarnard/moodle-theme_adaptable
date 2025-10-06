@@ -38,6 +38,22 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
     private $map = [];
 
     /**
+     * @var array $families List of Font Awesome families.
+     */
+    private $families = [
+        'fa-brands',
+        'fa-solid',
+        'fa-regular',
+        'fa-light',
+        'fa-thin',
+        'fa-duotone',
+        'fa-sharp',
+        'fab',
+        'far',
+        'fas',
+    ];
+
+    /**
      * @var int $fav Using FontAwesome from core or our version of 6 - 0 or 2 values.
      */
     private $fav;
@@ -58,11 +74,16 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
     public function get_core_icon_map() {
         if (empty($this->fav)) {
             $map = parent::get_core_icon_map();
-            $map['core:i/activities'] = 'fa-solid fa-file-pen';
+            $map['core:i/activities'] = 'fas fa-file-pen';
             $map['core:i/bulk_edit'] = 'fas fa-pen-to-square';
-            $map['core:i/navigationitem'] = 'anavigationitem fa-circle fa-2xs align-middle';  // Core has 'fa-fw'!
+            $map['core:i/group'] = 'fas fa-users';
+            $map['core:i/groupn'] = 'fas fa-users-slash';
+            $map['core:i/groups'] = 'fas fa-people-arrows';
+            $map['core:i/groupv'] = 'fas fa-users';
+            $map['core:i/navigationitem'] = 'anavigationitem far fa-circle fa-2xs align-middle';  // Core has 'fa-fw'!
             $map['core:i/viewsection'] = 'far fa-credit-card';
             $map['core:t/edit_menu'] = 'fas fa-cog';
+
             return $map;
         }
 
@@ -122,8 +143,6 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:e/fullscreen' => 'fas fa-expand-arrows-alt',
             'core:e/help' => 'fas fa-question-circle',
             'core:e/increase_indent' => 'fas fa-indent',
-            'core:e/insert_col_after' => 'fas fa-columns',
-            'core:e/insert_col_before' => 'fas fa-columns',
             'core:e/insert_date' => 'fas fa-calendar-alt',
             'core:e/insert_edit_image' => 'fas fa-image',
             'core:e/insert_edit_link' => 'fas fa-link',
@@ -171,7 +190,6 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:e/source_code' => 'fas fa-code',
             'core:e/special_character' => 'fas fa-pen-square',
             'core:e/spellcheck' => 'fas fa-check',
-            'core:e/split_cells' => 'fas fa-columns',
             'core:e/strikethrough' => 'fas fa-strikethrough',
             'core:e/styleparagraph' => 'fas fa-font',
             'core:e/subscript' => 'fas fa-subscript',
@@ -180,7 +198,6 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:e/table' => 'fas fa-table',
             'core:e/template' => 'fas fa-sticky-note',
             'core:e/text_color_picker' => 'fas fa-paint-brush',
-            'core:e/text_color' => 'fas fa-paint-brush',
             'core:e/text_highlight_picker' => 'far fa-lightbulb',
             'core:e/text_highlight' => 'far fa-lightbulb',
             'core:e/tick' => 'fas fa-check',
@@ -269,10 +286,10 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:i/grading' => 'fas fa-wand-magic-sparkles',
             'core:i/gradingnotifications' => 'far fa-bell',
             'core:i/groupevent' => 'fas fa-users',
-            'core:i/groupn' => 'fas fa-user',
             'core:i/group' => 'fas fa-users',
-            'core:i/groups' => 'fas fa-user-circle',
-            'core:i/groupv' => 'far fa-user-circle',
+            'core:i/groupn' => 'fas fa-users-slash',
+            'core:i/groups' => 'fas fa-people-arrows',
+            'core:i/groupv' => 'fas fa-users',
             'core:i/home' => 'fas fa-home',
             'core:i/hide' => 'fas fa-eye',
             'core:i/hierarchylock' => 'fas fa-lock',
@@ -430,7 +447,6 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:t/life-ring' => 'far fa-life-ring',
             'core:t/locked' => 'fas fa-lock',
             'core:t/lock' => 'fas fa-unlock',
-            'core:t/locktime' => 'fas fa-lock',
             'core:t/markasread' => 'fas fa-check',
             'core:t/messages' => 'fas fa-comments',
             'core:t/message' => 'fas fa-comment',
@@ -511,6 +527,24 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
         }
 
         return $this->map;
+    }
+
+    /**
+     * Add the family to the icon if not present.
+     *
+     * @param string $cssclasses The icon classes.
+     * @return string The icon classes with the family.
+     */
+    protected function add_family(string $cssclasses): string {
+        $classesarray = explode(' ', $cssclasses);
+        if (count($classesarray) > 1) {
+            $family = array_intersect($classesarray, $this->families);
+            if (count($family) != 0) {
+                return $cssclasses;
+            }
+        }
+
+        return 'fa ' . $cssclasses;
     }
 
     /**

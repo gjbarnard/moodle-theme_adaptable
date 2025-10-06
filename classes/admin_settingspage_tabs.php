@@ -165,6 +165,15 @@ class admin_settingspage_tabs extends \theme_boost_admin_settingspage_tabs {
             );
         }
 
+        $toolbox = \theme_adaptable\toolbox::get_instance();
+        $context['versioninfopost'] = get_string(
+            'versioninfopost',
+            'theme_adaptable',
+            [
+                'love' => $toolbox->getfontawesomemarkup('heart', [], [], '', get_string('love', 'theme_adaptable')),
+            ]
+        );
+
         return $OUTPUT->render_from_template('theme_adaptable/adaptable_admin_setting_tabs', $context);
     }
 }

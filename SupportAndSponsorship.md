@@ -25,15 +25,18 @@ to me to keep the theme going and maintained, and intend to do so for as long as
 Please contact me using the details above.  I will then reply with the steps that need to be taken so that you can become a sponsor.
 Note that I'm a self employed sole trader and can only do business to business transactions at the time of typing.
 
-Improvements and bespoke work
------------------------------
+Improvements, support and bespoke work
+--------------------------------------
 Adaptable is already a complicated theme and therefore I am reluctant to add any major features, indeed my aim is to reduce the
 complexity without actually removing functionality.  There is though the possibility of improving what is already there and / or
 creating a child theme that adds the specific functionality that you require.
 
+I also offer, for a fee, site specific changes / consultancy / support.
+
 If you would like your own customised version or a new child theme of Boost / Classic, then typically with a setting and a few style
-changes this is usually two to three hours work.  I charge by the minute with a minimum time of fifteen.  Please contact me for
-further details with an outline of what you would like.
+changes this is usually two to three hours work.  Please contact me for further details with an outline of what you would like.
+
+I charge by the minute with a minimum time of fifteen.  Current rates available on request.
 
 Open source software
 ====================
@@ -57,10 +60,10 @@ benefits.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 5.0 version 20250414.00 (Build: 20250414) and above within the MOODLE_500_STABLE branch until the
+This version works with Moodle 5.1 version 2025100600.00 (Build: 20251006) and above within the MOODLE_501_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/500/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/501/en/Installing_Moodle)'.
 
 Reporting issues
 ================
@@ -71,13 +74,15 @@ this is because the theme relies on core functionality that is out of its contro
 If you think you've discovered a genuine bug with the theme then please look at the Moodle Themes forum first to see if it
 has already been repoted.  Secondly, look at [GitHub](https://github.com/gjbarnard/moodle-theme_adaptable/issues).
 
-I operate a policy that I will fix all genuine issues in 'my' (not other developers of the theme) code, when fully described and
-replicatable.
+I operate a policy that I will fix all genuine issues in 'my' code for free, when fully described and replicable.  Faults in
+other third party code / issues caused by your customisation, such as via the 'Custom CSS' settings are not my responsibility.
+Therefore at my discretion I'll ask to be compensated financially for my time.  This is because I consider it to be 'site specific'
+and therefore in the realm of 'Support'.
 
 It is essential that you provide as much information as possible, the critical information being the contents of the theme's
 version.php file / or the top of the 'Information' settings tab.  Other version information such as specific Moodle version,
-theme name and version also helps.  A screen shot can be really useful in visualising the issue along with any files you
-consider to be relevant.
+theme name and version also helps.  A screen shot can be really useful in visualising the issue along with any files you consider
+to be relevant.
 
 You can use either the '[Themes forum](https://moodle.org/mod/forum/view.php?id=46)' or '[GitHub](https://github.com/gjbarnard/moodle-theme_adaptable/issues)'.
 

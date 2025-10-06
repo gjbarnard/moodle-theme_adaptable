@@ -21,6 +21,8 @@
     Example context (json):
     {
         "versioninfo": "Release 3.0.3, version 2020073104 on Moodle 3.9.4 (Build: 20210118)",
+        "localversioninfo": "with local release 3.0.3 version 2020073104",
+        "versioninfopost": ".  Made with love and proudly written without AI in Great Britain.",
         "maturity": "Maturity info",
         "maturityalert": "info",
         "privacynote": "Privacy info",
@@ -44,13 +46,13 @@
 }}
 {{#maturity}}
 <div class="alert alert-{{maturityalert}} mb-3">
-<h3>{{versioninfo}}{{#localversioninfo}} {{localversioninfo}}{{/localversioninfo}}</h3>
+<h3 class="lh-base pb-3">{{versioninfo}}{{#localversioninfo}} {{localversioninfo}}{{/localversioninfo}}{{{versioninfopost}}}</h3>
 <p>{{{maturity}}}</p>
 {{{privacynote}}}
 </div>
 {{/maturity}}
 {{^maturity}}
-<h3>{{versioninfo}}{{#localversioninfo}} {{localversioninfo}}{{/localversioninfo}}</h3>
+<h3 class="lh-base pb-3">{{versioninfo}}{{#localversioninfo}} {{localversioninfo}}{{/localversioninfo}}{{{versioninfopost}}}</h3>
 {{privacynote}}}
 {{/maturity}}
 {{#versioncheck}}

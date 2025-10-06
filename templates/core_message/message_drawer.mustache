@@ -15,7 +15,7 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template core_message/message_drawer
+    @template theme_adaptable/core_message/message_drawer
 
     This template will render the message drawer.
 
@@ -34,15 +34,21 @@
 
 }}
 {{< core/drawer}}
+    {{$tabindex}}-1{{/tabindex}}
+    {{$role}}dialog{{/role}}
+    {{$drawerattributes}}
+        aria-modal="true"
+        aria-labelledby="message-drawer-header-{{uniqid}}"
+    {{/drawerattributes}}
     {{$drawercontent}}
-        <div id="message-drawer-{{uniqid}}" class="message-app" data-region="message-drawer" role="region">
+        <div id="message-drawer-{{uniqid}}" class="message-app" data-region="message-drawer" role="region" tabindex="0">
             <div class="d-flex justify-content-between align-items-center py-1 px-2 border-bottom bg-messageheader">
-                <h2 class="mb-0">{{#str}} messagingcategory, admin {{/str}}</h2>
-                <div class="closewidget">
-                    <a class="" data-action="closedrawer" href="#" title="{{#cleanstr}} closebuttontitle {{/cleanstr}}">
-                        {{#pix}} i/window_close, core {{/pix}}
-                    </a>
-                </div>
+	            <h2 id="message-drawer-header-{{uniqid}}">{{#str}} messagingcategory,admin {{/str}}</h2>
+    	        <div class="closewidget pe-2">
+        	        <div role="button" data-action="closedrawer" title="{{#cleanstr}} closebuttontitle {{/cleanstr}}" aria-label="{{#cleanstr}} closebuttontitle {{/cleanstr}}">
+                    	{{#pix}} i/window_close, core {{/pix}}
+                	</div>
+	            </div>
             </div>
             <div class="header-container position-relative" data-region="header-container">
                 {{> core_message/message_drawer_view_contacts_header }}
