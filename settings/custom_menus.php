@@ -28,8 +28,10 @@ defined('MOODLE_INTERNAL') || die;
 
 // Custom CSS section.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_custommenu',
-         get_string('headernavbarcustommenuheading', 'theme_adaptable'));
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_custommenu',
+        get_string('headernavbarcustommenuheading', 'theme_adaptable')
+    );
 
     // Custom menu section.
     $page->add(new admin_setting_heading(
@@ -70,8 +72,8 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_description(
         'theme_adaptable/custommenuitems',
         new lang_string('custommenuitems', 'admin'),
-        $custommenuitems.'<br><br>'.
-        get_string('custommenuitemscoredesc', 'theme_adaptable').'<br>'.
+        $custommenuitems . '<br><br>' .
+        get_string('custommenuitemscoredesc', 'theme_adaptable') . '<br>' .
         get_string('fontawesomesettingdesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free')
     ));
 
@@ -85,7 +87,7 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_description(
         'theme_adaptable/customusermenuitems',
         new lang_string('customusermenuitems', 'admin'),
-        $customusermenuitems.'<br><br>'.
+        $customusermenuitems . '<br><br>' .
         get_string('customusermenuitemscoredesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free')
     ));
 

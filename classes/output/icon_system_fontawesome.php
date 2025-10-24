@@ -38,6 +38,22 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
     private $map = [];
 
     /**
+     * @var array $families List of Font Awesome families.
+     */
+    private $families = [
+        'fa-brands',
+        'fa-solid',
+        'fa-regular',
+        'fa-light',
+        'fa-thin',
+        'fa-duotone',
+        'fa-sharp',
+        'fab',
+        'far',
+        'fas',
+    ];
+
+    /**
      * @var int $fav Using FontAwesome from core or our version of 6 - 0 or 2 values.
      */
     private $fav;
@@ -58,11 +74,16 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
     public function get_core_icon_map() {
         if (empty($this->fav)) {
             $map = parent::get_core_icon_map();
-            $map['core:i/activities'] = 'fa-solid fa-file-pen';
+            $map['core:i/activities'] = 'fas fa-file-pen';
             $map['core:i/bulk_edit'] = 'fas fa-pen-to-square';
-            $map['core:i/navigationitem'] = 'anavigationitem fa-circle fa-2xs align-middle';  // Core has 'fa-fw'!
+            $map['core:i/group'] = 'fas fa-users';
+            $map['core:i/groupn'] = 'fas fa-users-slash';
+            $map['core:i/groups'] = 'fas fa-people-arrows';
+            $map['core:i/groupv'] = 'fas fa-users';
+            $map['core:i/navigationitem'] = 'anavigationitem far fa-circle fa-2xs align-middle';  // Core has 'fa-fw'!
             $map['core:i/viewsection'] = 'far fa-credit-card';
             $map['core:t/edit_menu'] = 'fas fa-cog';
+
             return $map;
         }
 
@@ -269,10 +290,10 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:i/grading' => 'fas fa-wand-magic-sparkles',
             'core:i/gradingnotifications' => 'far fa-bell',
             'core:i/groupevent' => 'fas fa-users',
-            'core:i/groupn' => 'fas fa-user',
             'core:i/group' => 'fas fa-users',
-            'core:i/groups' => 'fas fa-user-circle',
-            'core:i/groupv' => 'far fa-user-circle',
+            'core:i/groupn' => 'fas fa-users-slash',
+            'core:i/groups' => 'fas fa-people-arrows',
+            'core:i/groupv' => 'fas fa-users',
             'core:i/home' => 'fas fa-home',
             'core:i/hide' => 'fas fa-eye',
             'core:i/hierarchylock' => 'fas fa-lock',
@@ -514,6 +535,24 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
     }
 
     /**
+     * Add the family to the icon if not present.
+     *
+     * @param string $cssclasses The icon classes.
+     * @return string The icon classes with the family.
+     */
+    protected function add_family(string $cssclasses): string {
+        $classesarray = explode(' ', $cssclasses);
+        if (count($classesarray) > 1) {
+            $family = array_intersect($classesarray, $this->families);
+            if (count($family) != 0) {
+                return $cssclasses;
+            }
+        }
+
+        return 'fa ' . $cssclasses;
+    }
+
+    /**
      * Get the AMD JS code name.
      *
      * @return string the name.
@@ -548,7 +587,7 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             }
             $iconname = $component . ':' . $icon->pix;
             if (in_array($iconname, $this->get_deprecated_icons())) {
-                $data['unmappedIcon']['extraclasses'] .= ' deprecated deprecated-'.$iconname;
+                $data['unmappedIcon']['extraclasses'] .= ' deprecated deprecated-' . $iconname;
             }
         } else {
             if (!empty($data['extraclasses'])) {

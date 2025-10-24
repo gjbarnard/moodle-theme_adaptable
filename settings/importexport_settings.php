@@ -28,7 +28,6 @@ defined('MOODLE_INTERNAL') || die;
 
 $page = new \theme_adaptable\admin_settingspage('theme_adaptable_importexport', get_string('properties', 'theme_adaptable'));
 if ($ADMIN->fulltree) {
-
     $page->add(new admin_setting_heading(
         'theme_adaptable_importexport',
         get_string('propertiessub', 'theme_adaptable'),
@@ -51,7 +50,10 @@ if ($ADMIN->fulltree) {
     $title = get_string('propertyfiles', 'theme_adaptable');
     $description = get_string('propertyfilesdesc', 'theme_adaptable');
     $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-        $name, $title, $description, 'propertyfiles',
+        $name,
+        $title,
+        $description,
+        'propertyfiles',
         ['accepted_types' => '*.json', 'maxfiles' => 8]
     );
     $page->add($setting);

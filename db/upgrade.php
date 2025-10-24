@@ -117,7 +117,7 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     $themeversion = $versions['theme'];
     if ($themeversion['version'] != null) {
         echo $OUTPUT->notification(
-            $themeversion['release'] . ' - '.$themeversion['version'],
+            $themeversion['release'] . ' - ' . $themeversion['version'],
             'info',
             false,
             'Adaptable theme release and version',
@@ -127,10 +127,10 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
         $localversion = $versions['local'];
         if ($localversion['version'] != null) {
             echo $OUTPUT->notification(
-                $localversion['release'] . ' - '.$localversion['version'],
-               'info',
-               false,
-               'Adaptable local release and version',
+                $localversion['release'] . ' - ' . $localversion['version'],
+                'info',
+                false,
+                'Adaptable local release and version',
                 'i/circleinfo'
             );
             if ($themeversion['version'] != $localversion['version']) {

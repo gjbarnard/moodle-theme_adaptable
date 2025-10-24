@@ -30,8 +30,11 @@ defined('MOODLE_INTERNAL') || die;
 
 // Custom JS section.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_customjs',
-        get_string('customjssettings', 'theme_adaptable'), true);
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_customjs',
+        get_string('customjssettings', 'theme_adaptable'),
+        true
+    );
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_customjs',
@@ -51,7 +54,10 @@ if ($ADMIN->fulltree) {
     $title = get_string('customjsfiles', 'theme_adaptable');
     $description = get_string('customjsfilesdesc', 'theme_adaptable');
     $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-        $name, $title, $description, 'customjsfiles',
+        $name,
+        $title,
+        $description,
+        'customjsfiles',
         ['accepted_types' => '*.js', 'maxfiles' => 8, 'maxbytes' => 65536, 'areamaxbytes' => (65536 * 8)]
     );
     $setting->set_owner($page);

@@ -170,7 +170,7 @@ $THEME->layouts = [
     // My dashboard page.
     'mydashboard' => [
         'file' => 'dashboard.php',
-        'regions' => array_merge($frontlayoutregions, ['content']),
+        'regions' => $frontlayoutregions,
         'defaultregion' => 'side-post',
         'options' => ['langmenu' => true],
     ],

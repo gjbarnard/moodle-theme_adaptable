@@ -95,8 +95,11 @@ trait core_renderer_toolbox {
     public function container($contents, $classes = null, $id = null, $attributes = []) {
         // Manipulate the grader report.
         if ((!is_null($classes)) && ($classes == 'gradeparent')) {
-            $contents = preg_replace('/<th class="(header|userfield)(.*?)>(.*?)<\/th>/is',
-                '<th class="$1$2><div class="d-flex">$3</div></th>', $contents);
+            $contents = preg_replace(
+                '/<th class="(header|userfield)(.*?)>(.*?)<\/th>/is',
+                '<th class="$1$2><div class="d-flex">$3</div></th>',
+                $contents
+            );
         }
         return $this->container_start($classes, $id, $attributes) . $contents . $this->container_end();
     }
@@ -175,7 +178,7 @@ trait core_renderer_toolbox {
             toolbox::getfontawesomemarkup('sign-out'), ];
 
         foreach ($usermenuitems as $usermenuitem) {
-            switch($usermenuitem[1]) {
+            switch ($usermenuitem[1]) {
                 case 'link':
                     $additem = true;
 
@@ -193,18 +196,18 @@ trait core_renderer_toolbox {
                     }
 
                     if ($additem) {
-                        $item = new stdClass;
+                        $item = new stdClass();
                         $item->itemtype = 'link';
                         $item->url = $usermenuitem[3];
                         $item->title = $usermenuitem[5] . $usermenuitem[4];
                         $retval[] = $item;
                     }
-                break;
+                    break;
                 case 'divider':
-                    $item = new stdClass;
+                    $item = new stdClass();
                     $item->itemtype = 'divider';
                     $retval[] = $item;
-                break;
+                    break;
                 case 'user':
                     $customitems = $this->user_convert_text_to_menu_items($CFG->customusermenuitems);
                     if ($customitems[0]) {
@@ -215,7 +218,7 @@ trait core_renderer_toolbox {
                             $retval[] = $item;
                         }
                     }
-                break;
+                    break;
             }
         }
         return $retval;
@@ -388,7 +391,6 @@ trait core_renderer_toolbox {
             $navitemcount = count($navitems);
             $idx = 0;
             foreach ($navitems as $value) {
-
                 switch ($value->itemtype) {
                     case 'divider':
                         // If the nav item is a divider, add one and skip link processing.
@@ -543,12 +545,11 @@ trait core_renderer_toolbox {
 
         $output = '';
         if ($title || $controlshtml) {
-
             $collapse = '';
             if (isset($bc->attributes['id']) && $bc->collapsible != block_contents::NOT_HIDEABLE) {
                 $collapse =
                     html_writer::tag('div', '', [
-                        'id' => 'instance-'.$bc->blockinstanceid.'-action',
+                        'id' => 'instance-' . $bc->blockinstanceid . '-action',
                         'class' => 'block-action block-collapsible',
                         'data-instance-id' => $bc->blockinstanceid,
                         'title' => get_string('blockshowhide', 'theme_adaptable'),
@@ -566,7 +567,7 @@ trait core_renderer_toolbox {
                         'div',
                         html_writer::tag('div', '', ['class' => 'block_action']) . $title,
                         ['class' => 'title']
-                    ). html_writer::tag('div', $controlshtml, ['class' => 'block-controls']),
+                    ) . html_writer::tag('div', $controlshtml, ['class' => 'block-controls']),
                     ['class' => 'header']
                 );
         }
@@ -638,7 +639,7 @@ trait core_renderer_toolbox {
             )
             ||
             ($this->page->cm->is_stealth()) // If the activity is in stealth mode, show no links.
-         ) {
+        ) {
             return '';
         }
 
@@ -1073,7 +1074,8 @@ trait core_renderer_toolbox {
         $region,
         $layoutrow = 'informationblockslayoutrow',
         $classes = [],
-        $tag = 'aside') {
+        $tag = 'aside'
+    ) {
         $editing = $this->page->user_is_editing();
         $themesettings = toolbox::get_settings();
 
@@ -1159,7 +1161,7 @@ trait core_renderer_toolbox {
                                 $blockcontent .= '<div class="row flexiblerow">';
                                 $blocksequencecount++;
                             }
-                            $bc->attributes['class'] .= ' col-12 col-sm-'.$blocksequence[$blocksequencecount]; // Will be a number.
+                            $bc->attributes['class'] .= ' col-12 col-sm-' . $blocksequence[$blocksequencecount]; // Will be a number.
                         } else {
                             if ((!$blockspacesexceeded) && ($blockcount >= $blockspacescount)) {
                                 $blockspacesexceeded = true;
@@ -1196,7 +1198,8 @@ trait core_renderer_toolbox {
                     $blockcontent .= $this->block_move_target($bc, $zones, $lastblock, $region);
                 } else {
                     throw new coding_exception(
-                        'Unexpected type of thing (' . get_class($bc) . ') found in list of block contents.');
+                        'Unexpected type of thing (' . get_class($bc) . ') found in list of block contents.'
+                    );
                 }
             }
 
@@ -1217,7 +1220,7 @@ trait core_renderer_toolbox {
             // Add block button in editing mode.
             $addblockbutton = $this->addblockbutton($region);
 
-            $content = html_writer::tag('div', $title.$blockcontent.$addblockbutton, ['class' => 'my-1 adaptable-block-area']);
+            $content = html_writer::tag('div', $title . $blockcontent . $addblockbutton, ['class' => 'my-1 adaptable-block-area']);
         } else {
             $content = $blockcontent;
         }
@@ -1378,8 +1381,10 @@ trait core_renderer_toolbox {
         $coursefooter = parent::course_footer();
 
         if (!empty($coursefooter)) {
-            $coursefooter = html_writer::tag('div',
-                html_writer::tag('div',
+            $coursefooter = html_writer::tag(
+                'div',
+                html_writer::tag(
+                    'div',
                     html_writer::tag(
                         'div',
                         $coursefooter,
@@ -1574,8 +1579,10 @@ trait core_renderer_toolbox {
             $header->navbar = $this->navbar();
         }
 
-        if ((!empty($header->contextheader)) ||
-            (!empty($header->coursetitle))) {
+        if (
+            (!empty($header->contextheader)) ||
+            (!empty($header->coursetitle))
+        ) {
             $header->headeritemsbottom = true;
         }
 
@@ -1683,7 +1690,7 @@ trait core_renderer_toolbox {
         $localtoolbox = toolbox::get_local_toolbox();
         if (is_object($localtoolbox)) {
             $themesettings = toolbox::get_settings();
-            $retr = $localtoolbox->get_user_settings($themesettings, $this->page, $this).$retr;
+            $retr = $localtoolbox->get_user_settings($themesettings, $this->page, $this) . $retr;
         }
         return $retr;
     }
@@ -1700,7 +1707,7 @@ trait core_renderer_toolbox {
         $access = true;
 
         $themesettings = toolbox::get_settings();
-        list($navbardisplayicons, $navbardisplaytitles) = $this->navbar_display($themesettings);
+        [$navbardisplayicons, $navbardisplaytitles] = $this->navbar_display($themesettings);
 
         $branchsort = 9998;
 
@@ -1937,8 +1944,10 @@ trait core_renderer_toolbox {
         }
 
         // Custom menu.
-        if ((!empty($CFG->custommenuitems)) &&
-            (empty($themesettings->disablecustommenu))) {
+        if (
+            (!empty($CFG->custommenuitems)) &&
+            (empty($themesettings->disablecustommenu))
+        ) {
             $custommenutitle = toolbox::get_setting('custommenutitle', 'format_plain');
             $branch = null;
             if (!empty($custommenutitle)) {
@@ -2014,7 +2023,7 @@ trait core_renderer_toolbox {
             if (($showsection) || ($sectionno == 0)) {
                 $url = $courseformat->get_view_url($sectionno);
                 if (empty($url->get_encoded_anchor())) {
-                    $url->set_anchor('section-'.$sectionno);
+                    $url->set_anchor('section-' . $sectionno);
                 }
                 $sectionsformnenu[$sectionno] = [
                     'sectionname' => $courseformat->get_section_name($sectionno),
@@ -2655,7 +2664,7 @@ trait core_renderer_toolbox {
             $langmenuclasses[] = 'langdesc';
 
             $langmenumarkup = toolbox::getfontawesomemarkup('globe', ['classes' => ['fa-lg']]) .
-                '<span class="'. implode(' ', $langmenuclasses).'">' . $currentlang . '</span>';
+                '<span class="' . implode(' ', $langmenuclasses) . '">' . $currentlang . '</span>';
             $this->language = $langmenu->add(
                 $langmenumarkup,
                 new url($this->page->url),
@@ -2739,7 +2748,7 @@ trait core_renderer_toolbox {
         }
         if ($menunode->has_children()) {
             $submenucount++;
-            $content = '<li class="nav-item dropdown my-auto' . ((empty($menuid) ? '' : ' ' . $menuid)). '">';
+            $content = '<li class="nav-item dropdown my-auto' . ((empty($menuid) ? '' : ' ' . $menuid)) . '">';
             $content .= html_writer::start_tag('a', ['href' => $url,
                 'class' => 'nav-link dropdown-toggle my-auto',
                 'role' => 'button',
@@ -2994,7 +3003,7 @@ trait core_renderer_toolbox {
             $classes[] = 'pt-2';
         }
         $attributes = [
-            'id' => 'block-region-'.preg_replace('#[^a-zA-Z0-9_\-]+#', '-', $displayregion),
+            'id' => 'block-region-' . preg_replace('#[^a-zA-Z0-9_\-]+#', '-', $displayregion),
             'class' => join(' ', $classes),
             'data-blockregion' => $displayregion,
             'data-droptarget' => '1',
@@ -3015,7 +3024,7 @@ trait core_renderer_toolbox {
             // Add block button in editing mode.
             $addblockbutton = $this->addblockbutton($region);
 
-            $content = html_writer::tag('div', $title.$blockcontent.$addblockbutton, ['class' => 'my-1 adaptable-block-area']);
+            $content = html_writer::tag('div', $title . $blockcontent . $addblockbutton, ['class' => 'my-1 adaptable-block-area']);
         } else {
             $content = $blockcontent;
         }
@@ -3397,8 +3406,10 @@ trait core_renderer_toolbox {
      * Output any settings errors when saving settings.
      */
     protected function output_settings_errors() {
-        if (($this->page->pagetype == 'admin-setting-themesettingadaptable') ||
-            ($this->page->pagetype == 'admin-setting-theme_adaptable_importexport')) {
+        if (
+            ($this->page->pagetype == 'admin-setting-themesettingadaptable') ||
+            ($this->page->pagetype == 'admin-setting-theme_adaptable_importexport')
+        ) {
             $adminroot = admin_get_root();
             if (!empty($adminroot->errors)) {
                 foreach ($adminroot->errors as $error) {

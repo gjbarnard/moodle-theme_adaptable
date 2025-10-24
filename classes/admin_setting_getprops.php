@@ -127,9 +127,9 @@ class admin_setting_getprops extends \admin_setting {
     public function output_html($data, $query = '') {
         $return = '';
 
-        $saveprops = optional_param($this->pluginfrankenstyle.'_getprops_saveprops', 0, PARAM_INT);
-        $savepropsfilestoo = optional_param($this->pluginfrankenstyle.'_getprops_saveprops_filestoo', 0, PARAM_INT);
-        $savepropsfilestoofile = optional_param($this->pluginfrankenstyle.'_getprops_saveprops_filestoofile', 0, PARAM_INT);
+        $saveprops = optional_param($this->pluginfrankenstyle . '_getprops_saveprops', 0, PARAM_INT);
+        $savepropsfilestoo = optional_param($this->pluginfrankenstyle . '_getprops_saveprops_filestoo', 0, PARAM_INT);
+        $savepropsfilestoofile = optional_param($this->pluginfrankenstyle . '_getprops_saveprops_filestoofile', 0, PARAM_INT);
         if ($saveprops) {
             $props = \theme_adaptable\toolbox::get_properties($this->pluginfrankenstyle);
 
@@ -139,31 +139,41 @@ class admin_setting_getprops extends \admin_setting {
             $return .= $returnbutton;
             $return .= '<hr>';
             $return .= '<div class="alert alert-success word-break-all" role="alert">';
-            $return .= json_encode($props[\theme_adaptable\toolbox::PROPS],
-                JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS);
+            $return .= json_encode(
+                $props[\theme_adaptable\toolbox::PROPS],
+                JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS
+            );
             $return .= '</div>';
             $return .= $returnbutton;
             $return .= '<hr>';
         } else if (($savepropsfilestoo) || ($savepropsfilestoofile)) {
             $props = \theme_adaptable\toolbox::get_properties($this->pluginfrankenstyle, true);
 
-            $jsonprops = json_encode($props[\theme_adaptable\toolbox::PROPS],
-                JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS);
+            $jsonprops = json_encode(
+                $props[\theme_adaptable\toolbox::PROPS],
+                JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS
+            );
 
             $alertstate = 'success';
             if ($savepropsfilestoofile) {
                 $fs = get_file_storage();
                 $syscontext = context_system::instance();
                 $files = $fs->get_area_files(
-                    $syscontext->id, $this->pluginfrankenstyle, 'propertyfiles', 0, 'filepath,filename', false);
+                    $syscontext->id,
+                    $this->pluginfrankenstyle,
+                    'propertyfiles',
+                    0,
+                    'filepath,filename',
+                    false
+                );
                 if (count($files) < 8) {
                     global $SITE, $USER;
                     $time = time();
                     $datetime = new \DateTime("now", \core_date::get_user_timezone_object());
                     // Appended seconds.
-                    $userdate = userdate($datetime->getTimestamp(), get_string('backupnameformat', 'core_langconfig').'%S');
-                    $filename = "Adaptable_".get_string('settings').((empty($SITE->shortname)) ? '' : '_'.$SITE->shortname).
-                        "_".$userdate.".json";
+                    $userdate = userdate($datetime->getTimestamp(), get_string('backupnameformat', 'core_langconfig') . '%S');
+                    $filename = "Adaptable_" . get_string('settings') . ((empty($SITE->shortname)) ? '' : '_' . $SITE->shortname) .
+                        "_" . $userdate . ".json";
 
                     $filerecord = [
                         'contextid' => context_user::instance($USER->id)->id,
@@ -215,7 +225,7 @@ class admin_setting_getprops extends \admin_setting {
                 $this->returnbuttonname . '</a></div>';
             $return .= $returnbutton;
             $return .= '<hr>';
-            $return .= '<div class="alert alert-'.$alertstate.' word-break-all" role="alert">';
+            $return .= '<div class="alert alert-' . $alertstate . ' word-break-all" role="alert">';
             if ($savepropsfilestoofile) {
                 $return .= $savepropsfilestoofileresult;
             } else {
@@ -224,28 +234,27 @@ class admin_setting_getprops extends \admin_setting {
             $return .= '</div>';
             $return .= $returnbutton;
             $return .= '<hr>';
-
         } else {
             $props = \theme_adaptable\toolbox::get_properties($this->pluginfrankenstyle);
 
             $propsexporturl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops' => 1, ]);
             $propsexportbutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
-                $propsexporturl->out(true) . '" data-toggle="tooltip" data-placement="bottom" title="'.
+                $propsexporturl->out(true) . '" data-toggle="tooltip" data-placement="bottom" title="' .
                 get_string('propertiesexporthelp', $this->pluginfrankenstyle) . '">' .
                 $this->savepropsbuttonname . '</a></div></div>';
 
             $propsexportfilestoourl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops_filestoo' => 1, ]);
             $propsexportfilestoobutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
-                $propsexportfilestoourl->out(true) . '" data-toggle="tooltip" data-placement="bottom" title="'.
+                $propsexportfilestoourl->out(true) . '" data-toggle="tooltip" data-placement="bottom" title="' .
                 get_string('propertiesexportfilestoohelp', $this->pluginfrankenstyle) . '">' .
                 $this->savepropsfilestoobuttonname . '</a></div></div>';
 
             $propsexportfilestoofilesurl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops_filestoofile' => 1, ]);
             $propsexportfilestoofilebutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
-                $propsexportfilestoofilesurl->out(true) . '" data-toggle="tooltip" data-placement="bottom" title="'.
+                $propsexportfilestoofilesurl->out(true) . '" data-toggle="tooltip" data-placement="bottom" title="' .
                 get_string('propertiesexportfilestoofilehelp', $this->pluginfrankenstyle) . '">' .
                 $this->savepropsfilestoofilebuttonname . '</a></div></div>';
 

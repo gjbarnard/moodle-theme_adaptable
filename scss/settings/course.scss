@@ -387,9 +387,12 @@ a.cimbox {
 }
 
 .course-content ul li.section.main {
+    margin-bottom: 10px;
+}
+
+.course-section .section-item {
     background-color: [[setting:coursesectionbgcolor]];
     border: [[setting:coursesectionborderwidth]] [[setting:coursesectionborderstyle]] [[setting:coursesectionbordercolor]];
-    margin-bottom: 10px;
     border-radius: [[setting:coursesectionborderradius]];
 }
 

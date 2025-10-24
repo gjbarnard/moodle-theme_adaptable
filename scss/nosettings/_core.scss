@@ -66,9 +66,11 @@ a.skip {
 // Specific removals.
 .add-content,
 #adaptable-user-nav,
+.advi,
 .course-section-header,
 .icons-collapse-expand,
 .icon-no-margin,
+.groupmode-information,
 .socialicons {
     .afaicon {
         margin-right: 0;
@@ -94,6 +96,10 @@ a.skip {
 body.h5p-embed #page-content {
     display: block;
     padding: 0;
+}
+
+.progressbar_container {
+    max-width: none;
 }
 
 .theme-card .btn {

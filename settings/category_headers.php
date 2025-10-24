@@ -103,7 +103,10 @@ if ($ADMIN->fulltree) {
                 );
             }
             $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-                $name, $title, $description, 'categoryheaderbgimage' . $customheaderid,
+                $name,
+                $title,
+                $description,
+                'categoryheaderbgimage' . $customheaderid,
                 ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
             );
             $page->add($setting);
@@ -139,7 +142,10 @@ if ($ADMIN->fulltree) {
                     'name' => $catinfo['name'], 'children' => $childrentext, ]);
             }
             $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-                $name, $title, $description, 'categoryheaderlogo' . $customheaderid,
+                $name,
+                $title,
+                $description,
+                'categoryheaderlogo' . $customheaderid,
                 ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
             );
             $page->add($setting);

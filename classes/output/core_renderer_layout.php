@@ -34,7 +34,6 @@ use stdClass;
  * Trait for core and core maintenance renderers.
  */
 trait core_renderer_layout {
-
     /**
      * Yes header.
      */
@@ -71,8 +70,10 @@ trait core_renderer_layout {
 
         // Navbar Menu.
         $shownavbar = false;
-        if ((isloggedin() && !isguestuser()) ||
-            (!empty($themesettings->enablenavbarwhenloggedout))) {
+        if (
+            (isloggedin() && !isguestuser()) ||
+            (!empty($themesettings->enablenavbarwhenloggedout))
+        ) {
             // Show navbar unless disabled by config.
             if (empty($this->page->layout_options['nonavbar'])) {
                 $shownavbar = true;
@@ -224,8 +225,10 @@ trait core_renderer_layout {
 
         /* Check if this is a course or module page and check setting to hide site title.
            If not one of these pages, by default show it (set $hideheadertitle to false). */
-        if ((strstr($this->page->pagetype, 'course')) ||
-            (strstr($this->page->pagetype, 'mod')) && ($this->page->course->id != SITEID)) {
+        if (
+            (strstr($this->page->pagetype, 'course')) ||
+            (strstr($this->page->pagetype, 'mod')) && ($this->page->course->id != SITEID)
+        ) {
             $hideheadertitle = !empty(($themesettings->coursepageheaderhidetitle)) ? true : false;
         } else {
             $hideheadertitle = false;
@@ -265,18 +268,20 @@ trait core_renderer_layout {
                dashboard page. Checking if the cog is being displayed above to figure out if it still needs to
                show (when there is no cog). Also show mod pages (e.g. Forum, Lesson) as these sometimes have
                a button for a specific purpose. */
-            if (($showeditbuttons) ||
+            if (
+                ($showeditbuttons) ||
                 (($headercontext['shownavbar']['showcog']) &&
                 ((empty($headercontext['shownavbar']['coursemenucontent'])) &&
                 (empty($headercontext['shownavbar']['othermenucontent'])))) ||
-                (strstr($this->page->pagetype, 'mod-'))) {
+                (strstr($this->page->pagetype, 'mod-'))
+            ) {
                 $headercontext['shownavbar']['pageheadingbutton'] = $this->page_heading_button();
             }
 
             if (isloggedin()) {
                 if ($themesettings->enablezoom) {
                     $headercontext['shownavbar']['enablezoom'] = true;
-                    list($navbardisplayicons, $navbardisplaytitles) = $this->navbar_display($themesettings);
+                    [$navbardisplayicons, $navbardisplaytitles] = $this->navbar_display($themesettings);
                     $headercontext['shownavbar']['navbardisplayicons'] = $navbardisplayicons;
                     $headercontext['shownavbar']['navbardisplaytitles'] = $navbardisplaytitles;
                 }
@@ -407,7 +412,7 @@ trait core_renderer_layout {
         global $SITE;
         $themesettings = \theme_adaptable\toolbox::get_settings();
 
-        $headcontext = new stdClass;
+        $headcontext = new stdClass();
         $headcontext->output = $this;
         $headcontext->sitefullname = $SITE->fullname;
         $headcontext->pagetitle = $this->page_title();
@@ -420,7 +425,7 @@ trait core_renderer_layout {
             $fontssubset = '';
             if (!empty($themesettings->fontsubset)) {
                 // Get the Google fonts subset.
-                $fontssubset = '&subset='.$themesettings->fontsubset;
+                $fontssubset = '&subset=' . $themesettings->fontsubset;
             }
 
             if (!empty($themesettings->fontname)) {
@@ -428,14 +433,14 @@ trait core_renderer_layout {
                     case 'default':
                     case 'sans-serif':
                         // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
-                    break;
+                        break;
 
                     default:
                         // Get the Google main font.
                         $fontname = str_replace(" ", "+", $themesettings->fontname);
-                        $fontweight = ':'.$themesettings->fontweight.','.$themesettings->fontweight.'i';
-                        $headcontext->fontname = $fontname.$fontweight.$fontssubset;
-                    break;
+                        $fontweight = ':' . $themesettings->fontweight . ',' . $themesettings->fontweight . 'i';
+                        $headcontext->fontname = $fontname . $fontweight . $fontssubset;
+                        break;
                 }
             }
 
@@ -444,14 +449,14 @@ trait core_renderer_layout {
                     case 'default':
                     case 'sans-serif':
                         // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
-                    break;
+                        break;
 
                     default:
                         // Get the Google header font.
                         $fontheadername = str_replace(" ", "+", $themesettings->fontheadername);
-                        $fontheaderweight = ':'.$themesettings->fontheaderweight.','.$themesettings->fontheaderweight.'i';
-                        $headcontext->fontheadername = $fontheadername.$fontheaderweight.$fontssubset;
-                    break;
+                        $fontheaderweight = ':' . $themesettings->fontheaderweight . ',' . $themesettings->fontheaderweight . 'i';
+                        $headcontext->fontheadername = $fontheadername . $fontheaderweight . $fontssubset;
+                        break;
                 }
             }
 
@@ -460,20 +465,20 @@ trait core_renderer_layout {
                     case 'default':
                     case 'sans-serif':
                         // Use the 'sans-serif' font.
-                    break;
+                        break;
 
                     default:
                         // Get the Google title font.
                         $fonttitlename = str_replace(" ", "+", $themesettings->fonttitlename);
-                        $fonttitleweight = ':'.$themesettings->fonttitleweight.','.$themesettings->fonttitleweight.'i';
-                        $headcontext->fonttitlename = $fonttitlename.$fonttitleweight.$fontssubset;
-                    break;
+                        $fonttitleweight = ':' . $themesettings->fonttitleweight . ',' . $themesettings->fonttitleweight . 'i';
+                        $headcontext->fonttitlename = $fonttitlename . $fonttitleweight . $fontssubset;
+                        break;
                 }
             }
         }
         echo $this->render_from_template('theme_adaptable/head', $headcontext);
 
-        echo '<body '.$this->body_attributes($bodyclasses).'>';
+        echo '<body ' . $this->body_attributes($bodyclasses) . '>';
         echo $this->standard_top_of_body_html();
         echo '<div id="page-wrapper">';
     }
@@ -593,7 +598,7 @@ trait core_renderer_layout {
     public function yesfooter() {
         $themesettings = \theme_adaptable\toolbox::get_settings();
 
-        $context = new stdClass;
+        $context = new stdClass();
         $context->output = $this;
         $context->responsivepagefooter = $themesettings->responsivepagefooter;
         $context->showfooterblocks = $themesettings->showfooterblocks;
@@ -635,7 +640,7 @@ trait core_renderer_layout {
     public function nofooter() {
         $themesettings = \theme_adaptable\toolbox::get_settings();
 
-        $context = new stdClass;
+        $context = new stdClass();
         $context->output = $this;
         $localtoolbox = \theme_adaptable\toolbox::get_local_toolbox();
         if (is_object($localtoolbox)) {
@@ -803,8 +808,10 @@ trait core_renderer_layout {
 
             $sectionid = optional_param('sectionid', 0, PARAM_INT);
             $section = optional_param('section', 0, PARAM_INT);
-            if ((!empty($themesettings->tabbedlayoutcoursepagelink)) &&
-                (($sectionid) || ($section))) {
+            if (
+                (!empty($themesettings->tabbedlayoutcoursepagelink)) &&
+                (($sectionid) || ($section))
+            ) {
                 $courseurl = new url('/course/view.php', ['id' => $COURSE->id]);
                 echo '<div class="linktab"><a href="' . $courseurl->out(true) . '"><i class="fa fa-th-large"></i></a></div>';
             }
@@ -820,8 +827,10 @@ trait core_renderer_layout {
                 }
 
                 $checkedstatus = '';
-                if (($tabcount == 0 && $currentpage == 'coursepage') ||
-                    ($currentpage != 'coursepage' && $tabnumber == 0)) {
+                if (
+                    ($tabcount == 0 && $currentpage == 'coursepage') ||
+                    ($currentpage != 'coursepage' && $tabnumber == 0)
+                ) {
                     $checkedstatus = 'checked';
                 }
 
@@ -976,8 +985,10 @@ trait core_renderer_layout {
         echo $this->get_alert_messages();
         echo $this->get_news_ticker();
 
-        if ((!empty($themesettings->dashblocksenabled)) &&
-            (empty($themesettings->tabbedlayoutdashboard)) && ($dashblocksposition == 'abovecontent')) {
+        if (
+            (!empty($themesettings->dashblocksenabled)) &&
+            (empty($themesettings->tabbedlayoutdashboard)) && ($dashblocksposition == 'abovecontent')
+        ) {
             echo $dashblocklayoutlayoutrow;
         }
 
@@ -1098,8 +1109,10 @@ trait core_renderer_layout {
         }
         echo '</div>';
 
-        if ((!empty($themesettings->dashblocksenabled)) && (empty($themesettings->tabbedlayoutdashboard))
-            && ($dashblocksposition == 'belowcontent')) {
+        if (
+            (!empty($themesettings->dashblocksenabled)) && (empty($themesettings->tabbedlayoutdashboard))
+            && ($dashblocksposition == 'belowcontent')
+        ) {
             echo $dashblocklayoutlayoutrow;
         }
 
@@ -1124,7 +1137,7 @@ trait core_renderer_layout {
         echo $this->doctype();
         echo '<html ' . $this->htmlattributes() . '>';
         echo '<head>';
-        echo '<title>'. $this->page_title() .'</title>';
+        echo '<title>' . $this->page_title() . '</title>';
         echo '<link rel="shortcut icon" href="' . $this->favicon() . '" />';
         echo $this->standard_head_html();
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
@@ -1366,8 +1379,8 @@ trait core_renderer_layout {
         echo $this->doctype();
         echo '<html ' . $this->htmlattributes() . '>';
         echo '<head>';
-        echo '<title>'. $this->page_title() . '</title>';
-        echo '<link rel="shortcut icon" href="'. $this->favicon() . '">';
+        echo '<title>' . $this->page_title() . '</title>';
+        echo '<link rel="shortcut icon" href="' . $this->favicon() . '">';
         echo $this->standard_head_html();
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         echo '</head>';

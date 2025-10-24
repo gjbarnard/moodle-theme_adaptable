@@ -45,17 +45,23 @@ class admin_settingspage extends \admin_settingpage {
      * @param boolean $hidden Is this external page hidden in admin tree block? Default false.
      * @param stdClass $context The context the page relates to.
      */
-    public function __construct($name, $visiblename, $local = false, $reqcapability = 'moodle/site:config',
-        $hidden = false, $context = null) {
+    public function __construct(
+        $name,
+        $visiblename,
+        $local = false,
+        $reqcapability = 'moodle/site:config',
+        $hidden = false,
+        $context = null
+    ) {
         parent::__construct($name, $visiblename, $reqcapability, $hidden, $context);
         if (($local) && (\theme_adaptable\toolbox::get_local_toolbox() === false)) {
             $localadaptableheading = 'Sponsors only';
-            $localadaptableheadingdesc = 'These settings and functionlity are available to sponsors only, '.
+            $localadaptableheadingdesc = 'These settings and functionlity are available to sponsors only, ' .
                 'please see the \'Information\' tab.';
 
             $this->disabled = true;
             $this->add(new \admin_setting_heading(
-                'theme_adaptable_sponsor'.$name,
+                'theme_adaptable_sponsor' . $name,
                 $localadaptableheading,
                 format_text($localadaptableheadingdesc, FORMAT_MARKDOWN)
             ));

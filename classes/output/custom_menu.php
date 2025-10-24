@@ -157,7 +157,7 @@ class custom_menu extends core_custom_menu {
                                     $itemshown = false;
                                 }
                             }
-                        break;
+                            break;
                     }
                 }
             }
