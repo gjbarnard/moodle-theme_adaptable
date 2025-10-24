@@ -31,7 +31,7 @@ if ($ADMIN->fulltree) {
         'theme_adaptable_menus',
         get_string('menusheading', 'theme_adaptable'),
         format_text(
-            get_string('menustitledesc', 'theme_adaptable').'<br><br>'.
+            get_string('menustitledesc', 'theme_adaptable') . '<br><br>' .
             get_string('fontawesomesettingdesc', 'theme_adaptable', 'https://fontawesome.com/search?o=r&m=free'),
             FORMAT_MARKDOWN
         )

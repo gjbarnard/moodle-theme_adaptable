@@ -65,34 +65,41 @@
     .langdesc {
         display: inline;
     }
-    .slidestyle2 .flex-caption {
-        right: -800px;
-    }
-    .slidestyle2 .flex-active-slide .flex-caption {
-        right: 0;
-        transition: all 1s ease;
-    }
-    .slidestyle2 .flex-caption h3 {
-        max-width: 970px;
-    }
-    .slidestyle2 .flex-caption br {
-        display: none;
-    }
-    .slidestyle2 .flex-caption {
-        top: 25%;
-    }
-    .slidestyle2 .flex-direction-nav {
-        display: none;
-    }
-    .slidestyle2 .flex-caption h4 {
-        font-size: 23px;
-        line-height: 30px;
-    }
-    .slidestyle2 .flex-caption a.submit {
-        font-size: 14px;
-        float: none;
-        white-space: normal;
-        width: auto;
+
+    .slidestyle2 {
+        .flex-caption {
+            right: -800px;
+            top: 25%;
+
+            br {
+                display: none;
+            }
+
+            h3 {
+                max-width: 970px;
+            }
+
+            h4 {
+                font-size: 23px;
+                line-height: 30px;
+            }
+
+            a.submit {
+                font-size: 14px;
+                float: none;
+                white-space: normal;
+                width: auto;
+            }
+        }
+
+        .flex-active-slide .flex-caption {
+            right: 0;
+            transition: all 1s ease;
+        }
+
+        .flex-direction-nav {
+            display: none;
+        }
     }
 
     .navbar {
@@ -265,29 +272,31 @@
         }
     }
 
-    .slidestyle2 .flex-caption {
-        background-color: transparent !important;
-        left: 0;
-        position: relative;
-        top: auto;
-    }
+    .slidestyle2 {
+        .flex-caption {
+            background-color: transparent !important;
+            left: 0;
+            position: relative;
+            top: auto;
 
-    .slidestyle2 .flex-caption a.submit {
-        float: none;
-        margin: 0;
-        text-align: center;
-        width: auto;
-    }
+            a.submit {
+                float: none;
+                margin: 0;
+                text-align: center;
+                width: auto;
+            }
 
-    .slidestyle2 .flex-caption h3 {
-        background-color: #000;
-        margin: 0 !important;
-    }
+            h3 {
+                background-color: #000;
+                margin: 0 !important;
+            }
 
-    .slidestyle2 .flex-caption h4 {
-        font-size: 18px;
-        line-height: 22px;
-        padding: 10px 0;
+            h4 {
+                font-size: 18px;
+                line-height: 22px;
+                padding: 10px 0;
+            }
+        }
     }
 
     .coursebox {
@@ -325,18 +334,18 @@
         font-size: 90% !important;
         padding: 5px 0 !important;
         width: 100% !important;
-    }
 
-    .flex-caption p {
-        font-size: 90% !important;
-        line-height: 1.4em;
-        margin: 0 5px !important;
-    }
+        p {
+            font-size: 90% !important;
+            line-height: 1.4em;
+            margin: 0 5px !important;
+        }
 
-    .flex-caption h3 {
-        font-size: 1.1em !important;
-        line-height: 2em;
-        margin: 0 5px !important;
+        h3 {
+            font-size: 1.1em !important;
+            line-height: 2em;
+            margin: 0 5px !important;
+        }
     }
 
     a.submit {

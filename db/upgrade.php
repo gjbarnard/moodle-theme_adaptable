@@ -117,7 +117,7 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     $themeversion = $versions['theme'];
     if ($themeversion['version'] != null) {
         echo $OUTPUT->notification(
-            $themeversion['release'] . ' - '.$themeversion['version'],
+            $themeversion['release'] . ' - ' . $themeversion['version'],
             'info',
             false,
             'Adaptable theme release and version',
@@ -127,10 +127,10 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
         $localversion = $versions['local'];
         if ($localversion['version'] != null) {
             echo $OUTPUT->notification(
-                $localversion['release'] . ' - '.$localversion['version'],
-               'info',
-               false,
-               'Adaptable local release and version',
+                $localversion['release'] . ' - ' . $localversion['version'],
+                'info',
+                false,
+                'Adaptable local release and version',
                 'i/circleinfo'
             );
             if ($themeversion['version'] != $localversion['version']) {
@@ -179,8 +179,8 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     // Feature version for this version.
     set_config('feature_version', 2025080200, 'theme_adaptable');
 
-    if ($oldversion < 2025040806) {
-        upgrade_plugin_savepoint(true, 2025040806, 'theme', 'adaptable');
+    if ($oldversion < 2025040807) {
+        upgrade_plugin_savepoint(true, 2025040807, 'theme', 'adaptable');
     }
 
     // Automatic 'Purge all caches'....

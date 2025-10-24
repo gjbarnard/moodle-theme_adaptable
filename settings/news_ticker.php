@@ -29,8 +29,11 @@ defined('MOODLE_INTERNAL') || die;
 
 // News Ticker heading.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_news_ticker',
-        get_string('newstickersettings', 'theme_adaptable'), true);
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_news_ticker',
+        get_string('newstickersettings', 'theme_adaptable'),
+        true
+    );
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_ticker',

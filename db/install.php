@@ -1,4 +1,4 @@
-//
+<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -13,16 +13,21 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-//
-//
-// Adaptable Bootstrap override styles style sheet
-//
-// @package    theme_adaptable
-// @copyright  2019 G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
-// @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-//
 
-// Bootstrap text for background(s).
-.bg-secondary {
-    color: var(--ad-secondary-text) !important;
+/**
+ * Database install.
+ *
+ * @package    theme_adaptable
+ * @copyright  2025 G J Barnard
+ *               {@link https://moodle.org/user/profile.php?id=442195}
+ *               {@link https://gjbarnard.co.uk}
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+ */
+
+/**
+ * Install.
+ */
+function xmldb_theme_adaptable_install() {
+    // Feature version for this version.
+    set_config('feature_version', 2025080200, 'theme_adaptable');
 }

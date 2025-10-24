@@ -207,7 +207,10 @@ if ($ADMIN->fulltree) {
     $title = get_string('headerbgimage', 'theme_adaptable');
     $description = get_string('headerbgimagedesc', 'theme_adaptable');
     $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-        $name, $title, $description, 'headerbgimage',
+        $name,
+        $title,
+        $description,
+        'headerbgimage',
         ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
     );
     $page->add($setting);
@@ -226,7 +229,10 @@ if ($ADMIN->fulltree) {
     $title = get_string('logo', 'theme_adaptable');
     $description = get_string('logodesc', 'theme_adaptable');
     $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-        $name, $title, $description, 'logo',
+        $name,
+        $title,
+        $description,
+        'logo',
         ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
     );
     $page->add($setting);

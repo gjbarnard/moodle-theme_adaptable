@@ -28,6 +28,7 @@
 
 namespace theme_adaptable;
 
+use context_system;
 use context_user;
 use core\url;
 use stdClass;

@@ -45,8 +45,14 @@ class admin_settingspage_tabs extends \theme_boost_admin_settingspage_tabs {
      * @param boolean $hidden Is this external page hidden in admin tree block? Default false.
      * @param stdClass $context The context the page relates to.
      */
-    public function __construct($name, $visiblename, $mbranch, $reqcapability = 'moodle/site:config',
-        $hidden = false, $context = null) {
+    public function __construct(
+        $name,
+        $visiblename,
+        $mbranch,
+        $reqcapability = 'moodle/site:config',
+        $hidden = false,
+        $context = null
+    ) {
         $this->mbranch = $mbranch;
         return parent::__construct($name, $visiblename, $reqcapability, $hidden, $context);
     }
@@ -164,6 +170,15 @@ class admin_settingspage_tabs extends \theme_boost_admin_settingspage_tabs {
                 ]
             );
         }
+
+        $toolbox = \theme_adaptable\toolbox::get_instance();
+        $context['versioninfopost'] = get_string(
+            'versioninfopost',
+            'theme_adaptable',
+            [
+                'love' => $toolbox->getfontawesomemarkup('heart', [], [], '', get_string('love', 'theme_adaptable')),
+            ]
+        );
 
         return $OUTPUT->render_from_template('theme_adaptable/adaptable_admin_setting_tabs', $context);
     }

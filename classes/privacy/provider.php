@@ -42,7 +42,6 @@ class provider implements
 
     // This plugin has some sitewide user preferences to export.
     \core_privacy\local\request\user_preference_provider {
-
     /**
      * Returns meta data about this system.
      *
@@ -130,7 +129,7 @@ class provider implements
                     ])
                 );
             } else if ($name == 'theme_adaptable_full') {
-                $decoded = get_string('privacy:'.$value, 'theme_adaptable');
+                $decoded = get_string('privacy:' . $value, 'theme_adaptable');
 
                 writer::export_user_preference(
                     'theme_adaptable',

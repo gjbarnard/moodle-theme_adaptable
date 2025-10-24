@@ -1,3 +1,11 @@
+Change log in version 500.2.2 (2025040807)
+==========================================
+1. Change the icons used for 'groups' to FontAwesome ones.
+2. Improve course section borders.
+3. Fix 'theme_adaptable\context_system" not found' when using footer blocks with images.
+4. Fix 'Progress bar not loading or showing up' - #47.
+5. Improve slider interface with side post drawer.
+
 Change log in version 500.2.1 (2025040806)
 ==========================================
 1. Fix "Information block row displays column mode" - #44.
