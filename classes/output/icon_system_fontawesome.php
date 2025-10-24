@@ -582,7 +582,7 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             }
             $iconname = $component . ':' . $icon->pix;
             if (in_array($iconname, $this->get_deprecated_icons())) {
-                $data['unmappedIcon']['extraclasses'] .= ' deprecated deprecated-'.$iconname;
+                $data['unmappedIcon']['extraclasses'] .= ' deprecated deprecated-' . $iconname;
             }
         } else {
             if (!empty($data['extraclasses'])) {

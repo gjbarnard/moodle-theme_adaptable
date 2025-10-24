@@ -29,8 +29,11 @@ defined('MOODLE_INTERNAL') || die;
 
 // Settings for user favourites and tools menus.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_navbar_userfavtools_menu',
-        get_string('navbaruserfavtoolsmenus', 'theme_adaptable'), true);
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_navbar_userfavtools_menu',
+        get_string('navbaruserfavtoolsmenus', 'theme_adaptable'),
+        true
+    );
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_userfavmenu',
@@ -87,7 +90,8 @@ if ($ADMIN->fulltree) {
     for ($toolsmenusindex = 1; $toolsmenusindex <= $toolsmenuscount; $toolsmenusindex++) {
         $page->add(new admin_setting_heading(
             'theme_adaptable_menus' . $toolsmenusindex,
-            get_string('toolsmenuheadingindex', 'theme_adaptable', $toolsmenusindex), ''
+            get_string('toolsmenuheadingindex', 'theme_adaptable', $toolsmenusindex),
+            ''
         ));
 
         $name = 'theme_adaptable/toolsmenu' . $toolsmenusindex . 'title';

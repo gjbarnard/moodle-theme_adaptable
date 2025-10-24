@@ -27,8 +27,10 @@ defined('MOODLE_INTERNAL') || die;
 
 // Frontpage Slider.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_frontpage_slider',
-        get_string('frontpageslidersettings', 'theme_adaptable'));
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_frontpage_slider',
+        get_string('frontpageslidersettings', 'theme_adaptable')
+    );
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_slideshow',
@@ -182,7 +184,7 @@ if ($ADMIN->fulltree) {
         $page->add($setting);
     }
 
-    // Number of Sliders.
+    // Number of slides.
     $name = 'theme_adaptable/slidercount';
     $title = get_string('slidercount', 'theme_adaptable');
     $description = get_string('slidercountdesc', 'theme_adaptable');
@@ -190,10 +192,10 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices0to12);
     $page->add($setting);
 
-    // If we don't have an slide yet, default to the preset.
     $slidercount = get_config('theme_adaptable', 'slidercount');
 
-    if (!$slidercount) {
+    // If we don't have a slide count yet, then default to the default.
+    if ($slidercount === false) {
         $slidercount = $default;
     }
 
@@ -203,7 +205,10 @@ if ($ADMIN->fulltree) {
         $title = get_string('sliderimage', 'theme_adaptable');
         $description = get_string('sliderimagedesc', 'theme_adaptable');
         $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-            $name, $title, $description, $fileid,
+            $name,
+            $title,
+            $description,
+            $fileid,
             ['accepted_types' => '*.jpg,*.jpeg,*.png', 'maxfiles' => 1]
         );
         $page->add($setting);

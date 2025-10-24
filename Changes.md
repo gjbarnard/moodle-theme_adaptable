@@ -1,3 +1,9 @@
+Change log in version 501.0.2 (2025092501)
+==========================================
+1. Fix 'theme_adaptable\context_system" not found' when using footer blocks with images.
+2. Fix 'Progress bar not loading or showing up' - #47.
+3. Improve slider interface with side post drawer.
+
 Change log in version 501.0.1 (2025092500)
 ==========================================
 1. Change the icons used for 'groups' to FontAwesome ones.

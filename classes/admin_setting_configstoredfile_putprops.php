@@ -58,8 +58,17 @@ class admin_setting_configstoredfile_putprops extends \admin_setting_configstore
      * @param int $itemid itemid for file storage.
      */
     public function __construct(
-        $name, $visiblename, $description, $filearea, $pluginname, $pluginfrankenstyle, $callme, $reportsettingname,
-            ?array $options, $itemid = 0) {
+        $name,
+        $visiblename,
+        $description,
+        $filearea,
+        $pluginname,
+        $pluginfrankenstyle,
+        $callme,
+        $reportsettingname,
+        ?array $options,
+        $itemid = 0
+    ) {
         $this->nosave = true;
         $this->pluginname = $pluginname;
         $this->pluginfrankenstyle = $pluginfrankenstyle;

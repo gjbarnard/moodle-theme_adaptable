@@ -250,11 +250,11 @@ $string['slidervisibleloggedinout'] = 'Logged in or out';
 $string['sliderfullscreen'] = 'Slider full view';
 $string['sliderfullscreendesc'] = 'Check this box to make the slider full view (100% width).';
 
-$string['slideroption2'] = 'Choose slider type';
-$string['slideroption2desc'] = 'Choose slider type <strong>and then click SAVE</strong> to see colour settings for your chosen slider.';
+$string['slideroption2'] = 'Choose slider style';
+$string['slideroption2desc'] = 'Choose slider style, one or two, and then click on <strong>\'Save changes\'</strong> to load the settings for that style.';
 
 $string['slidercount'] = 'Slider count';
-$string['slidercountdesc'] = 'Select how many slides you want to add <strong>then click SAVE</strong> to load the input fields.';
+$string['slidercountdesc'] = 'Select how many slides you want to add and then click on <strong>\'Save changes\'</strong> to load the settings for the slider(s).';
 
 $string['sliderh3color'] = 'Slider one H3 colour';
 $string['sliderh3colordesc'] = 'Choose the colour you want for the slider one H3 tag.';

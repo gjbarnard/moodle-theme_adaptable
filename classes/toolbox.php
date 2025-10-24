@@ -132,7 +132,7 @@ class toolbox {
         if (empty($themename)) {
             $themename = 'adaptable';
         }
-        $settingvalue = get_config('theme_'.$themename, $settingname);
+        $settingvalue = get_config('theme_' . $themename, $settingname);
         return (!empty($settingvalue)) ? $settingvalue : $settingdefault;
     }
 
@@ -197,7 +197,7 @@ class toolbox {
 
         $cleaned = clean_param($value, $paramtype);
         if ("$value" !== "$cleaned") {
-            $errordata = ['name' => $themename.'|'.$name, 'value' => $value];
+            $errordata = ['name' => $themename . '|' . $name, 'value' => $value];
             if ($throwexception) {
                 throw new \core\exception\moodle_exception(
                     'invalidsettingvalue',
@@ -274,8 +274,8 @@ class toolbox {
         $prescss .= '$loadingcolorrgba: ' . $loadingcolorrgba . ';' . PHP_EOL;
         $prescss .= '$nav-tabs-border-color: $secondary;' . PHP_EOL;
         $prescss .= '$dialogue-base-bg: ' . $regionmaincolour . ';' . PHP_EOL;
-        $prescss .= '$nav-tabs-link-active-border-color: ' . $fontcolorrgba .' ' . $fontcolorrgba . ' transparent;' . PHP_EOL;
-        $prescss .= '$nav-tabs-link-hover-border-color: transparent transparent '. $fontcolour . ';' . PHP_EOL;
+        $prescss .= '$nav-tabs-link-active-border-color: ' . $fontcolorrgba . ' ' . $fontcolorrgba . ' transparent;' . PHP_EOL;
+        $prescss .= '$nav-tabs-link-hover-border-color: transparent transparent ' . $fontcolour . ';' . PHP_EOL;
         $prescss .= '$courseindex-link-color: ' .
             self::get_setting('courseindexitemcolor', false, $theme->name, '#495057') . ';' . PHP_EOL;
         $prescss .= '$courseindex-link-hover-color: ' .
@@ -348,10 +348,10 @@ class toolbox {
         if (!empty($setting)) { // Unlikely that an invalid value is stored, otherwise don't use!
             if (is_numeric($setting)) {
                 // Stored as a multiplier.
-                $scss = '$h'.$level.'-font-size: $font-size-base * ' . $setting . ';' . PHP_EOL;
+                $scss = '$h' . $level . '-font-size: $font-size-base * ' . $setting . ';' . PHP_EOL;
             } else {
                 // Stored as a size.
-                $scss = '$h'.$level.'-font-size: ' . $setting . ';' . PHP_EOL;
+                $scss = '$h' . $level . '-font-size: ' . $setting . ';' . PHP_EOL;
             }
         }
 
@@ -466,7 +466,7 @@ class toolbox {
 
         // Collapsed Topics colours.
         if (empty($theme->settings->collapsedtopicscoloursenabled)) {
-            $scss .= '.theme_adaptable .course-content ul.ctopics li.section {'. PHP_EOL;
+            $scss .= '.theme_adaptable .course-content ul.ctopics li.section {' . PHP_EOL;
             $scss .= '.content .toggle span.the_toggle h3.sectionname,' . PHP_EOL;
             $scss .= '.content .toggle span.the_toggle h3.sectionname a,' . PHP_EOL;
             $scss .= '.content .toggle span.the_toggle h3.sectionname a:hover,' . PHP_EOL;
@@ -487,7 +487,7 @@ class toolbox {
             $scss .= '}' . PHP_EOL;
             $scss .= '}' . PHP_EOL;
 
-            $scss .= '.theme_adaptable .course-content ul.ctopics li.section {' .PHP_EOL;
+            $scss .= '.theme_adaptable .course-content ul.ctopics li.section {' . PHP_EOL;
             $scss .= '.content .toggle span,' . PHP_EOL;
             $scss .= '.content .toggle span:hover,' . PHP_EOL;
             $scss .= '.content .toggle span:focus,' . PHP_EOL;
@@ -1052,12 +1052,16 @@ class toolbox {
             $fileprops = $props[self::FILEPROPNAMES];
 
             foreach ($fileprops as $fileprop) {
-                $name = $pluginfrankenstyle.'/'.$fileprop;
+                $name = $pluginfrankenstyle . '/' . $fileprop;
                 // Remove any number to get a common string.
                 $title = get_string(preg_replace('/[0-9]+/', '', $fileprop), $pluginfrankenstyle);
                 $description = $title;
                 $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-                    $name, $title, $description, $fileprop, null
+                    $name,
+                    $title,
+                    $description,
+                    $fileprop,
+                    null
                 );
                 $encoded = $setting->base64encode();
 
@@ -1085,14 +1089,18 @@ class toolbox {
         // Build the report.
         // Report Moodle version.
         $report = get_string('putpropertyreport', $pluginfrankenstyle) . PHP_EOL;
-        $report .= get_string('putpropertyproperties', $pluginfrankenstyle,
+        $report .= get_string(
+            'putpropertyproperties',
+            $pluginfrankenstyle,
             [
                 'name' => 'Moodle',
                 'version' => $props['moodle_version'],
             ]
         ) . PHP_EOL;
         unset($props['moodle_version']);
-        $report .= get_string('putpropertyour', $pluginfrankenstyle,
+        $report .= get_string(
+            'putpropertyour',
+            $pluginfrankenstyle,
             [
                 'name' => 'Moodle',
                 'version' => $currentprops[self::PROPS]['moodle_version']->value,
@@ -1106,14 +1114,18 @@ class toolbox {
             // Old properties.
             $pluginversionkey = 'theme_version';
         }
-        $report .= get_string('putpropertyproperties', $pluginfrankenstyle,
+        $report .= get_string(
+            'putpropertyproperties',
+            $pluginfrankenstyle,
             [
                 'name' => $pluginname,
                 'version' => $props[$pluginversionkey],
             ]
         ) . PHP_EOL;
         unset($props[$pluginversionkey]);
-        $report .= get_string('putpropertyour', $pluginfrankenstyle,
+        $report .= get_string(
+            'putpropertyour',
+            $pluginfrankenstyle,
             [
                 'name' => $pluginname,
                 'version' => $currentprops[self::PROPS]['plugin_version']->value,
@@ -1123,7 +1135,9 @@ class toolbox {
 
         // Report feature version if there.
         if (array_key_exists('feature_version', $props)) {
-            $report .= get_string('putpropertyfeatureversion', $pluginfrankenstyle,
+            $report .= get_string(
+                'putpropertyfeatureversion',
+                $pluginfrankenstyle,
                 [
                     'name' => $pluginname,
                     'version' => $props['feature_version'],
@@ -1135,7 +1149,9 @@ class toolbox {
             // Does not exist, so check for all possible changes.
             $propsfeatureversion = 0;
         }
-        $report .= get_string('putpropertyourfeatureversion', $pluginfrankenstyle,
+        $report .= get_string(
+            'putpropertyourfeatureversion',
+            $pluginfrankenstyle,
             [
                 'name' => $pluginname,
                 'version' => $currentprops[self::PROPS]['feature_version']->value,
@@ -1185,8 +1201,11 @@ class toolbox {
                     $settinglog .= ' ' . get_string('putpropertiesfrom', $pluginfrankenstyle) . ' \'' .
                     $currentprops[self::PROPS][$propkey]->value . '\'';
                     $changed .= $settinglog . '.' . PHP_EOL;
-                    $DB->update_record('config_plugins', ['id' => $currentprops[self::PROPS][$propkey]->id, 'value' => $propvalue],
-                        true);
+                    $DB->update_record(
+                        'config_plugins',
+                        ['id' => $currentprops[self::PROPS][$propkey]->id, 'value' => $propvalue],
+                        true
+                    );
                 } else {
                     $unchanged .= $settinglog . '.' . PHP_EOL;
                 }
@@ -1284,12 +1303,16 @@ class toolbox {
     private static function put_prop_file_preprocess($pluginfrankenstyle, $key, &$props, &$filestoreport, &$fileschanged) {
         if (!empty($props[$key])) {
             if ($props[$key][0] == '{') { // Is a JSON encoded file(s).
-                $name = $pluginfrankenstyle.'/'.$key;
+                $name = $pluginfrankenstyle . '/' . $key;
                 // Remove any number to get a common string.
                 $title = get_string(preg_replace('/[0-9]+/', '', $key), $pluginfrankenstyle);
                 $description = $title;
                 $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-                    $name, $title, $description, $key, null
+                    $name,
+                    $title,
+                    $description,
+                    $key,
+                    null
                 );
                 $changed = $setting->base64decode($props[$key]);
                 if (!empty($changed[\theme_adaptable\admin_setting_configstoredfiles::REMOVEDFILES])) {
@@ -1474,7 +1497,9 @@ class toolbox {
                             // the property file is updating it, possibly.
                             $props[$change->to] = $props[$change->from];
                         }
-                        $changed[] = get_string('settingschangechanged', $pluginfrankenstyle,
+                        $changed[] = get_string(
+                            'settingschangechanged',
+                            $pluginfrankenstyle,
                             [
                                 'from' => $change->from,
                                 'to' => $change->to,
@@ -1496,7 +1521,9 @@ class toolbox {
                             // the property file is updating it, possibly.
                             $props[$change->to] = $tovalue;
                         }
-                        $changed[] = get_string('settingschangevalue', $pluginfrankenstyle,
+                        $changed[] = get_string(
+                            'settingschangevalue',
+                            $pluginfrankenstyle,
                             [
                                 'from' => $change->from,
                                 'valuefrom' => $fromvalue,
@@ -1505,7 +1532,9 @@ class toolbox {
                         );
                     } else {
                         // Else replacement already defined, just remove old setting as new has superceded it.
-                        $changed[] = get_string('settingschangealreadydefined', $pluginfrankenstyle,
+                        $changed[] = get_string(
+                            'settingschangealreadydefined',
+                            $pluginfrankenstyle,
                             [
                                 'from' => $change->from,
                                 'to' => $change->to,
@@ -1522,7 +1551,9 @@ class toolbox {
                         } // Else is a change of value;
                     }
                 } else if ($upgrading) { // Else deletion.
-                    $changed[] = get_string('settingschangedeleted', $pluginfrankenstyle,
+                    $changed[] = get_string(
+                        'settingschangedeleted',
+                        $pluginfrankenstyle,
                         [
                             'from' => $change->from,
                             'value' => $props[$change->from],
@@ -1657,40 +1688,40 @@ class toolbox {
         switch ($modulename) {
             case 'assign':
                 $icon = 'fa-solid fa-file-pen';
-            break;
+                break;
             case 'choice':
                 $icon = 'fa-solid fa-arrows-split-up-and-left';
-            break;
+                break;
             case 'data':
                 $icon = 'fa-solid fa-database';
-            break;
+                break;
             case 'feedback':
                 $icon = 'fa-regular fa-comment-dots';
-            break;
+                break;
             case 'forum':
                 $icon = 'fa-solid fa-people-group';
-            break;
+                break;
             case 'glossary':
                 $icon = 'fa-solid fa-box-archive';
-            break;
+                break;
             case 'imscp':
                 $icon = 'fa-solid fa-box';
-            break;
+                break;
             case 'lesson':
                 $icon = 'fa-solid fa-chalkboard-user';
-            break;
+                break;
             case 'page':
                 $icon = 'fa-solid fa-file-lines';
-            break;
+                break;
             case 'quiz':
                 $icon = 'fa-solid fa-person-circle-question';
-            break;
+                break;
             case 'wiki':
                 $icon = 'fa-solid fa-circle-nodes';
-            break;
+                break;
             case 'workshop':
                 $icon = 'fa-solid fa-people-arrows';
-            break;
+                break;
         }
 
         return $icon;
@@ -2308,7 +2339,12 @@ class toolbox {
      * @return array of the imgblder and totalblocks.
      */
     public static function admin_settings_layout_builder(
-        $settingpage, $adminsettingname, $totalrows, $admindefaults, $adminchoices) {
+        $settingpage,
+        $adminsettingname,
+        $totalrows,
+        $admindefaults,
+        $adminchoices
+    ) {
         global $OUTPUT;
 
         $totalblocks = 0;
@@ -2330,7 +2366,7 @@ class toolbox {
             }
 
             if ($themesettings->$settingname != '0-0-0-0') {
-                $imgurl = $OUTPUT->image_url('layout-builder/'.$themesettings->$settingname, 'theme_adaptable');
+                $imgurl = $OUTPUT->image_url('layout-builder/' . $themesettings->$settingname, 'theme_adaptable');
                 $imgblder .= '<img src="' . $imgurl . '" class="mb-1 img-fluid">';
             }
 

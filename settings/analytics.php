@@ -30,8 +30,11 @@ defined('MOODLE_INTERNAL') || die;
 
 // Analytics section.
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_analytics',
-        get_string('analyticssettings', 'theme_adaptable'), true);
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_analytics',
+        get_string('analyticssettings', 'theme_adaptable'),
+        true
+    );
 
     $page->add(new admin_setting_heading(
         'theme_adaptable_analytics',

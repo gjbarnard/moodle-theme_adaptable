@@ -42,7 +42,6 @@ use core_external\external_value;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class activity_navigation extends external_api {
-
     /**
      * Webservice parameters.
      *

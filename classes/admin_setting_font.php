@@ -30,13 +30,12 @@ namespace theme_adaptable;
 defined('MOODLE_INTERNAL') || die;
 
 // Require admin library.
-require_once($CFG->libdir.'/adminlib.php');
+require_once($CFG->libdir . '/adminlib.php');
 
 /**
  * Adaptable admin_setting_font
  */
 class admin_setting_font extends \admin_setting_configtext {
-
     /**
      * @var string Regex string to test against valid font values / multipliers with optoinal spaces.
      */
@@ -130,22 +129,22 @@ class admin_setting_font extends \admin_setting_configtext {
                 switch ($matches[2]) { // Units.
                     case 'rem':
                         // No conversion, but strip any tailing characters.
-                        $result = $matches[1].$matches[2];
-                    break;
+                        $result = $matches[1] . $matches[2];
+                        break;
                     case 'px':
                         $pixels = $matches[1];
                         if (($pixels >= 5) && ($pixels <= 200)) { // Sensible.
                             $rem = $matches[1] / self::$basefontsize;
-                            $result = $rem.'rem';
+                            $result = $rem . 'rem';
                         }
-                    break;
+                        break;
                     case '%':
                         $percent = $matches[1];
                         if (($percent >= 85) && ($percent <= 110)) { // Sensible.
                             $rem = $percent / 100;
-                            $result = $rem.'rem';
+                            $result = $rem . 'rem';
                         }
-                    break;
+                        break;
                 }
             }
         } else if (is_numeric($fontsize)) {

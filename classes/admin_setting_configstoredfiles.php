@@ -34,13 +34,12 @@ use core\url;
 defined('MOODLE_INTERNAL') || die;
 
 // Require admin library.
-require_once($CFG->libdir.'/adminlib.php');
+require_once($CFG->libdir . '/adminlib.php');
 
 /**
  * Adaptable admin_setting_configstoredfiles
  */
 class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
-
     /** @var array of strings used for detection of changes */
     protected $oldhashes;
 
@@ -109,7 +108,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
      * @param string $query
      * @return string
      */
-    public function output_html($data, $query='') {
+    public function output_html($data, $query = '') {
         if ((!is_null($this->owner)) && (method_exists($this->owner, 'get_disabled'))) {
             if ($this->owner->get_disabled()) {
                 global $OUTPUT;
@@ -152,10 +151,16 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
         $this->oldhashes = [];
         if ($current) {
             $files = $fs->get_area_files(
-                $options['context']->id, $component, $this->filearea, $this->itemid, 'sortorder,filepath,filename', false);
+                $options['context']->id,
+                $component,
+                $this->filearea,
+                $this->itemid,
+                'sortorder,filepath,filename',
+                false
+            );
             foreach ($files as $file) {
-                $filepath = $file->get_filepath().$file->get_filename();
-                $this->oldhashes[$filepath] = $file->get_contenthash().$file->get_pathnamehash();
+                $filepath = $file->get_filepath() . $file->get_filename();
+                $this->oldhashes[$filepath] = $file->get_contenthash() . $file->get_pathnamehash();
             }
             unset($files);
         }
@@ -172,13 +177,19 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
 
         file_save_draft_area_files($data, $options['context']->id, $component, $this->filearea, $this->itemid, $options);
         $files = $fs->get_area_files(
-            $options['context']->id, $component, $this->filearea, $this->itemid, 'sortorder,filepath,filename', false);
+            $options['context']->id,
+            $component,
+            $this->filearea,
+            $this->itemid,
+            'sortorder,filepath,filename',
+            false
+        );
 
         $filepath = '';
         if ($files) {
             /** @var stored_file $file */
             $file = reset($files);
-            $filepath = $file->get_filepath().$file->get_filename();
+            $filepath = $file->get_filepath() . $file->get_filename();
         }
 
         return ($this->config_write($this->name, $filepath) ? '' : get_string('errorsetting', 'admin'));
@@ -198,10 +209,17 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
         $newhashes = [];
         if ($current) {
             $files = $fs->get_area_files(
-                $options['context']->id, $component, $this->filearea, $this->itemid, 'sortorder,filepath,filename', false);
+                $options['context']->id,
+                $component,
+                $this->filearea,
+                $this->itemid,
+                'sortorder,filepath,filename',
+                false
+            );
             foreach ($files as $file) {
-                $filepath = $file->get_filepath().$file->get_filename();
-                $newhashes[$filepath] = $file->get_contenthash().$file->get_pathnamehash();;
+                $filepath = $file->get_filepath() . $file->get_filename();
+                $newhashes[$filepath] = $file->get_contenthash() . $file->get_pathnamehash();
+                ;
             }
             unset($files);
         }
@@ -246,7 +264,13 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
 
         $fs = get_file_storage();
         $files = $fs->get_area_files(
-            $syscontext->id, $component, $this->filearea, 0, 'sortorder,filepath,filename', false);  // Item id could not be 0!
+            $syscontext->id,
+            $component,
+            $this->filearea,
+            0,
+            'sortorder,filepath,filename',
+            false
+        );  // Item id could not be 0!
 
         $settingfiles = [];
         foreach ($files as $file) {
@@ -321,7 +345,13 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
 
         // Got this far with all the draft files created...
         $files = $fs->get_area_files(
-            $syscontext->id, $component, $this->filearea, 0, 'sortorder,filepath,filename', false);  // Item id could not be 0!
+            $syscontext->id,
+            $component,
+            $this->filearea,
+            0,
+            'sortorder,filepath,filename',
+            false
+        );  // Item id could not be 0!
         foreach ($files as $file) {
             if (!empty($file)) {
                 $changed[self::REMOVEDFILES][] = $file->get_filename();
@@ -350,12 +380,18 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
         }
 
         $files = $fs->get_area_files(
-            $syscontext->id, $component, $this->filearea, 0, 'sortorder,filepath,filename', false);  // Item id could not be 0!
+            $syscontext->id,
+            $component,
+            $this->filearea,
+            0,
+            'sortorder,filepath,filename',
+            false
+        );  // Item id could not be 0!
         $filepath = '';
         if ($files) {
             /** @var stored_file $file */
             $file = reset($files);
-            $filepath = $file->get_filepath().$file->get_filename();
+            $filepath = $file->get_filepath() . $file->get_filename();
         }
         $result = ($this->config_write($this->filearea, $filepath) ? '' : get_string('errorsetting', 'admin'));
         if (!empty($result)) {
@@ -388,18 +424,26 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
             return null;
         }
 
-        $component = 'theme_'.$theme->name;
+        $component = 'theme_' . $theme->name;
         $itemid = theme_get_revision();
         $syscontext = context_system::instance();
         $urls = [];
 
         $fs = get_file_storage();
         $files = $fs->get_area_files(
-            $syscontext->id, $component, $filearea, 0, 'sortorder,filepath,filename', false);  // Item id could not be 0!
+            $syscontext->id,
+            $component,
+            $filearea,
+            0,
+            'sortorder,filepath,filename',
+            false
+        );  // Item id could not be 0!
         foreach ($files as $file) {
-            $filepath = $file->get_filepath().$file->get_filename();
+            $filepath = $file->get_filepath() . $file->get_filename();
             $url = url::make_file_url(
-                "$CFG->wwwroot/pluginfile.php", "/$syscontext->id/$component/$filearea/$itemid".$filepath);
+                "$CFG->wwwroot/pluginfile.php",
+                "/$syscontext->id/$component/$filearea/$itemid" . $filepath
+            );
             // Now this is tricky because the we can not hardcode http or https here, lets use the relative link.
             // Note: unfortunately url does not support //urls yet.
             $url = preg_replace('|^https?://|i', '//', $url->out(false));

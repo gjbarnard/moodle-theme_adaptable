@@ -62,14 +62,16 @@ class course_renderer extends \core_course_renderer {
             'limit' => $CFG->coursesperpage,
             'viewmoreurl' => new url(
                 '/course/index.php',
-                ['browse' => 'categories', 'page' => 1]),
-            ]);
+                ['browse' => 'categories', 'page' => 1]
+            ),
+        ]);
         $chelper->set_courses_display_options([
             'limit' => $CFG->coursesperpage,
             'viewmoreurl' => new url(
                 '/course/index.php',
-                ['browse' => 'courses', 'page' => 1]),
-            ]);
+                ['browse' => 'courses', 'page' => 1]
+            ),
+        ]);
         $chelper->set_attributes(['class' => 'frontpage-category-combo row']);
         return $this->coursecat_tree($chelper, $tree);
     }

@@ -26,8 +26,10 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $page = new \theme_adaptable\admin_settingspage('theme_adaptable_blocks',
-        get_string('settingspageblocksettings', 'theme_adaptable'));
+    $page = new \theme_adaptable\admin_settingspage(
+        'theme_adaptable_blocks',
+        get_string('settingspageblocksettings', 'theme_adaptable')
+    );
 
     // Configuration.
     $name = 'theme_adaptable/settingsblocksconfiguration';
