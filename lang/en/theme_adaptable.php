@@ -95,8 +95,8 @@ $string['region-frnt-market-q'] = 'Page region seventeen';
 $string['region-frnt-market-r'] = 'Page region eighteen';
 $string['region-frnt-market-s'] = 'Page region nineteen';
 $string['region-frnt-market-t'] = 'Page region twenty';
-$string['region-frnt-footer'] = 'Footer';
-$string['frnt-footer'] = 'Blocks in this area will only be visible to admin users';
+$string['region-hidden'] = 'Hidden';
+$string['hidden-blocks-desc'] = 'Blocks in this area will only be visible to users that can edit blocks on this page';
 
 // Dashboard regions.
 $string['region-content'] = 'Content';
@@ -200,8 +200,6 @@ $string['tickerconstainerbackgroundcolourdesc'] = 'Set the backgound colour of t
 $string['tickerconstainertextcolour'] = 'News ticker container text colour';
 $string['tickerconstainertextcolourdesc'] = 'Set the text colour of the ticker container.';
 
-$string['tickerwidth'] = 'News ticker width';
-$string['tickerwidthdesc'] = 'You can use this setting to fix the news ticker at 100% width.';
 
 $string['newstickercount'] = 'Number of news ticker sections';
 $string['newstickercountdesc'] = 'Define multiple news ticker sections with access rules to target different audiences.';
@@ -213,9 +211,6 @@ $string['tickertextprofilefield'] = 'Custom Profile Field Name=Value (optional)'
 $string['tickertextprofilefielddesc'] = 'Add access rule using for custom profile field eg: usertype=student';
 
 $string['ticker'] = 'Announcements';
-
-$string['tickerwidth'] = 'Fixed width';
-$string['tickerfullscreen'] = 'Full view width';
 
 // Slideshow.
 $string['slideshowsettings'] = 'Slideshow';
@@ -1375,7 +1370,7 @@ $string['enablealertstriptags'] = 'Automatically strip html tags from alerts';
 $string['enablealertstriptagsdesc'] = 'Enable will clean up the alert messages automatically and disable to allow you to use html / links in messages but you will have to clean up manually in html view.';
 
 $string['alertkeyvalue'] = 'Alert key';
-$string['alertkeyvalue_details'] = 'The key that identifies this alert.  You only need to change this if you want to show the same alert again, i.e. the content has not changed or has been used before.  Note: Formatting changes do not count as a change to the content.';
+$string['alertkeyvalue_details'] = 'The key that identifies this alert.  An empty value indicates an undismissable alert.  You only need to change this if you want to show the same alert again, i.e. the content has not changed or has been used before.  Note: Formatting changes do not count as a change to the content.';
 
 $string['alertsettingscourse'] = 'Course alert settings';
 

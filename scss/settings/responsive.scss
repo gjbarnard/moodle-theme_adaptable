@@ -255,21 +255,7 @@
 // =======================================================
 @media (max-width: 767px) {
     #ticker-announce {
-        float: none;
-        margin: 0;
-        text-align: center;
-    }
-
-    #ticker-wrap #newscontent {
-        line-height: normal;
-        max-width: inherit;
-        overflow: inherit;
-        padding: 10px 10px 10px;
-        white-space: normal;
-
-        #news {
-            white-space: normal;
-        }
+		display: none;
     }
 
     .slidestyle2 {
