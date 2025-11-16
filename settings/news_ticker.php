@@ -91,18 +91,6 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Ticker Width (fullscreen / fixed width).
-    $name = 'theme_adaptable/tickerwidth';
-    $title = get_string('tickerwidth', 'theme_adaptable');
-    $description = get_string('tickerwidthdesc', 'theme_adaptable');
-    $options = [
-        '' => get_string('tickerwidth', 'theme_adaptable'),
-        'width: 100%;' => get_string('tickerfullscreen', 'theme_adaptable'),
-    ];
-    $setting = new admin_setting_configselect($name, $title, $description, '', $options);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
     // Number of news ticker sectons.
     $name = 'theme_adaptable/newstickercount';
     $title = get_string('newstickercount', 'theme_adaptable');

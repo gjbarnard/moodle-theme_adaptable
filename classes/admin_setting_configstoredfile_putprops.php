@@ -46,7 +46,7 @@ class admin_setting_configstoredfile_putprops extends \admin_setting_configstore
     /**
      * Create new stored files setting.
      *
-     * @param string $name :ow level setting name.
+     * @param string $name Setting name.
      * @param string $visiblename Human readable setting name.
      * @param string $description Description of setting.
      * @param mixed $filearea File area for file storage.

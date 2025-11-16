@@ -654,7 +654,6 @@ class toolbox {
             '[[setting:enableavailablecourses]]' => 'inherit',
             '[[setting:enableticker]]' => true,
             '[[setting:enabletickermy]]' => true,
-            '[[setting:tickerwidth]]' => '',
             '[[setting:tickerheaderbackgroundcolour]]' => '#00796b',
             '[[setting:tickerheadertextcolour]]' => '#eee',
             '[[setting:tickerconstainerbackgroundcolour]]' => '#009688',

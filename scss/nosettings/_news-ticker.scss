@@ -23,19 +23,65 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
+// News Ticker.
+#ticker,
+#ticker_container {
+    font-size: 16px;
+}
+
 #ticker-wrap {
-    background-color: [[setting:tickerconstainerbackgroundcolour]];
-    color: [[setting:tickerconstainertextcolour]];
+    line-height: 40px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    position: relative;
+
+    #ticker {
+        display: none;
+    }
+
+    #newscontent {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+
+        #news {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            img {
+                display: block;
+            }
+        }
+    }
 
     #ticker_container {
+        display: flex;
+        width: 100%;
+
         #ticker-announce {
-            background-color: [[setting:tickerheaderbackgroundcolour]];
-            color: [[setting:tickerheadertextcolour]];
+            font-weight: 600;
+            margin-bottom: auto;
+            margin-right: 5px;
+            padding: 0 15px;
+            text-transform: uppercase;
         }
 
         #controls {
+            height: 16px;
+            min-width: 76px;
+            text-align: center;
+
+            span {
+                display: inline-block;
+                width: 20px;
+            }
+
             .fa {
-                color: [[setting:tickerconstainertextcolour]];
+                cursor: pointer;
+                padding: 0 2px;
             }
         }
     }

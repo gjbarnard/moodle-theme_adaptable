@@ -177,6 +177,7 @@ trait core_renderer_layout {
 
         $headercontext = [
             'output' => $this,
+            'responsiveheader' => $themesettings->responsiveheader,
         ];
 
         if (!empty($themesettings->mobileprimarynav)) {
@@ -295,7 +296,6 @@ trait core_renderer_layout {
 
         if ($adaptableheaderstyle == "style1") {
             $headercontext['menuslinkright'] = (!empty($themesettings->menuslinkright));
-            $headercontext['responsiveheader'] = $themesettings->responsiveheader;
 
             if (!empty($themesettings->pageheaderlayout)) {
                 $headercontext['pageheaderoriginal'] = ($themesettings->pageheaderlayout == 'original');
@@ -942,6 +942,12 @@ trait core_renderer_layout {
         }
 
         echo '</div>';
+        if ($this->page->user_can_edit_blocks()) {
+            echo '<div class="hidden-blocks">';
+            echo '<h3>' . get_string('hidden-blocks-desc', 'theme_adaptable') . '</h3>';
+            echo $this->blocks('hidden', 'd-flex');
+            echo '</div>';
+        }
         echo '</div>';
 
         // Include footer.
@@ -1116,12 +1122,10 @@ trait core_renderer_layout {
             echo $dashblocklayoutlayoutrow;
         }
 
-        if (is_siteadmin()) {
+        if ($this->page->user_can_edit_blocks()) {
             echo '<div class="hidden-blocks">';
-            echo '<div class="row">';
-            echo '<h3>' . get_string('frnt-footer', 'theme_adaptable') . '</h3>';
-            echo $this->blocks('frnt-footer', 'col-10');
-            echo '</div>';
+            echo '<h3>' . get_string('hidden-blocks-desc', 'theme_adaptable') . '</h3>';
+            echo $this->blocks('hidden', 'd-flex');
             echo '</div>';
         }
         echo '</div>';
@@ -1270,9 +1274,8 @@ trait core_renderer_layout {
         echo '</div>';
 
         // Let's show the hidden blocks region ONLY for administrators.
-        if (is_siteadmin()) {
+        if ($this->page->user_can_edit_blocks()) {
             echo '<div class="hidden-blocks">';
-            echo '<div class="row">';
 
             if (!empty($themesettings->coursepageblockinfoenabled)) {
                 echo $this->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
@@ -1292,9 +1295,8 @@ trait core_renderer_layout {
                 echo $this->get_block_regions('customrowsetting', 'my-tab-two-', '12-0-0-0');
             }
 
-            echo '<h3>' . get_string('frnt-footer', 'theme_adaptable') . '</h3>';
-            echo $this->blocks('frnt-footer', 'col-10');
-            echo '</div>';
+            echo '<h3>' . get_string('hidden-blocks-desc', 'theme_adaptable') . '</h3>';
+            echo $this->blocks('hidden', 'd-flex');
             echo '</div>';
         }
         echo '</div>';

@@ -128,16 +128,6 @@ class adaptable_admin_setting_confightmleditor extends \admin_setting_configtext
         $editor = editors_get_preferred_editor(FORMAT_HTML);
         $options = $this->get_options($ctx);
         $draftitemid = file_get_unused_draft_itemid();
-        $component = is_null($this->plugin) ? 'core' : $this->plugin;
-        $data = file_prepare_draft_area(
-            $draftitemid,
-            $options['context']->id,
-            $component,
-            $this->get_full_name() . '_draftitemid',
-            $draftitemid,
-            $options,
-            $data
-        );
 
         $fpoptions = [];
         $args = new stdClass();
@@ -181,6 +171,7 @@ class adaptable_admin_setting_confightmleditor extends \admin_setting_configtext
         $fpoptions['media'] = $mediaoptions;
         $fpoptions['link'] = $linkoptions;
 
+        $editor->set_text($data);
         $editor->use_editor($this->get_id(), $options, $fpoptions);
 
         return format_admin_setting(
@@ -282,8 +273,11 @@ class adaptable_admin_setting_confightmleditor extends \admin_setting_configtext
             }
         }
         if (!$hasfiles) {
-            if (trim(html_to_text($data)) === '') {
-                $data = '';
+            $strtosearch = "$wwwroot/pluginfile.php/";
+            if (!str_contains($data, $strtosearch)) {
+                if (trim(html_to_text($data)) === '') {
+                    $data = '';
+                }
             }
         }
 
