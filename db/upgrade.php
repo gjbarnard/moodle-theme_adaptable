@@ -124,24 +124,26 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
             'i/circleinfo'
         );
 
-        $localversion = $versions['local'];
-        if ($localversion['version'] != null) {
-            echo $OUTPUT->notification(
-                $localversion['release'] . ' - ' . $localversion['version'],
-                'info',
-                false,
-                'Adaptable local release and version',
-                'i/circleinfo'
-            );
-            if ($themeversion['version'] != $localversion['version']) {
+        if (!empty($versions['local'])) {
+            $localversion = $versions['local'];
+            if ($localversion['version'] != null) {
                 echo $OUTPUT->notification(
-                    'Adaptable theme and local versions must match!' .
-                    '  Rectify by updating local_adaptable otherwise errors may occur.',
-                    'warning',
+                    $localversion['release'] . ' - ' . $localversion['version'],
+                    'info',
                     false,
-                    'Version issue',
-                    'i/warning'
+                    'Adaptable local release and version',
+                    'i/circleinfo'
                 );
+                if ($themeversion['version'] != $localversion['version']) {
+                    echo $OUTPUT->notification(
+                        'Adaptable theme and local versions must match!' .
+                        '  Rectify by updating local_adaptable otherwise errors may occur.',
+                        'warning',
+                        false,
+                        'Version issue',
+                        'i/warning'
+                    );
+                }
             }
         }
 

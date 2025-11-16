@@ -718,30 +718,6 @@ textarea#page-mod-forum-discuss .discussioncontrols .discussioncontrol.movediscu
     font-weight: 400;
 }
 
-#play_trigger a,
-#pause_trigger a,
-#ticker-wrap #controls .fa {
-    color: [[setting:tickerconstainertextcolour]];
-}
-
-#ticker-wrap #controls .fa {
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-#ticker-wrap #newscontent {
-    max-width: 75%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-#ticker-wrap #newscontent #news {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 // Slider.
 // Browser Resets.
 .flex-container a:active,

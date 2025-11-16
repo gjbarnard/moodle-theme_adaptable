@@ -1,3 +1,21 @@
+Change log in version 501.0.3 (2025092502)
+==========================================
+1. Improve alert explanation.
+2. Fix some settings images disappearing when saving.
+3. Refactor 'Hidden blocks' area as it was possible for a user whom can edit blocks to assign a block to the 'Footer' block region
+   within this area (not the same as the 'Footer block layout builder' in the 'Footer' settings) and then only an administrator
+   be able to see it.  The 'Footer' block region has been replaced by the 'Hidden' block region that is visible to all users that
+   can edit blocks.  This means that any existing blocks in the previous 'Footer' block region will be in the default region for
+   the page and could be visible to everyone.  Therefore it is essential that you check this and move / remove any blocks
+   accordingly after upgrade before users access your installation.
+4. Fix 'Hidden blocks' not shown on the course page.  The 'Footer', now 'Hidden' block region is listed as a region when adding
+   and editing blocks, however the region was never shown on the course page.  Thus blocks could be moved there never to be seen
+   again!  Until now, where they should reappear in the default block region for the page because of the demise of the 'Footer'
+   block region.
+5. Improve news ticker.
+6. Fix 'main-navbar is no more responsive for header layout two'.
+7. Remove redundant 'tickerwidth' setting.
+
 Change log in version 501.0.2 (2025092501)
 ==========================================
 1. Fix 'theme_adaptable\context_system" not found' when using footer blocks with images.
