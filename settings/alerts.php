@@ -115,7 +115,14 @@ if ($ADMIN->fulltree) {
         $title = get_string('alerttext', 'theme_adaptable');
         $description = get_string('alerttextdesc', 'theme_adaptable');
         $default = '';
-        $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new \theme_adaptable\admin_setting_confightmleditor(
+            $name,
+            $title,
+            $description,
+            $default,
+            'shed_alerttext',
+            $alertindex
+        );
         $page->add($setting);
 
         // Alert Type.

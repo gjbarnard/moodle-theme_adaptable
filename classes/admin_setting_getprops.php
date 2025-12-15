@@ -127,6 +127,9 @@ class admin_setting_getprops extends \admin_setting {
     public function output_html($data, $query = '') {
         $return = '';
 
+        $singlebuttonstart = '<div class="singlebutton">';
+        $singlebuttonend = '</div>';
+
         $saveprops = optional_param($this->pluginfrankenstyle . '_getprops_saveprops', 0, PARAM_INT);
         $savepropsfilestoo = optional_param($this->pluginfrankenstyle . '_getprops_saveprops_filestoo', 0, PARAM_INT);
         $savepropsfilestoofile = optional_param($this->pluginfrankenstyle . '_getprops_saveprops_filestoofile', 0, PARAM_INT);
@@ -134,11 +137,18 @@ class admin_setting_getprops extends \admin_setting {
             $props = \theme_adaptable\toolbox::get_properties($this->pluginfrankenstyle);
 
             $returnurl = new url('/admin/settings.php', ['section' => $this->settingsectionname]);
-            $returnbutton = '<div class="singlebutton"><a class="btn btn-secondary" href="' . $returnurl->out(true) . '">' .
-                $this->returnbuttonname . '</a></div>';
+            $returnbutton = $singlebuttonstart . '<a class="btn btn-secondary" href="' . $returnurl->out(true) . '">' .
+                $this->returnbuttonname . '</a>' . $singlebuttonend;
             $return .= $returnbutton;
-            $return .= '<hr>';
-            $return .= '<div class="alert alert-success word-break-all" role="alert">';
+            $return .= html_writer::start_tag(
+                'div',
+                [
+                    'class' => 'alert alert-success word-break-all mt-3 mb-3',
+                    'data-bs-title' => get_string('propertiesexportjsonstring', $this->pluginfrankenstyle),
+                    'data-bs-toggle' => 'tooltip',
+                    'tabindex' => '0',
+                ]
+            );
             $return .= json_encode(
                 $props[\theme_adaptable\toolbox::PROPS],
                 JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS
@@ -166,7 +176,7 @@ class admin_setting_getprops extends \admin_setting {
                     'filepath,filename',
                     false
                 );
-                if (count($files) < 8) {
+                if (count($files) <= 8) {
                     global $SITE, $USER;
                     $time = time();
                     $datetime = new \DateTime("now", \core_date::get_user_timezone_object());
@@ -221,11 +231,9 @@ class admin_setting_getprops extends \admin_setting {
             }
 
             $returnurl = new url('/admin/settings.php', ['section' => $this->settingsectionname]);
-            $returnbutton = '<div class="singlebutton"><a class="btn btn-secondary" href="' . $returnurl->out(true) . '">' .
-                $this->returnbuttonname . '</a></div>';
-            $return .= $returnbutton;
-            $return .= '<hr>';
-            $return .= '<div class="alert alert-' . $alertstate . ' word-break-all" role="alert">';
+            $returnbutton = $singlebuttonstart . '<a class="btn btn-secondary" href="' . $returnurl->out(true) . '">' .
+                $this->returnbuttonname . '</a>' . $singlebuttonend;
+            $return .= '<div class="alert alert-' . $alertstate . ' word-break-all mb-3" role="alert">';
             if ($savepropsfilestoofile) {
                 $return .= $savepropsfilestoofileresult;
             } else {
@@ -239,43 +247,96 @@ class admin_setting_getprops extends \admin_setting {
 
             $propsexporturl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops' => 1, ]);
-            $propsexportbutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
+            $propsexportbutton = $singlebuttonstart . '<a class="btn btn-secondary" href="' .
                 $propsexporturl->out(true) . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' .
                 get_string('propertiesexporthelp', $this->pluginfrankenstyle) . '">' .
-                $this->savepropsbuttonname . '</a></div></div>';
+                $this->savepropsbuttonname . '</a>' . $singlebuttonend;
 
             $propsexportfilestoourl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops_filestoo' => 1, ]);
-            $propsexportfilestoobutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
+            $propsexportfilestoobutton = $singlebuttonstart . '<a class="btn btn-secondary" href="' .
                 $propsexportfilestoourl->out(true) . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' .
                 get_string('propertiesexportfilestoohelp', $this->pluginfrankenstyle) . '">' .
-                $this->savepropsfilestoobuttonname . '</a></div></div>';
+                $this->savepropsfilestoobuttonname . '</a>' . $singlebuttonend;
 
             $propsexportfilestoofilesurl = new url('/admin/settings.php', ['section' => $this->settingsectionname,
                 $this->pluginfrankenstyle . '_getprops_saveprops_filestoofile' => 1, ]);
-            $propsexportfilestoofilebutton = '<div class="singlebutton"><div><a class="btn btn-secondary" href="' .
+            $propsexportfilestoofilebutton = $singlebuttonstart . '<a class="btn btn-secondary" href="' .
                 $propsexportfilestoofilesurl->out(true) . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' .
                 get_string('propertiesexportfilestoofilehelp', $this->pluginfrankenstyle) . '">' .
-                $this->savepropsfilestoofilebuttonname . '</a></div></div>';
+                $this->savepropsfilestoofilebuttonname . '</a>' . $singlebuttonend;
 
-                $table = new html_table();
-            $table->head = [$this->visiblename, markdown_to_html($this->description)];
+            $propertiestableshowhidebutton = $singlebuttonstart;
+            $propertiestableshowhidebutton .= html_writer::start_tag(
+                'span',
+                [
+                    'class' => 'd-inline-block',
+                    'data-bs-title' => get_string('propertiestablecollapsehelp', $this->pluginfrankenstyle),
+                    'data-bs-toggle' => 'tooltip',
+                    'tabindex' => '0',
+                ]
+            );
+            $propertiestableshowhidebutton .= html_writer::tag(
+                'button',
+                get_string('propertiestablecollapse', $this->pluginfrankenstyle),
+                [
+                    'class' => 'btn btn-secondary',
+                    'data-bs-target' => '#adminprops_getprops_table',
+                    'data-bs-toggle' => 'collapse',
+                    'type' => 'button',
+                ]
+            );
+            $propertiestableshowhidebutton .= '</span>';
+            $propertiestableshowhidebutton .= $singlebuttonend;
+
+            $propertiestablehidebutton = $singlebuttonstart;
+            $propertiestablehidebutton .= html_writer::start_tag(
+                'span',
+                [
+                    'class' => 'd-inline-block',
+                    'data-bs-title' => get_string('propertiestablecollapsehidehelp', $this->pluginfrankenstyle),
+                    'data-bs-toggle' => 'tooltip',
+                    'tabindex' => '0',
+                ]
+            );
+            $propertiestablehidebutton .= html_writer::tag(
+                'button',
+                get_string('propertiestablecollapsehide', $this->pluginfrankenstyle),
+                [
+                    'class' => 'btn btn-secondary',
+                    'data-bs-target' => '#adminprops_getprops_table',
+                    'data-bs-toggle' => 'collapse',
+                    'type' => 'button',
+                ]
+            );
+            $propertiestablehidebutton .= '</span>';
+            $propertiestablehidebutton .= $singlebuttonend;
+
+            $table = new html_table();
+            $table->head = [$this->visiblename, $this->description];
             $table->colclasses = ['leftalign', 'leftalign'];
             $table->id = 'adminprops_' . $this->name;
-            $table->attributes['class'] = 'admintable generaltable';
+            $table->attributes['class'] = 'admintable generaltable table table-striped';
+            $table->responsive = false; // Handle it ourselves to be able to implement collapsing.
             $table->data = [];
 
             foreach ($props[\theme_adaptable\toolbox::PROPS] as $propname => $propvalue) {
                 $table->data[] = [$propname, '<pre>' . htmlentities($propvalue, ENT_COMPAT) . '</pre>'];
             }
+
+            $return .= $propertiestableshowhidebutton;
             $return .= $propsexportbutton;
             $return .= $propsexportfilestoobutton;
             $return .= $propsexportfilestoofilebutton;
-            $return .= '<hr>';
-            $return .= html_writer::table($table);
-            $return .= $propsexportbutton;
-            $return .= $propsexportfilestoobutton;
-            $return .= $propsexportfilestoofilebutton;
+            $return .= html_writer::tag(
+                'div',
+                '<div class="table-responsive mb-3">' . html_writer::table($table) . '</div>' .
+                $propertiestablehidebutton . $propsexportbutton . $propsexportfilestoobutton . $propsexportfilestoofilebutton,
+                [
+                    'id' => 'adminprops_getprops_table',
+                    'class' => 'collapse mt-3',
+                ]
+            );
             $return .= '<hr>';
         }
 

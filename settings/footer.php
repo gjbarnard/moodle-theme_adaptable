@@ -153,7 +153,14 @@ if ($ADMIN->fulltree) {
         $title = get_string('footercontent', 'theme_adaptable') . $i;
         $description = get_string('footercontentdesc', 'theme_adaptable') . $i;
         $default = '';
-        $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new \theme_adaptable\admin_setting_confightmleditor(
+            $name,
+            $title,
+            $description,
+            $default,
+            'shed_footercontent',
+            $i
+        );
         $page->add($setting);
     }
 
@@ -185,7 +192,13 @@ if ($ADMIN->fulltree) {
     $title = get_string('footnote', 'theme_adaptable');
     $description = get_string('footnotedesc', 'theme_adaptable');
     $default = '';
-    $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
+    $setting = new \theme_adaptable\admin_setting_confightmleditor(
+        $name,
+        $title,
+        $description,
+        $default,
+        'shed_footnote'
+    );
     $page->add($setting);
 
     $asettings->add($page);

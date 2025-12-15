@@ -1,3 +1,23 @@
+Change log in version 501.0.4 (2025092503)
+==========================================
+1. Separate layout for 'incourse' to show activity navigation.  Ref: https://moodle.org/mod/forum/discuss.php?d=469954#p1890832.
+2. Refactor block regions to only show available as per the settings in the list of regions.
+3. Fix 'Course page block regions' layout display in settings.
+4. Changed setting 'coursepageblocklayoutlayoutbottomrow2' to 'coursepageblocklayoutbottomrow1' in the 'Courses' settings tab.
+5. Changed setting 'coursepageblocklayoutlayouttoprow1' to 'coursepageblocklayouttoprow1' in the 'Courses' settings tab.
+6. Add a link to 'Site administration' on the user menu for administrators.
+7. Improvements to html settings with files.
+8. Marketing blocks are no longer deprecated.
+9. Add the editing button to the primary mobile menu.
+10. Navbar tidy for less than 992px width.
+11. Fix primary mobile menu still showing when window resizes.
+12. Improve ticker styling.
+14. Improve import / export settings page.
+
+Known issues in this version
+----------------------------
+1. Mobile primary menu could still be showing when open and window resizes to >= 992 pixels wide.  Intermittent issue.
+
 Change log in version 501.0.3 (2025092502)
 ==========================================
 1. Improve alert explanation.

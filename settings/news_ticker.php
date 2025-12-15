@@ -106,7 +106,14 @@ if ($ADMIN->fulltree) {
         $title = get_string('tickertext', 'theme_adaptable') . ' ' . $newstickerindex;
         $description = get_string('tickertextdesc', 'theme_adaptable');
         $default = '';
-        $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new \theme_adaptable\admin_setting_confightmleditor(
+            $name,
+            $title,
+            $description,
+            $default,
+            'shed_tickertext',
+            $newstickerindex
+        );
         $page->add($setting);
 
         $name = 'theme_adaptable/tickertext' . $newstickerindex . 'profilefield';

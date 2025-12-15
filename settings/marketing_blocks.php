@@ -41,14 +41,14 @@ if ($ADMIN->fulltree) {
     $title = get_string('infobox', 'theme_adaptable');
     $description = get_string('infoboxdesc', 'theme_adaptable');
     $default = '';
-    $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
+    $setting = new \theme_adaptable\admin_setting_confightmleditor($name, $title, $description, $default, 'shed_infobox', 1);
     $page->add($setting);
 
     $name = 'theme_adaptable/infobox2';
     $title = get_string('infobox2', 'theme_adaptable');
     $description = get_string('infobox2desc', 'theme_adaptable');
     $default = '';
-    $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
+    $setting = new \theme_adaptable\admin_setting_confightmleditor($name, $title, $description, $default, 'shed_infobox', 2);
     $page->add($setting);
 
     $name = 'theme_adaptable/infoboxfullscreen';
@@ -142,10 +142,17 @@ if ($ADMIN->fulltree) {
 
     for ($i = 1; $i <= $totalblocks; $i++) {
         $name = 'theme_adaptable/market' . $i;
-        $title = get_string('market', 'theme_adaptable') . $i;
+        $title = get_string('market', 'theme_adaptable', $i);
         $description = get_string('marketdesc', 'theme_adaptable');
         $default = '';
-        $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new \theme_adaptable\admin_setting_confightmleditor(
+            $name,
+            $title,
+            $description,
+            $default,
+            'shed_market',
+            $i
+        );
         $page->add($setting);
     }
 

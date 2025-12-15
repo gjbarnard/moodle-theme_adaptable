@@ -15,13 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Incourse layout.
  *
  * @package    theme_adaptable
- * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
- * @copyright  2015-2019 Fernando Acedo (3-bits.com)
- * @copyright  2017-2019 Manoj Solanki (Coventry University)
- * @copyright  2019 G J Barnard
+ * @copyright  2025 G J Barnard
  *               {@link https://moodle.org/user/profile.php?id=442195}
  *               {@link https://gjbarnard.co.uk}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -29,23 +26,4 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-// The theme name.
-$plugin->component = 'theme_adaptable';
-
-// Adaptable version date (YYYYMMDDrr where rr is the release number).
-$plugin->version = 2025092503;
-
-$plugin->requires = 2025100600.00; // 5.1 (Build: 20251006).
-
-$plugin->supported = [501, 501];
-
-// Adaptable version using SemVer (https://semver.org).
-$plugin->release = '501.0.4';
-
-// Adaptable maturity (do not use ALPHA or BETA versions in production sites).
-$plugin->maturity = MATURITY_RC;
-
-// Adaptable dependencies (Only Boost as it's the parent theme).
-$plugin->dependencies = [
-    'theme_boost' => 2025100600,
-];
+echo $OUTPUT->incourse_layout();

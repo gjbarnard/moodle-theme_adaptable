@@ -147,5 +147,5 @@ The Font Awesome font (by Dave Gandy) http://fontawesome.io, is licensed under:
 
 - Fonts: [SIL Open Font License v1.1](http://scripts.sil.org/OFL)
 - Documentation: CC BY 3.0
-- CSS, LESS, and SASS files are licensed under:
+- CSS and SASS files are licensed under:
 [MIT License](https://opensource.org/licenses/mit-license.html)

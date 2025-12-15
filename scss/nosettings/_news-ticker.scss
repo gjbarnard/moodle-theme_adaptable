@@ -24,11 +24,6 @@
 //
 
 // News Ticker.
-#ticker,
-#ticker_container {
-    font-size: 16px;
-}
-
 #ticker-wrap {
     line-height: 40px;
     margin-bottom: 15px;
@@ -40,6 +35,7 @@
     }
 
     #newscontent {
+        margin-left: 5px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -54,17 +50,21 @@
             img {
                 display: block;
             }
+
+            p {
+                margin-bottom: 0;
+            }
         }
     }
 
     #ticker_container {
         display: flex;
+        font-size: 16px;
         width: 100%;
 
         #ticker-announce {
             font-weight: 600;
             margin-bottom: auto;
-            margin-right: 5px;
             padding: 0 15px;
             text-transform: uppercase;
         }

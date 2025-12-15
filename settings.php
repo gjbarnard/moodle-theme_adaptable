@@ -42,6 +42,7 @@ $asettings = new \theme_adaptable\admin_settingspage_tabs(
 if ($ADMIN->fulltree) {
     include(dirname(__FILE__) . '/settings/array_definitions.php');
     include(dirname(__FILE__) . '/settings/information.php');
+    include(dirname(__FILE__) . '/settings/changes.php');
     include(dirname(__FILE__) . '/settings/alerts.php');
     include(dirname(__FILE__) . '/settings/analytics.php');
     include(dirname(__FILE__) . '/settings/block_settings.php');

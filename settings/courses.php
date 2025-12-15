@@ -25,6 +25,8 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
+    global $OUTPUT;
+
     $page = new \theme_adaptable\admin_settingspage('theme_adaptable_course', get_string('coursesettings', 'theme_adaptable'));
 
     $page->add(new admin_setting_heading(
@@ -100,18 +102,16 @@ if ($ADMIN->fulltree) {
     // Course page top block region builder.
     $noregions = 4; // Number of block regions defined in config.php.
     $totalblocks = 0;
-    $imgpath = $CFG->wwwroot . '/theme/adaptable/pix/layout-builder/';
     $imgblder = '';
 
-    $name = 'theme_adaptable/coursepageblocklayoutlayouttoprow1';
-    $title = get_string('coursepageblocklayoutlayouttoprow', 'theme_adaptable');
-    $description = get_string('coursepageblocklayoutlayouttoprowdesc', 'theme_adaptable');
+    $settingname = 'coursepageblocklayouttoprow1';
+    $name = 'theme_adaptable/' . $settingname;
+    $title = get_string('coursepageblocklayouttoprow', 'theme_adaptable');
+    $description = get_string('coursepageblocklayouttoprowdesc', 'theme_adaptable');
     $default = 0;
     $choices = $bootstrap12;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
-
-    $settingname = 'coursepageblocklayoutlayouttoprow1';
 
     $courseformatsetting = get_config('theme_adaptable', $settingname);
     if (!isset($courseformatsetting)) {
@@ -119,7 +119,8 @@ if ($ADMIN->fulltree) {
     }
 
     if ($courseformatsetting != '0-0-0-0') {
-        $imgblder .= '<img src="' . $imgpath . $courseformatsetting . '.png" style="padding-top: 5px">';
+        $imgurl = $OUTPUT->image_url('layout-builder/' . $courseformatsetting, 'theme_adaptable');
+        $imgblder .= '<img src="' . $imgurl . '" class="img-fluid">';
     }
 
     $vals = explode('-', $courseformatsetting);
@@ -142,23 +143,21 @@ if ($ADMIN->fulltree) {
 
     $page->add(new admin_setting_heading('theme_adaptable_courselayouttopblockscount', '', $mktcountmsg));
 
-    $page->add(new admin_setting_heading('theme_adaptable_courselayouttopbuilder', '', $imgblder . "<br><br><br><br>"));
+    $page->add(new admin_setting_heading('theme_adaptable_courselayouttopbuilder', '', $imgblder));
 
     // Course page bottom  block region builder.
     $noregions = 4; // Number of block regions defined in config.php.
     $totalblocks = 0;
-    $imgpath = $CFG->wwwroot . '/theme/adaptable/pix/layout-builder/';
     $imgblder = '';
 
-    $name = 'theme_adaptable/coursepageblocklayoutlayoutbottomrow2';
-    $title = get_string('coursepageblocklayoutlayoutbottomrow', 'theme_adaptable');
-    $description = get_string('coursepageblocklayoutlayoutbottomrowdesc', 'theme_adaptable');
+    $settingname = 'coursepageblocklayoutbottomrow1';
+    $name = 'theme_adaptable/' . $settingname;
+    $title = get_string('coursepageblocklayoutbottomrow', 'theme_adaptable');
+    $description = get_string('coursepageblocklayoutbottomrowdesc', 'theme_adaptable');
     $default = 0;
     $choices = $bootstrap12;
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
-
-    $settingname = 'coursepageblocklayoutlayoutbottomrow2';
 
     $courseformatsetting = get_config('theme_adaptable', $settingname);
     if (!isset($courseformatsetting)) {
@@ -166,7 +165,8 @@ if ($ADMIN->fulltree) {
     }
 
     if ($courseformatsetting != '0-0-0-0') {
-        $imgblder .= '<img src="' . $imgpath . $courseformatsetting . '.png" style="padding-top: 5px">';
+        $imgurl = $OUTPUT->image_url('layout-builder/' . $courseformatsetting, 'theme_adaptable');
+        $imgblder .= '<img src="' . $imgurl . '" class="img-fluid">';
     }
 
     $vals = explode('-', $courseformatsetting);

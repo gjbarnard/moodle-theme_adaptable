@@ -120,6 +120,13 @@
                 </a>
                 {{/haschildren}}
             {{/mobileprimarynav}}
+            {{#shownavbar}}
+                {{#pageheadingbutton}}
+                    <div id="editingbuttonmobile" class="list-group-item list-group-item-action">
+                        {{{pageheadingbutton}}}
+                    </div>
+                {{/pageheadingbutton}}
+            {{/shownavbar}}
         </div>
     {{/drawercontent}}
     {{$drawerstate}}show-drawer-primary{{/drawerstate}}

@@ -70,31 +70,50 @@ $string['configtabtitle'] = 'Settings';
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
 $string['region-information'] = 'Information';
-$string['side-post1'] = 'Side bar in footer';
 
 $string['cachedef_adaptablefontawesomeiconmapping'] = 'Caches font awesome icons';
 
 // Dashboard and Frontpage regions.
-$string['region-frnt-market-a'] = 'Page region one';
-$string['region-frnt-market-b'] = 'Page region two';
-$string['region-frnt-market-c'] = 'Page region three';
-$string['region-frnt-market-d'] = 'Page region four';
-$string['region-frnt-market-e'] = 'Page region five';
-$string['region-frnt-market-f'] = 'Page region six';
-$string['region-frnt-market-g'] = 'Page region seven';
-$string['region-frnt-market-h'] = 'Page region eight';
-$string['region-frnt-market-i'] = 'Page region nine';
-$string['region-frnt-market-j'] = 'Page region ten';
-$string['region-frnt-market-k'] = 'Page region eleven';
-$string['region-frnt-market-l'] = 'Page region twelve';
-$string['region-frnt-market-m'] = 'Page region thirteen';
-$string['region-frnt-market-n'] = 'Page region fourteen';
-$string['region-frnt-market-o'] = 'Page region fifteen';
-$string['region-frnt-market-p'] = 'Page region sixteen';
-$string['region-frnt-market-q'] = 'Page region seventeen';
-$string['region-frnt-market-r'] = 'Page region eighteen';
-$string['region-frnt-market-s'] = 'Page region nineteen';
-$string['region-frnt-market-t'] = 'Page region twenty';
+$string['region-frnt-market-a'] = 'Frontpage region one';
+$string['region-frnt-market-b'] = 'Frontpage region two';
+$string['region-frnt-market-c'] = 'Frontpage region three';
+$string['region-frnt-market-d'] = 'Frontpage region four';
+$string['region-frnt-market-e'] = 'Frontpage region five';
+$string['region-frnt-market-f'] = 'Frontpage region six';
+$string['region-frnt-market-g'] = 'Frontpage region seven';
+$string['region-frnt-market-h'] = 'Frontpage region eight';
+$string['region-frnt-market-i'] = 'Frontpage region nine';
+$string['region-frnt-market-j'] = 'Frontpage region ten';
+$string['region-frnt-market-k'] = 'Frontpage region eleven';
+$string['region-frnt-market-l'] = 'Frontpage region twelve';
+$string['region-frnt-market-m'] = 'Frontpage region thirteen';
+$string['region-frnt-market-n'] = 'Frontpage region fourteen';
+$string['region-frnt-market-o'] = 'Frontpage region fifteen';
+$string['region-frnt-market-p'] = 'Frontpage region sixteen';
+$string['region-frnt-market-q'] = 'Frontpage region seventeen';
+$string['region-frnt-market-r'] = 'Frontpage region eighteen';
+$string['region-frnt-market-s'] = 'Frontpage region nineteen';
+$string['region-frnt-market-t'] = 'Frontpage region twenty';
+$string['region-dash-blocks-a'] = 'Dashboard region one';
+$string['region-dash-blocks-b'] = 'Dashboard region two';
+$string['region-dash-blocks-c'] = 'Dashboard region three';
+$string['region-dash-blocks-d'] = 'Dashboard region four';
+$string['region-dash-blocks-e'] = 'Dashboard region five';
+$string['region-dash-blocks-f'] = 'Dashboard region six';
+$string['region-dash-blocks-g'] = 'Dashboard region seven';
+$string['region-dash-blocks-h'] = 'Dashboard region eight';
+$string['region-dash-blocks-i'] = 'Dashboard region nine';
+$string['region-dash-blocks-j'] = 'Dashboard region ten';
+$string['region-dash-blocks-k'] = 'Dashboard region eleven';
+$string['region-dash-blocks-l'] = 'Dashboard region twelve';
+$string['region-dash-blocks-m'] = 'Dashboard region thirteen';
+$string['region-dash-blocks-n'] = 'Dashboard region fourteen';
+$string['region-dash-blocks-o'] = 'Dashboard region fifteen';
+$string['region-dash-blocks-p'] = 'Dashboard region sixteen';
+$string['region-dash-blocks-q'] = 'Dashboard region seventeen';
+$string['region-dash-blocks-r'] = 'Dashboard region eighteen';
+$string['region-dash-blocks-s'] = 'Dashboard region nineteen';
+$string['region-dash-blocks-t'] = 'Dashboard region twenty';
 $string['region-hidden'] = 'Hidden';
 $string['hidden-blocks-desc'] = 'Blocks in this area will only be visible to users that can edit blocks on this page';
 
@@ -107,7 +126,7 @@ $string['region-course-top-b'] = 'Course page top region two';
 $string['region-course-top-c'] = 'Course page top region three';
 $string['region-course-top-d'] = 'Course page top region four';
 
-$string['region-news-slider-a'] = 'Course page informaton region';
+$string['region-news-slider-a'] = 'Course page information region';
 
 $string['region-course-section-a'] = 'Course page activity end bottom region';
 
@@ -116,7 +135,7 @@ $string['region-course-bottom-b'] = 'Course page bottom region six';
 $string['region-course-bottom-c'] = 'Course page bottom region seven';
 $string['region-course-bottom-d'] = 'Course page bottom region eight';
 
-$string['orphanedblock'] = '<em>ORPHANED BLOCK - Originally displays in: <strong>{$a}</strong></em>';
+$string['orphanedblock'] = '<em>ORPHANED BLOCK - Originally displayed in: <strong>{$a}</strong></em>';
 
 $string['skipblock'] = 'Skip block {$a}';
 
@@ -160,6 +179,7 @@ $string['informationblocksettings'] = 'Information blocks';
 $string['newstickersettings'] = 'News ticker';
 
 // Information.
+$string['settingschanges'] = 'Changes';
 $string['settingsinformation'] = 'Information';
 $string['themesupportsponsorship'] = 'Support and sponsorship';
 $string['themechanges'] = 'Changes';
@@ -317,11 +337,11 @@ $string['sidepostdrawerwidthdesc'] = 'Any valid CSS width attribute length and u
 $string['dashblocklayoutlayoutrow'] = 'Dashboard block region row ';
 $string['dashblocklayoutlayoutrowdesc'] = 'Add / set layout for block region row on Dashboard page.';
 
-$string['coursepageblocklayoutlayouttoprow'] = 'Course page block top region row ';
-$string['coursepageblocklayoutlayouttoprowdesc'] = 'Add / set layout for block region row on Course page.';
+$string['coursepageblocklayouttoprow'] = 'Course page block top region row ';
+$string['coursepageblocklayouttoprowdesc'] = 'Add / set layout for block region row on Course page.';
 
-$string['coursepageblocklayoutlayoutbottomrow'] = 'Course page block bottom region row ';
-$string['coursepageblocklayoutlayoutbottomrowdesc'] = 'Add / set layout for block region row on the course page.';
+$string['coursepageblocklayoutbottomrow'] = 'Course page block bottom region row ';
+$string['coursepageblocklayoutbottomrowdesc'] = 'Add / set layout for block region row on the course page.';
 
 $string['frontpageblocksenabled'] = 'Enable custom block region on front page';
 $string['frontpageblocksenableddesc'] = 'You can enable / disable custom block regions on the front page.  You can then drag and drop blocks into the regions you created.';
@@ -391,20 +411,18 @@ $string['marketingvisibleloggedout'] = 'Logged out';
 $string['marketingvisibleloggedin'] = 'Logged in';
 $string['marketingvisibleloggedinout'] = 'Logged in or out';
 
-$string['marketingbuilderheading'] = 'Marketing block layout builder - deprecated, please transition to using \'Information blocks\'';
-$string['marketingbuilderdesc'] = 'Use the tool below to setup your marketing blocks. Once defined the block settings will appear further down the page.';
+$string['marketingbuilderheading'] = 'Marketing block layout builder';
+$string['marketingbuilderdesc'] = 'Use the tool below to setup your marketing blocks.  Once defined the block settings will appear further down the page.';
 
 $string['marketlayoutrow'] = 'Marketing block row';
 $string['marketlayoutrowdesc'] = 'Add / set layout for marketing block row on front page';
 
-$string['market'] = 'Marketing block ';
+$string['market'] = 'Marketing block {$a}';
 $string['marketdesc'] = 'Add html for marketing block.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
 
 $string['layoutaddcontent'] = 'Happy with your layout?  Now add content to your blocks:';
 $string['layoutaddcontentdesc1'] = 'You have configured ';
 $string['layoutaddcontentdesc2'] = ' blocks. If you are happy with this layout add content to the blocks below.<br>If you are not happy use the layout builder above to make changes.';
-
-$string['marketingdeprecated'] = 'Marketing blocks are deprecated, please migrate to using \'Information blocks\'.';
 
 $string['infobox'] = 'Frontpage info box';
 $string['infoboxdesc'] = 'Frontpage info block HTML.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
@@ -415,7 +433,7 @@ $string['infoboxfullscreendesc'] = 'Turning this option on will make the infobox
 $string['infobox2'] = 'Frontpage secondary info box';
 $string['infobox2desc'] = 'Frontpage secondary info box.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
 
-$string['frontpagemarketenabled'] = 'Enable marketing blocks - deprecated, please transition to using \'Information blocks\'';
+$string['frontpagemarketenabled'] = 'Enable marketing blocks';
 $string['frontpagemarketenableddesc'] = 'Set the marketing blocks in the frontpage.';
 
 $string['frontpagemarketoption'] = 'Choose style for marketing blocks';
@@ -1850,16 +1868,25 @@ $string['propertiesdesc'] = 'In this section you can import / export current Ada
 $string['propertiesproperty'] = 'Property';
 $string['propertiesvalue'] = 'Value';
 $string['propertiesexport'] = 'Export properties without files<br>as a JSON string';
-$string['propertiesexporthelp'] = 'After exporting, copy the JSON from the screen and paste it into the \'putprops\' setting (after clearing it) on the destination installation and click on \'Save changes\'.  A report will then be generated and put in the \'putprops\' setting.  It will list any file settings that need their files manually transferred.';
+$string['propertiesexporthelp'] = 'After exporting, copy the JSON and paste it into the \'putprops\' setting (after clearing it) on the destination installation and click on \'Save changes\'.  A report will then be generated and put in the \'putprops\' setting.  It will list any file settings that need their files manually transferred.';
 $string['propertiesexportfilestoo'] = 'Export properties with files<br>as a JSON string';
 $string['propertiesexportfilestoohelp'] = 'After exporting, copy the JSON from the screen and paste it into the \'putprops\' setting (after clearing it) on the destination installation and click on \'Save changes\'.  A report will then be generated and put in the \'putprops\' setting.';
 $string['propertiesexportfilestoofile'] = 'Export properties with files<br>as a JSON file';
 $string['propertiesexportfilestoofilehelp'] = 'After exporting, download the generated JSON file with today\'s date and time from the \'propertyfiles\' setting and upload it into the \'fileputprops\' setting on the destination installation and click on \'Save changes\'.  A report will then be generated and put in the \'putprops\' setting.';
 $string['propertiesexportfilestoofilesuccess'] = 'Properties with files as a JSON file exported as {$a}.';
 $string['propertiesexportfilestoofilefail'] = 'Maximum properties with files as a JSON file reached.  Please delete one or more.';
+$string['propertiesexportjsonstring'] = 'Copy the JSON and paste it into the \'putprops\' setting (after clearing it) on the destination installation and click on \'Save changes\'.  A report will then be generated and put in the \'putprops\' setting.  It will list any file settings that need their files manually transferred.';
 $string['propertiesreturn'] = 'Return';
-$string['propertyfileadded'] = 'File \'{$a->filename}\' added to setting \'{$a->settingname}\'.';
-$string['propertyfileremoved'] = 'File \'{$a->filename}\' removed from setting \'{$a->settingname}\'.';
+$string['propertiestablecollapse'] = 'Show / hide<br>properties';
+$string['propertiestablecollapsehelp'] = 'Show / hide the properties table.';
+$string['propertiestablecollapsehide'] = 'Hide<br>properties';
+$string['propertiestablecollapsehidehelp'] = 'Hide the properties table.';
+$string['propertyfileadded'] = '\'{$a->data}\' added to setting \'{$a->settingname}\'.';
+$string['propertyfilechanged'] = '\'{$a->datafrom}\' changed to \'{$a->datato}\' in setting \'{$a->settingname}\'.';
+$string['propertyfiledatadeleted'] = 'Setting \'{$a->settingname}\' deleted with \'{$a->data}\' .';
+$string['propertyfileremoved'] = '\'{$a->data}\' removed from setting \'{$a->settingname}\'.';
+$string['propertyfilereplaced'] = '\'{$a->data}\' replaced in setting \'{$a->settingname}\'.';
+$string['propertyfileunchanged'] = '\'{$a->data}\' unchanged in setting \'{$a->settingname}\'.';
 $string['propertyfiles'] = 'Property files';
 $string['propertyfilesdesc'] = 'When the maximum is reached no more will be added until one or more are deleted.';
 $string['putpropertiesheading'] = 'Import theme settings';
@@ -1873,8 +1900,9 @@ $string['putpropertyfeatureversion'] = 'Properties {$a->name} feature version: {
 $string['putpropertyour'] = 'Our {$a->name} version: {$a->version}.';
 $string['putpropertyourfeatureversion'] = 'Our {$a->name} feature version: {$a->version}.';
 $string['putpropertiesignorecti'] = 'Ignoring all course title image settings.';
-$string['putpropertiesreportfiles'] = 'Remember to upload the following files to their settings:';
+$string['putpropertiesreportfiles'] = 'Remember to upload the following files to their settings:'; // Deprecated.
 $string['putpropertiesreportfileschanged'] = 'Files changed:';
+$string['putpropertiesreportfilesettings'] = 'File based settings report:';
 $string['putpropertiessettingsreport'] = 'Settings report:';
 $string['putpropertiesvalue'] = '->';
 $string['putpropertiesfrom'] = 'from';

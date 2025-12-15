@@ -196,6 +196,8 @@ function theme_adaptable_pluginfile($course, $cm, $context, $filearea, $args, $f
             return $theme->setting_file_serve('customjsfiles', $args, $forcedownload, $options);
         } else if ($filearea === 'homebk') {
             return $theme->setting_file_serve('homebk', $args, $forcedownload, $options);
+        } else if (preg_match("/^shed_.*$/", $filearea)) { // Link: http://regexpal.com/ useful.
+            return theme_adaptable_confightmleditor_setting_file_serve($filearea, $args, $forcedownload, $options);
         } else if ($filearea === 'frontpagerendererdefaultimage') {
             return $theme->setting_file_serve('frontpagerendererdefaultimage', $args, $forcedownload, $options);
         } else if ($filearea === 'headerbgimage') {
@@ -215,6 +217,48 @@ function theme_adaptable_pluginfile($course, $cm, $context, $filearea, $args, $f
         } else {
             send_file_not_found();
         }
+    } else {
+        send_file_not_found();
+    }
+}
+
+/**
+ * Serve the theme confightmleditor setting file.  Adds use of itemid from core version.
+ *
+ * @param string $filearea
+ * @param array $args
+ * @param bool $forcedownload
+ * @param array $options
+ * @return bool may terminate if file not found or donotdie not specified
+ */
+function theme_adaptable_confightmleditor_setting_file_serve($filearea, $args, $forcedownload, $options) {
+    global $CFG;
+    require_once("$CFG->libdir/filelib.php");
+
+    $syscontext = context_system::instance();
+    $component = 'theme_adaptable';
+
+    $itemid = array_shift($args);
+    $lifetime = 60 * 60 * 24 * 60;
+    // By default, theme files must be cache-able by both browsers and proxies.
+    if (!array_key_exists('cacheability', $options)) {
+        $options['cacheability'] = 'public';
+    }
+
+    // Remove theme revision if any... should always be there?
+    if (!empty($args[1])) {
+        $filename = $args[1];
+    } else {
+        $filename = $args[0];
+    }
+
+    $fullpath = "/{$syscontext->id}/{$component}/{$filearea}/{$itemid}/{$filename}";
+    $fullpath = rtrim($fullpath, '/');
+
+    $fs = get_file_storage();
+    if ($file = $fs->get_file_by_hash(sha1($fullpath))) {
+        send_stored_file($file, $lifetime, $itemid, $forcedownload, $options);
+        return true;
     } else {
         send_file_not_found();
     }

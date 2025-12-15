@@ -171,6 +171,10 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     $currentfeatureversion = get_config('theme_adaptable', 'feature_version');
     $props = [];
     $changed = \theme_adaptable\toolbox::process_settings_name_updates($props, 'theme_adaptable', $currentfeatureversion);
+    $changed = array_merge(
+        $changed,
+        \theme_adaptable\toolbox::process_settings_area_updates($props, 'theme_adaptable', $currentfeatureversion)
+    );
     if (!empty($changed)) {
         $title = get_string('settingschangenotificationtitle', 'theme_adaptable');
         foreach ($changed as $change) {
@@ -179,10 +183,10 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     }
 
     // Feature version for this version.
-    set_config('feature_version', 2025080200, 'theme_adaptable');
+    set_config('feature_version', 2025112200, 'theme_adaptable');
 
-    if ($oldversion < 2025092500) {
-        upgrade_plugin_savepoint(true, 2025092500, 'theme', 'adaptable');
+    if ($oldversion < 2025092503) {
+        upgrade_plugin_savepoint(true, 2025092503, 'theme', 'adaptable');
     }
 
     // Automatic 'Purge all caches'....

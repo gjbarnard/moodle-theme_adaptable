@@ -15,13 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Information.
- *
- * Exam rules: You may look up for inspiration, down in desperation but
- *             not sideways for information.
+ * Changes.
  *
  * @package    theme_adaptable
- * @copyright  2021 G J Barnard
+ * @copyright  2025 G J Barnard
  *               {@link https://moodle.org/user/profile.php?id=442195}
  *               {@link https://gjbarnard.co.uk}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -31,25 +28,18 @@ defined('MOODLE_INTERNAL') || die;
 
 use theme_adaptable\admin_setting_markdown;
 
-// Information section.
+// Changes section.
 if ($ADMIN->fulltree) {
     $page = new \theme_adaptable\admin_settingspage(
-        'theme_adaptable_information',
-        get_string('settingsinformation', 'theme_adaptable')
+        'theme_adaptable_changes',
+        get_string('settingschanges', 'theme_adaptable')
     );
 
-    // SupportAndSponsorship.md.
-    $name = 'theme_adaptable/themesupportsponsorship';
-    $title = get_string('themesupportsponsorship', 'theme_adaptable');
-    $description = 'SupportAndSponsorship.md';
-    $setting = new admin_setting_markdown($name, $title, $description, 'SupportAndSponsorship.md');
-    $page->add($setting);
-
-    // Readme.md.
-    $name = 'theme_adaptable/themereadme';
-    $title = get_string('themereadme', 'theme_adaptable');
-    $description = 'Readme.md';
-    $setting = new admin_setting_markdown($name, $title, $description, 'Readme.md');
+    // Changes.md.
+    $name = 'theme_adaptable/themechanges';
+    $title = get_string('themechanges', 'theme_adaptable');
+    $description = 'Changes.md';
+    $setting = new admin_setting_markdown($name, $title, $description, 'Changes.md');
     $page->add($setting);
 
     $asettings->add($page);

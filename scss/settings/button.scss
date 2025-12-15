@@ -220,20 +220,22 @@ a#adaptable-message-user-button:focus,
     line-height: inherit;
 }
 
-#editingbutton .simplesearchform {
-    display: inline-block;
-}
+#editingbutton {
+    .simplesearchform {
+        display: inline-block;
+    }
 
-#editingbutton #coursesearchnavbar .form-group .btn {
-    margin: 0 5px 0 5px;
-    padding: 4px 12px;
-}
+    #coursesearchnavbar .form-group .btn {
+        margin: 0 5px 0 5px;
+        padding: 4px 12px;
+    }
 
-#editingbutton .helptooltip a {
-    background-color: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    border-radius: 0 !important;
+    .helptooltip a {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+    }
 }
 
 td.submit input.active, input.form-submit.disabled,
@@ -253,24 +255,28 @@ td.submit input[disabled],
     color: [[setting:buttontexthovercolor]];
 }
 
-#editingbutton .btn,
-#editingbutton input[type="submit"] {
-    background-image: none;
-    background-color: [[setting:editonbk]];
-    box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
-    color: [[setting:editfont]];
-    height: 32px;
-    line-height: 28px;
-    padding: 0 [[setting:edithorizontalpadding]];
+#editingbutton,
+#editingbuttonmobile {
+    .btn,
+    input[type="submit"] {
+        background-image: none;
+        background-color: [[setting:editonbk]];
+        box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
+        color: [[setting:editfont]];
+        height: 32px;
+        line-height: 28px;
+        padding: 0 [[setting:edithorizontalpadding]];
+    }
 }
 
 .editing #editingbutton .btn,
 .editing #editingbutton input[type="submit"],
 .editing #editingbutton a:hover,
+.editing #editingbuttonmobile .btn,
 .purgecaches a,
 .tool_dataprivacy a {
-    background-image: none;
     background-color: [[setting:editoffbk]];
+    background-image: none;
     box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
     color: [[setting:editfont]];
     padding: 0 [[setting:edithorizontalpadding]];

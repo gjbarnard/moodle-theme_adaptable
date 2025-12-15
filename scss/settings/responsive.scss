@@ -45,6 +45,12 @@
 // 991px
 // =======================================================
 @media(max-width: 991px) {
+    #header2,
+    #adaptable-page-header-wrapper .main-header-row,
+    #adaptable-page-header-wrapper #header2 .navbar-nav {
+        min-height: 46px;
+    }
+
     #region-main-box {
         flex: 0 0 100%;
         max-width: 100%;
@@ -169,9 +175,13 @@
         display: none;
     }
 
-    #editingbutton a,
-    #editingbutton .btn {
-        margin-left: 10px !important;
+    #editingbutton {
+        margin-left: 10px;
+
+        a,
+        .btn {
+            margin-left: 10px;
+        }
     }
 
     .hbl, .sbl, .hbll, .sbll {
@@ -204,10 +214,6 @@
         top: 6px;
     }
 
-    #editingbutton {
-        margin-left: 10px;
-    }
-
     .menutitle {
         float: none;
     }
@@ -222,10 +228,6 @@
         float: left !important;
         margin: 0;
         padding: 5px 5px 0 0;
-    }
-
-    #adaptable-page-header-wrapper .navbar .popover-region {
-        margin: 0.25rem 0 0 0.25rem;
     }
 
     .page-header-margin.header-style1 #page {
@@ -255,7 +257,7 @@
 // =======================================================
 @media (max-width: 767px) {
     #ticker-announce {
-		display: none;
+        display: none;
     }
 
     .slidestyle2 {
@@ -349,9 +351,11 @@
         margin: 50px 0;
     }
 
-    #editingbutton a,
-    #editingbutton .btn {
-        margin-left: -10px !important;
+    #editingbutton {
+        a,
+        .btn {
+            margin-left: -10px;
+        }
     }
 
     .navbar .nav > li > a {
@@ -421,13 +425,6 @@
 
     .above-header {
         min-height: 37px;
-    }
-
-    #header2,
-    #header2 .row,
-    #adaptable-page-header-wrapper > #header2 > div > div,
-    #adaptable-page-header-wrapper #header2 .navbar-nav {
-        min-height: 46px;
     }
 
     .page-header-margin.header-style2 #page {

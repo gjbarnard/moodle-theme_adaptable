@@ -223,7 +223,14 @@ if ($ADMIN->fulltree) {
         $title = get_string('slidercaption', 'theme_adaptable');
         $description = get_string('slidercaptiondesc', 'theme_adaptable');
         $default = '';
-        $setting = new \theme_adaptable\adaptable_admin_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new \theme_adaptable\admin_setting_confightmleditor(
+            $name,
+            $title,
+            $description,
+            $default,
+            'shed_pcap',
+            $sliderindex
+        );
         $page->add($setting);
     }
 
