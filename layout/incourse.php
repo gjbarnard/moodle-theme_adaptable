@@ -15,13 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Settings
+ * Incourse layout.
  *
  * @package    theme_adaptable
- * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
- * @copyright  2015-2019 Fernando Acedo (3-bits.com)
- * @copyright  2017-2019 Manoj Solanki (Coventry University)
- * @copyright  2019 G J Barnard
+ * @copyright  2025 G J Barnard
  *               {@link https://moodle.org/user/profile.php?id=442195}
  *               {@link https://gjbarnard.co.uk}
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -29,8 +26,4 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-unset($settings);
-$settings = null;
-$ADMIN->add('appearance', new admin_category('theme_adaptable', get_string('configtitle', 'theme_adaptable')));
-
-\theme_adaptable\settings::add_settings();
+echo $OUTPUT->incourse_layout();

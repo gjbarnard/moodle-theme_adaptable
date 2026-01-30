@@ -66,6 +66,72 @@ function theme_adaptable_process_css($css, $theme) {
         $css = str_replace('Font Awesome 6 Free";', 'Font Awesome 7 Free";', $css);
     }
 
+    // Google fonts if any.
+    if (!empty($theme->settings->googlefonts)) {
+        global $OUTPUT;
+
+        $fontcontext = new stdClass();
+
+        // Select fonts used.
+        $fontssubset = '';
+        if (!empty($theme->settings->fontsubset)) {
+            // Get the Google fonts subset.
+            $fontssubset = '&subset=' . $theme->settings->fontsubset;
+        }
+
+        if (!empty($theme->settings->fontname)) {
+            switch ($theme->settings->fontname) {
+                case 'default':
+                case 'sans-serif':
+                    // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
+                    break;
+
+                default:
+                    // Get the Google main font.
+                    $fontname = str_replace(" ", "+", $theme->settings->fontname);
+                    $fontweight = ':' . $theme->settings->fontweight . ',' . $theme->settings->fontweight . 'i';
+                    $fontcontext->fontname = $fontname . $fontweight . $fontssubset;
+                    break;
+            }
+        }
+
+        if (!empty($theme->settings->fontheadername)) {
+            switch ($theme->settings->fontheadername) {
+                case 'default':
+                case 'sans-serif':
+                    // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
+                    break;
+
+                default:
+                    // Get the Google header font.
+                    $fontheadername = str_replace(" ", "+", $theme->settings->fontheadername);
+                    $fontheaderweight = ':' . $theme->settings->fontheaderweight . ',' . $theme->settings->fontheaderweight . 'i';
+                    $fontcontext->fontheadername = $fontheadername . $fontheaderweight . $fontssubset;
+                    break;
+            }
+        }
+
+        if (!empty($theme->settings->fonttitlename)) {
+            switch ($theme->settings->fonttitlename) {
+                case 'default':
+                case 'sans-serif':
+                    // Use the 'sans-serif' font.
+                    break;
+
+                default:
+                    // Get the Google title font.
+                    $fonttitlename = str_replace(" ", "+", $theme->settings->fonttitlename);
+                    $fonttitleweight = ':' . $theme->settings->fonttitleweight . ',' . $theme->settings->fonttitleweight . 'i';
+                    $fontcontext->fonttitlename = $fonttitlename . $fonttitleweight . $fontssubset;
+                    break;
+            }
+        }
+
+        if (!empty($fontcontext)) {
+            $css = $OUTPUT->render_from_template('theme_adaptable/fonts', $fontcontext) . PHP_EOL . $css;
+        }
+    }
+
     // Set custom CSS.
     if (!empty($theme->settings->customcss)) {
         $customcss = $theme->settings->customcss;
@@ -196,6 +262,8 @@ function theme_adaptable_pluginfile($course, $cm, $context, $filearea, $args, $f
             return $theme->setting_file_serve('customjsfiles', $args, $forcedownload, $options);
         } else if ($filearea === 'homebk') {
             return $theme->setting_file_serve('homebk', $args, $forcedownload, $options);
+        } else if (preg_match("/^shed_.*$/", $filearea)) { // Link: http://regexpal.com/ useful.
+            return theme_adaptable_confightmleditor_setting_file_serve($filearea, $args, $forcedownload, $options);
         } else if ($filearea === 'frontpagerendererdefaultimage') {
             return $theme->setting_file_serve('frontpagerendererdefaultimage', $args, $forcedownload, $options);
         } else if ($filearea === 'headerbgimage') {
@@ -215,6 +283,48 @@ function theme_adaptable_pluginfile($course, $cm, $context, $filearea, $args, $f
         } else {
             send_file_not_found();
         }
+    } else {
+        send_file_not_found();
+    }
+}
+
+/**
+ * Serve the theme confightmleditor setting file.  Adds use of itemid from core version.
+ *
+ * @param string $filearea
+ * @param array $args
+ * @param bool $forcedownload
+ * @param array $options
+ * @return bool may terminate if file not found or donotdie not specified
+ */
+function theme_adaptable_confightmleditor_setting_file_serve($filearea, $args, $forcedownload, $options) {
+    global $CFG;
+    require_once("$CFG->libdir/filelib.php");
+
+    $syscontext = context_system::instance();
+    $component = 'theme_adaptable';
+
+    $itemid = array_shift($args);
+    $lifetime = 60 * 60 * 24 * 60;
+    // By default, theme files must be cache-able by both browsers and proxies.
+    if (!array_key_exists('cacheability', $options)) {
+        $options['cacheability'] = 'public';
+    }
+
+    // Remove theme revision if any... should always be there?
+    if (!empty($args[1])) {
+        $filename = $args[1];
+    } else {
+        $filename = $args[0];
+    }
+
+    $fullpath = "/{$syscontext->id}/{$component}/{$filearea}/{$itemid}/{$filename}";
+    $fullpath = rtrim($fullpath, '/');
+
+    $fs = get_file_storage();
+    if ($file = $fs->get_file_by_hash(sha1($fullpath))) {
+        send_stored_file($file, $lifetime, $itemid, $forcedownload, $options);
+        return true;
     } else {
         send_file_not_found();
     }

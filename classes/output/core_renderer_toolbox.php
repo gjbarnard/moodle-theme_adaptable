@@ -53,7 +53,7 @@ trait core_renderer_toolbox {
      * Returns HTML attributes to use within the body tag. This includes an ID and classes.
      *
      * @since Moodle 2.5.1 2.6
-     * @param string|array $additionalclasses Any additional classes to give the body tag,
+     * @param string|array $additionalclasses Any additional classes to give the body tag.
      * @return string
      */
     public function body_attributes($additionalclasses = []) {
@@ -64,6 +64,22 @@ trait core_renderer_toolbox {
                 $additionalclasses .= ' safari';
             }
         }
+
+        $localtoolbox = toolbox::get_local_toolbox();
+        if (is_object($localtoolbox)) {
+            if (method_exists($localtoolbox, 'body_attributes')) { // Todo - Temporary until such time as not.
+                $localtoolbox->body_attributes($additionalclasses);
+            }
+        }
+
+        if (is_array($additionalclasses)) {
+            $additionalclasses[] = (isloggedin()) ? 'loggedin' : 'loggedout';
+            $additionalclasses[] = (isguestuser()) ? 'userguest' : 'notguest';
+        } else {
+            $additionalclasses .= ' ' . (isloggedin()) ? 'loggedin' : 'loggedout';
+            $additionalclasses .= ' ' . (isguestuser) ? 'userguest' : 'notguest';
+        }
+
         return parent::body_attributes($additionalclasses);
     }
 
@@ -122,6 +138,11 @@ trait core_renderer_toolbox {
         $usermenuitems = [];
         $usermenuitems[] = ['enablemy', 'link', false, new url('/my'), get_string('myhome'),
             toolbox::getfontawesomemarkup('dashboard'), ];
+        if (is_siteadmin()) {
+            $usermenuitems[] = [false, 'link', false, new url('/admin/search.php'), get_string('administrationsite'),
+                toolbox::getfontawesomemarkup('cog'), ];
+        }
+        $usermenuitems[] = [false, 'divider'];
         $usermenuitems[] = ['enableprofile', 'link', false, new url('/user/profile.php'), get_string('viewprofile'),
             toolbox::getfontawesomemarkup('user'), ];
         $usermenuitems[] = ['enableeditprofile', 'link', false, new url('/user/edit.php'), get_string('editmyprofile'),
@@ -174,6 +195,7 @@ trait core_renderer_toolbox {
             }
         }
 
+        $usermenuitems[] = [false, 'divider'];
         $usermenuitems[] = [false, 'link', false, new url('/login/logout.php', ['sesskey' => sesskey()]), get_string('logout'),
             toolbox::getfontawesomemarkup('sign-out'), ];
 
@@ -389,7 +411,6 @@ trait core_renderer_toolbox {
         $am->set_nowrap_on_items();
         if ($withlinks) {
             $navitemcount = count($navitems);
-            $idx = 0;
             foreach ($navitems as $value) {
                 switch ($value->itemtype) {
                     case 'divider':
@@ -425,13 +446,6 @@ trait core_renderer_toolbox {
                         }
                         $am->add($al);
                         break;
-                }
-
-                $idx++;
-
-                // Add dividers after the first item and before the last item.
-                if ($idx == 1 || $idx == $navitemcount - 1) {
-                    $am->add($divider);
                 }
             }
         }
@@ -908,64 +922,50 @@ trait core_renderer_toolbox {
 
 
     /**
-     * Renders block regions on front page (or any other page
-     * if specifying a different value for $settingsname). Used for various block region rendering.
+     * Renders block regions.
      *
-     * @param   string $settingsname  Setting name to retrieve from theme settings containing actual layout (e.g. 4-4-4-4)
-     * @param   string $classnamebeginswith  Used when building the blockname to retrieve for display
-     * @param   string $customrowsetting  If $settingsname value set to 'customrowsetting', then set this to
-     *                 the layout required to display a one row layout.
-     *                 When using this, ensure the appropriate number of block regions are defined in config.php.
-     *                 E.g. if $classnamebeginswith = 'my-block' and $customrowsetting = '4-4-0-0', 2 regions called
-     *                 'my-block-a' and 'my-block-a' are expected to exist.
-     * @return  string HTML output
+     * @param string $settingsname Setting name to retrieve from theme settings containing actual layout (e.g. 4-4-4-4).
+     * @param string $classnamebeginswith Used when building the blockname to retrieve for display.
+     * @param int    $totalrows Number of settingname rows.
+     *
+     * @return string HTML output.
      */
     public function get_block_regions(
         $settingsname,
         $classnamebeginswith,
-        $customrowsetting = null
+        $totalrows = 5
     ) {
-        $blockcount = 0;
-        $fields = [];
+        $helper = \theme_adaptable\toolbox::admin_settings_layout_helper(
+            $settingsname,
+            $totalrows,
+            $this->page->theme->settings,
+            $classnamebeginswith
+        );
+
         $retval = '';
-
-        if ($settingsname == 'customrowsetting') {
-            $fields[] = $customrowsetting;
-        } else {
-            for ($i = 1; $i <= 5; $i++) {
-                $row = $settingsname . $i;
-
-                /* Need to check if the setting exists as this function is now
-                   called for variable row numbers in block regions (e.g. course page
-                   which is a single row of block regions). */
-
-                if (isset($this->page->theme->settings->$row)) {
-                    $row = $this->page->theme->settings->$row;
-                } else {
-                    $row = '0-0-0-0';
-                }
-
-                if ($row != '0-0-0-0') {
-                    $fields[] = $row;
-                }
+        foreach ($helper['rows'] as $row) {
+            foreach ($row as $blockregion => $block) {
+                $retval .= '<div class="my-1 col-md-' . $block . '">';
+                $retval .= $this->blocks($blockregion, 'adaptable-block-region');
+                $retval .= '</div>';
             }
         }
 
-        foreach ($fields as $field) {
-            $vals = explode('-', $field);
-            foreach ($vals as $val) {
-                if ($val > 0) {
-                    $retval .= '<div class="my-1 col-md-' . $val . '">';
+        return $retval;
+    }
 
-                    // Moodle does not seem to like numbers in region names so using letter instead.
-                    $blockcount++;
-                    $block = $classnamebeginswith . chr(96 + $blockcount);
+    /**
+     * Renders custom block regions.
+     *
+     * @param string $blockregion Region to render.
+     *
+     * @return string HTML output.
+     */
+    public function get_custom_block_region($blockregion) {
+        $retval = '<div class="my-1 col-md-12">';
+        $retval .= $this->blocks($blockregion, 'adaptable-block-region');
+        $retval .= '</div>';
 
-                    $retval .= $this->blocks($block, 'block-region-front');
-                    $retval .= '</div>';
-                }
-            }
-        }
         return $retval;
     }
 
@@ -999,14 +999,14 @@ trait core_renderer_toolbox {
                     if (isset($this->page->theme->settings->$rowsetting)) {
                         $rowvalue = $this->page->theme->settings->$rowsetting;
 
-                        $spannumbers = explode('-', $rowvalue);
+                        $colnumbers = explode('-', $rowvalue);
                         $y = 0;
-                        foreach ($spannumbers as $spannumber) {
+                        foreach ($colnumbers as $colnumber) {
                             $y++;
 
-                            /* Here's the crucial bit.  Check if span number is 0,
+                            /* Here's the crucial bit.  Check if col number is 0,
                                or $displayall is true (override) and if so, print it out. */
-                            if ($spannumber == 0 || $displayall) {
+                            if ($colnumber == 0 || $displayall) {
                                 $blockregion = $block['classnamebeginswith'] . chr(96 + $y);
                                 $displayregion = $this->page->apply_theme_region_manipulations($blockregion);
 
@@ -1161,7 +1161,8 @@ trait core_renderer_toolbox {
                                 $blockcontent .= '<div class="row flexiblerow">';
                                 $blocksequencecount++;
                             }
-                            $bc->attributes['class'] .= ' col-12 col-sm-' . $blocksequence[$blocksequencecount]; // Will be a number.
+                            // Will be a number.
+                            $bc->attributes['class'] .= ' col-12 col-sm-' . $blocksequence[$blocksequencecount];
                         } else {
                             if ((!$blockspacesexceeded) && ($blockcount >= $blockspacescount)) {
                                 $blockspacesexceeded = true;
@@ -1231,11 +1232,10 @@ trait core_renderer_toolbox {
     /**
      * Renders marketing blocks on front page.
      *
-     * @param string $layoutrow
-     * @param string $settingname
      * @return string Markup.
      */
-    public function get_marketing_blocks($layoutrow = 'marketlayoutrow', $settingname = 'market') {
+    public function get_marketing_blocks() {
+        $retval = '';
         $themesettings = toolbox::get_settings();
         $visiblestate = 3;
         if (!empty($themesettings->marketingvisible)) {
@@ -1244,54 +1244,40 @@ trait core_renderer_toolbox {
         if ($visiblestate != 3) {
             $loggedin = isloggedin();
             if ((($visiblestate == 1) && ($loggedin)) || (($visiblestate == 2) && (!$loggedin))) {
-                return '';
+                return $retval;
             }
         }
 
-        $fields = [];
-        $blockcount = 0;
+        $helper = toolbox::admin_settings_layout_helper('marketlayoutrow', 5, $themesettings);
+        if ($helper['totalblocks'] > 0) {
+            $extramarketclass = $themesettings->frontpagemarketoption;
 
-        $extramarketclass = $themesettings->frontpagemarketoption;
+            $retval = '<div id="marketblocks" class="container ' . $extramarketclass . '">';
 
-        $retval = '<div id="marketblocks" class="container ' . $extramarketclass . '">';
-
-        if (is_siteadmin()) {
-            $retval .= html_writer::tag(
-                'p',
-                get_string('marketingdeprecated', 'theme_adaptable'),
-                ['class' => 'marketing-deprecated col-12 text-center fst-italic fw-bold']
-            );
-        }
-
-        for ($i = 1; $i <= 5; $i++) {
-            $marketrow = $layoutrow . $i;
-            $marketrow = $themesettings->$marketrow;
-            if ($marketrow != '0-0-0-0') {
-                $fields[] = $marketrow;
-            }
-        }
-
-        foreach ($fields as $field) {
-            $retval .= '<div class="row marketrow">';
-            $vals = explode('-', $field);
-            foreach ($vals as $val) {
-                if ($val > 0) {
-                    $retval .= '<div class="my-1 col-md-' . $val . ' ' . $extramarketclass . '">';
+            $blockcount = 0;
+            foreach ($helper['rows'] as $row) {
+                $retval .= '<div class="row marketrow">';
+                foreach ($row as $block) {
+                    $retval .= '<div class="my-1 col-md-' . $block . ' ' . $extramarketclass . '">';
                     $blockcount++;
-                    $fieldname = $settingname . $blockcount;
+                    $fieldname = 'market' . $blockcount;
                     if (isset($themesettings->$fieldname)) {
                         // Add HTML format.
-                        $retval .= toolbox::get_setting($fieldname, 'format_moodle');
+                        $processedsetting = \theme_adaptable\admin_setting_confightmleditor::file_rewrite_setting_urls(
+                            \theme_adaptable\toolbox::get_setting($fieldname),
+                            'shed_market',
+                            $blockcount
+                        );
+                        $retval .= format_text($processedsetting, FORMAT_MOODLE);
                     }
                     $retval .= '</div>';
                 }
+                $retval .= '</div>';
             }
+
             $retval .= '</div>';
         }
-        $retval .= '</div>';
-        if ($blockcount == 0) {
-            $retval = '';
-        }
+
         return $retval;
     }
 
@@ -1321,54 +1307,49 @@ trait core_renderer_toolbox {
     /**
      * Renders footer blocks.
      *
-     * @param string $layoutrow The footer row.
      * @return string HTML output.
      */
-    public function get_footer_blocks($layoutrow = 'footerlayoutrow') {
-        $fields = [];
-        $blockcount = 0;
+    public function get_footer_blocks() {
 
         if (!$this->is_footer_visible()) {
             return '';
         }
 
-        $output = '';
+        $retval = '';
 
-        for ($i = 1; $i <= 3; $i++) {
-            $footerrow = $layoutrow . $i;
-            $footerrow = (!empty($this->page->theme->settings->$footerrow)) ? $this->page->theme->settings->$footerrow : '3-3-3-3';
-            if ($footerrow != '0-0-0-0') {
-                $fields[] = $footerrow;
-            }
-        }
-
-        foreach ($fields as $field) {
-            $output .= '<div class="row">';
-            $vals = explode('-', $field);
-            foreach ($vals as $val) {
-                if ($val > 0) {
+        $helper = toolbox::admin_settings_layout_helper('footerlayoutrow', 3, $this->page->theme->settings);
+        if ($helper['totalblocks'] > 0) {
+            $blockcount = 0;
+            foreach ($helper['rows'] as $row) {
+                $retval .= '<div class="row">';
+                foreach ($row as $block) {
                     $blockcount++;
                     $footerheader = 'footer' . $blockcount . 'header';
                     $footercontent = 'footer' . $blockcount . 'content';
                     if (!empty($this->page->theme->settings->$footercontent)) {
-                        $output .= '<div class="left-col col-' . $val . '">';
+                        $retval .= '<div class="left-col col-' . $block . '">';
                         if (!empty($this->page->theme->settings->$footerheader)) {
-                            $output .= '<h3>';
-                            $output .= toolbox::get_setting($footerheader, 'format_html');
-                            $output .= '</h3>';
+                            $retval .= '<h3>';
+                            $retval .= toolbox::get_setting($footerheader, 'format_html');
+                            $retval .= '</h3>';
                         }
-                        $output .= toolbox::get_setting($footercontent, 'format_html');
-                        $output .= '</div>';
+                        $processedsetting = \theme_adaptable\admin_setting_confightmleditor::file_rewrite_setting_urls(
+                            toolbox::get_setting($footercontent),
+                            'shed_footercontent',
+                            $blockcount
+                        );
+                        $retval .= format_text($processedsetting, FORMAT_MOODLE);
+                        $retval .= '</div>';
                     }
                 }
+                $retval .= '</div>';
             }
-            $output .= '</div>';
         }
-        if (!empty($output)) {
-            $output = '<div class="container">' . $output . '</div>';
+        if (!empty($retval)) {
+            $retval = '<div class="container">' . $retval . '</div>';
         }
 
-        return $output;
+        return $retval;
     }
 
     /**
@@ -1457,10 +1438,6 @@ trait core_renderer_toolbox {
             $sliderimage = 'p' . $i;
             $sliderurl = 'p' . $i . 'url';
 
-            if (!empty($this->page->theme->settings->$sliderimage)) {
-                $slidercaption = 'p' . $i . 'cap';
-            }
-
             $closelink = '';
             if (!empty($this->page->theme->settings->$sliderimage)) {
                 $retval .= '<li>';
@@ -1473,9 +1450,15 @@ trait core_renderer_toolbox {
                 $retval .= '<img src="' . $this->page->theme->setting_file_url($sliderimage, $sliderimage)
                 . '" alt="' . $sliderimage . '"/>';
 
+                $slidercaption = 'p' . $i . 'cap';
                 if (!empty($this->page->theme->settings->$slidercaption)) {
                     $retval .= '<div class="flex-caption">';
-                    $retval .= toolbox::get_setting($slidercaption, 'format_html');
+                    $processedsetting = \theme_adaptable\admin_setting_confightmleditor::file_rewrite_setting_urls(
+                        \theme_adaptable\toolbox::get_setting($slidercaption),
+                        'shed_pcap',
+                        $i
+                    );
+                    $retval .= format_text($processedsetting, FORMAT_MOODLE);
                     $retval .= '</div>';
                 }
                 $retval .= $closelink . '</li>';

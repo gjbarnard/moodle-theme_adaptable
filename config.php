@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Config
+ * Config.
  *
  * @package    theme_adaptable
  * @copyright  2015-2019 Jeremy Hopkins (Coventry University)
@@ -29,8 +29,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-global $PAGE;
-
 // The plugin internal name.
 $THEME->name = 'adaptable';
 
@@ -38,54 +36,109 @@ $THEME->name = 'adaptable';
 $frontlayoutregions = [
     'side-post',
     'hidden',
-    'frnt-market-a',
-    'frnt-market-b',
-    'frnt-market-c',
-    'frnt-market-d',
-    'frnt-market-e',
-    'frnt-market-f',
-    'frnt-market-g',
-    'frnt-market-h',
-    'frnt-market-i',
-    'frnt-market-j',
-    'frnt-market-k',
-    'frnt-market-l',
-    'frnt-market-m',
-    'frnt-market-n',
-    'frnt-market-o',
-    'frnt-market-p',
-    'frnt-market-q',
-    'frnt-market-r',
-    'frnt-market-s',
-    'frnt-market-t',
-    'information',
-    'news-slider-a',
-    'course-tab-one-a',
-    'course-tab-two-a',
-    'my-tab-one-a',
-    'my-tab-two-a',
-    'course-section-a',
 ];
+
+if (!empty(get_config('theme_adaptable', 'frontpageblocksenabled'))) {
+    $themesettings = new stdClass();
+    $settingnameprefix = 'blocklayoutlayoutrow';
+    $totalrows = 5;
+    for ($row = 1; $row <= $totalrows; $row++) {
+        $settingname = $settingnameprefix . $row;
+        $themesettings->$settingname = get_config('theme_adaptable', $settingname);
+    }
+
+    $helper = \theme_adaptable\toolbox::admin_settings_layout_helper(
+        $settingnameprefix,
+        $totalrows,
+        $themesettings,
+        'frnt-market-'
+    );
+
+    foreach ($helper['rows'] as $row) {
+        foreach (array_keys($row) as $blockregion) {
+            $frontlayoutregions[] = $blockregion;
+        }
+    }
+}
+
+if (get_config('theme_adaptable', 'informationblocksenabled')) {
+    $frontlayoutregions[] = 'information';
+}
+
+// The dashboard regions.
+$dashboardlayoutregions = [
+    'side-post',
+    'hidden',
+];
+
+if (!empty(get_config('theme_adaptable', 'dashblocksenabled'))) {
+    $themesettings = new stdClass();
+    $settingnameprefix = 'dashblocklayoutlayoutrow';
+    $totalrows = 5;
+    for ($row = 1; $row <= $totalrows; $row++) {
+        $settingname = $settingnameprefix . $row;
+        $themesettings->$settingname = get_config('theme_adaptable', $settingname);
+    }
+
+    $helper = \theme_adaptable\toolbox::admin_settings_layout_helper(
+        $settingnameprefix,
+        $totalrows,
+        $themesettings,
+        'dash-blocks-'
+    );
+
+    foreach ($helper['rows'] as $row) {
+        foreach (array_keys($row) as $blockregion) {
+            $dashboardlayoutregions[] = $blockregion;
+        }
+    }
+}
+
+if (get_config('theme_adaptable', 'tabbedlayoutdashboard')) {
+    $dashboardlayoutregions[] = 'my-tab-one-a';
+    $dashboardlayoutregions[] = 'my-tab-two-a';
+    $frontlayoutregions[] = 'my-tab-one-a';
+    $frontlayoutregions[] = 'my-tab-two-a';
+}
 
 // The course page regions.
 $courselayoutregions = [
     'side-post',
     'hidden',
-    'course-top-a',
-    'course-top-b',
-    'course-top-c',
-    'course-top-d',
-    'news-slider-a',
-    'course-tab-one-a',
-    'course-tab-two-a',
-    'my-tab-one-a',
-    'my-tab-two-a',
-    'course-bottom-a',
-    'course-bottom-b',
-    'course-bottom-c',
-    'course-bottom-d',
-    'course-section-a',
 ];
+
+if (get_config('theme_adaptable', 'coursepageblockactivitybottomenabled')) {
+    $courselayoutregions[] = 'course-section-a';
+    $frontlayoutregions[] = 'course-section-a';
+}
+
+if (get_config('theme_adaptable', 'coursepageblockinfoenabled')) {
+    $courselayoutregions[] = 'news-slider-a';
+    $frontlayoutregions[] = 'news-slider-a';
+}
+
+if (get_config('theme_adaptable', 'coursepageblocksenabled')) {
+    $courselayoutregions = array_merge(
+        $courselayoutregions,
+        [
+            'course-top-a',
+            'course-top-b',
+            'course-top-c',
+            'course-top-d',
+            'course-bottom-a',
+            'course-bottom-b',
+            'course-bottom-c',
+            'course-bottom-d',
+        ]
+    );
+}
+
+if (get_config('theme_adaptable', 'tabbedlayoutcoursepage')) {
+    $courselayoutregions[] = 'course-tab-one-a';
+    $courselayoutregions[] = 'course-tab-one-b';
+    $frontlayoutregions[] = 'course-tab-one-a';
+    $frontlayoutregions[] = 'course-tab-one-b';
+}
 
 $standardregions = ['side-post'];
 
@@ -143,7 +196,7 @@ $THEME->layouts = [
     ],
     // Part of course, typical for modules - default page layout if $cm specified in require_login().
     'incourse' => [
-        'file' => 'columns2.php',
+        'file' => 'incourse.php',
         'regions' => array_merge($standardregions, ['course-section-a']),
         'defaultregion' => 'side-post',
     ],
@@ -170,7 +223,7 @@ $THEME->layouts = [
     // My dashboard page.
     'mydashboard' => [
         'file' => 'dashboard.php',
-        'regions' => $frontlayoutregions,
+        'regions' => $dashboardlayoutregions,
         'defaultregion' => 'side-post',
         'options' => ['langmenu' => true],
     ],

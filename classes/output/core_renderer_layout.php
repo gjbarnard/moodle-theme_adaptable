@@ -218,7 +218,7 @@ trait core_renderer_layout {
             // Only used when user is logged in and not on the secure layout.
             if ((isloggedin()) && ($this->page->pagelayout != 'secure')) {
                 $headercontext['loginoruser'] =
-                    '<li class="nav-item dropdown">' . $this->user_menu() . '</li>';
+                    '<li class="nav-item mr-1 mr-lg-0 dropdown">' . $this->user_menu() . '</li>';
             } else {
                 $headercontext['loginoruser'] = '';
             }
@@ -410,7 +410,6 @@ trait core_renderer_layout {
      */
     protected function head($bodyclasses) {
         global $SITE;
-        $themesettings = \theme_adaptable\toolbox::get_settings();
 
         $headcontext = new stdClass();
         $headcontext->output = $this;
@@ -418,64 +417,8 @@ trait core_renderer_layout {
         $headcontext->pagetitle = $this->page_title();
         $siteurl = new url('');
         $headcontext->siteurl = $siteurl->out();
-        $headcontext->maincolour = $themesettings->maincolour;
+        $headcontext->maincolour = \theme_adaptable\toolbox::get_setting('maincolour');
 
-        if (!empty($themesettings->googlefonts)) {
-            // Select fonts used.
-            $fontssubset = '';
-            if (!empty($themesettings->fontsubset)) {
-                // Get the Google fonts subset.
-                $fontssubset = '&subset=' . $themesettings->fontsubset;
-            }
-
-            if (!empty($themesettings->fontname)) {
-                switch ($themesettings->fontname) {
-                    case 'default':
-                    case 'sans-serif':
-                        // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
-                        break;
-
-                    default:
-                        // Get the Google main font.
-                        $fontname = str_replace(" ", "+", $themesettings->fontname);
-                        $fontweight = ':' . $themesettings->fontweight . ',' . $themesettings->fontweight . 'i';
-                        $headcontext->fontname = $fontname . $fontweight . $fontssubset;
-                        break;
-                }
-            }
-
-            if (!empty($themesettings->fontheadername)) {
-                switch ($themesettings->fontheadername) {
-                    case 'default':
-                    case 'sans-serif':
-                        // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
-                        break;
-
-                    default:
-                        // Get the Google header font.
-                        $fontheadername = str_replace(" ", "+", $themesettings->fontheadername);
-                        $fontheaderweight = ':' . $themesettings->fontheaderweight . ',' . $themesettings->fontheaderweight . 'i';
-                        $headcontext->fontheadername = $fontheadername . $fontheaderweight . $fontssubset;
-                        break;
-                }
-            }
-
-            if (!empty($themesettings->fonttitlename)) {
-                switch ($themesettings->fonttitlename) {
-                    case 'default':
-                    case 'sans-serif':
-                        // Use the 'sans-serif' font.
-                        break;
-
-                    default:
-                        // Get the Google title font.
-                        $fonttitlename = str_replace(" ", "+", $themesettings->fonttitlename);
-                        $fonttitleweight = ':' . $themesettings->fonttitleweight . ',' . $themesettings->fonttitleweight . 'i';
-                        $headcontext->fonttitlename = $fonttitlename . $fonttitleweight . $fontssubset;
-                        break;
-                }
-            }
-        }
         echo $this->render_from_template('theme_adaptable/head', $headcontext);
 
         echo '<body ' . $this->body_attributes($bodyclasses) . '>';
@@ -608,6 +551,10 @@ trait core_renderer_layout {
         }
 
         $context->footnote = \theme_adaptable\toolbox::get_setting('footnote', 'format_moodle');
+        $context->footnote = \theme_adaptable\admin_setting_confightmleditor::file_rewrite_setting_urls(
+            $context->footnote,
+            'shed_footnote'
+        );
         $context->moodledocs = $themesettings->moodledocs;
 
         $context->debug = $this->debug_footer_html();
@@ -685,7 +632,6 @@ trait core_renderer_layout {
             echo $overflow;
         }
         echo $this->main_content();
-        echo $this->activity_navigation();
         echo $this->course_content_footer();
         echo '</section>';
         echo '</div>';
@@ -731,16 +677,6 @@ trait core_renderer_layout {
 
         $this->output_settings_errors();
         echo $this->main_content();
-
-        // Display course page block activity bottom region if this is a mod page of type where you're viewing
-        // a section, page or book (chapter).
-        if (!empty($themesettings->coursepageblockactivitybottomenabled)) {
-            if (($this->page->pagetype == 'mod-book-view') || ($this->page->pagetype == 'mod-page-view')) {
-                echo $this->get_block_regions('customrowsetting', 'course-section-', '12-0-0-0');
-            }
-        }
-
-        echo $this->activity_navigation();
         echo $this->course_content_footer();
 
         echo '</section>';
@@ -774,9 +710,9 @@ trait core_renderer_layout {
         // Definition of block regions for top and bottom.  These are used in potentially retrieving
         // any missing block regions.
         $blocksarray = [
-            ['settingsname' => 'coursepageblocklayoutlayouttoprow',
+            ['settingsname' => 'coursepageblocklayouttoprow',
              'classnamebeginswith' => 'course-top-', ],
-            ['settingsname' => 'coursepageblocklayoutlayoutbottomrow',
+            ['settingsname' => 'coursepageblocklayoutbottomrow',
              'classnamebeginswith' => 'course-bottom-', ],
         ];
 
@@ -790,7 +726,7 @@ trait core_renderer_layout {
         if (!empty($themesettings->coursepageblocksenabled)) {
             echo '<div id="frontblockregion" class="container">';
             echo '<div class="row">';
-            echo $this->get_block_regions('coursepageblocklayoutlayouttoprow', 'course-top-');
+            echo $this->get_block_regions('coursepageblocklayouttoprow', 'course-top-', 1);
             echo '</div>';
             echo '</div>';
         }
@@ -856,7 +792,7 @@ trait core_renderer_layout {
 
                     echo $this->get_course_alerts();
                     if (!empty($themesettings->coursepageblockinfoenabled)) {
-                        echo $this->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
+                        echo $this->get_custom_block_region('news-slider-a');
                     }
 
                     echo $this->course_content_header();
@@ -873,11 +809,7 @@ trait core_renderer_layout {
                 } else {
                     echo '<section id="adaptable-course-tab-' . $tabnumber . '" class="adaptable-tab-section tab-panel">';
 
-                    echo $this->get_block_regions(
-                        'customrowsetting',
-                        'course-tab-' . $wordtonumber[$tabnumber] . '-',
-                        '12-0-0-0'
-                    );
+                    echo $this->get_custom_block_region('course-tab-' . $wordtonumber[$tabnumber] . '-a');
                     echo '</section>';
                 }
             }
@@ -885,7 +817,7 @@ trait core_renderer_layout {
         } else {
             echo $this->get_course_alerts();
             if (!empty($themesettings->coursepageblockinfoenabled)) {
-                echo $this->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
+                echo $this->get_custom_block_region('news-slider-a');
             }
             echo $this->course_content_header();
             if (!empty($secondarynavigation)) {
@@ -913,7 +845,7 @@ trait core_renderer_layout {
             echo '</div>';
 
             /* Get any missing blocks from changing layout settings.  E.g. From 4-4-4-4 to 6-6-0-0, to recover
-               what was in the last 2 spans that are now 0. */
+               what was in the last 2 cols that are now 0. */
             echo $this->get_missing_block_regions($blocksarray, 'col-12', $displayall);
         }
 
@@ -921,7 +853,7 @@ trait core_renderer_layout {
         if (!empty($themesettings->coursepageblocksenabled)) {
             echo '<div id="frontblockregion" class="container">';
             echo '<div class="row">';
-            echo $this->get_block_regions('coursepageblocklayoutlayoutbottomrow', 'course-bottom-');
+            echo $this->get_block_regions('coursepageblocklayoutbottomrow', 'course-bottom-', 1);
             echo '</div>';
             echo '</div>';
         }
@@ -934,7 +866,7 @@ trait core_renderer_layout {
             }
 
             /* Get any missing blocks from changing layout settings.  E.g. From 4-4-4-4 to 6-6-0-0, to recover
-               what was in the last 2 spans that are now 0. */
+               what was in the last 2 cols that are now 0. */
             echo $this->get_missing_block_regions($blocksarray, [], $displayall);
 
             echo '</section>';
@@ -965,6 +897,57 @@ trait core_renderer_layout {
     }
 
     /**
+     * Incourse layout.
+     */
+    public function incourse_layout() {
+        $themesettings = \theme_adaptable\toolbox::get_settings();
+
+        // Include header.
+        $this->yesheader(true);
+
+        // Include secondary navigation.
+        [$secondarynavigation, $overflow] = $this->secondarynav();
+
+        echo '<div id="maincontainer" class="container outercont">';
+        echo $this->get_alert_messages();
+        echo $this->full_header();
+        echo $this->get_news_ticker();
+        echo '<div id="page-content" class="row">';
+        echo '<div id="region-main-box" class="col-12">';
+        echo '<section id="region-main">';
+        echo $this->get_course_alerts();
+        echo $this->course_content_header();
+        if (!empty($secondarynavigation)) {
+            echo $secondarynavigation;
+        }
+        echo $this->activity_header();
+        if (!empty($overflow)) {
+            echo $overflow;
+        }
+
+        echo $this->main_content();
+
+        // Display course page block activity bottom region if this is a mod page of type where you're viewing
+        // a section, page or book (chapter).
+        if (!empty($themesettings->coursepageblockactivitybottomenabled)) {
+            if (($this->page->pagetype == 'mod-book-view') || ($this->page->pagetype == 'mod-page-view')) {
+                echo $this->get_custom_block_region('course-section-a');
+            }
+        }
+
+        echo $this->activity_navigation();
+        echo $this->course_content_footer();
+
+        echo '</section>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+        // Footer.
+        $this->yesfooter();
+    }
+
+    /**
      * Dashboard layout.
      */
     public function dashboard_layout() {
@@ -983,7 +966,7 @@ trait core_renderer_layout {
         $dashblocklayoutlayoutrow = '';
         if (!empty($themesettings->dashblocksenabled)) {
             $dashblocklayoutlayoutrow = '<div id="frontblockregion" class="row">';
-            $dashblocklayoutlayoutrow .= $this->get_block_regions('dashblocklayoutlayoutrow', 'frnt-market-');
+            $dashblocklayoutlayoutrow .= $this->get_block_regions('dashblocklayoutlayoutrow', 'dash-blocks-');
             $dashblocklayoutlayoutrow .= '</div>';
         }
 
@@ -1088,8 +1071,7 @@ trait core_renderer_layout {
                 } else {
                     if ($showtabs[$tabnumber] == true) {
                         echo '<section id="adaptable-dashboard-tab-' . $tabnumber . '" class="adaptable-tab-section tab-panel">';
-                        echo $this->get_block_regions('customrowsetting', 'my-tab-' . $wordtonumber[$tabnumber] .
-                            '-', '12-0-0-0');
+                        echo $this->get_custom_block_region('my-tab-' . $wordtonumber[$tabnumber] . '-a');
                         echo '</section>';
                     }
                 }
@@ -1220,7 +1202,12 @@ trait core_renderer_layout {
             }
             echo '<div class="row">';
             echo '<div class="col-12">';
-            echo \theme_adaptable\toolbox::get_setting('infobox', 'format_moodle');
+            $processedsetting = \theme_adaptable\admin_setting_confightmleditor::file_rewrite_setting_urls(
+                \theme_adaptable\toolbox::get_setting('infobox'),
+                'shed_infobox',
+                1
+            );
+            echo format_text($processedsetting, FORMAT_MOODLE);
             echo '</div>';
             echo '</div>';
             echo '</div>';
@@ -1255,7 +1242,12 @@ trait core_renderer_layout {
             }
             echo '<div class="row">';
             echo '<div class="col-12">';
-            echo \theme_adaptable\toolbox::get_setting('infobox2', 'format_moodle');
+            $processedsetting = \theme_adaptable\admin_setting_confightmleditor::file_rewrite_setting_urls(
+                \theme_adaptable\toolbox::get_setting('infobox2'),
+                'shed_infobox',
+                2
+            );
+            echo format_text($processedsetting, FORMAT_MOODLE);
             echo '</div>';
             echo '</div>';
             echo '</div>';
@@ -1278,21 +1270,21 @@ trait core_renderer_layout {
             echo '<div class="hidden-blocks">';
 
             if (!empty($themesettings->coursepageblockinfoenabled)) {
-                echo $this->get_block_regions('customrowsetting', 'news-slider-', '12-0-0-0');
+                echo $this->get_custom_block_region('news-slider-a');
             }
 
             if (!empty($themesettings->coursepageblockactivitybottomenabled)) {
-                echo $this->get_block_regions('customrowsetting', 'course-section-', '12-0-0-0');
+                echo $this->get_custom_block_region('course-section-a');
             }
 
             if (!empty($themesettings->tabbedlayoutcoursepage)) {
-                echo $this->get_block_regions('customrowsetting', 'course-tab-one-', '12-0-0-0');
-                echo $this->get_block_regions('customrowsetting', 'course-tab-two-', '12-0-0-0');
+                echo $this->get_custom_block_region('course-tab-one-a');
+                echo $this->get_custom_block_region('course-tab-two-a');
             }
 
             if (!empty($themesettings->tabbedlayoutdashboard)) {
-                echo $this->get_block_regions('customrowsetting', 'my-tab-one-', '12-0-0-0');
-                echo $this->get_block_regions('customrowsetting', 'my-tab-two-', '12-0-0-0');
+                echo $this->get_custom_block_region('my-tab-one-a');
+                echo $this->get_custom_block_region('my-tab-two-a');
             }
 
             echo '<h3>' . get_string('hidden-blocks-desc', 'theme_adaptable') . '</h3>';

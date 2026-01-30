@@ -1,3 +1,28 @@
+Change log in version 500.2.4 (2025040809)
+==========================================
+1. Separate layout for 'incourse' to show activity navigation.  Ref: https://moodle.org/mod/forum/discuss.php?d=469954#p1890832.
+2. Refactor block regions to only show available as per the settings in the list of regions.
+3. Fix 'Course page block regions' layout display in settings.
+4. Changed setting 'coursepageblocklayoutlayoutbottomrow2' to 'coursepageblocklayoutbottomrow1' in the 'Courses' settings tab.
+5. Changed setting 'coursepageblocklayoutlayouttoprow1' to 'coursepageblocklayouttoprow1' in the 'Courses' settings tab.
+6. Add a link to 'Site administration' on the user menu for administrators.
+7. Improvements to html settings with files.
+8. Marketing blocks are no longer deprecated.
+9. Add the editing button to the primary mobile menu.
+10. Navbar tidy for less than 992px width.
+11. Fix primary mobile menu still showing when window resizes.
+12. Improve ticker styling.
+14. Improve import / export settings page.
+15. Fix TinyMCE menu's broken when in full screen mode.
+16. Migrate Google Fonts to CSS.
+17. Fix stacked FontAwesome icons.
+18. Add 'loggedin' / 'loggedout' / 'userguest' / 'notguest' CSS class selector names to the body tag as appropriate;
+19. Improve print layout / fix 'Only one page printable' - #49.
+
+Known issues in this version
+----------------------------
+1. Mobile primary menu could still be showing when open and window resizes to >= 992 pixels wide.  Intermittent issue.
+
 Change log in version 500.2.3 (2025040808)
 ==========================================
 1. Improve alert explanation.
