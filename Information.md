@@ -12,8 +12,8 @@ If you would like to sponsor me, get support or fund improvements, then please d
 - My website eMail | contact at gjbarnard dt co dt uk.
 - GitHub | Please outline your issue / improvement on '[Adaptable issues](https://github.com/gjbarnard/moodle-theme_adaptable/issues)'.
 
-Sponsorship information
------------------------
+Sponsorship
+-----------
 By becoming a sponsor you help to keep the theme alive and working as underlying technologies change and the core Moodle software
 moves forward.  In return I’ll provide you access to additional functionality for the theme, early access to updates and prioritise
 questions from sponsors through a sponsors only area on GitHub.

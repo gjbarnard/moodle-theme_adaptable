@@ -32,11 +32,11 @@
 
     .navbar .navbar-nav > {
         li:first-child > a.dropdown-toggle {
-            margin-left: -[[setting:menufontpadding]];
+            margin-left: -[[setting:menufontpadding]]px;
         }
 
         li:last-child > a.dropdown-toggle {
-            margin-right: -[[setting:menufontpadding]];
+            margin-right: -[[setting:menufontpadding]]px;
         }
     }
 }
@@ -59,7 +59,7 @@
 // New main navbar styling */
 #adaptable-page-header-wrapper #main-navbar {
     .navbar-nav {
-        margin-left: -[[setting:menufontpadding]];
+        margin-left: -[[setting:menufontpadding]]px;
 
         > li > a.nav-link,
         > li > div.nav-link,
@@ -72,7 +72,7 @@
             font-size: [[setting:menufontsize]];
             font-weight: 400;
             line-height: 42px;
-            padding: 0 [[setting:menufontpadding]];
+            padding: 0 [[setting:menufontpadding]]px;
             text-decoration: none;
             text-shadow: none;
             text-transform: none;
@@ -142,7 +142,7 @@
     }
 
     .navbar .dropdown-menu {
-        border-radius: [[setting:navbardropdownborderradius]];
+        border-radius: [[setting:navbardropdownborderradius]]px;
         font-size: [[setting:menufontsize]];
         -webkit-transition: all [[setting:navbardropdowntransitiontime]];
         -moz-transition: all [[setting:navbardropdowntransitiontime]];
@@ -191,7 +191,7 @@
     }
 
     .dropdown-submenu>.dropdown-menu {
-        border-radius: [[setting:navbardropdownborderradius]];
+        border-radius: [[setting:navbardropdownborderradius]]px;
     }
 
     #main-navbar .navbar-nav > .nav-item .dropdown-menu .dropdown-toggle:after {

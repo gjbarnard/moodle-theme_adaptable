@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 //
 //
-// Adaptable News ticker style sheet
+// Adaptable Settings stylesheet
 //
 // @package    theme_adaptable
 // @copyright  &copy; 2025 - G J Barnard
@@ -23,20 +23,8 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
-#ticker-wrap {
-    background-color: [[setting:tickerconstainerbackgroundcolour]];
-    color: [[setting:tickerconstainertextcolour]];
-
-    #ticker_container {
-        #ticker-announce {
-            background-color: [[setting:tickerheaderbackgroundcolour]];
-            color: [[setting:tickerheadertextcolour]];
-        }
-
-        #controls {
-            .fa {
-                color: [[setting:tickerconstainertextcolour]];
-            }
-        }
+#adminprops_getprops {
+    pre {
+        white-space: wrap;
     }
 }

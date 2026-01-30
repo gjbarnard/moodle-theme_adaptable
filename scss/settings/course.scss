@@ -392,8 +392,8 @@ a.cimbox {
 
 .course-section .section-item {
     background-color: [[setting:coursesectionbgcolor]];
-    border: [[setting:coursesectionborderwidth]] [[setting:coursesectionborderstyle]] [[setting:coursesectionbordercolor]];
-    border-radius: [[setting:coursesectionborderradius]];
+    border: [[setting:coursesectionborderwidth]]px [[setting:coursesectionborderstyle]] [[setting:coursesectionbordercolor]];
+    border-radius: [[setting:coursesectionborderradius]]px;
 }
 
 .sitetopic,
@@ -493,10 +493,8 @@ body:not(.editing) .sitetopic ul.section,
 
 body:not(.single-section-page) .course-section-header {
     background-color: [[setting:coursesectionheaderbg]];
-    border-bottom: [[setting:coursesectionheaderborderstyle]] [[setting:coursesectionheaderbordercolor]] [[setting:coursesectionheaderborderwidth]];
-    border-bottom-left-radius: [[setting:coursesectionheaderborderradiusbottom]];
-    border-bottom-right-radius: [[setting:coursesectionheaderborderradiusbottom]];
-    border-radius: [[setting:coursesectionheaderborderradiustop]];
+    border-bottom: [[setting:coursesectionheaderborderstyle]] [[setting:coursesectionheaderbordercolor]] [[setting:coursesectionheaderborderwidth]]px;
+    border-radius: [[setting:coursesectionheaderborderradiustop]]px [[setting:coursesectionheaderborderradiustop]]px [[setting:coursesectionheaderborderradiusbottom]]px [[setting:coursesectionheaderborderradiusbottom]]px;
     color: [[setting:sectionheadingcolor]];
     padding: 0.5rem;
 
@@ -589,9 +587,9 @@ body:not(.single-section-page) .course-section-header {
 }
 
 .activity img.iconlarge {
-    height: [[setting:coursesectionactivityiconsize]];
-    width: [[setting:coursesectionactivityiconsize]];
+    height: [[setting:coursesectionactivityiconsize]]px;
     vertical-align: middle;
+    width: [[setting:coursesectionactivityiconsize]]px;
 }
 
 // Profile picture.
@@ -716,8 +714,8 @@ body:not(.single-section-page) .course-section-header {
 
 .section li {
     .ad-activity-wrapper {
-        border-bottom: [[setting:coursesectionactivityborderwidth]] [[setting:coursesectionactivityborderstyle]] [[setting:coursesectionactivitybordercolor]];
-        box-shadow: -[[setting:coursesectionactivityleftborderwidth]] 0 0 0 [[setting:coursesectionactivityassignleftbordercolor]];
+        border-bottom: [[setting:coursesectionactivitybottomborderwidth]]px [[setting:coursesectionactivityborderstyle]] [[setting:coursesectionactivitybordercolor]];
+        box-shadow: -[[setting:coursesectionactivityleftborderwidth]]px 0 0 0 [[setting:coursesectionactivityassignleftbordercolor]];
     }
 
     &.modtype_assign .ad-activity-wrapper {
@@ -742,19 +740,6 @@ body:not(.single-section-page) .course-section-header {
 .section .activity .availabilityinfo {
     margin-left: 30px;
     margin-top: 1em;
-}
-
-.availabilityinfo .label-info {
-    background-color: [[setting:alertbackgroundcolorinfo]];
-    border-color: [[setting:alertbordercolorinfo]];
-    color: [[setting:alertcolorinfo]];
-    font-size: 14px;
-    padding: 10px;
-
-    a,
-    a:hover {
-        color: [[setting:alertcolorinfo]] !important;
-    }
 }
 
 // Activity further information styling.
@@ -783,7 +768,7 @@ li.activity div.actions-right {
 }
 
 .ad-activity-wrapper {
-    margin: [[setting:coursesectionactivitymargintop]] 0 [[setting:coursesectionactivitymarginbottom]] 0;
+    margin: [[setting:coursesectionactivitymargintop]]px 0 [[setting:coursesectionactivitymarginbottom]]px 0;
     padding: 5px 10px 5px 0;
 }
 

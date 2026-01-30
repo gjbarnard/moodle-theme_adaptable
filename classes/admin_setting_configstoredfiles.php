@@ -30,6 +30,7 @@ namespace theme_adaptable;
 use context_system;
 use context_user;
 use core\url;
+use stdClass;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -45,15 +46,6 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
 
     /** @var object the owner if set */
     protected $owner;
-
-    /** @var string Added files */
-    public const ADDEDFILES = 'added';
-
-    /** @var string Removed files */
-    public const REMOVEDFILES = 'removed';
-
-    /** @var string Error  */
-    public const ERROR = 'error';
 
     /**
      * Create new stored files setting.
@@ -115,7 +107,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
 
                 $this->write_setting('');
 
-                $context = new \stdClass();
+                $context = new stdClass();
                 $context->title = $this->visiblename;
                 $context->description = $this->description;
 
@@ -219,7 +211,6 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
             foreach ($files as $file) {
                 $filepath = $file->get_filepath() . $file->get_filename();
                 $newhashes[$filepath] = $file->get_contenthash() . $file->get_pathnamehash();
-                ;
             }
             unset($files);
         }
@@ -256,7 +247,41 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
     }
 
     /**
+     * Delete the setting.
+     *
+     * @return array Changes.
+     */
+    public function delete() {
+        $changed = [
+            toolbox::REMOVEDFILES => [],
+        ];
+
+        $options = $this->get_options();
+        $fs = get_file_storage();
+        $component = is_null($this->plugin) ? 'core' : $this->plugin;
+
+        $files = $fs->get_area_files(
+            $options['context']->id,
+            $component,
+            $this->filearea,
+            $this->itemid,
+            'sortorder,filepath,filename',
+            false
+        );
+        foreach ($files as $file) {
+            $changed[toolbox::REMOVEDFILES][] = $file->get_filename();
+            $file->delete();
+        }
+
+        unset_config($this->name, $component);
+
+        return $changed;
+    }
+
+    /**
      * Base 64 encode.
+     *
+     * @return string Setting JSON with files base64 encoded.
      */
     public function base64encode() {
         $component = is_null($this->plugin) ? 'theme_adaptable' : $this->plugin;
@@ -270,7 +295,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
             0,
             'sortorder,filepath,filename',
             false
-        );  // Item id could not be 0!
+        );
 
         $settingfiles = [];
         foreach ($files as $file) {
@@ -309,10 +334,11 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
     public function base64decode($settingarrjson) {
         global $USER;
 
-        $changed = [self::ADDEDFILES => [], self::REMOVEDFILES => [], self::ERROR => ''];
+        $changed = [toolbox::ADDEDFILES => [], toolbox::REMOVEDFILES => [], toolbox::ERROR => ''];
 
         $component = is_null($this->plugin) ? 'theme_adaptable' : $this->plugin;
         $syscontext = context_system::instance();
+        $usercontextid = context_user::instance($USER->id)->id;
 
         $settingarrjsondec = json_decode($settingarrjson, true);
         $settingarrdec = $settingarrjsondec[$this->filearea];
@@ -327,7 +353,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
 
             $base64dec = base64_decode($settingfilejsondec['content']);
             $filerecord = [
-                'contextid' => context_user::instance($USER->id)->id,
+                'contextid' => $usercontextid,
                 'component' => 'user',
                 'filearea' => 'draft',
                 'itemid' => file_get_unused_draft_itemid(),
@@ -351,10 +377,10 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
             0,
             'sortorder,filepath,filename',
             false
-        );  // Item id could not be 0!
+        );
         foreach ($files as $file) {
             if (!empty($file)) {
-                $changed[self::REMOVEDFILES][] = $file->get_filename();
+                $changed[toolbox::REMOVEDFILES][] = $file->get_filename();
                 $file->delete();
             }
         }
@@ -373,8 +399,8 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
                 'timemodified' => $draftfile->get_timemodified(),
                 'mimetype' => $draftfile->get_mimetype(),
             ];
-            $settingfile = $fs->create_file_from_string($filerecord, $draftfile->get_content()); // Replacement.
-            $changed[self::ADDEDFILES][] = $settingfile->get_filename();
+            $settingfile = $fs->create_file_from_storedfile($filerecord, $draftfile); // Replacement.
+            $changed[toolbox::ADDEDFILES][] = $settingfile->get_filename();
 
             $draftfile->delete(); // Finished with draft.
         }
@@ -386,7 +412,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
             0,
             'sortorder,filepath,filename',
             false
-        );  // Item id could not be 0!
+        );
         $filepath = '';
         if ($files) {
             /** @var stored_file $file */
@@ -395,11 +421,12 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
         }
         $result = ($this->config_write($this->filearea, $filepath) ? '' : get_string('errorsetting', 'admin'));
         if (!empty($result)) {
-            $changed[self::ERROR] = $result;
-        }
-        $callbackfunction = $this->updatedcallback;
-        if (!empty($callbackfunction) && is_callable($callbackfunction)) {
-            $callbackfunction($this->get_full_name());
+            $changed[toolbox::ERROR] = $result;
+        } else {
+            $callbackfunction = $this->updatedcallback;
+            if (!empty($callbackfunction) && is_callable($callbackfunction)) {
+                $callbackfunction($this->get_full_name());
+            }
         }
 
         return $changed;
@@ -437,14 +464,15 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
             0,
             'sortorder,filepath,filename',
             false
-        );  // Item id could not be 0!
+        );
+
         foreach ($files as $file) {
             $filepath = $file->get_filepath() . $file->get_filename();
             $url = url::make_file_url(
                 "$CFG->wwwroot/pluginfile.php",
                 "/$syscontext->id/$component/$filearea/$itemid" . $filepath
             );
-            // Now this is tricky because the we can not hardcode http or https here, lets use the relative link.
+            // Now this is tricky because the we cannot hardcode http or https here, lets use the relative link.
             // Note: unfortunately url does not support //urls yet.
             $url = preg_replace('|^https?://|i', '//', $url->out(false));
             $urls[] = $url;

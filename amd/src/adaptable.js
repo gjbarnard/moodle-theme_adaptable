@@ -264,7 +264,7 @@ const options = (data) => {
         // When the user scrolls the page, execute makeNavbarSticky().
         page.onscroll = function () { makeNavbarSticky(); };
 
-        $(window).resize(function () {
+        window.addEventListener("resize", function () {
             windowWidth = $(window).width();
             if (windowWidth < screensm) {
                 if (currentWindowSize != 1) {
@@ -278,10 +278,10 @@ const options = (data) => {
                 }
             } else {
                 if (currentWindowSize != 3) {
+                    // At screenmd and above, window width changes can change the height of the header.
+                    makeNavbarSticky(true);
                     currentWindowSize = 3;
                 }
-                // At screenmd and above, window width changes can change the height of the header.
-                makeNavbarSticky(true);
             }
             if (windowWidth < screenmd) {
                 if (isFixed === 0) {

@@ -48,11 +48,11 @@
 // Block titles.
 .block .header,
 .block > .card-body {
-    border-width: [[setting:blockheaderbordertop]] [[setting:blockheaderborderright]] [[setting:blockheaderborderbottom]] [[setting:blockheaderborderleft]];
     border-color: [[setting:blockbordercolor]];
+    border-radius: [[setting:blockheadertopradius]]px [[setting:blockheadertopradius]]px [[setting:blockheaderbottomradius]]px [[setting:blockheaderbottomradius]]px;
     border-style: [[setting:blockheaderbordertopstyle]];
+    border-width: [[setting:blockheaderbordertop]]px [[setting:blockheaderborderright]]px [[setting:blockheaderborderbottom]]px [[setting:blockheaderborderleft]]px;
     padding: 5px;
-    border-radius: [[setting:blockheadertopradius]] [[setting:blockheadertopradius]] [[setting:blockheaderbottomradius]] [[setting:blockheaderbottomradius]];
 }
 
 // Block header.
@@ -83,9 +83,9 @@
 // Block content.
 .block > .content {
     border-color: [[setting:blockbordercolor]];
-    border-radius: [[setting:blockmaintopradius]] [[setting:blockmaintopradius]] [[setting:blockmainbottomradius]] [[setting:blockmainbottomradius]];
+    border-radius: [[setting:blockmaintopradius]]px [[setting:blockmaintopradius]]px [[setting:blockmainbottomradius]]px [[setting:blockmainbottomradius]]px;
     border-style: [[setting:blockmainbordertopstyle]];
-    border-width: [[setting:blockmainbordertop]] [[setting:blockmainborderright]] [[setting:blockmainborderbottom]] [[setting:blockmainborderleft]];
+    border-width: [[setting:blockmainbordertop]]px [[setting:blockmainborderright]]px [[setting:blockmainborderbottom]]px [[setting:blockmainborderleft]]px;
     font-weight: normal;
     padding: 10px 5px;
 }

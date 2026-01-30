@@ -46,31 +46,96 @@ class toolbox {
      */
     protected static $instance = null;
 
-    /**
-     * @var themeconfigs Theme configurations.
-     */
+    /** @var themeconfigs Theme configurations. */
     protected static $themeconfigs = [];
 
-    /**
-     * @var toolbox Singleton instance of the local Adaptable toolbox.
-     */
+    /** @var toolbox Singleton instance of the local Adaptable toolbox. */
     private static $localinstance = null;
 
-    /**
-     * @var string Props.
-     */
+    /** @var string Props. */
     public const PROPS = 'props';
 
-    /**
-     * @var string File Prop Names.
-     */
-    public const FILEPROPNAMES = 'filepropnames';
+    /** @var string File prop Names. */
+    private const FILEPROPNAMES = 'filepropnames';
+
+    /** @var string File prop remove. */
+    private const FILEPROPREMOVE = 'filepropremove';
+
+    /** @var int Config stored file type */
+    private const CONFIGSTOREDFILETYPE = 1;
+
+    /** @var int Config html editor type */
+    private const CONFIGHTMLEDITORTYPE = 2;
+
+    /** @var string File property type string */
+    private const FILEPROPERTYTYPE = 'ptype';
+
+    /** @var string File property filearea string */
+    private const FILEPROPERTYFILEAREA = 'parea';
+
+    /** @var string File property itemid string */
+    private const FILEPROPERTYITEMID = 'pid';
 
     /**
-     * @var array File Property Names - using 'theme_adaptable_pluginfile' in lib.php as a reference.
+     * @var array File setting names - using 'theme_adaptable_pluginfile' in lib.php and the settings as references.
      */
-    private const FILEPROPERTYNAMES = ['logo', 'customjsfiles', 'favicon', 'homebk', 'frontpagerendererdefaultimage',
-        'headerbgimage', 'loginbgimage', ];
+    private const FILESETTINGNAMES = [
+        // Config stored file settings.
+        'logo' => [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE],
+        'customjsfiles' => [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE],
+        'favicon' => [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE],
+        'homebk' => [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE],
+        'frontpagerendererdefaultimage' => [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE],
+        'headerbgimage' => [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE],
+        'loginbgimage' => [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE],
+        // Config html editor settings.
+        'footnote' => [
+            self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+            self::FILEPROPERTYFILEAREA => 'shed_footnote',
+        ],
+        'infobox' => [
+            self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+            self::FILEPROPERTYFILEAREA => 'shed_infobox',
+            self::FILEPROPERTYITEMID => 1,
+        ],
+        'infobox2' => [
+            self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+            self::FILEPROPERTYFILEAREA => 'shed_infobox',
+            self::FILEPROPERTYITEMID => 2,
+        ],
+        'logintextboxtop' => [
+            self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+            self::FILEPROPERTYFILEAREA => 'shed_logintextboxtop',
+        ],
+        'logintextboxbottom' => [
+            self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+            self::FILEPROPERTYFILEAREA => 'shed_logintextboxbottom',
+        ],
+    ];
+
+    /** @var string Added files */
+    public const ADDEDFILES = 'addedfiles';
+
+    /** @var string Changed file data */
+    public const CHANGEDFILEDATA = 'changedfiledata';
+
+    /** @var string Removed files */
+    public const REMOVEDFILES = 'removedfiles';
+
+    /** @var string Deleted file data */
+    public const DELETEDFILEDATA = 'deletedfiledata';
+
+    /** @var string Replaced files */
+    public const REPLACEDFILES = 'replacedfiles';
+
+    /** @var string Unchanged files */
+    public const UNCHANGEDFILES = 'unchangedfiles';
+
+    /** @var string Unchanged file data */
+    public const UNCHANGEDFILEDATA = 'unchangedfiledata';
+
+    /** @var string Error  */
+    public const ERROR = 'error';
 
     /**
      * Gets the toolbox singleton.
@@ -408,10 +473,16 @@ class toolbox {
 
         $scss .= file_get_contents($basedir . '/scss/main.scss');
 
+        $localtoolbox = self::get_local_toolbox();
+        if (is_object($localtoolbox)) {
+            if (method_exists($localtoolbox, 'get_nosettings_scss')) { // Todo - Temporary until such time as not.
+                $scss .= $localtoolbox->get_nosettings_scss();
+            }
+        }
+
         static $settingssheets = [
             'adaptable',
             'admin',
-            'alerts',
             'blocks',
             'button',
             'core',
@@ -421,26 +492,33 @@ class toolbox {
             'form',
             'grade',
             'header',
-            'login',
             'menu',
             'misc',
             'modal',
             'navigation',
-            'news-ticker',
             'notifications',
             'quiz',
             'responsive',
             'search-social',
             'secondarynavigation',
             'tabs',
-            'print',
-            'categorycustom',
         ];
 
         $settingsscss = '';
         foreach ($settingssheets as $settingsheet) {
             $settingsscss .= file_get_contents($basedir . '/scss/settings/' . $settingsheet . '.scss');
         }
+
+        if (is_object($localtoolbox)) {
+            if (method_exists($localtoolbox, 'get_settings_scss')) { // Todo - Temporary until such time as not.
+                $settingsscss .= $localtoolbox->get_settings_scss();
+            }
+
+            // Set category custom CSS.
+            $settingsscss = $localtoolbox->set_categorycustomcss($settingsscss, $theme->settings);
+        }
+
+        $settingsscss .= file_get_contents($basedir . '/scss/settings/print.scss');
 
         $scss .= self::process_scss($settingsscss, $theme);
 
@@ -457,13 +535,6 @@ class toolbox {
      * @return string The parsed SCSS.
      */
     private static function process_scss($scss, $theme) {
-
-        // Set category custom CSS.
-        $localtoolbox = self::get_local_toolbox();
-        if (is_object($localtoolbox)) {
-            $scss = $localtoolbox->set_categorycustomcss($scss, $theme->settings);
-        }
-
         // Collapsed Topics colours.
         if (empty($theme->settings->collapsedtopicscoloursenabled)) {
             $scss .= '.theme_adaptable .course-content ul.ctopics li.section {' . PHP_EOL;
@@ -520,10 +591,10 @@ class toolbox {
             '[[setting:buttonlogincolor]]' => '#c64543',
             '[[setting:buttonloginhovercolor]]' => '#e53935',
             '[[setting:buttonlogintextcolor]]' => '#0084c2',
-            '[[setting:buttonloginpadding]]' => '0',
+            '[[setting:buttonloginpadding]]' => 0,
             '[[setting:buttonloginheight]]' => '24px',
-            '[[setting:buttonloginmargintop]]' => '2px',
-            '[[setting:buttonradius]]' => '5px',
+            '[[setting:buttonloginmargintop]]' => 2,
+            '[[setting:buttonradius]]' => 5,
             '[[setting:buttondropshadow]]' => '0',
             '[[setting:headertoprowdividingline]]' => '#ffffff',
             '[[setting:footerdividingline]]' => '#ffffff',
@@ -551,59 +622,59 @@ class toolbox {
             '[[setting:blockregionbackgroundcolor]]' => 'transparent',
             '[[setting:marketblockbordercolor]]' => '#e8eaeb',
             '[[setting:marketblocksbackgroundcolor]]' => 'transparent',
-            '[[setting:blockheaderbordertop]]' => '1px',
-            '[[setting:blockheaderborderleft]]' => '0',
-            '[[setting:blockheaderborderright]]' => '0',
-            '[[setting:blockheaderborderbottom]]' => '0',
-            '[[setting:blockmainbordertop]]' => '0',
-            '[[setting:blockmainborderleft]]' => '0',
-            '[[setting:blockmainborderright]]' => '0',
-            '[[setting:blockmainborderbottom]]' => '0',
+            '[[setting:blockheaderbordertop]]' => 1,
+            '[[setting:blockheaderborderleft]]' => 0,
+            '[[setting:blockheaderborderright]]' => 0,
+            '[[setting:blockheaderborderbottom]]' => 0,
+            '[[setting:blockmainbordertop]]' => 0,
+            '[[setting:blockmainborderleft]]' => 0,
+            '[[setting:blockmainborderright]]' => 0,
+            '[[setting:blockmainborderbottom]]' => 0,
             '[[setting:blockheaderbordertopstyle]]' => 'dashed',
             '[[setting:blockmainbordertopstyle]]' => 'solid',
-            '[[setting:blockheadertopradius]]' => '0',
-            '[[setting:blockheaderbottomradius]]' => '0',
-            '[[setting:blockmaintopradius]]' => '0',
-            '[[setting:blockmainbottomradius]]' => '0',
+            '[[setting:blockheadertopradius]]' => 0,
+            '[[setting:blockheaderbottomradius]]' => 0,
+            '[[setting:blockmaintopradius]]' => 0,
+            '[[setting:blockmainbottomradius]]' => 0,
             '[[setting:coursesectionbgcolor]]' => '#FFFFFF',
             '[[setting:coursesectionheaderbg]]' => '#FFFFFF',
             '[[setting:coursesectionheaderbordercolor]]' => '#F3F3F3',
             '[[setting:coursesectionheaderborderstyle]]' => 'none',
-            '[[setting:coursesectionheaderborderwidth]]' => '0px',
-            '[[setting:coursesectionheaderborderradiustop]]' => '0px',
-            '[[setting:coursesectionheaderborderradiusbottom]]' => '0px',
-            '[[setting:coursesectionborderstyle]]' => '1px',
-            '[[setting:coursesectionborderwidth]]' => '1px',
+            '[[setting:coursesectionheaderborderwidth]]' => 0,
+            '[[setting:coursesectionheaderborderradiustop]]' => 0,
+            '[[setting:coursesectionheaderborderradiusbottom]]' => 0,
+            '[[setting:coursesectionborderstyle]]' => 'solid',
+            '[[setting:coursesectionborderwidth]]' => 1,
             '[[setting:coursesectionbordercolor]]' => '#e8eaeb',
-            '[[setting:coursesectionborderradius]]' => '0px',
-            '[[setting:coursesectionactivityiconsize]]' => '24px',
+            '[[setting:coursesectionborderradius]]' => 0,
+            '[[setting:coursesectionactivityiconsize]]' => 24,
             '[[setting:coursesectionactivityheadingcolour]]' => '#0066cc',
-            '[[setting:coursesectionactivityborderwidth]]' => '2px',
+            '[[setting:coursesectionactivitybottomborderwidth]]' => 2,
             '[[setting:coursesectionactivityborderstyle]]' => 'dashed',
             '[[setting:coursesectionactivitybordercolor]]' => '#eeeeee',
-            '[[setting:coursesectionactivityleftborderwidth]]' => '3px',
+            '[[setting:coursesectionactivityleftborderwidth]]' => 3,
             '[[setting:coursesectionactivityassignleftbordercolor]]' => '#0066cc',
             '[[setting:coursesectionactivityassignbgcolor]]' => '#FFFFFF',
             '[[setting:coursesectionactivityforumleftbordercolor]]' => '#990099',
             '[[setting:coursesectionactivityforumbgcolor]]' => '#FFFFFF',
             '[[setting:coursesectionactivityquizleftbordercolor]]' => '#FF3333',
             '[[setting:coursesectionactivityquizbgcolor]]' => '#FFFFFF',
-            '[[setting:coursesectionactivitymargintop]]' => '2px',
-            '[[setting:coursesectionactivitymarginbottom]]' => '2px',
+            '[[setting:coursesectionactivitymargintop]]' => 2,
+            '[[setting:coursesectionactivitymarginbottom]]' => 2,
             '[[setting:tilesbordercolor]]' => '#3A454b',
-            '[[setting:slidermargintop]]' => '20px',
-            '[[setting:slidermarginbottom]]' => '20px',
+            '[[setting:slidermargintop]]' => 20,
+            '[[setting:slidermarginbottom]]' => 20,
             '[[setting:currentcolor]]' => '#d9edf7',
             '[[setting:sectionheadingcolor]]' => '#3A454b',
             '[[setting:menufontsize]]' => '14px',
-            '[[setting:menufontpadding]]' => '20px',
+            '[[setting:menufontpadding]]' => 20,
             '[[setting:menubkcolor]]' => '#ffffff',
             '[[setting:menufontcolor]]' => '#444444',
             '[[setting:menubkhovercolor]]' => '#00B3A1',
             '[[setting:menufonthovercolor]]' => '#ffffff',
             '[[setting:menubordercolor]]' => '#00B3A1',
             '[[setting:mobilemenubkcolor]]' => '#F9F9F9',
-            '[[setting:navbardropdownborderradius]]' => '0',
+            '[[setting:navbardropdownborderradius]]' => 0,
             '[[setting:navbardropdownhovercolor]]' => '#EEE',
             '[[setting:navbardropdowntextcolor]]' => '#007',
             '[[setting:navbardropdowntexthovercolor]]' => '#000',
@@ -612,7 +683,7 @@ class toolbox {
             '[[setting:covfontcolor]]' => '#ffffff',
             '[[setting:editonbk]]' => '#4caf50',
             '[[setting:editoffbk]]' => '#f44336',
-            '[[setting:edithorizontalpadding]]' => '4px',
+            '[[setting:edithorizontalpadding]]' => 4,
             '[[setting:editfont]]' => '#ffffff',
             '[[setting:sliderh3color]]' => '#ffffff',
             '[[setting:sliderh4color]]' => '#ffffff',
@@ -625,7 +696,7 @@ class toolbox {
             '[[setting:slideroption2color]]' => '#51666C',
             '[[setting:slideroption2submitcolor]]' => '#ffffff',
             '[[setting:slideroption2a]]' => '#51666C',
-            '[[setting:socialsize]]' => '37px',
+            '[[setting:socialsize]]' => 37,
             '[[setting:mobile]]' => '22',
             '[[setting:socialpaddingside]]' => 16,
             '[[setting:socialpaddingtop]]' => '0%',
@@ -643,7 +714,7 @@ class toolbox {
             '[[setting:coursetitlemaxwidth]]' => '20',
             '[[setting:responsiveheader]]' => 'd-none d-lg-flex',
             '[[setting:responsivesocial]]' => 'd-none d-lg-block',
-            '[[setting:responsivesocialsize]]' => '34px',
+            '[[setting:responsivesocialsize]]' => 34,
             '[[setting:responsivelogo]]' => 'd-none d-lg-inline-block',
             '[[setting:responsivesectionnav]]' => '1',
             '[[setting:responsiveticker]]' => 'd-none d-lg-block',
@@ -654,25 +725,12 @@ class toolbox {
             '[[setting:enableavailablecourses]]' => 'inherit',
             '[[setting:enableticker]]' => true,
             '[[setting:enabletickermy]]' => true,
-            '[[setting:tickerheaderbackgroundcolour]]' => '#00796b',
-            '[[setting:tickerheadertextcolour]]' => '#eee',
-            '[[setting:tickerconstainerbackgroundcolour]]' => '#009688',
-            '[[setting:tickerconstainertextcolour]]' => '#eee',
             '[[setting:onetopicactivetabbackgroundcolor]]' => '#d9edf7',
             '[[setting:onetopicactivetabtextcolor]]' => '#000000',
             '[[setting:fontblockheaderweight]]' => '400',
             '[[setting:fontblockheadersize]]' => '22px',
             '[[setting:fontblockheadercolor]]' => '#3A454b',
             '[[setting:blockiconsheadersize]]' => '20px',
-            '[[setting:alertcolorinfo]]' => '#3a87ad',
-            '[[setting:alertbackgroundcolorinfo]]' => '#d9edf7',
-            '[[setting:alertbordercolorinfo]]' => '#bce8f1',
-            '[[setting:alertcolorsuccess]]' => '#468847',
-            '[[setting:alertbackgroundcolorsuccess]]' => '#dff0d8',
-            '[[setting:alertbordercolorsuccess]]' => '#d6e9c6',
-            '[[setting:alertcolorwarning]]' => '#8a6d3b',
-            '[[setting:alertbackgroundcolorwarning]]' => '#fcf8e3',
-            '[[setting:alertbordercolorwarning]]' => '#fbeed5',
             '[[setting:forumheaderbackgroundcolor]]' => '#ffffff',
             '[[setting:forumbodybackgroundcolor]]' => '#ffffff',
             '[[setting:introboxbackgroundcolor]]' => '#ffffff',
@@ -684,13 +742,18 @@ class toolbox {
             '[[setting:gdprbutton]]' => 1,
             '[[setting:infoiconcolor]]' => '#5bc0de',
             '[[setting:dangericoncolor]]' => '#d9534f',
-            '[[setting:loginheader]]' => 0,
-            '[[setting:loginfooter]]' => 0,
             '[[setting:printpageorientation]]' => 'landscape',
             '[[setting:printbodyfontsize]]' => '11pt',
             '[[setting:printmargin]]' => '2cm 1cm 2cm 2cm',
             '[[setting:printlineheight]]' => '1.2',
         ];
+
+        $localtoolbox = self::get_local_toolbox();
+        if (is_object($localtoolbox)) {
+            if (method_exists($localtoolbox, 'get_setting_defaults')) { // Todo - Temporary until such time as not.
+                $defaults = array_merge($defaults, $localtoolbox->get_setting_defaults());
+            }
+        }
 
         // Get all the defined settings for the theme and replace defaults.
         foreach ($theme->settings as $key => $val) {
@@ -726,16 +789,9 @@ class toolbox {
         $defaults['[[setting:homebkg]]'] = $homebkg;
 
         if (is_object($localtoolbox)) {
-            // DEPRECATED.  Here to allow initial update of local_adaptable.
-            $theme->settings->headerbkcolor2 = $theme->settings->headermainrowbkcolour;
-            $retr = $localtoolbox->login_style($theme);
-            $defaults['[[setting:loginbgimage]]'] = $retr->loginbgimage;
-            $defaults['[[setting:loginbgstyle]]'] = $retr->loginbgstyle;
-            $defaults['[[setting:loginbgopacity]]'] = $retr->loginbgopacity;
-        } else {
-            $defaults['[[setting:loginbgimage]]'] = '';
-            $defaults['[[setting:loginbgstyle]]'] = '';
-            $defaults['[[setting:loginbgopacity]]'] = '';
+            if (method_exists($localtoolbox, 'login_defaults')) { // Todo - Temporary until such time as not.
+                $defaults = array_merge($defaults, $localtoolbox->login_defaults($theme));
+            }
         }
 
         $socialpaddingsidehalf = '16';
@@ -927,7 +983,7 @@ class toolbox {
      * @param string $pluginfrankenstyle Plugin frankenstle.
      * @param array $theirprops Properties received.
      *
-     * @return array properties
+     * @return array properties, with id and value when $theirprops supplied, otherwise just value.
      */
     public static function compile_properties($pluginfrankenstyle, $theirprops = null) {
         global $CFG, $DB;
@@ -935,88 +991,205 @@ class toolbox {
         $ourprops = [];
         $themeprops = $DB->get_records('config_plugins', ['plugin' => $pluginfrankenstyle]);
 
-        if ($theirprops) {
-            // In a format where we can update our props from their props.
-            // Need id and value pairs in order to be able to update existing records using the id.
-            $data = new stdClass();
-            $data->id = 0;
-            $data->value = $CFG->version;
-            $ourprops['moodle_version'] = $data;
-            // Convert 'version' to 'plugin_version' and put second.
-            foreach ($themeprops as $themeprop) {
-                if ($themeprop->name == 'version') {
-                    $data = new stdClass();
-                    $data->id = $themeprop->id;
-                    $data->value = $themeprop->value;
-                    $ourprops['plugin_version'] = $data;
-                    unset($themeprops[$themeprop->id]);
-                    break;
-                }
+        $ourprops['moodle_version'] = $CFG->version;
+        // Put the plugin version next so that it will be second in the table.
+        foreach ($themeprops as $themeprop) {
+            if ($themeprop->name == 'version') {
+                $ourprops['plugin_version'] = $themeprop->value;
+                unset($themeprops[$themeprop->id]);
+                break;
             }
-            // Put 'feature_version' third.
-            foreach ($themeprops as $themeprop) {
-                if ($themeprop->name == 'feature_version') {
-                    $data = new stdClass();
-                    $data->id = $themeprop->id;
-                    $data->value = $themeprop->value;
-                    $ourprops['feature_version'] = $data;
-                    unset($themeprops[$themeprop->id]);
-                    break;
-                }
+        }
+        // Put the feature version next so that it will be third in the table.
+        foreach ($themeprops as $themeprop) {
+            if ($themeprop->name == 'feature_version') {
+                $ourprops['feature_version'] = $themeprop->value;
+                unset($themeprops[$themeprop->id]);
+                break;
             }
-            foreach ($themeprops as $themeprop) {
-                $data = new stdClass();
-                $data->id = $themeprop->id;
-                $data->value = $themeprop->value;
-                $ourprops[$themeprop->name] = $data;
-            }
-        } else {
-            $ourprops['moodle_version'] = $CFG->version;
-            // Put the plugin version next so that it will be second in the table.
-            foreach ($themeprops as $themeprop) {
-                if ($themeprop->name == 'version') {
-                    $ourprops['plugin_version'] = $themeprop->value;
-                    unset($themeprops[$themeprop->id]);
-                    break;
-                }
-            }
-            // Put the feature version next so that it will be third in the table.
-            foreach ($themeprops as $themeprop) {
-                if ($themeprop->name == 'feature_version') {
-                    $ourprops['feature_version'] = $themeprop->value;
-                    unset($themeprops[$themeprop->id]);
-                    break;
-                }
-            }
+        }
 
-            foreach ($themeprops as $themeprop) {
-                $ourprops[$themeprop->name] = $themeprop->value;
-            }
+        foreach ($themeprops as $themeprop) {
+            $ourprops[$themeprop->name] = $themeprop->value;
+            unset($themeprops[$themeprop->id]);
         }
 
         // File property processing.
-        $ourfileprops = self::FILEPROPERTYNAMES;
+        $ourfileprops = self::FILESETTINGNAMES;
+        $filepropremove = [];
 
-        // If receiving properties then we need to take into account the slides being set, not what we currently have.
+        // If receiving properties then we need to take into account the count being set, not what we currently have.
         // Using 'theme_adaptable_pluginfile' in lib.php as a reference.
         if ($theirprops) {
-            $slidercount = $theirprops['slidercount'];
+            $props = $theirprops;
         } else {
-            $slidercount = self::get_setting('slidercount');
+            $props = $ourprops;
         }
 
-        // Slide show.
+        // Config stored file based.
+        // Slider image and caption.
+        $slidercount = $props['slidercount'];
         for ($propslide = 1; $propslide <= $slidercount; $propslide++) {
-            $ourfileprops[] = 'p' . $propslide;
+            $ourfileprops['p' . $propslide] = [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE];
+            $slidercap = 'p' . $propslide . 'cap';
+            $ourfileprops[$slidercap] = [
+                self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+                self::FILEPROPERTYFILEAREA => 'shed_pcap',
+                self::FILEPROPERTYITEMID => $propslide,
+            ];
+        }
+
+        if ($theirprops) {
+            if ($ourprops['slidercount'] > $theirprops['slidercount']) {
+                // Schedule removal of excess.
+                for ($propslide = $theirprops['slidercount'] + 1; $propslide <= $ourprops['slidercount']; $propslide++) {
+                    $filepropremove['p' . $propslide] = [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE];
+                    $slidercap = 'p' . $propslide . 'cap';
+                    $filepropremove[$slidercap] = [
+                        self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+                        self::FILEPROPERTYFILEAREA => 'shed_pcap',
+                        self::FILEPROPERTYITEMID => $propslide,
+                    ];
+                }
+            }
         }
 
         // Category.
         $customheaderids = explode(',', get_config('theme_adaptable', 'categoryhavecustomheader'));
         foreach ($customheaderids as $customheaderid) {
-            $ourfileprops[] = 'categoryheaderbgimage' . $customheaderid;
-            $ourfileprops[] = 'categoryheaderlogo' . $customheaderid;
+            $ourfileprops['categoryheaderbgimage' . $customheaderid] = [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE];
+            $ourfileprops['categoryheaderlogo' . $customheaderid] = [self::FILEPROPERTYTYPE => self::CONFIGSTOREDFILETYPE];
         }
 
+        // Config html editor based.  Sort of as some functionalty uses both.
+        // Alerts.
+        $alertcount = $props['alertcount'];
+        for ($alertindex = 1; $alertindex <= $alertcount; $alertindex++) {
+            $alerttext = 'alert' . $alertindex;
+            $ourfileprops[$alerttext] = [
+                self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+                self::FILEPROPERTYFILEAREA => 'shed_alerttext',
+                self::FILEPROPERTYITEMID => $alertindex,
+            ];
+        }
+
+        if ($theirprops) {
+            if ($ourprops['alertcount'] > $theirprops['alertcount']) {
+                // Schedule removal of excess.
+                for ($alertindex = $theirprops['alertcount'] + 1; $alertindex <= $ourprops['alertcount']; $alertindex++) {
+                    $filepropremove[$alerttext] = [
+                        self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+                        self::FILEPROPERTYFILEAREA => 'shed_alerttext',
+                        self::FILEPROPERTYITEMID => $alertindex,
+                    ];
+                }
+            }
+        }
+
+        // Footer blocks.  Ref: get_footer_blocks().
+        $helper = self::admin_settings_layout_helper('footerlayoutrow', 3, $props);
+        if ($helper['totalblocks'] > 0) {
+            $blockcount = 0;
+            foreach ($helper['rows'] as $row) {
+                foreach ($row as $block) {
+                    $blockcount++;
+                    $footercontent = 'footer' . $blockcount . 'content';
+                    $ourfileprops[$footercontent] = [
+                        self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+                        self::FILEPROPERTYFILEAREA => 'shed_footercontent',
+                        self::FILEPROPERTYITEMID => $blockcount,
+                    ];
+                }
+            }
+        }
+
+        if ($theirprops) {
+            // Props is theirprops.
+            $ourhelper = self::admin_settings_layout_helper('footerlayoutrow', 3, $ourprops);
+            if ($ourhelper['totalblocks'] > $helper['totalblocks']) {
+                // Schedule removal of excess.
+                $blockcount = 0;
+                foreach ($ourhelper['rows'] as $row) {
+                    foreach ($row as $block) {
+                        $blockcount++;
+                        if ($blockcount > $helper['totalblocks']) {
+                            $footercontent = 'footer' . $blockcount . 'content';
+                            $filepropremove[$footercontent] = [
+                                self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+                                self::FILEPROPERTYFILEAREA => 'shed_footercontent',
+                                self::FILEPROPERTYITEMID => $blockcount,
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+
+        // Marketing blocks.
+        $helper = self::admin_settings_layout_helper('marketlayoutrow', 5, $props);
+        if ($helper['totalblocks'] > 0) {
+            $blockcount = 0;
+            foreach ($helper['rows'] as $row) {
+                foreach ($row as $block) {
+                    $blockcount++;
+                    $market = 'market' . $blockcount;
+                    $ourfileprops[$market] = [
+                        self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+                        self::FILEPROPERTYFILEAREA => 'shed_market',
+                        self::FILEPROPERTYITEMID => $blockcount,
+                    ];
+                }
+            }
+        }
+
+        if ($theirprops) {
+            // Props is theirprops.
+            $ourhelper = self::admin_settings_layout_helper('marketlayoutrow', 5, $ourprops);
+            if ($ourhelper['totalblocks'] > $helper['totalblocks']) {
+                // Schedule removal of excess.
+                $blockcount = 0;
+                foreach ($ourhelper['rows'] as $row) {
+                    foreach ($row as $block) {
+                        $blockcount++;
+                        if ($blockcount > $helper['totalblocks']) {
+                            $market = 'market' . $blockcount;
+                            $filepropremove[$market] = [
+                                self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+                                self::FILEPROPERTYFILEAREA => 'shed_market',
+                                self::FILEPROPERTYITEMID => $blockcount,
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+
+        // News ticker.
+        $newstickercount = $props['newstickercount'];
+        for ($newstickerindex = 1; $newstickerindex <= $newstickercount; $newstickerindex++) {
+            $tickertext = 'tickertext' . $newstickerindex;
+            $ourfileprops[$tickertext] = [
+                self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+                self::FILEPROPERTYFILEAREA => 'shed_tickertext',
+                self::FILEPROPERTYITEMID => $newstickerindex,
+            ];
+        }
+
+        if ($theirprops) {
+            if ($ourprops['newstickercount'] > $theirprops['newstickercount']) {
+                // Schedule removal of excess.
+                for ($nti = $theirprops['newstickercount'] + 1; $nti <= $ourprops['newstickercount']; $nti++) {
+                    $tickertext = 'tickertext' . $nti;
+                    $filepropremove[$tickertext] = [
+                        self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
+                        self::FILEPROPERTYFILEAREA => 'shed_tickertext',
+                        self::FILEPROPERTYITEMID => $nti,
+                    ];
+                }
+            }
+        }
+
+        // Property meta.
         if (array_key_exists('propertyfiles', $ourprops)) {
             unset($ourprops['propertyfiles']); // Prevent props in props.
         }
@@ -1031,7 +1204,11 @@ class toolbox {
             unset($ourprops['fileputprops']); // Prevent property file in props.
         }
 
-        $properties = [self::PROPS => $ourprops, self::FILEPROPNAMES => $ourfileprops];
+        $properties = [
+            self::PROPS => $ourprops,
+            self::FILEPROPNAMES => $ourfileprops,
+            self::FILEPROPREMOVE => $filepropremove,
+        ];
 
         return $properties;
     }
@@ -1050,21 +1227,34 @@ class toolbox {
         if ($encodefiles) {
             $fileprops = $props[self::FILEPROPNAMES];
 
-            foreach ($fileprops as $fileprop) {
-                $name = $pluginfrankenstyle . '/' . $fileprop;
-                // Remove any number to get a common string.
-                $title = get_string(preg_replace('/[0-9]+/', '', $fileprop), $pluginfrankenstyle);
+            foreach ($fileprops as $filepropname => $fileproptype) {
+                $name = $pluginfrankenstyle . '/' . $filepropname;
+                $title = $name;
                 $description = $title;
-                $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-                    $name,
-                    $title,
-                    $description,
-                    $fileprop,
-                    null
-                );
+                $setting = null;
+                if ($fileproptype[self::FILEPROPERTYTYPE] == self::CONFIGSTOREDFILETYPE) {
+                    $setting = new admin_setting_configstoredfiles(
+                        $name,
+                        $title,
+                        $description,
+                        $filepropname,
+                        null
+                    );
+                } else if ($fileproptype[self::FILEPROPERTYTYPE] == self::CONFIGHTMLEDITORTYPE) {
+                    $setting = new admin_setting_confightmleditor(
+                        $name,
+                        $title,
+                        $description,
+                        '',
+                        $fileproptype[self::FILEPROPERTYFILEAREA]
+                    );
+                    if (!empty($fileproptype[self::FILEPROPERTYITEMID])) {
+                        $setting->setitemid($fileproptype[self::FILEPROPERTYITEMID]);
+                    }
+                }
                 $encoded = $setting->base64encode();
 
-                $props[self::PROPS][$fileprop] = $encoded;
+                $props[self::PROPS][$filepropname] = $encoded;
             }
         }
 
@@ -1080,8 +1270,6 @@ class toolbox {
      * @return string Result.
      */
     public static function put_properties($pluginname, $pluginfrankenstyle, $props) {
-        global $DB;
-
         // Get the current properties as a reference and for theme version information.
         $currentprops = self::compile_properties($pluginfrankenstyle, $props);
 
@@ -1102,7 +1290,7 @@ class toolbox {
             $pluginfrankenstyle,
             [
                 'name' => 'Moodle',
-                'version' => $currentprops[self::PROPS]['moodle_version']->value,
+                'version' => $currentprops[self::PROPS]['moodle_version'],
             ]
         ) . PHP_EOL;
         unset($currentprops[self::PROPS]['moodle_version']);
@@ -1127,7 +1315,7 @@ class toolbox {
             $pluginfrankenstyle,
             [
                 'name' => $pluginname,
-                'version' => $currentprops[self::PROPS]['plugin_version']->value,
+                'version' => $currentprops[self::PROPS]['plugin_version'],
             ]
         ) . PHP_EOL;
         unset($currentprops[self::PROPS][$pluginversionkey]);
@@ -1142,18 +1330,19 @@ class toolbox {
                     'version' => $props['feature_version'],
                 ]
             ) . PHP_EOL;
-            $propsfeatureversion = $currentprops[self::PROPS]['feature_version']->value;
+            $propsfeatureversion = $props['feature_version'];
             unset($props['feature_version']);
         } else {
             // Does not exist, so check for all possible changes.
             $propsfeatureversion = 0;
         }
+
         $report .= get_string(
             'putpropertyourfeatureversion',
             $pluginfrankenstyle,
             [
                 'name' => $pluginname,
-                'version' => $currentprops[self::PROPS]['feature_version']->value,
+                'version' => $currentprops[self::PROPS]['feature_version'],
             ]
         ) . PHP_EOL . PHP_EOL;
         unset($currentprops[self::PROPS]['feature_version']);
@@ -1164,25 +1353,25 @@ class toolbox {
         $preprocessfilesettings = $currentprops[self::FILEPROPNAMES];
 
         // Process the file properties.
-        foreach ($preprocessfilesettings as $preprocessfilesetting) {
-            self::put_prop_file_preprocess($pluginfrankenstyle, $preprocessfilesetting, $props, $filestoreport, $fileschanged);
-            unset($currentprops[self::PROPS][$preprocessfilesetting]);
+        foreach ($preprocessfilesettings as $preprocessfilesetting => $preprocessfiletype) {
+            self::put_prop_file_preprocess(
+                $pluginfrankenstyle,
+                $preprocessfilesetting,
+                $preprocessfiletype,
+                $props,
+                $currentprops,
+                $filestoreport,
+                $fileschanged
+            );
         }
-
-        if ($fileschanged) {
-            $report .= get_string('putpropertiesreportfileschanged', $pluginfrankenstyle) . PHP_EOL . $fileschanged . PHP_EOL;
-        }
-
-        if ($filestoreport) {
-            $report .= get_string('putpropertiesreportfiles', $pluginfrankenstyle) . PHP_EOL . $filestoreport . PHP_EOL;
-        }
-
-        // Need to ignore and report on any unknown settings.
-        $report .= get_string('putpropertiessettingsreport', $pluginfrankenstyle) . PHP_EOL;
 
         // Process any settings updates first.
         $updated = '';
-        $updates = self::process_settings_name_updates($props, $pluginfrankenstyle, $propsfeatureversion);
+        $updates = upgrade_toolbox::process_settings_name_updates($props, $pluginfrankenstyle, $propsfeatureversion);
+        $updates = array_merge(
+            $updates,
+            upgrade_toolbox::process_settings_area_updates($props, $pluginfrankenstyle, $propsfeatureversion)
+        );
         foreach ($updates as $update) {
             $updated .= $update . PHP_EOL;
         }
@@ -1196,27 +1385,53 @@ class toolbox {
             $settinglog = '\'' . $propkey . '\' ' .
                 get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' . $propvalue . '\'';
             if (array_key_exists($propkey, $currentprops[self::PROPS])) {
-                if ($propvalue != $currentprops[self::PROPS][$propkey]->value) {
+                if ($propvalue != $currentprops[self::PROPS][$propkey]) {
                     $settinglog .= ' ' . get_string('putpropertiesfrom', $pluginfrankenstyle) . ' \'' .
-                    $currentprops[self::PROPS][$propkey]->value . '\'';
+                    $currentprops[self::PROPS][$propkey] . '\'';
                     $changed .= $settinglog . '.' . PHP_EOL;
-                    $DB->update_record(
-                        'config_plugins',
-                        ['id' => $currentprops[self::PROPS][$propkey]->id, 'value' => $propvalue],
-                        true
-                    );
+                    set_config($propkey, $propvalue, $pluginfrankenstyle);
                 } else {
                     $unchanged .= $settinglog . '.' . PHP_EOL;
                 }
+                // Processed property, so remove from current props.
+                unset($currentprops[self::PROPS][$propkey]);
             } else if (self::to_add_property($propkey)) {
                 // Properties that have an index and don't already exist.
-                $DB->insert_record('config_plugins', [
-                    'plugin' => $pluginfrankenstyle, 'name' => $propkey, 'value' => $propvalue, ], true);
+                set_config($propkey, $propvalue, $pluginfrankenstyle);
                 $added .= $settinglog . '.' . PHP_EOL;
             } else {
                 $ignored .= $settinglog . '.' . PHP_EOL;
             }
         }
+        // If there are any current properties left, then they are unchanged.
+        foreach ($currentprops[self::PROPS] as $currentpropkey => $currentpropkey) {
+            // Todo: Need to discover any orphaned file properties and delete them.
+            $settinglog = '\'' . $currentpropkey . '\' ' .
+                get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' . $currentpropkey . '\'';
+            $unchanged .= $settinglog . '.' . PHP_EOL;
+        }
+
+        $fileremovesettings = $currentprops[self::FILEPROPREMOVE];
+        foreach ($fileremovesettings as $fileremovesetting => $fileremovetype) {
+            self::put_prop_file_remove(
+                $pluginfrankenstyle,
+                $fileremovesetting,
+                $fileremovetype,
+                $fileschanged,
+                $filestoreport
+            );
+        }
+
+        // Report.
+        if ($fileschanged) {
+            $report .= get_string('putpropertiesreportfileschanged', $pluginfrankenstyle) . PHP_EOL . $fileschanged . PHP_EOL;
+        }
+
+        if ($filestoreport) {
+            $report .= get_string('putpropertiesreportfilesettings', $pluginfrankenstyle) . PHP_EOL . $filestoreport . PHP_EOL;
+        }
+
+        $report .= get_string('putpropertiessettingsreport', $pluginfrankenstyle) . PHP_EOL;
 
         if (!empty($updated)) {
             $report .= get_string('putpropertiesupdated', $pluginfrankenstyle) . PHP_EOL . $updated . PHP_EOL;
@@ -1238,7 +1453,7 @@ class toolbox {
     }
 
     /**
-     * Property to add
+     * Property to add.
      *
      * @param int $propkey
 
@@ -1294,281 +1509,184 @@ class toolbox {
      * Pre process properties file.
      *
      * @param string $pluginfrankenstyle
-     * @param int $key
-     * @param array $props
+     * @param string $key
+     * @param int    $type
+     * @param array  $props
+     * @param array  $currentprops
      * @param string $filestoreport
      * @param string $fileschanged
      */
-    private static function put_prop_file_preprocess($pluginfrankenstyle, $key, &$props, &$filestoreport, &$fileschanged) {
+    private static function put_prop_file_preprocess(
+        $pluginfrankenstyle,
+        $key,
+        $type,
+        &$props,
+        &$currentprops,
+        &$filestoreport,
+        &$fileschanged
+    ) {
         if (!empty($props[$key])) {
             if ($props[$key][0] == '{') { // Is a JSON encoded file(s).
                 $name = $pluginfrankenstyle . '/' . $key;
-                // Remove any number to get a common string.
-                $title = get_string(preg_replace('/[0-9]+/', '', $key), $pluginfrankenstyle);
+                $title = $name;
                 $description = $title;
-                $setting = new \theme_adaptable\admin_setting_configstoredfiles(
-                    $name,
-                    $title,
-                    $description,
-                    $key,
-                    null
-                );
+                $setting = null;
+                if ($type[self::FILEPROPERTYTYPE] == self::CONFIGSTOREDFILETYPE) {
+                    $setting = new admin_setting_configstoredfiles(
+                        $name,
+                        $title,
+                        $description,
+                        $key,
+                        null
+                    );
+                } else if ($type[self::FILEPROPERTYTYPE] == self::CONFIGHTMLEDITORTYPE) {
+                    $setting = new admin_setting_confightmleditor(
+                        $name,
+                        $title,
+                        $description,
+                        '',
+                        $type[self::FILEPROPERTYFILEAREA]
+                    );
+                    if (!empty($type[self::FILEPROPERTYITEMID])) {
+                        $setting->setitemid($type[self::FILEPROPERTYITEMID]);
+                    }
+                }
+                // If setting is null then code fault exception needed as logic!
                 $changed = $setting->base64decode($props[$key]);
-                if (!empty($changed[\theme_adaptable\admin_setting_configstoredfiles::REMOVEDFILES])) {
-                    foreach ($changed[\theme_adaptable\admin_setting_configstoredfiles::REMOVEDFILES] as $removedfilename) {
+                if (!empty($changed[self::REMOVEDFILES])) {
+                    foreach ($changed[self::REMOVEDFILES] as $removeddata) {
                         $fileschanged .= get_string(
                             'propertyfileremoved',
                             $pluginfrankenstyle,
-                            ['filename' => $removedfilename, 'settingname' => $key]
+                            ['data' => $removeddata, 'settingname' => $key]
                         ) . PHP_EOL;
                     }
                 }
-                if (!empty($changed[\theme_adaptable\admin_setting_configstoredfiles::ADDEDFILES])) {
-                    foreach ($changed[\theme_adaptable\admin_setting_configstoredfiles::ADDEDFILES] as $addedfilename) {
+                if (!empty($changed[self::REPLACEDFILES])) {
+                    foreach ($changed[self::REPLACEDFILES] as $replaceddata) {
+                        $fileschanged .= get_string(
+                            'propertyfilereplaced',
+                            $pluginfrankenstyle,
+                            ['data' => $replaceddata, 'settingname' => $key]
+                        ) . PHP_EOL;
+                    }
+                }
+                if (!empty($changed[self::ADDEDFILES])) {
+                    foreach ($changed[self::ADDEDFILES] as $addeddata) {
                         $fileschanged .= get_string(
                             'propertyfileadded',
                             $pluginfrankenstyle,
-                            ['filename' => $addedfilename, 'settingname' => $key]
+                            ['data' => $addeddata, 'settingname' => $key]
                         ) . PHP_EOL;
                     }
                 }
-                if (!empty($changed[\theme_adaptable\admin_setting_configstoredfiles::ERROR])) {
-                    $filestoreport .= $changed[\theme_adaptable\admin_setting_configstoredfiles::ERROR] . PHP_EOL;
+                if (!empty($changed[self::UNCHANGEDFILES])) {
+                    foreach ($changed[self::UNCHANGEDFILES] as $unchangeddata) {
+                        $filestoreport .= get_string(
+                            'propertyfileunchanged',
+                            $pluginfrankenstyle,
+                            ['data' => $unchangeddata, 'settingname' => $key]
+                        ) . PHP_EOL;
+                    }
                 }
+                if (!empty($changed[self::CHANGEDFILEDATA])) {
+                    $filestoreport .= get_string(
+                        'propertyfilechanged',
+                        $pluginfrankenstyle,
+                        [
+                            'datafrom' => $changed[self::CHANGEDFILEDATA][0],
+                            'datato' => $changed[self::CHANGEDFILEDATA][1],
+                            'settingname' => $key,
+                        ]
+                    ) . PHP_EOL;
+                }
+                if (!empty($changed[self::UNCHANGEDFILEDATA])) {
+                    $filestoreport .= get_string(
+                        'propertyfileunchanged',
+                        $pluginfrankenstyle,
+                        ['data' => $changed[self::UNCHANGEDFILEDATA], 'settingname' => $key]
+                    ) . PHP_EOL;
+                }
+                if (!empty($changed[self::ERROR])) {
+                    $filestoreport .= $changed[self::ERROR] . PHP_EOL;
+                }
+                unset($props[$key]);
+                // Processed property, so remove from current props.
+                unset($currentprops[self::PROPS][$key]);
             } else {
+                if ($type[self::FILEPROPERTYTYPE] == self::CONFIGSTOREDFILETYPE) {
+                    // Only config stored files are considered processed, leave html editor type alone
+                    // as content could still be partially valid.
+                    unset($props[$key]);
+                    unset($currentprops[self::PROPS][$key]);
+                }
                 $filestoreport .= '\'' . $key . '\' ' . get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' .
                     \core_text::substr($props[$key], 1) . '\'.' . PHP_EOL;
             }
+        } else if ($type[self::FILEPROPERTYTYPE] == self::CONFIGSTOREDFILETYPE) {
+            unset($props[$key]);
+            unset($currentprops[self::PROPS][$key]);
         }
-        unset($props[$key]);
     }
 
     /**
-     * Process updates to settings based upon feature version.
-     * Note: Does not cope with file props!
+     * Pre process properties file.
      *
-     * @param array $props Reference to the properties from the properties import.
-     * @param string $pluginfrankenstyle Frankenstyle name of the plugin.
-     * @param int $propsfeatureversion Feature version before upgrade / value in properties.
-     *
-     * @return array Of changes as localised strings.
+     * @param string $pluginfrankenstyle
+     * @param string $key
+     * @param int    $type
+     * @param string $fileschanged
+     * @param string $filestoreport
      */
-    public static function process_settings_name_updates(&$props, $pluginfrankenstyle, $propsfeatureversion) {
-        $upgrading = (empty($props));
-        $changes = [];
-        $changed = [];
-
-        // From and to = change, only from = remove and 'to' only will use setting default value.
-        if ($propsfeatureversion < 2025080200) {
-            // Changes in 2025080200.
-            $change = new stdClass();
-            $change->from = 'topmenufontsize';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'coursepageheaderhidesitetitle';
-            $change->to = 'coursepageheaderhidetitle';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'enableheading';
-            $change->to = 'enablecoursetitle';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'enablezoomshowtext';
-            $change->to = 'navbardisplaytitles';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'responsivecoursetitle';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'responsivesitetitle';
-            $change->to = 'responsiveheadertitle';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'jssection';
-            $change->to = 'customjs';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'jssectionrestricted';
-            $change->to = 'customjsrestricted';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'pageheaderheight';
-            $change->to = 'headermainrowminheight';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'dividingline';
-            $change->to = 'headertoprowdividingline';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'dividingline2';
-            $change->to = 'footerdividingline';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'headerbkcolor';
-            $change->to = 'headertoprowbkcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'headertextcolor';
-            $change->to = 'headertoprowtextcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'headerbkcolor2';
-            $change->to = 'headermainrowbkcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'headertextcolor2';
-            $change->to = 'headermainrowtextcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'responsiveheader';
-            $change->to = 'responsiveheader';
-            $change->convert = function ($value) {
-                return str_replace('block', 'flex', $value);
-            };
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'maincolor';
-            $change->to = 'maincolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'fontcolor';
-            $change->to = 'fontcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'regionmaincolor';
-            $change->to = 'regionmaincolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'regionmaintextcolor';
-            $change->to = 'regionmaintextcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'linkcolor';
-            $change->to = 'linkcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'dimmedtextcolor';
-            $change->to = 'dimmedtextcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'coursepageblocksliderenabled';
-            $change->to = 'coursepageblockinfoenabled';
-            $changes[] = $change;
+    private static function put_prop_file_remove(
+        $pluginfrankenstyle,
+        $key,
+        $type,
+        &$fileschanged,
+        &$filestoreport
+    ) {
+        $name = $pluginfrankenstyle . '/' . $key;
+        $title = $name;
+        $description = $title;
+        $setting = null;
+        if ($type[self::FILEPROPERTYTYPE] == self::CONFIGSTOREDFILETYPE) {
+            $setting = new admin_setting_configstoredfiles(
+                $name,
+                $title,
+                $description,
+                $key,
+                null
+            );
+        } else if ($type[self::FILEPROPERTYTYPE] == self::CONFIGHTMLEDITORTYPE) {
+            $setting = new admin_setting_confightmleditor(
+                $name,
+                $title,
+                $description,
+                '',
+                $type[self::FILEPROPERTYFILEAREA]
+            );
+            if (!empty($type[self::FILEPROPERTYITEMID])) {
+                $setting->setitemid($type[self::FILEPROPERTYITEMID]);
+            }
         }
-
-        if ((!empty($changes)) && ($upgrading)) {
-            $props = self::compile_properties($pluginfrankenstyle)[self::PROPS];
+        // If setting is null then code fault exception needed as logic!
+        $changed = $setting->delete();
+        if (!empty($changed[self::REMOVEDFILES])) {
+            foreach ($changed[self::REMOVEDFILES] as $removeddata) {
+                $fileschanged .= get_string(
+                    'propertyfileremoved',
+                    $pluginfrankenstyle,
+                    ['data' => $removeddata, 'settingname' => $key]
+                ) . PHP_EOL;
+            }
         }
-
-        foreach ($changes as $change) {
-            if (array_key_exists($change->from, $props)) {
-                // Make the change.
-                if (!empty($change->to)) {
-                    // Replacement.
-                    if (!array_key_exists($change->to, $props)) {
-                        // Replacement not defined, make new to be the old value.
-                        if ($upgrading) {
-                            set_config($change->to, $props[$change->from], $pluginfrankenstyle);
-                        } else {
-                            // Set in properties as version will have this new setting and in effect
-                            // the property file is updating it, possibly.
-                            $props[$change->to] = $props[$change->from];
-                        }
-                        $changed[] = get_string(
-                            'settingschangechanged',
-                            $pluginfrankenstyle,
-                            [
-                                'from' => $change->from,
-                                'to' => $change->to,
-                                'value' => $props[$change->from],
-                            ]
-                        );
-                    } else if (($change->from == $change->to) && (!empty($change->convert))) {
-                        // Existing variable conversion.
-                        $fromvalue = $props[$change->from];
-                        $tovalue = ($change->convert)($fromvalue);
-                        if ($fromvalue == $tovalue) {
-                            // No actual change!
-                            continue;
-                        }
-                        if ($upgrading) {
-                            set_config($change->to, $tovalue, $pluginfrankenstyle);
-                        } else {
-                            // Set in properties as version will have this new setting and in effect
-                            // the property file is updating it, possibly.
-                            $props[$change->to] = $tovalue;
-                        }
-                        $changed[] = get_string(
-                            'settingschangevalue',
-                            $pluginfrankenstyle,
-                            [
-                                'from' => $change->from,
-                                'valuefrom' => $fromvalue,
-                                'valueto' => $tovalue,
-                            ]
-                        );
-                    } else {
-                        // Else replacement already defined, just remove old setting as new has superceded it.
-                        $changed[] = get_string(
-                            'settingschangealreadydefined',
-                            $pluginfrankenstyle,
-                            [
-                                'from' => $change->from,
-                                'to' => $change->to,
-                                'fromvalue' => $props[$change->from],
-                                'tovalue' => $props[$change->to],
-                            ]
-                        );
-                    }
-                    if (!$upgrading) {
-                        if (!((!empty($change->to)) && ($change->from == $change->to))) {
-                            // Remove from properties so not shown as ignored, rather that it is reported in
-                            // 'changed / alreadydefined'.
-                            unset($props[$change->from]);
-                        } // Else is a change of value;
-                    }
-                } else if ($upgrading) { // Else deletion.
-                    $changed[] = get_string(
-                        'settingschangedeleted',
-                        $pluginfrankenstyle,
-                        [
-                            'from' => $change->from,
-                            'value' => $props[$change->from],
-                        ]
-                    );
-                }
-                if ($upgrading) {
-                    if (!((!empty($change->to)) && ($change->from == $change->to))) {
-                        // Remove from, being the old.
-                        unset_config($change->from, $pluginfrankenstyle);
-                    } // Else is a change of value;
-                } // Else as no longer exists, then will be reported as 'Ignored'.
-            } // Else change does not appear in the properties file when importing or the database when upgrading.
+        if (!empty($changed[self::DELETEDFILEDATA])) {
+            $filestoreport .= get_string(
+                'propertyfiledatadeleted',
+                $pluginfrankenstyle,
+                ['data' => $changed[self::DELETEDFILEDATA], 'settingname' => $key]
+            ) . PHP_EOL;
         }
-
-        return $changed;
     }
 
     /**
@@ -2347,7 +2465,7 @@ class toolbox {
         global $OUTPUT;
 
         $totalblocks = 0;
-        $imgblder = '<div class="img-fluid">';
+        $imgblder = '';
         $themesettings = self::get_settings();
 
         for ($i = 1; $i <= $totalrows; $i++) {
@@ -2368,16 +2486,60 @@ class toolbox {
                 $imgurl = $OUTPUT->image_url('layout-builder/' . $themesettings->$settingname, 'theme_adaptable');
                 $imgblder .= '<img src="' . $imgurl . '" class="mb-1 img-fluid">';
             }
+        }
 
-            $vals = explode('-', $themesettings->$settingname);
+        $helper = self::admin_settings_layout_helper($adminsettingname, $totalrows, $themesettings);
+        $totalblocks = $helper['totalblocks'];
+
+        return ['imgblder' => $imgblder, 'totalblocks' => $totalblocks];
+    }
+
+    /**
+     * Admin setting layout builder helper.
+     *
+     * @param string $adminsettingname
+     * @param int $totalrows
+     * @param array $totalrows
+     * @param stdClass|array $themesettings
+     * @param string $classnamebeginswith  Used when building the blockname to retrieve for display.  Optional.
+     *
+     * @return array of the blocks organised by row with their dimension size as value and total blocks.
+     */
+    public static function admin_settings_layout_helper(
+        $adminsettingname,
+        $totalrows,
+        $themesettings,
+        $classnamebeginswith = ''
+    ) {
+        $rows = [];
+        $fields = [];
+        $totalblocks = 0;
+
+        if (!is_object($themesettings)) {
+            $themesettings = (object) $themesettings;
+        }
+
+        for ($i = 1; $i <= $totalrows; $i++) {
+            $settingname = $adminsettingname . $i;
+            if ((!empty($themesettings->$settingname)) && ($themesettings->$settingname != '0-0-0-0')) {
+                $fields[] = $themesettings->$settingname;
+            }
+        }
+
+        foreach ($fields as $field) {
+            $blocks = [];
+            $vals = explode('-', $field);
             foreach ($vals as $val) {
                 if ($val > 0) {
                     $totalblocks++;
+                    // Moodle does not seem to like numbers in region names so using letter instead.
+                    $blockregion = $classnamebeginswith . chr(96 + $totalblocks);
+                    $blocks[$blockregion] = $val;
                 }
             }
+            $rows[] = $blocks;
         }
-        $imgblder .= '</div>';
 
-        return ['imgblder' => $imgblder, 'totalblocks' => $totalblocks];
+        return ['rows' => $rows, 'totalblocks' => $totalblocks];
     }
 }

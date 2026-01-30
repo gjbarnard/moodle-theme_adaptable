@@ -1,0 +1,103 @@
+//
+// This file is part of Moodle - http://moodle.org/
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+//
+//
+// Adaptable print media style sheet
+//
+// @package    theme_adaptable
+// @copyright  2015-2018 Jeremy Hopkins (Coventry University)
+// @copyright  2015-2018 Fernando Acedo (3-bits.com)
+// @copyright  2017-2018 Manoj Solanki (Coventry University)
+// @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+//
+
+/// Hide some elements in Print view.
+@media print {
+    // Remove things.
+    #adaptable-page-header-wrapper,
+    #back-to-top,
+    .hidden-blocks,
+    #page-footer,
+    .purgecaches,
+    .secondary-navigation {
+        display: none !important;
+    }
+
+    #page {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    .page-context-header {
+        margin: 0 !important;
+    }
+
+    .standard .container {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: auto !important;
+    }
+
+    // Remove Adaptable block regions.
+    #frontblockregion {
+        display: none !important;
+    }
+
+    // Remove student image from printout.
+    img.userpicture {
+        display: none !important;
+    }
+
+    // Grades.
+    .grade-navigation,
+    #graded_users_selector,
+    .view_users_selector {
+        display: none !important;
+    }
+
+    // Remove selection boxes from printout of user grade report.
+    .form-search,
+    .form-inline,
+    .form-horizontal {
+        input,
+        textarea,
+        select,
+        .help-inline,
+        .uneditable-input,
+        .input-prepend,
+        .input-append {
+            display: none !important;
+        }
+    }
+
+    div.singleview_buttons {
+        display: none !important;
+    }
+
+    // Course / course formats.
+    .path-course #page {
+        overflow: visible;
+    }
+    .course-content ul li.section.main {
+        #collapsesections,
+        .icons-collapse-expand {
+            display: none;
+        }
+        .collapse:not(.show) {
+            display: inherit;
+        }
+    }
+}
