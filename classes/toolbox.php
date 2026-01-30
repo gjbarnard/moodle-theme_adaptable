@@ -473,10 +473,16 @@ class toolbox {
 
         $scss .= file_get_contents($basedir . '/scss/main.scss');
 
+        $localtoolbox = self::get_local_toolbox();
+        if (is_object($localtoolbox)) {
+            if (method_exists($localtoolbox, 'get_nosettings_scss')) { // Todo - Temporary until such time as not.
+                $scss .= $localtoolbox->get_nosettings_scss();
+            }
+        }
+
         static $settingssheets = [
             'adaptable',
             'admin',
-            'alerts',
             'blocks',
             'button',
             'core',
@@ -486,26 +492,33 @@ class toolbox {
             'form',
             'grade',
             'header',
-            'login',
             'menu',
             'misc',
             'modal',
             'navigation',
-            'news-ticker',
             'notifications',
             'quiz',
             'responsive',
             'search-social',
             'secondarynavigation',
             'tabs',
-            'print',
-            'categorycustom',
         ];
 
         $settingsscss = '';
         foreach ($settingssheets as $settingsheet) {
             $settingsscss .= file_get_contents($basedir . '/scss/settings/' . $settingsheet . '.scss');
         }
+
+        if (is_object($localtoolbox)) {
+            if (method_exists($localtoolbox, 'get_settings_scss')) { // Todo - Temporary until such time as not.
+                $settingsscss .= $localtoolbox->get_settings_scss();
+            }
+
+            // Set category custom CSS.
+            $settingsscss = $localtoolbox->set_categorycustomcss($settingsscss, $theme->settings);
+        }
+
+        $settingsscss .= file_get_contents($basedir . '/scss/settings/print.scss');
 
         $scss .= self::process_scss($settingsscss, $theme);
 
@@ -522,13 +535,6 @@ class toolbox {
      * @return string The parsed SCSS.
      */
     private static function process_scss($scss, $theme) {
-
-        // Set category custom CSS.
-        $localtoolbox = self::get_local_toolbox();
-        if (is_object($localtoolbox)) {
-            $scss = $localtoolbox->set_categorycustomcss($scss, $theme->settings);
-        }
-
         // Collapsed Topics colours.
         if (empty($theme->settings->collapsedtopicscoloursenabled)) {
             $scss .= '.theme_adaptable .course-content ul.ctopics li.section {' . PHP_EOL;
@@ -585,10 +591,10 @@ class toolbox {
             '[[setting:buttonlogincolor]]' => '#c64543',
             '[[setting:buttonloginhovercolor]]' => '#e53935',
             '[[setting:buttonlogintextcolor]]' => '#0084c2',
-            '[[setting:buttonloginpadding]]' => '0',
-            '[[setting:buttonloginheight]]' => '24px',
-            '[[setting:buttonloginmargintop]]' => '2px',
-            '[[setting:buttonradius]]' => '5px',
+            '[[setting:buttonloginpadding]]' => 0,
+            '[[setting:buttonloginheight]]' => 24,
+            '[[setting:buttonloginmargintop]]' => 2,
+            '[[setting:buttonradius]]' => 5,
             '[[setting:buttondropshadow]]' => '0',
             '[[setting:headertoprowdividingline]]' => '#ffffff',
             '[[setting:footerdividingline]]' => '#ffffff',
@@ -616,59 +622,59 @@ class toolbox {
             '[[setting:blockregionbackgroundcolor]]' => 'transparent',
             '[[setting:marketblockbordercolor]]' => '#e8eaeb',
             '[[setting:marketblocksbackgroundcolor]]' => 'transparent',
-            '[[setting:blockheaderbordertop]]' => '1px',
-            '[[setting:blockheaderborderleft]]' => '0',
-            '[[setting:blockheaderborderright]]' => '0',
-            '[[setting:blockheaderborderbottom]]' => '0',
-            '[[setting:blockmainbordertop]]' => '0',
-            '[[setting:blockmainborderleft]]' => '0',
-            '[[setting:blockmainborderright]]' => '0',
-            '[[setting:blockmainborderbottom]]' => '0',
+            '[[setting:blockheaderbordertop]]' => 1,
+            '[[setting:blockheaderborderleft]]' => 0,
+            '[[setting:blockheaderborderright]]' => 0,
+            '[[setting:blockheaderborderbottom]]' => 0,
+            '[[setting:blockmainbordertop]]' => 0,
+            '[[setting:blockmainborderleft]]' => 0,
+            '[[setting:blockmainborderright]]' => 0,
+            '[[setting:blockmainborderbottom]]' => 0,
             '[[setting:blockheaderbordertopstyle]]' => 'dashed',
             '[[setting:blockmainbordertopstyle]]' => 'solid',
-            '[[setting:blockheadertopradius]]' => '0',
-            '[[setting:blockheaderbottomradius]]' => '0',
-            '[[setting:blockmaintopradius]]' => '0',
-            '[[setting:blockmainbottomradius]]' => '0',
+            '[[setting:blockheadertopradius]]' => 0,
+            '[[setting:blockheaderbottomradius]]' => 0,
+            '[[setting:blockmaintopradius]]' => 0,
+            '[[setting:blockmainbottomradius]]' => 0,
             '[[setting:coursesectionbgcolor]]' => '#FFFFFF',
             '[[setting:coursesectionheaderbg]]' => '#FFFFFF',
             '[[setting:coursesectionheaderbordercolor]]' => '#F3F3F3',
             '[[setting:coursesectionheaderborderstyle]]' => 'none',
-            '[[setting:coursesectionheaderborderwidth]]' => '0px',
-            '[[setting:coursesectionheaderborderradiustop]]' => '0px',
-            '[[setting:coursesectionheaderborderradiusbottom]]' => '0px',
-            '[[setting:coursesectionborderstyle]]' => '1px',
-            '[[setting:coursesectionborderwidth]]' => '1px',
+            '[[setting:coursesectionheaderborderwidth]]' => 0,
+            '[[setting:coursesectionheaderborderradiustop]]' => 0,
+            '[[setting:coursesectionheaderborderradiusbottom]]' => 0,
+            '[[setting:coursesectionborderstyle]]' => 'solid',
+            '[[setting:coursesectionborderwidth]]' => 1,
             '[[setting:coursesectionbordercolor]]' => '#e8eaeb',
-            '[[setting:coursesectionborderradius]]' => '0px',
-            '[[setting:coursesectionactivityiconsize]]' => '24px',
+            '[[setting:coursesectionborderradius]]' => 0,
+            '[[setting:coursesectionactivityiconsize]]' => 24,
             '[[setting:coursesectionactivityheadingcolour]]' => '#0066cc',
-            '[[setting:coursesectionactivityborderwidth]]' => '2px',
+            '[[setting:coursesectionactivitybottomborderwidth]]' => 2,
             '[[setting:coursesectionactivityborderstyle]]' => 'dashed',
             '[[setting:coursesectionactivitybordercolor]]' => '#eeeeee',
-            '[[setting:coursesectionactivityleftborderwidth]]' => '3px',
+            '[[setting:coursesectionactivityleftborderwidth]]' => 3,
             '[[setting:coursesectionactivityassignleftbordercolor]]' => '#0066cc',
             '[[setting:coursesectionactivityassignbgcolor]]' => '#FFFFFF',
             '[[setting:coursesectionactivityforumleftbordercolor]]' => '#990099',
             '[[setting:coursesectionactivityforumbgcolor]]' => '#FFFFFF',
             '[[setting:coursesectionactivityquizleftbordercolor]]' => '#FF3333',
             '[[setting:coursesectionactivityquizbgcolor]]' => '#FFFFFF',
-            '[[setting:coursesectionactivitymargintop]]' => '2px',
-            '[[setting:coursesectionactivitymarginbottom]]' => '2px',
+            '[[setting:coursesectionactivitymargintop]]' => 2,
+            '[[setting:coursesectionactivitymarginbottom]]' => 2,
             '[[setting:tilesbordercolor]]' => '#3A454b',
-            '[[setting:slidermargintop]]' => '20px',
-            '[[setting:slidermarginbottom]]' => '20px',
+            '[[setting:slidermargintop]]' => 20,
+            '[[setting:slidermarginbottom]]' => 20,
             '[[setting:currentcolor]]' => '#d9edf7',
             '[[setting:sectionheadingcolor]]' => '#3A454b',
-            '[[setting:menufontsize]]' => '14px',
-            '[[setting:menufontpadding]]' => '20px',
+            '[[setting:menufontsize]]' => 14,
+            '[[setting:menufontpadding]]' => 20,
             '[[setting:menubkcolor]]' => '#ffffff',
             '[[setting:menufontcolor]]' => '#444444',
             '[[setting:menubkhovercolor]]' => '#00B3A1',
             '[[setting:menufonthovercolor]]' => '#ffffff',
             '[[setting:menubordercolor]]' => '#00B3A1',
             '[[setting:mobilemenubkcolor]]' => '#F9F9F9',
-            '[[setting:navbardropdownborderradius]]' => '0',
+            '[[setting:navbardropdownborderradius]]' => 0,
             '[[setting:navbardropdownhovercolor]]' => '#EEE',
             '[[setting:navbardropdowntextcolor]]' => '#007',
             '[[setting:navbardropdowntexthovercolor]]' => '#000',
@@ -677,7 +683,7 @@ class toolbox {
             '[[setting:covfontcolor]]' => '#ffffff',
             '[[setting:editonbk]]' => '#4caf50',
             '[[setting:editoffbk]]' => '#f44336',
-            '[[setting:edithorizontalpadding]]' => '4px',
+            '[[setting:edithorizontalpadding]]' => 4,
             '[[setting:editfont]]' => '#ffffff',
             '[[setting:sliderh3color]]' => '#ffffff',
             '[[setting:sliderh4color]]' => '#ffffff',
@@ -690,7 +696,7 @@ class toolbox {
             '[[setting:slideroption2color]]' => '#51666C',
             '[[setting:slideroption2submitcolor]]' => '#ffffff',
             '[[setting:slideroption2a]]' => '#51666C',
-            '[[setting:socialsize]]' => '37px',
+            '[[setting:socialsize]]' => 37,
             '[[setting:mobile]]' => '22',
             '[[setting:socialpaddingside]]' => 16,
             '[[setting:socialpaddingtop]]' => '0%',
@@ -698,17 +704,17 @@ class toolbox {
             '[[setting:fontweight]]' => '400',
             '[[setting:fontheaderweight]]' => '400',
             '[[setting:fonttitleweight]]' => '400',
-            '[[setting:fonttitlesize]]' => '48px',
+            '[[setting:fonttitlesize]]' => 48,
             '[[setting:fonttitlecolor]]' => '#ffffff',
             '[[setting:searchboxpadding]]' => '0 0 0 0',
             '[[setting:enablesavecanceloverlay]]' => true,
             '[[setting:headermainrowminheight]]' => '72px',
-            '[[setting:emoticonsize]]' => '16px',
+            '[[setting:emoticonsize]]' => 16,
             '[[setting:fullscreenwidth]]' => '98%',
             '[[setting:coursetitlemaxwidth]]' => '20',
             '[[setting:responsiveheader]]' => 'd-none d-lg-flex',
             '[[setting:responsivesocial]]' => 'd-none d-lg-block',
-            '[[setting:responsivesocialsize]]' => '34px',
+            '[[setting:responsivesocialsize]]' => 34,
             '[[setting:responsivelogo]]' => 'd-none d-lg-inline-block',
             '[[setting:responsivesectionnav]]' => '1',
             '[[setting:responsiveticker]]' => 'd-none d-lg-block',
@@ -719,25 +725,12 @@ class toolbox {
             '[[setting:enableavailablecourses]]' => 'inherit',
             '[[setting:enableticker]]' => true,
             '[[setting:enabletickermy]]' => true,
-            '[[setting:tickerheaderbackgroundcolour]]' => '#00796b',
-            '[[setting:tickerheadertextcolour]]' => '#eee',
-            '[[setting:tickerconstainerbackgroundcolour]]' => '#009688',
-            '[[setting:tickerconstainertextcolour]]' => '#eee',
             '[[setting:onetopicactivetabbackgroundcolor]]' => '#d9edf7',
             '[[setting:onetopicactivetabtextcolor]]' => '#000000',
             '[[setting:fontblockheaderweight]]' => '400',
-            '[[setting:fontblockheadersize]]' => '22px',
+            '[[setting:fontblockheadersize]]' => 22,
             '[[setting:fontblockheadercolor]]' => '#3A454b',
-            '[[setting:blockiconsheadersize]]' => '20px',
-            '[[setting:alertcolorinfo]]' => '#3a87ad',
-            '[[setting:alertbackgroundcolorinfo]]' => '#d9edf7',
-            '[[setting:alertbordercolorinfo]]' => '#bce8f1',
-            '[[setting:alertcolorsuccess]]' => '#468847',
-            '[[setting:alertbackgroundcolorsuccess]]' => '#dff0d8',
-            '[[setting:alertbordercolorsuccess]]' => '#d6e9c6',
-            '[[setting:alertcolorwarning]]' => '#8a6d3b',
-            '[[setting:alertbackgroundcolorwarning]]' => '#fcf8e3',
-            '[[setting:alertbordercolorwarning]]' => '#fbeed5',
+            '[[setting:blockiconsheadersize]]' => 20,
             '[[setting:forumheaderbackgroundcolor]]' => '#ffffff',
             '[[setting:forumbodybackgroundcolor]]' => '#ffffff',
             '[[setting:introboxbackgroundcolor]]' => '#ffffff',
@@ -749,13 +742,18 @@ class toolbox {
             '[[setting:gdprbutton]]' => 1,
             '[[setting:infoiconcolor]]' => '#5bc0de',
             '[[setting:dangericoncolor]]' => '#d9534f',
-            '[[setting:loginheader]]' => 0,
-            '[[setting:loginfooter]]' => 0,
             '[[setting:printpageorientation]]' => 'landscape',
             '[[setting:printbodyfontsize]]' => '11pt',
             '[[setting:printmargin]]' => '2cm 1cm 2cm 2cm',
             '[[setting:printlineheight]]' => '1.2',
         ];
+
+        $localtoolbox = self::get_local_toolbox();
+        if (is_object($localtoolbox)) {
+            if (method_exists($localtoolbox, 'get_setting_defaults')) { // Todo - Temporary until such time as not.
+                $defaults = array_merge($defaults, $localtoolbox->get_setting_defaults());
+            }
+        }
 
         // Get all the defined settings for the theme and replace defaults.
         foreach ($theme->settings as $key => $val) {
@@ -791,16 +789,9 @@ class toolbox {
         $defaults['[[setting:homebkg]]'] = $homebkg;
 
         if (is_object($localtoolbox)) {
-            // DEPRECATED.  Here to allow initial update of local_adaptable.
-            $theme->settings->headerbkcolor2 = $theme->settings->headermainrowbkcolour;
-            $retr = $localtoolbox->login_style($theme);
-            $defaults['[[setting:loginbgimage]]'] = $retr->loginbgimage;
-            $defaults['[[setting:loginbgstyle]]'] = $retr->loginbgstyle;
-            $defaults['[[setting:loginbgopacity]]'] = $retr->loginbgopacity;
-        } else {
-            $defaults['[[setting:loginbgimage]]'] = '';
-            $defaults['[[setting:loginbgstyle]]'] = '';
-            $defaults['[[setting:loginbgopacity]]'] = '';
+            if (method_exists($localtoolbox, 'login_defaults')) { // Todo - Temporary until such time as not.
+                $defaults = array_merge($defaults, $localtoolbox->login_defaults($theme));
+            }
         }
 
         $socialpaddingsidehalf = '16';
@@ -1020,6 +1011,7 @@ class toolbox {
 
         foreach ($themeprops as $themeprop) {
             $ourprops[$themeprop->name] = $themeprop->value;
+            unset($themeprops[$themeprop->id]);
         }
 
         // File property processing.
@@ -1375,10 +1367,10 @@ class toolbox {
 
         // Process any settings updates first.
         $updated = '';
-        $updates = self::process_settings_name_updates($props, $pluginfrankenstyle, $propsfeatureversion);
+        $updates = upgrade_toolbox::process_settings_name_updates($props, $pluginfrankenstyle, $propsfeatureversion);
         $updates = array_merge(
             $updates,
-            self::process_settings_area_updates($props, $pluginfrankenstyle, $propsfeatureversion)
+            upgrade_toolbox::process_settings_area_updates($props, $pluginfrankenstyle, $propsfeatureversion)
         );
         foreach ($updates as $update) {
             $updated .= $update . PHP_EOL;
@@ -1695,433 +1687,6 @@ class toolbox {
                 ['data' => $changed[self::DELETEDFILEDATA], 'settingname' => $key]
             ) . PHP_EOL;
         }
-    }
-
-    /**
-     * Process updates to settings based upon feature version.
-     * Note: Does not cope with file props!
-     *
-     * @param array $props Reference to the properties from the properties import.
-     * @param string $pluginfrankenstyle Frankenstyle name of the plugin.
-     * @param int $propsfeatureversion Feature version before upgrade / value in properties.
-     *
-     * @return array Of changes as localised strings.
-     */
-    public static function process_settings_name_updates(&$props, $pluginfrankenstyle, $propsfeatureversion) {
-        $upgrading = (empty($props));
-        $changes = [];
-        $changed = [];
-
-        // From and to = change, only from = remove and 'to' only will use setting default value.
-        if ($propsfeatureversion < 2025080200) {
-            // Changes in 2025080200.
-            $change = new stdClass();
-            $change->from = 'topmenufontsize';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'coursepageheaderhidesitetitle';
-            $change->to = 'coursepageheaderhidetitle';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'enableheading';
-            $change->to = 'enablecoursetitle';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'enablezoomshowtext';
-            $change->to = 'navbardisplaytitles';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'responsivecoursetitle';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'responsivesitetitle';
-            $change->to = 'responsiveheadertitle';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'jssection';
-            $change->to = 'customjs';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'jssectionrestricted';
-            $change->to = 'customjsrestricted';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'pageheaderheight';
-            $change->to = 'headermainrowminheight';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'dividingline';
-            $change->to = 'headertoprowdividingline';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'dividingline2';
-            $change->to = 'footerdividingline';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'headerbkcolor';
-            $change->to = 'headertoprowbkcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'headertextcolor';
-            $change->to = 'headertoprowtextcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'headerbkcolor2';
-            $change->to = 'headermainrowbkcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'headertextcolor2';
-            $change->to = 'headermainrowtextcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'responsiveheader';
-            $change->to = 'responsiveheader';
-            $change->convert = function ($value) {
-                return str_replace('block', 'flex', $value);
-            };
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'maincolor';
-            $change->to = 'maincolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'fontcolor';
-            $change->to = 'fontcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'regionmaincolor';
-            $change->to = 'regionmaincolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'regionmaintextcolor';
-            $change->to = 'regionmaintextcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'linkcolor';
-            $change->to = 'linkcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'dimmedtextcolor';
-            $change->to = 'dimmedtextcolour';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'coursepageblocksliderenabled';
-            $change->to = 'coursepageblockinfoenabled';
-            $changes[] = $change;
-        }
-
-        if ($propsfeatureversion < 2025112100) {
-            // Changes in 2025112100.
-            $change = new stdClass();
-            $change->from = 'coursepageblocklayoutlayoutbottomrow2';
-            $change->to = 'coursepageblocklayoutbottomrow1';
-            $changes[] = $change;
-
-            $change = new stdClass();
-            $change->from = 'coursepageblocklayoutlayouttoprow1';
-            $change->to = 'coursepageblocklayouttoprow1';
-            $changes[] = $change;
-        }
-
-        if ((!empty($changes)) && ($upgrading)) {
-            $props = self::compile_properties($pluginfrankenstyle)[self::PROPS];
-        }
-
-        foreach ($changes as $change) {
-            if (array_key_exists($change->from, $props)) {
-                // Make the change.
-                if (!empty($change->to)) {
-                    // Replacement.
-                    if (!array_key_exists($change->to, $props)) {
-                        // Replacement not defined, make new to be the old value.
-                        if ($upgrading) {
-                            set_config($change->to, $props[$change->from], $pluginfrankenstyle);
-                        } else {
-                            // Set in properties as version will have this new setting and in effect
-                            // the property file is updating it, possibly.
-                            $props[$change->to] = $props[$change->from];
-                        }
-                        $changed[] = get_string(
-                            'settingschangechanged',
-                            $pluginfrankenstyle,
-                            [
-                                'from' => $change->from,
-                                'to' => $change->to,
-                                'value' => $props[$change->from],
-                            ]
-                        );
-                    } else if (($change->from == $change->to) && (!empty($change->convert))) {
-                        // Existing variable conversion.
-                        $fromvalue = $props[$change->from];
-                        $tovalue = ($change->convert)($fromvalue);
-                        if ($fromvalue == $tovalue) {
-                            // No actual change!
-                            continue;
-                        }
-                        if ($upgrading) {
-                            set_config($change->to, $tovalue, $pluginfrankenstyle);
-                        } else {
-                            // Set in properties as version will have this new setting and in effect
-                            // the property file is updating it, possibly.
-                            $props[$change->to] = $tovalue;
-                        }
-                        $changed[] = get_string(
-                            'settingschangevalue',
-                            $pluginfrankenstyle,
-                            [
-                                'from' => $change->from,
-                                'valuefrom' => $fromvalue,
-                                'valueto' => $tovalue,
-                            ]
-                        );
-                    } else {
-                        // Else replacement already defined, just remove old setting as new has superceded it.
-                        $changed[] = get_string(
-                            'settingschangealreadydefined',
-                            $pluginfrankenstyle,
-                            [
-                                'from' => $change->from,
-                                'to' => $change->to,
-                                'fromvalue' => $props[$change->from],
-                                'tovalue' => $props[$change->to],
-                            ]
-                        );
-                    }
-                    if (!$upgrading) {
-                        if (!((!empty($change->to)) && ($change->from == $change->to))) {
-                            // Remove from properties so not shown as ignored, rather that it is reported in
-                            // 'changed / alreadydefined'.
-                            unset($props[$change->from]);
-                        } // Else is a change of value;
-                    }
-                } else if ($upgrading) { // Else deletion.
-                    $changed[] = get_string(
-                        'settingschangedeleted',
-                        $pluginfrankenstyle,
-                        [
-                            'from' => $change->from,
-                            'value' => $props[$change->from],
-                        ]
-                    );
-                }
-                if ($upgrading) {
-                    if (!((!empty($change->to)) && ($change->from == $change->to))) {
-                        // Remove from, being the old.
-                        unset_config($change->from, $pluginfrankenstyle);
-                    } // Else is a change of value;
-                } // Else as no longer exists, then will be reported as 'Ignored'.
-            } // Else change does not appear in the properties file when importing or the database when upgrading.
-        }
-
-        return $changed;
-    }
-
-    /**
-     * Process updates to settings area based upon feature version.
-     * Note: Only use with confightmleditor settings.
-     *
-     * @param array $props Reference to the properties from the properties import.
-     * @param string $pluginfrankenstyle Frankenstyle name of the plugin.
-     * @param int $propsfeatureversion Feature version before upgrade / value in properties.
-     *
-     * @return array Of changes as localised strings.
-     */
-    public static function process_settings_area_updates(&$props, $pluginfrankenstyle, $propsfeatureversion) {
-        $upgrading = (empty($props));
-        $changes = [];
-        $changed = [];
-
-        // From and to = change, only from = remove and 'to' only will use setting default value.
-        if ($propsfeatureversion < 2025112200) {
-            // Changes in 2025112200.
-
-            if ($upgrading) {
-                $props = self::compile_properties($pluginfrankenstyle)[self::PROPS];
-            }
-
-            // Alert count.
-            if (!empty($props['alertcount'])) {
-                for ($alertindex = 1; $alertindex <= $props['alertcount']; $alertindex++) {
-                    $change = new stdClass();
-                    $change->name = 'alerttext' . $alertindex;
-                    $change->from = 'adaptablemarkettingimages';
-                    $change->to = 'shed_alerttext';
-                    $change->toitemid = $alertindex;
-                    $changes[] = $change;
-                }
-            }
-
-            // Footer blocks.  Ref: get_footer_blocks().
-            $helper = self::admin_settings_layout_helper('footerlayoutrow', 3, $props);
-            if ($helper['totalblocks'] > 0) {
-                $blockcount = 0;
-                foreach ($helper['rows'] as $row) {
-                    foreach ($row as $block) {
-                        $blockcount++;
-                        $footercontent = 'footer' . $blockcount . 'content';
-                        if (!empty($props[$footercontent])) {
-                            $change = new stdClass();
-                            $change->name = $footercontent;
-                            $change->from = 'adaptablemarkettingimages';
-                            $change->to = 'shed_footercontent';
-                            $change->toitemid = $blockcount;
-                            $changes[] = $change;
-                        }
-                    }
-                }
-            }
-
-            // Footnote.
-            if (!empty($props['footnote'])) {
-                $change = new stdClass();
-                $change->name = 'footnote';
-                $change->from = 'adaptablemarkettingimages';
-                $change->to = 'shed_footnote';
-                $changes[] = $change;
-            }
-
-            // Infobox.
-            if (!empty($props['infobox'])) {
-                $change = new stdClass();
-                $change->name = 'infobox';
-                $change->from = 'adaptablemarkettingimages';
-                $change->to = 'shed_infobox';
-                $change->toitemid = 1;
-                $changes[] = $change;
-            }
-
-            // Infobox two.
-            if (!empty($props['infobox2'])) {
-                $change = new stdClass();
-                $change->name = 'infobox2';
-                $change->from = 'adaptablemarkettingimages';
-                $change->to = 'shed_infobox';
-                $change->toitemid = 2;
-                $changes[] = $change;
-            }
-
-            // Login text box top.
-            if (!empty($props['logintextboxtop'])) {
-                $change = new stdClass();
-                $change->name = 'logintextboxtop';
-                $change->from = 'adaptablemarkettingimages';
-                $change->to = 'shed_logintextboxtop';
-                $changes[] = $change;
-            }
-
-            // Login text box bottom.
-            if (!empty($props['logintextboxbottom'])) {
-                $change = new stdClass();
-                $change->name = 'logintextboxbottom';
-                $change->from = 'adaptablemarkettingimages';
-                $change->to = 'shed_logintextboxbottom';
-                $changes[] = $change;
-            }
-
-            // Marketing blocks.  Ref: get_marketing_blocks().
-            $helper = self::admin_settings_layout_helper('marketlayoutrow', 5, $props);
-            if ($helper['totalblocks'] > 0) {
-                $blockcount = 0;
-                foreach ($helper['rows'] as $row) {
-                    foreach ($row as $block) {
-                        $blockcount++;
-                        $fieldname = 'market' . $blockcount;
-                        if (!empty($props[$fieldname])) {
-                            $change = new stdClass();
-                            $change->name = $fieldname;
-                            $change->from = 'adaptablemarkettingimages';
-                            $change->to = 'shed_market';
-                            $change->toitemid = $blockcount;
-                            $changes[] = $change;
-                        }
-                    }
-                }
-            }
-
-            // News ticker count.
-            if (!empty($props['newstickercount'])) {
-                for ($newstickerindex = 1; $newstickerindex <= $props['newstickercount']; $newstickerindex++) {
-                    $change = new stdClass();
-                    $change->name = 'tickertext' . $newstickerindex;
-                    $change->from = 'adaptablemarkettingimages';
-                    $change->to = 'shed_tickertext';
-                    $change->toitemid = $newstickerindex;
-                    $changes[] = $change;
-                }
-            }
-
-            // Slider.
-            if (!empty($props['slidercount'])) {
-                for ($noslides = 1; $noslides <= $props['slidercount']; $noslides++) {
-                    $change = new stdClass();
-                    $change->name = 'p' . $noslides . 'cap';
-                    $change->from = 'adaptablemarkettingimages';
-                    $change->to = 'shed_pcap';
-                    $change->toitemid = $noslides;
-                    $changes[] = $change;
-                }
-            }
-        }
-
-        if (!empty($changes)) {
-            foreach ($changes as $change) {
-                $changevalue = $props[$change->name];
-
-                $toitemid = (!empty($change->toitemid)) ? $change->toitemid : 0;
-                $changedvalue = \theme_adaptable\admin_setting_confightmleditor::area_move(
-                    $changevalue,
-                    $change->from,
-                    $change->to,
-                    $toitemid,
-                    $pluginfrankenstyle
-                );
-
-                if ($upgrading) {
-                    // Change the database value.
-                    set_config($change->name, $changedvalue, $pluginfrankenstyle);
-                } else {
-                    // Change the supplied properties value so that will be then updated by the caller
-                    // in the process of importing the properties.
-                    $props[$change->name] = $changedvalue;
-                }
-
-                if ($changevalue != $changedvalue) {
-                    $changed[] = get_string(
-                        'settingschangevalue',
-                        $pluginfrankenstyle,
-                        [
-                            'from' => $change->name,
-                            'valuefrom' => htmlspecialchars($changevalue),
-                            'valueto' => htmlspecialchars($changedvalue),
-                        ]
-                    );
-                }
-            }
-        }
-
-        return $changed;
     }
 
     /**

@@ -410,7 +410,6 @@ trait core_renderer_layout {
      */
     protected function head($bodyclasses) {
         global $SITE;
-        $themesettings = \theme_adaptable\toolbox::get_settings();
 
         $headcontext = new stdClass();
         $headcontext->output = $this;
@@ -418,64 +417,8 @@ trait core_renderer_layout {
         $headcontext->pagetitle = $this->page_title();
         $siteurl = new url('');
         $headcontext->siteurl = $siteurl->out();
-        $headcontext->maincolour = $themesettings->maincolour;
+        $headcontext->maincolour = \theme_adaptable\toolbox::get_setting('maincolour');
 
-        if (!empty($themesettings->googlefonts)) {
-            // Select fonts used.
-            $fontssubset = '';
-            if (!empty($themesettings->fontsubset)) {
-                // Get the Google fonts subset.
-                $fontssubset = '&subset=' . $themesettings->fontsubset;
-            }
-
-            if (!empty($themesettings->fontname)) {
-                switch ($themesettings->fontname) {
-                    case 'default':
-                    case 'sans-serif':
-                        // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
-                        break;
-
-                    default:
-                        // Get the Google main font.
-                        $fontname = str_replace(" ", "+", $themesettings->fontname);
-                        $fontweight = ':' . $themesettings->fontweight . ',' . $themesettings->fontweight . 'i';
-                        $headcontext->fontname = $fontname . $fontweight . $fontssubset;
-                        break;
-                }
-            }
-
-            if (!empty($themesettings->fontheadername)) {
-                switch ($themesettings->fontheadername) {
-                    case 'default':
-                    case 'sans-serif':
-                        // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
-                        break;
-
-                    default:
-                        // Get the Google header font.
-                        $fontheadername = str_replace(" ", "+", $themesettings->fontheadername);
-                        $fontheaderweight = ':' . $themesettings->fontheaderweight . ',' . $themesettings->fontheaderweight . 'i';
-                        $headcontext->fontheadername = $fontheadername . $fontheaderweight . $fontssubset;
-                        break;
-                }
-            }
-
-            if (!empty($themesettings->fonttitlename)) {
-                switch ($themesettings->fonttitlename) {
-                    case 'default':
-                    case 'sans-serif':
-                        // Use the 'sans-serif' font.
-                        break;
-
-                    default:
-                        // Get the Google title font.
-                        $fonttitlename = str_replace(" ", "+", $themesettings->fonttitlename);
-                        $fonttitleweight = ':' . $themesettings->fonttitleweight . ',' . $themesettings->fonttitleweight . 'i';
-                        $headcontext->fonttitlename = $fonttitlename . $fonttitleweight . $fontssubset;
-                        break;
-                }
-            }
-        }
         echo $this->render_from_template('theme_adaptable/head', $headcontext);
 
         echo '<body ' . $this->body_attributes($bodyclasses) . '>';

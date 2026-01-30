@@ -32,11 +32,11 @@
 
     .navbar .navbar-nav > {
         li:first-child > a.dropdown-toggle {
-            margin-left: -[[setting:menufontpadding]];
+            margin-left: -[[setting:menufontpadding]]px;
         }
 
         li:last-child > a.dropdown-toggle {
-            margin-right: -[[setting:menufontpadding]];
+            margin-right: -[[setting:menufontpadding]]px;
         }
     }
 }
@@ -59,7 +59,7 @@
 // New main navbar styling */
 #adaptable-page-header-wrapper #main-navbar {
     .navbar-nav {
-        margin-left: -[[setting:menufontpadding]];
+        margin-left: -[[setting:menufontpadding]]px;
 
         > li > a.nav-link,
         > li > div.nav-link,
@@ -69,10 +69,10 @@
         .region-main-settings-menu .action-menu-trigger a.dropdown-toggle:hover {
             background-color: transparent;
             color: [[setting:menufontcolor]];
-            font-size: [[setting:menufontsize]];
+            font-size: [[setting:menufontsize]]px;
             font-weight: 400;
             line-height: 42px;
-            padding: 0 [[setting:menufontpadding]];
+            padding: 0 [[setting:menufontpadding]]px;
             text-decoration: none;
             text-shadow: none;
             text-transform: none;
@@ -138,12 +138,12 @@
     .navbar li.dropdown.open > .dropdown-toggle,
     .navbar li.dropdown.active > .dropdown-toggle,
     .navbar li.dropdown.open.active > .dropdown-toggle {
-        font-size: [[setting:menufontsize]];
+        font-size: [[setting:menufontsize]]px;
     }
 
     .navbar .dropdown-menu {
-        border-radius: [[setting:navbardropdownborderradius]];
-        font-size: [[setting:menufontsize]];
+        border-radius: [[setting:navbardropdownborderradius]]px;
+        font-size: [[setting:menufontsize]]px;
         -webkit-transition: all [[setting:navbardropdowntransitiontime]];
         -moz-transition: all [[setting:navbardropdowntransitiontime]];
         -ms-transition: all [[setting:navbardropdowntransitiontime]];
@@ -191,7 +191,7 @@
     }
 
     .dropdown-submenu>.dropdown-menu {
-        border-radius: [[setting:navbardropdownborderradius]];
+        border-radius: [[setting:navbardropdownborderradius]]px;
     }
 
     #main-navbar .navbar-nav > .nav-item .dropdown-menu .dropdown-toggle:after {

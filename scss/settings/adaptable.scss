@@ -161,8 +161,8 @@ a.dimmed_text:visited,
 }
 
 .slidewrap {
-    margin-bottom: [[setting:slidermarginbottom]];
-    margin-top: [[setting:slidermargintop]];
+    margin-bottom: [[setting:slidermarginbottom]]px;
+    margin-top: [[setting:slidermargintop]]px;
 }
 
 #frontblockregion {
@@ -218,8 +218,8 @@ a.dimmed_text:visited,
 
 // When using filter_emoticon to add the extra markup.  Thus have to type the characters.
 img.emoticon {
-    height: [[setting:emoticonsize]];
-    width: [[setting:emoticonsize]];
+    height: [[setting:emoticonsize]]px;
+    width: [[setting:emoticonsize]]px;
 }
 
 #frontpage-course-list h2 {
@@ -302,15 +302,6 @@ div.redirectmessage {
         font-size: 24px;
         font-weight: bold !important;
         margin-bottom: 20px;
-    }
-
-    &.box {
-        background-color: [[setting:alertbackgroundcolorinfo]];
-        border: none;
-        color: [[setting:alertcolorinfo]];
-        font-size: 18px;
-        padding: 15px;
-        margin-top: 100px;
     }
 }
 

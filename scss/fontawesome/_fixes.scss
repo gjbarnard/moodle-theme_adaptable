@@ -60,6 +60,10 @@
     @include fa-icon;
 }
 
+.fa-stack-1x {
+    line-height: inherit;
+}
+
 .action-menu .dropdown-subpanel .dropdown-item::after {
     vertical-align: middle;
 }

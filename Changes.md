@@ -1,3 +1,11 @@
+Change log in version 501.0.5 (2025092504)
+==========================================
+1. Fix TinyMCE menu's broken when in full screen mode.
+2. Migrate Google Fonts to CSS.
+3. Fix stacked FontAwesome icons.
+4. Add 'loggedin' / 'loggedout' / 'userguest' / 'notguest' CSS class selector names to the body tag as appropriate.
+5. Improve print layout / fix 'Only one page printable' - #49.
+
 Change log in version 501.0.4 (2025092503)
 ==========================================
 1. Separate layout for 'incourse' to show activity navigation.  Ref: https://moodle.org/mod/forum/discuss.php?d=469954#p1890832.

@@ -152,7 +152,16 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
         if (is_object($localtoolbox)) {
             if (method_exists($localtoolbox, 'supported_methods')) {
                 // Method check.
-                $methods = ['get_custom_js', 'userfav_menu_items'];
+                $methods = [
+                    'body_attributes',
+                    'get_custom_js',
+                    'get_nosettings_scss',
+                    'get_settings',
+                    'get_setting_defaults',
+                    'get_settings_scss',
+                    'login_defaults',
+                    'userfav_menu_items',
+                ];
                 $unsupportedmethods = $localtoolbox->supported_methods($methods, $themeversion['version']);
                 if (!empty($unsupportedmethods)) {
                     echo $OUTPUT->notification(
@@ -170,10 +179,10 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     // Feature version to keep track of changes across versions for major releases of Moodle.
     $currentfeatureversion = get_config('theme_adaptable', 'feature_version');
     $props = [];
-    $changed = \theme_adaptable\toolbox::process_settings_name_updates($props, 'theme_adaptable', $currentfeatureversion);
+    $changed = \theme_adaptable\upgrade_toolbox::process_settings_name_updates($props, 'theme_adaptable', $currentfeatureversion);
     $changed = array_merge(
         $changed,
-        \theme_adaptable\toolbox::process_settings_area_updates($props, 'theme_adaptable', $currentfeatureversion)
+        \theme_adaptable\upgrade_toolbox::process_settings_area_updates($props, 'theme_adaptable', $currentfeatureversion)
     );
     if (!empty($changed)) {
         $title = get_string('settingschangenotificationtitle', 'theme_adaptable');
@@ -183,7 +192,7 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     }
 
     // Feature version for this version.
-    set_config('feature_version', 2025112200, 'theme_adaptable');
+    set_config('feature_version', 2026010800, 'theme_adaptable');
 
     if ($oldversion < 2025092503) {
         upgrade_plugin_savepoint(true, 2025092503, 'theme', 'adaptable');

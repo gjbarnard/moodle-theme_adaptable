@@ -53,7 +53,7 @@ trait core_renderer_toolbox {
      * Returns HTML attributes to use within the body tag. This includes an ID and classes.
      *
      * @since Moodle 2.5.1 2.6
-     * @param string|array $additionalclasses Any additional classes to give the body tag,
+     * @param string|array $additionalclasses Any additional classes to give the body tag.
      * @return string
      */
     public function body_attributes($additionalclasses = []) {
@@ -64,6 +64,22 @@ trait core_renderer_toolbox {
                 $additionalclasses .= ' safari';
             }
         }
+
+        $localtoolbox = toolbox::get_local_toolbox();
+        if (is_object($localtoolbox)) {
+            if (method_exists($localtoolbox, 'body_attributes')) { // Todo - Temporary until such time as not.
+                $localtoolbox->body_attributes($additionalclasses);
+            }
+        }
+
+        if (is_array($additionalclasses)) {
+            $additionalclasses[] = (isloggedin()) ? 'loggedin' : 'loggedout';
+            $additionalclasses[] = (isguestuser()) ? 'userguest' : 'notguest';
+        } else {
+            $additionalclasses .= ' ' . (isloggedin()) ? 'loggedin' : 'loggedout';
+            $additionalclasses .= ' ' . (isguestuser) ? 'userguest' : 'notguest';
+        }
+
         return parent::body_attributes($additionalclasses);
     }
 

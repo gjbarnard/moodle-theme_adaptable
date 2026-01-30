@@ -437,8 +437,8 @@
 
     .socialbox a i {
         // Make at least 29px, values look odd but on inspection they are needed to be so for FontAwesome.
-        font-size: [[setting:responsivesocialsize]];
-        line-height: [[setting:responsivesocialsize]];
+        font-size: [[setting:responsivesocialsize]]px;
+        line-height: [[setting:responsivesocialsize]]px;
     }
     .form-select {
         max-width:100%;

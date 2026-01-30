@@ -181,7 +181,7 @@ $string['newstickersettings'] = 'News ticker';
 // Information.
 $string['settingschanges'] = 'Changes';
 $string['settingsinformation'] = 'Information';
-$string['themesupportsponsorship'] = 'Support and sponsorship';
+$string['themeinformation'] = 'Information';
 $string['themechanges'] = 'Changes';
 $string['themereadme'] = 'Readme';
 
@@ -888,14 +888,14 @@ $string['coursesectionactivityheadingcolour'] = 'Course section activity heading
 $string['coursesectionactivityheadingcolourdesc'] = 'The colour for clickable activities displayed on the course homepage.';
 
 // These four settings actually refer to bottom border (it was originally all around border, but naming kept as it was originally).
-$string['coursesectionactivityborderwidth'] = 'Course section activity bottom border width';
-$string['coursesectionactivityborderwidthdesc'] = 'Set width of the border that appears at the bottom of a course section activity.';
+$string['coursesectionactivitybottomborderwidth'] = 'Course section activity bottom border width';
+$string['coursesectionactivitybottomborderwidthdesc'] = 'Set width of the border that appears at the bottom of a course section activity.';
 $string['coursesectionactivityborderstyle'] = 'Course section activity bottom border style';
 $string['coursesectionactivityborderstyledesc'] = 'Set the style of the course section activity bottom border.';
 $string['coursesectionactivitybordercolor'] = 'Course section activity bottom border colour ';
 $string['coursesectionactivitybordercolordesc'] = 'Set the colour of the course section activity bottom border.';
-$string['coursesectionactivityleftborderwidth'] = 'Course section activity left border width';
-$string['coursesectionactivityleftborderwidthdesc'] = 'Set width of the border that appears on the left of a course section activity.';
+$string['coursesectionactivityleftborderwidth'] = 'Course section activity left border box shadow width';
+$string['coursesectionactivityleftborderwidthdesc'] = 'Set the width of the box shadow border that appears on the left of a course section activity.';
 
 $string['coursesectionactivitycolors'] = 'Course section activity options';
 
@@ -1707,7 +1707,6 @@ For example:
 <pre>
 https://example.com/course/search.php|Search Moodle|search
 https://facebook.com/|Facebook|fa-brands fa-facebook-f
-https://X.com/|X|fa-brands fa-x-twitter
 https://twitter.com/|Twitter|fa-brands fa-twitter
 https://instagram.com|Instagram|fa-brands fa-instagram
 https://example.com|My Web|globe

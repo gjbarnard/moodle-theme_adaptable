@@ -66,6 +66,72 @@ function theme_adaptable_process_css($css, $theme) {
         $css = str_replace('Font Awesome 6 Free";', 'Font Awesome 7 Free";', $css);
     }
 
+    // Google fonts if any.
+    if (!empty($theme->settings->googlefonts)) {
+        global $OUTPUT;
+
+        $fontcontext = new stdClass();
+
+        // Select fonts used.
+        $fontssubset = '';
+        if (!empty($theme->settings->fontsubset)) {
+            // Get the Google fonts subset.
+            $fontssubset = '&subset=' . $theme->settings->fontsubset;
+        }
+
+        if (!empty($theme->settings->fontname)) {
+            switch ($theme->settings->fontname) {
+                case 'default':
+                case 'sans-serif':
+                    // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
+                    break;
+
+                default:
+                    // Get the Google main font.
+                    $fontname = str_replace(" ", "+", $theme->settings->fontname);
+                    $fontweight = ':' . $theme->settings->fontweight . ',' . $theme->settings->fontweight . 'i';
+                    $fontcontext->fontname = $fontname . $fontweight . $fontssubset;
+                    break;
+            }
+        }
+
+        if (!empty($theme->settings->fontheadername)) {
+            switch ($theme->settings->fontheadername) {
+                case 'default':
+                case 'sans-serif':
+                    // Use the default being 'sans-serif', see 'toolbox::process_scss()'.
+                    break;
+
+                default:
+                    // Get the Google header font.
+                    $fontheadername = str_replace(" ", "+", $theme->settings->fontheadername);
+                    $fontheaderweight = ':' . $theme->settings->fontheaderweight . ',' . $theme->settings->fontheaderweight . 'i';
+                    $fontcontext->fontheadername = $fontheadername . $fontheaderweight . $fontssubset;
+                    break;
+            }
+        }
+
+        if (!empty($theme->settings->fonttitlename)) {
+            switch ($theme->settings->fonttitlename) {
+                case 'default':
+                case 'sans-serif':
+                    // Use the 'sans-serif' font.
+                    break;
+
+                default:
+                    // Get the Google title font.
+                    $fonttitlename = str_replace(" ", "+", $theme->settings->fonttitlename);
+                    $fonttitleweight = ':' . $theme->settings->fonttitleweight . ',' . $theme->settings->fonttitleweight . 'i';
+                    $fontcontext->fonttitlename = $fonttitlename . $fonttitleweight . $fontssubset;
+                    break;
+            }
+        }
+
+        if (!empty($fontcontext)) {
+            $css = $OUTPUT->render_from_template('theme_adaptable/fonts', $fontcontext) . PHP_EOL . $css;
+        }
+    }
+
     // Set custom CSS.
     if (!empty($theme->settings->customcss)) {
         $customcss = $theme->settings->customcss;

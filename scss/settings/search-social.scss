@@ -125,8 +125,8 @@
     padding-top: [[setting:socialpaddingtop]];
     a {
         // Make at least 29px, values look odd but on inspection they are needed to be so for FontAwesome.
-        font-size: [[setting:socialsize]];
-        line-height: [[setting:socialsize]];
+        font-size: [[setting:socialsize]]px;
+        line-height: [[setting:socialsize]]px;
         padding-left: [[setting:socialpaddingsidehalf]]px;
         padding-right: [[setting:socialpaddingsidehalf]]px;
         &:first-of-type {
