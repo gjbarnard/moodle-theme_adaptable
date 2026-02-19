@@ -73,7 +73,7 @@
 // Block title.
 .block .title h2 {
     color: [[setting:fontblockheadercolor]];
-    font-size: [[setting:fontblockheadersize]];
+    font-size: [[setting:fontblockheadersize]]px;
     font-weight: [[setting:fontblockheaderweight]] !important;
     margin-bottom: 0;
     text-shadow: none;
@@ -266,7 +266,7 @@ body.has_dock div#dock {
 // Block Icons.
 .showblockicons {
     .block .header .title h2:before {
-        font-size: [[setting:blockiconsheadersize]];
+        font-size: [[setting:blockiconsheadersize]]px;
     }
 }
 

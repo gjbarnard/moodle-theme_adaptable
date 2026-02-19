@@ -157,7 +157,7 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
                     'get_custom_js',
                     'get_nosettings_scss',
                     'get_settings',
-                    'get_settings_defaults',
+                    'get_setting_defaults',
                     'get_settings_scss',
                     'login_defaults',
                     'userfav_menu_items',
@@ -192,10 +192,10 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     }
 
     // Feature version for this version.
-    set_config('feature_version', 2026010800, 'theme_adaptable');
+    set_config('feature_version', 2026021700, 'theme_adaptable');
 
-    if ($oldversion < 2024100517) {
-        upgrade_plugin_savepoint(true, 2024100517, 'theme', 'adaptable');
+    if ($oldversion < 2024100518) {
+        upgrade_plugin_savepoint(true, 2024100518, 'theme', 'adaptable');
     }
 
     // Automatic 'Purge all caches'....

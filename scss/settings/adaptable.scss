@@ -173,7 +173,7 @@ a.dimmed_text:visited,
 
 .flexibleblocks,
 #marketblocks {
-    background-color: [[setting:marketblocksbackgroundcolor]];
+    background-color: [[setting:marketboxbackgroundcolour]];
     padding-bottom: 10px;
 
     h3 {
@@ -185,7 +185,7 @@ a.dimmed_text:visited,
 }
 
 #marketblocks .internalmarket {
-    border-color: [[setting:marketblockbordercolor]];
+    border-color: [[setting:marketboxbordercolor]];
     border-style: solid;
     border-width: 0 1px 1px 1px;
     padding: 10px 15px 30px;
@@ -218,8 +218,8 @@ a.dimmed_text:visited,
 
 // When using filter_emoticon to add the extra markup.  Thus have to type the characters.
 img.emoticon {
-    height: [[setting:emoticonsize]];
-    width: [[setting:emoticonsize]];
+    height: [[setting:emoticonsize]]px;
+    width: [[setting:emoticonsize]]px;
 }
 
 #frontpage-course-list h2 {

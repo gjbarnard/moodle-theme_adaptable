@@ -231,6 +231,14 @@ class upgrade_toolbox {
             $changes[] = $change;
 
             $change = new stdClass();
+            $change->from = 'blockiconsheadersize';
+            $change->to = 'blockiconsheadersize';
+            $change->convert = function ($value) {
+                return intval($value);
+            };
+            $changes[] = $change;
+
+            $change = new stdClass();
             $change->from = 'blockmainborderbottom';
             $change->to = 'blockmainborderbottom';
             $change->convert = function ($value) {
@@ -273,6 +281,14 @@ class upgrade_toolbox {
             $change = new stdClass();
             $change->from = 'blockmaintopradius';
             $change->to = 'blockmaintopradius';
+            $change->convert = function ($value) {
+                return intval($value);
+            };
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'buttonloginheight';
+            $change->to = 'buttonloginheight';
             $change->convert = function ($value) {
                 return intval($value);
             };
@@ -388,11 +404,43 @@ class upgrade_toolbox {
             $change->convert = function ($value) {
                 return intval($value);
             };
+
+            $changes[] = $change;
+            $change = new stdClass();
+            $change->from = 'emoticonsize';
+            $change->to = 'emoticonsize';
+            $change->convert = function ($value) {
+                return intval($value);
+            };
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'fontblockheadersize';
+            $change->to = 'fontblockheadersize';
+            $change->convert = function ($value) {
+                return intval($value);
+            };
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'fonttitlesize';
+            $change->to = 'fonttitlesize';
+            $change->convert = function ($value) {
+                return intval($value);
+            };
             $changes[] = $change;
 
             $change = new stdClass();
             $change->from = 'menufontpadding';
             $change->to = 'menufontpadding';
+            $change->convert = function ($value) {
+                return intval($value);
+            };
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'menufontsize';
+            $change->to = 'menufontsize';
             $change->convert = function ($value) {
                 return intval($value);
             };
@@ -436,6 +484,29 @@ class upgrade_toolbox {
             $change->convert = function ($value) {
                 return intval($value);
             };
+            $changes[] = $change;
+        }
+
+        if ($propsfeatureversion < 2026021700) {
+            // Changes in 2026021700.
+            $change = new stdClass();
+            $change->from = 'footerblocksplacement';
+            $change->to = 'footerboxesplacement';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'marketblocksbackgroundcolor';
+            $change->to = 'marketboxbackgroundcolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'marketblockbordercolor';
+            $change->to = 'marketboxbordercolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'showfooterblocks';
+            $change->to = 'showfooterboxes';
             $changes[] = $change;
         }
 
@@ -573,20 +644,20 @@ class upgrade_toolbox {
                 }
             }
 
-            // Footer blocks.  Ref: get_footer_blocks().
+            // Footer boxes.  Ref: get_footer_boxes().
             $helper = toolbox::admin_settings_layout_helper('footerlayoutrow', 3, $props);
             if ($helper['totalblocks'] > 0) {
-                $blockcount = 0;
+                $boxcount = 0;
                 foreach ($helper['rows'] as $row) {
                     foreach ($row as $block) {
-                        $blockcount++;
-                        $footercontent = 'footer' . $blockcount . 'content';
+                        $boxcount++;
+                        $footercontent = 'footer' . $boxcount . 'content';
                         if (!empty($props[$footercontent])) {
                             $change = new stdClass();
                             $change->name = $footercontent;
                             $change->from = 'adaptablemarkettingimages';
                             $change->to = 'shed_footercontent';
-                            $change->toitemid = $blockcount;
+                            $change->toitemid = $boxcount;
                             $changes[] = $change;
                         }
                     }

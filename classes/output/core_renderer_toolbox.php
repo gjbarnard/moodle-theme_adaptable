@@ -780,6 +780,62 @@ trait core_renderer_toolbox {
     }
 
     /**
+     * Gets the markup of the given frontpage infobox if logic determines so.
+     *
+     * @param $name string Infobox setting name.
+     * @param $checktop bool or null Check top for 'infobox' setting.
+     *
+     * @return string Markup if any.
+     */
+    protected function get_frontpage_infobox($name, $checktop = null) {
+        $output = '';
+        $themesettings = \theme_adaptable\toolbox::get_settings();
+        $infoboxsettingvalue = $themesettings->$name;
+
+        if (!empty($infoboxsettingvalue)) {
+            if ($name == 'infobox') {
+                if ($checktop == $themesettings->infoboxtop) {
+                    $output = $this->get_frontpage_infobox_markup($name, $themesettings->infoboxfullscreen, 1);
+                }
+            } else {
+                $output = $this->get_frontpage_infobox_markup($name, $themesettings->infoboxfullscreen, 2);
+            }
+        }
+
+        return $output;
+    }
+
+    /**
+     * Gets the markup of the given frontpage infobox.
+     *
+     * @param $name string Infobox setting name.
+     * @param $checktop bool Is the infobox to be full screen?
+     * @param $infoboxnumber int Infobox number.
+     *
+     * @return string Markup if any.
+     */
+    protected function get_frontpage_infobox_markup($name, $infoboxfullscreen, $infoboxnumber) {
+        $output = '<div id="theinfo' . $infoboxnumber . '"';
+        if (empty($infoboxfullscreen)) {
+            $output .= ' class="container"';
+        }
+        $output .= '>';
+        $output .= '<div class="row">';
+        $output .= '<div class="col-12">';
+        $processedsetting = \theme_adaptable\admin_setting_confightmleditor::file_rewrite_setting_urls(
+            \theme_adaptable\toolbox::get_setting($name),
+            'shed_infobox',
+            $infoboxnumber
+        );
+        $output .= format_text($processedsetting, FORMAT_MOODLE);
+        $output .= '</div>';
+        $output .= '</div>';
+        $output .= '</div>';
+
+        return $output;
+    }
+
+    /**
      * Returns all tracking methods.
      *
      * @return string Markup.
@@ -1288,7 +1344,7 @@ trait core_renderer_toolbox {
      */
     public function is_footer_visible() {
         global $COURSE;
-        $value = $this->page->theme->settings->footerblocksplacement;
+        $value = $this->page->theme->settings->footerboxesplacement;
 
         if ($value == 1) {
             return true;
@@ -1305,11 +1361,11 @@ trait core_renderer_toolbox {
     }
 
     /**
-     * Renders footer blocks.
+     * Renders footer boxes.
      *
      * @return string HTML output.
      */
-    public function get_footer_blocks() {
+    public function get_footer_boxes() {
 
         if (!$this->is_footer_visible()) {
             return '';

@@ -544,7 +544,7 @@ trait core_renderer_layout {
         $context = new stdClass();
         $context->output = $this;
         $context->responsivepagefooter = $themesettings->responsivepagefooter;
-        $context->showfooterblocks = $themesettings->showfooterblocks;
+        $context->showfooterboxes = $themesettings->showfooterboxes;
 
         if ($themesettings->hidefootersocial == 1) {
             $context->socialicons = $this->socialicons();
@@ -1186,6 +1186,9 @@ trait core_renderer_layout {
             echo $overflow;
         }
 
+        // And let's show Infobox 1 if enabled and above the top.
+        echo $this->get_frontpage_infobox('infobox', true);
+
         echo '<div class="container">';
         echo $this->get_news_ticker();
         echo '</div>';
@@ -1193,25 +1196,8 @@ trait core_renderer_layout {
         // Slider.
         echo $this->get_frontpage_slider();
 
-        // And let's show Infobox 1 if enabled.
-        if (!empty($themesettings->infobox)) {
-            if (!empty($themesettings->infoboxfullscreen)) {
-                echo '<div id="theinfo">';
-            } else {
-                echo '<div id="theinfo" class="container">';
-            }
-            echo '<div class="row">';
-            echo '<div class="col-12">';
-            $processedsetting = \theme_adaptable\admin_setting_confightmleditor::file_rewrite_setting_urls(
-                \theme_adaptable\toolbox::get_setting('infobox'),
-                'shed_infobox',
-                1
-            );
-            echo format_text($processedsetting, FORMAT_MOODLE);
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-        }
+        // And let's show Infobox 1 if enabled and below the top (default).
+        echo $this->get_frontpage_infobox('infobox', false);
 
         echo '<div class="container">';
         // If Information Blocks are enabled then let's show them.
@@ -1234,24 +1220,7 @@ trait core_renderer_layout {
         }
 
         // And finally let's show the Infobox 2 if enabled.
-        if (!empty($themesettings->infobox2)) {
-            if (!empty($themesettings->infoboxfullscreen)) {
-                echo '<div id="theinfo2">';
-            } else {
-                echo '<div id="theinfo2" class="container">';
-            }
-            echo '<div class="row">';
-            echo '<div class="col-12">';
-            $processedsetting = \theme_adaptable\admin_setting_confightmleditor::file_rewrite_setting_urls(
-                \theme_adaptable\toolbox::get_setting('infobox2'),
-                'shed_infobox',
-                2
-            );
-            echo format_text($processedsetting, FORMAT_MOODLE);
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-        }
+        echo $this->get_frontpage_infobox('infobox2');
 
         echo '<div id="maincontainer" class="container outercont">';
         echo '<div id="page-content" class="row">';
