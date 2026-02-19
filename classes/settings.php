@@ -74,6 +74,7 @@ class settings {
                 'fonts' => null,
                 'footer' => null,
                 'frontpage_block_regions' => null,
+                'frontpage_boxes' => null,
                 'frontpage_courses' => null,
                 'frontpage_slider' => null,
                 'general' => null,
@@ -84,7 +85,6 @@ class settings {
                 'information_blocks' => null,
                 'layout' => null,
                 'layout_responsive' => null,
-                'marketing_blocks' => null,
                 'navbar' => null,
                 'navbar_links' => null,
                 'navbar_styles' => null,
@@ -460,7 +460,7 @@ class settings {
             $name,
             $title,
             $description,
-            '22px',
+            22,
             settings_toolbox::fontsizes()
         );
         $setting->set_updatedcallback('theme_reset_all_caches');
@@ -511,7 +511,7 @@ class settings {
             $name,
             $title,
             $description,
-            '20px',
+            20,
             settings_toolbox::fontsizes()
         );
         $setting->set_updatedcallback('theme_reset_all_caches');
@@ -769,18 +769,18 @@ class settings {
         $title = get_string('buttonloginheight', 'theme_adaptable');
         $description = get_string('buttonloginheightdesc', 'theme_adaptable');
         $radchoices = [
-            '16px' => "16px",
-            '18px' => "18px",
-            '20px' => "20px",
-            '22px' => "22px",
-            '24px' => "24px",
-            '26px' => "26px",
-            '28px' => "28px",
-            '30px' => "30px",
-            '32px' => "32px",
-            '34px' => "34px",
+            16 => "16px",
+            18 => "18px",
+            20 => "20px",
+            22 => "22px",
+            24 => "24px",
+            26 => "26px",
+            28 => "28px",
+            30 => "30px",
+            32 => "32px",
+            34 => "34px",
         ];
-        $setting = new admin_setting_configselect($name, $title, $description, '24px', $radchoices);
+        $setting = new admin_setting_configselect($name, $title, $description, 24, $radchoices);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
 
@@ -1102,24 +1102,24 @@ class settings {
         $page->add(new admin_setting_heading(
             'layout_heading1',
             '',
-            "<h4>" . get_string('layoutcheck', 'theme_adaptable') . "</h4>"
+            "<h4>" . get_string('blocklayoutcheck', 'theme_adaptable') . "</h4>"
         ));
 
         $checkcountcolor = '#00695C';
         if ($totalblocks > $noregions) {
             $mktcountcolor = '#D7542A';
         }
-        $mktcountmsg = '<span style="color: ' . $checkcountcolor . '; margin-bottom: 20px;">';
-        $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') .
+        $courseblkcountmsg = '<span style="color: ' . $checkcountcolor . '; margin-bottom: 20px;">';
+        $courseblkcountmsg .= get_string('blocklayoutcount1', 'theme_adaptable') .
         '<strong>' . $noregions . '</strong>';
-        $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') .
+        $courseblkcountmsg .= get_string('blocklayoutcount2', 'theme_adaptable') .
         '<strong>' . $totalblocks . '/' . $noregions . '</strong></span>.';
 
-        $page->add(new admin_setting_heading('theme_adaptable_courselayouttopblockscount', '', $mktcountmsg));
+        $page->add(new admin_setting_heading('theme_adaptable_courselayouttopblockscount', '', $courseblkcountmsg));
 
         $page->add(new admin_setting_heading('theme_adaptable_courselayouttopbuilder', '', $imgblder));
 
-        // Course page bottom  block region builder.
+        // Course page bottom block region builder.
         $noregions = 4; // Number of block regions defined in config.php.
         $totalblocks = 0;
         $imgblder = '';
@@ -1158,20 +1158,20 @@ class settings {
         $page->add(new admin_setting_heading(
             'layout_heading2',
             '',
-            "<h4>" . get_string('layoutcheck', 'theme_adaptable') . "</h4>"
+            "<h4>" . get_string('blocklayoutcheck', 'theme_adaptable') . "</h4>"
         ));
 
         $checkcountcolor = '#00695C';
         if ($totalblocks > $noregions) {
             $mktcountcolor = '#D7542A';
         }
-        $mktcountmsg = '<span style="color: ' . $checkcountcolor . '">';
-        $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') .
+        $courseblkcountmsg = '<span style="color: ' . $checkcountcolor . '">';
+        $courseblkcountmsg .= get_string('blocklayoutcount1', 'theme_adaptable') .
         '<strong>' . $noregions . '</strong>';
-        $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') .
+        $courseblkcountmsg .= get_string('blocklayoutcount2', 'theme_adaptable') .
         '<strong>' . $totalblocks . '/' . $noregions . '</strong></span>.';
 
-        $page->add(new admin_setting_heading('theme_adaptable_courselayoutbottomblockscount', '', $mktcountmsg));
+        $page->add(new admin_setting_heading('theme_adaptable_courselayoutbottomblockscount', '', $courseblkcountmsg));
 
         $page->add(new admin_setting_heading('theme_adaptable_courselayoutbottombuilder', '', $imgblder . "<br><br>"));
 
@@ -1755,19 +1755,19 @@ class settings {
 
         $page->add(new admin_setting_heading(
             'theme_adaptable_dashblocklayoutcheck',
-            get_string('layoutcheck', 'theme_adaptable'),
-            format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+            get_string('blocklayoutcheck', 'theme_adaptable'),
+            format_text(get_string('blocklayoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
         ));
 
         $checkcountcolor = '#00695C';
         if ($totalblocks > $noregions) {
-            $mktcountcolor = '#D7542A';
+            $checkcountcolor = '#D7542A';
         }
-        $mktcountmsg = '<span style="color: ' . $checkcountcolor . '">';
-        $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
-        $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong>.';
+        $dashblockcountmsg = '<span style="color: ' . $checkcountcolor . '">';
+        $dashblockcountmsg .= get_string('blocklayoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
+        $dashblockcountmsg .= get_string('blocklayoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong>.';
 
-        $page->add(new admin_setting_heading('theme_adaptable_dashlayoutblockscount', '', $mktcountmsg));
+        $page->add(new admin_setting_heading('theme_adaptable_dashlayoutblockscount', '', $dashblockcountmsg));
 
         $page->add(new admin_setting_heading('theme_adaptable_dashlayoutbuilder', '', $imgblder));
 
@@ -1891,7 +1891,7 @@ class settings {
             $name,
             $title,
             $description,
-            '14px',
+            14,
             settings_toolbox::fontsizes()
         );
         $setting->set_updatedcallback('theme_reset_all_caches');
@@ -2020,21 +2020,21 @@ class settings {
         $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
         $page->add($setting);
 
-        $name = 'theme_adaptable/footerblocksplacement';
-        $title = get_string('footerblocksplacement', 'theme_adaptable');
-        $description = get_string('footerblocksplacementdesc', 'theme_adaptable');
+        $name = 'theme_adaptable/footerboxesplacement';
+        $title = get_string('footerboxesplacement', 'theme_adaptable');
+        $description = get_string('footerboxesplacementdesc', 'theme_adaptable');
         $choices = [
-            1 => get_string('footerblocksplacement1', 'theme_adaptable'),
-            2 => get_string('footerblocksplacement2', 'theme_adaptable'),
-            3 => get_string('footerblocksplacement3', 'theme_adaptable'),
+            1 => get_string('footerboxesplacement1', 'theme_adaptable'),
+            2 => get_string('footerboxesplacement2', 'theme_adaptable'),
+            3 => get_string('footerboxesplacement3', 'theme_adaptable'),
         ];
         $setting = new admin_setting_configselect($name, $title, $description, 1, $choices);
         $page->add($setting);
 
-        // Show Footer blocks.
-        $name = 'theme_adaptable/showfooterblocks';
-        $title = get_string('showfooterblocks', 'theme_adaptable');
-        $description = get_string('showfooterblocksdesc', 'theme_adaptable');
+        // Show Footer boxes.
+        $name = 'theme_adaptable/showfooterboxes';
+        $title = get_string('showfooterboxes', 'theme_adaptable');
+        $description = get_string('showfooterboxesdesc', 'theme_adaptable');
         $setting = new admin_setting_configcheckbox($name, $title, $description, 1);
         $page->add($setting);
 
@@ -2090,8 +2090,8 @@ class settings {
             format_text(get_string('footerbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
         ));
 
-        // Footer block region builder.
-        ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = toolbox::admin_settings_layout_builder(
+        // Footer box region builder.
+        ['imgblder' => $imgblder, 'totalblocks' => $totalboxes] = toolbox::admin_settings_layout_builder(
             $page,
             'footerlayoutrow',
             3,
@@ -2099,27 +2099,27 @@ class settings {
             settings_toolbox::rowlayouts()
         );
 
-        if ($totalblocks > 0) {
+        if ($totalboxes > 0) {
             $page->add(new admin_setting_heading(
-                'theme_adaptable_footerlayoutcheck',
-                get_string('layoutcheck', 'theme_adaptable'),
-                format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+                'theme_adaptable_footerboxlayoutcheck',
+                get_string('boxlayoutcheck', 'theme_adaptable'),
+                format_text(get_string('boxlayoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
             ));
 
             $page->add(new admin_setting_heading('theme_adaptable_footerlayoutbuilder', '', $imgblder));
         }
 
-        $blkcontmsg = get_string('layoutaddcontentdesc1', 'theme_adaptable');
-        $blkcontmsg .= $totalblocks;
-        $blkcontmsg .= get_string('layoutaddcontentdesc2', 'theme_adaptable');
+        $blkcontmsg = get_string('boxlayoutaddcontentdesc1', 'theme_adaptable');
+        $blkcontmsg .= $totalboxes;
+        $blkcontmsg .= get_string('boxlayoutaddcontentdesc2', 'theme_adaptable');
 
         $page->add(new admin_setting_heading(
-            'theme_adaptable_footerlayoutaddcontent',
-            get_string('layoutaddcontent', 'theme_adaptable'),
+            'theme_adaptable_footerboxlayoutaddcontent',
+            get_string('boxlayoutaddcontent', 'theme_adaptable'),
             format_text($blkcontmsg, FORMAT_MARKDOWN)
         ));
 
-        for ($i = 1; $i <= $totalblocks; $i++) {
+        for ($i = 1; $i <= $totalboxes; $i++) {
             $name = 'theme_adaptable/footer' . $i . 'header';
             $title = get_string('footerheader', 'theme_adaptable') . $i;
             $description = get_string('footerdesc', 'theme_adaptable') . $i;
@@ -2194,7 +2194,7 @@ class settings {
         );
 
         $page->add(new admin_setting_heading(
-            'theme_adaptable_marketing',
+            'theme_adaptable_block_regions',
             get_string('blocklayoutbuilder', 'theme_adaptable'),
             format_text(get_string('blocklayoutbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
         ));
@@ -2217,19 +2217,19 @@ class settings {
 
         $page->add(new admin_setting_heading(
             'theme_adaptable_blockslayoutcheck',
-            get_string('layoutcheck', 'theme_adaptable'),
-            format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+            get_string('blocklayoutcheck', 'theme_adaptable'),
+            format_text(get_string('blocklayoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
         ));
 
         $checkcountcolor = '#00695C';
         if ($totalblocks > $noregions) {
-            $mktcountcolor = '#D7542A';
+            $checkcountcolor = '#D7542A';
         }
-        $mktcountmsg = '<span style="color: ' . $checkcountcolor . '">';
-        $mktcountmsg .= get_string('layoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
-        $mktcountmsg .= get_string('layoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong>.';
+        $frontblockcountmsg = '<span style="color: ' . $checkcountcolor . '">';
+        $frontblockcountmsg .= get_string('blocklayoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
+        $frontblockcountmsg .= get_string('blocklayoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong>.';
 
-        $page->add(new admin_setting_heading('theme_adaptable_blockslayoutblockscount', '', $mktcountmsg));
+        $page->add(new admin_setting_heading('theme_adaptable_blockslayoutblockscount', '', $frontblockcountmsg));
 
         $page->add(new admin_setting_heading('theme_adaptable_blockslayoutbuilder', '', $imgblder));
 
@@ -2853,7 +2853,7 @@ class settings {
             $name,
             $title,
             $description,
-            '48px',
+            48,
             settings_toolbox::fontsizes()
         );
         $setting->set_updatedcallback('theme_reset_all_caches');
@@ -3574,8 +3574,8 @@ class settings {
         if ($totalblocks > 0) {
             $page->add(new admin_setting_heading(
                 'theme_adaptable_informationblocklayoutcheck',
-                get_string('layoutcheck', 'theme_adaptable'),
-                format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+                get_string('blocklayoutcheck', 'theme_adaptable'),
+                format_text(get_string('blocklayoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
             ));
 
             $page->add(new admin_setting_heading('theme_adaptable_informationlayoutbuilder', '', $imgblder));
@@ -3661,7 +3661,7 @@ class settings {
             $name,
             $title,
             $description,
-            '16px',
+            16,
             settings_toolbox::fontsizes()
         );
         $setting->set_updatedcallback('theme_reset_all_caches');
@@ -3972,20 +3972,26 @@ class settings {
     }
 
     /**
-     * Marketing blocks settings.
+     * Frontpage boxes settings.
      *
      * @return admin_settingpage The setting page.
      */
-    protected static function marketing_blocks_settings() {
+    protected static function frontpage_boxes_settings() {
         $page = new admin_settingpage(
-            'theme_adaptable_frontpage_blocks',
-            get_string('frontpageblocksettings', 'theme_adaptable')
+            'theme_adaptable_frontpage_boxes',
+            get_string('frontpageboxessettings', 'theme_adaptable')
         );
 
         $page->add(new admin_setting_heading(
-            'theme_adaptable_marketing',
-            get_string('marketingsettingsheading', 'theme_adaptable'),
-            format_text(get_string('marketingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+            'theme_adaptable_frontpage_boxes_desc',
+            get_string('frontpageboxessettingsdesc', 'theme_adaptable'),
+            ''
+        ));
+
+        $page->add(new admin_setting_heading(
+            'theme_adaptable_frontpage_infoboxes',
+            get_string('infoboxessettingsheading', 'theme_adaptable'),
+            format_text(get_string('infoboxessettingsheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
         ));
 
         $name = 'theme_adaptable/infobox';
@@ -3993,6 +3999,13 @@ class settings {
         $description = get_string('infoboxdesc', 'theme_adaptable');
         $default = '';
         $setting = new admin_setting_confightmleditor($name, $title, $description, $default, 'shed_infobox', 1);
+        $page->add($setting);
+
+        $name = 'theme_adaptable/infoboxtop';
+        $title = get_string('infoboxtop', 'theme_adaptable');
+        $description = get_string('infoboxtopdesc', 'theme_adaptable');
+        $default = false;
+        $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
         $page->add($setting);
 
         $name = 'theme_adaptable/infobox2';
@@ -4008,6 +4021,12 @@ class settings {
         $default = false;
         $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
         $page->add($setting);
+
+        $page->add(new admin_setting_heading(
+            'theme_adaptable_frontpage_marketing',
+            get_string('marketingsettingsheading', 'theme_adaptable'),
+            format_text(get_string('marketingsettingsheadingdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+        ));
 
         $name = 'theme_adaptable/frontpagemarketenabled';
         $title = get_string('frontpagemarketenabled', 'theme_adaptable');
@@ -4037,38 +4056,38 @@ class settings {
         $setting = new admin_setting_configselect($name, $title, $description, 'covtiles', $choices);
         $page->add($setting);
 
-        // Market blocks colors heading.
+        // Marketing boxes colors heading.
         $name = 'theme_adaptable/settingsmarketingcolors';
         $heading = get_string('settingsmarketingcolors', 'theme_adaptable');
         $setting = new admin_setting_heading($name, $heading, '');
         $page->add($setting);
 
-        // Market blocks border color.
-        $name = 'theme_adaptable/marketblockbordercolor';
-        $title = get_string('marketblockbordercolor', 'theme_adaptable');
-        $description = get_string('marketblockbordercolordesc', 'theme_adaptable');
+        // Market box border color.
+        $name = 'theme_adaptable/marketboxbordercolour';
+        $title = get_string('marketboxbordercolour', 'theme_adaptable');
+        $description = get_string('marketboxbordercolourdesc', 'theme_adaptable');
         $previewconfig = null;
         $setting = new admin_setting_configcolourpicker($name, $title, $description, '#e8eaeb', $previewconfig);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
 
-        // Market blocks background color.
-        $name = 'theme_adaptable/marketblocksbackgroundcolor';
-        $title = get_string('marketblocksbackgroundcolor', 'theme_adaptable');
-        $description = get_string('marketblocksbackgroundcolordesc', 'theme_adaptable');
+        // Market box background color.
+        $name = 'theme_adaptable/marketboxbackgroundcolour';
+        $title = get_string('marketboxbackgroundcolour', 'theme_adaptable');
+        $description = get_string('marketboxbackgroundcolourdesc', 'theme_adaptable');
         $previewconfig = null;
         $setting = new admin_setting_configcolourpicker($name, $title, $description, 'transparent', $previewconfig);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
 
-        // Marketing block region builder.
+        // Marketing box region builder.
         $page->add(new admin_setting_heading(
             'theme_adaptable_marketingbuilder',
             get_string('marketingbuilderheading', 'theme_adaptable'),
             format_text(get_string('marketingbuilderdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
         ));
 
-        ['imgblder' => $imgblder, 'totalblocks' => $totalblocks] = toolbox::admin_settings_layout_builder(
+        ['imgblder' => $imgblder, 'totalblocks' => $totalboxes] = toolbox::admin_settings_layout_builder(
             $page,
             'marketlayoutrow',
             5,
@@ -4077,24 +4096,24 @@ class settings {
         );
 
         $page->add(new admin_setting_heading(
-            'theme_adaptable_marketingblocklayoutcheck',
-            get_string('layoutcheck', 'theme_adaptable'),
-            format_text(get_string('layoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
+            'theme_adaptable_marketingboxlayoutcheck',
+            get_string('boxlayoutcheck', 'theme_adaptable'),
+            format_text(get_string('boxlayoutcheckdesc', 'theme_adaptable'), FORMAT_MARKDOWN)
         ));
 
         $page->add(new admin_setting_heading('theme_adaptable_marketinglayoutbuilder', '', $imgblder));
 
-        $blkcontmsg = get_string('layoutaddcontentdesc1', 'theme_adaptable');
-        $blkcontmsg .= $totalblocks;
-        $blkcontmsg .= get_string('layoutaddcontentdesc2', 'theme_adaptable');
+        $blkcontmsg = get_string('boxlayoutaddcontentdesc1', 'theme_adaptable');
+        $blkcontmsg .= $totalboxes;
+        $blkcontmsg .= get_string('boxlayoutaddcontentdesc2', 'theme_adaptable');
 
         $page->add(new admin_setting_heading(
-            'theme_adaptable_blocklayoutaddcontent',
-            get_string('layoutaddcontent', 'theme_adaptable'),
+            'theme_adaptable_boxlayoutaddcontent',
+            get_string('boxlayoutaddcontent', 'theme_adaptable'),
             format_text($blkcontmsg, FORMAT_MARKDOWN)
         ));
 
-        for ($i = 1; $i <= $totalblocks; $i++) {
+        for ($i = 1; $i <= $totalboxes; $i++) {
             $name = 'theme_adaptable/market' . $i;
             $title = get_string('market', 'theme_adaptable', $i);
             $description = get_string('marketdesc', 'theme_adaptable');

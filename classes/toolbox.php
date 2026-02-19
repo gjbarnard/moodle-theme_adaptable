@@ -592,7 +592,7 @@ class toolbox {
             '[[setting:buttonloginhovercolor]]' => '#e53935',
             '[[setting:buttonlogintextcolor]]' => '#0084c2',
             '[[setting:buttonloginpadding]]' => 0,
-            '[[setting:buttonloginheight]]' => '24px',
+            '[[setting:buttonloginheight]]' => 24,
             '[[setting:buttonloginmargintop]]' => 2,
             '[[setting:buttonradius]]' => 5,
             '[[setting:buttondropshadow]]' => '0',
@@ -620,8 +620,8 @@ class toolbox {
             '[[setting:blockheaderbackgroundcolor]]' => '#FFFFFF',
             '[[setting:blockbordercolor]]' => '#59585D',
             '[[setting:blockregionbackgroundcolor]]' => 'transparent',
-            '[[setting:marketblockbordercolor]]' => '#e8eaeb',
-            '[[setting:marketblocksbackgroundcolor]]' => 'transparent',
+            '[[setting:marketboxbordercolor]]' => '#e8eaeb',
+            '[[setting:marketboxbackgroundcolour]]' => 'transparent',
             '[[setting:blockheaderbordertop]]' => 1,
             '[[setting:blockheaderborderleft]]' => 0,
             '[[setting:blockheaderborderright]]' => 0,
@@ -666,7 +666,7 @@ class toolbox {
             '[[setting:slidermarginbottom]]' => 20,
             '[[setting:currentcolor]]' => '#d9edf7',
             '[[setting:sectionheadingcolor]]' => '#3A454b',
-            '[[setting:menufontsize]]' => '14px',
+            '[[setting:menufontsize]]' => 14,
             '[[setting:menufontpadding]]' => 20,
             '[[setting:menubkcolor]]' => '#ffffff',
             '[[setting:menufontcolor]]' => '#444444',
@@ -704,12 +704,12 @@ class toolbox {
             '[[setting:fontweight]]' => '400',
             '[[setting:fontheaderweight]]' => '400',
             '[[setting:fonttitleweight]]' => '400',
-            '[[setting:fonttitlesize]]' => '48px',
+            '[[setting:fonttitlesize]]' => 48,
             '[[setting:fonttitlecolor]]' => '#ffffff',
             '[[setting:searchboxpadding]]' => '0 0 0 0',
             '[[setting:enablesavecanceloverlay]]' => true,
             '[[setting:headermainrowminheight]]' => '72px',
-            '[[setting:emoticonsize]]' => '16px',
+            '[[setting:emoticonsize]]' => 16,
             '[[setting:fullscreenwidth]]' => '98%',
             '[[setting:coursetitlemaxwidth]]' => '20',
             '[[setting:responsiveheader]]' => 'd-none d-lg-flex',
@@ -728,9 +728,9 @@ class toolbox {
             '[[setting:onetopicactivetabbackgroundcolor]]' => '#d9edf7',
             '[[setting:onetopicactivetabtextcolor]]' => '#000000',
             '[[setting:fontblockheaderweight]]' => '400',
-            '[[setting:fontblockheadersize]]' => '22px',
+            '[[setting:fontblockheadersize]]' => 22,
             '[[setting:fontblockheadercolor]]' => '#3A454b',
-            '[[setting:blockiconsheadersize]]' => '20px',
+            '[[setting:blockiconsheadersize]]' => 20,
             '[[setting:forumheaderbackgroundcolor]]' => '#ffffff',
             '[[setting:forumbodybackgroundcolor]]' => '#ffffff',
             '[[setting:introboxbackgroundcolor]]' => '#ffffff',
@@ -1077,6 +1077,7 @@ class toolbox {
             if ($ourprops['alertcount'] > $theirprops['alertcount']) {
                 // Schedule removal of excess.
                 for ($alertindex = $theirprops['alertcount'] + 1; $alertindex <= $ourprops['alertcount']; $alertindex++) {
+                    $alerttext = 'alert' . $alertindex;
                     $filepropremove[$alerttext] = [
                         self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
                         self::FILEPROPERTYFILEAREA => 'shed_alerttext',
@@ -1086,7 +1087,7 @@ class toolbox {
             }
         }
 
-        // Footer blocks.  Ref: get_footer_blocks().
+        // Footer boxes.  Ref: get_footer_boxes().
         $helper = self::admin_settings_layout_helper('footerlayoutrow', 3, $props);
         if ($helper['totalblocks'] > 0) {
             $blockcount = 0;

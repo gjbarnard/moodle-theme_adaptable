@@ -1,3 +1,10 @@
+Change log in version 500.2.5 (2025040810)
+==========================================
+1. Footer and Marketing 'blocks' are different to core 'Blocks', so call them 'Boxes' instead to make things clearer.
+2. Add 'infoboxtop' setting to state if you want the Frontpage information box to appear at the top but below the navigation.
+3. 'Marketing boxes' settings tab is now 'Frontpage boxes'.  This is to clarify things as the page contains both information
+   and marketing box settings.
+
 Change log in version 500.2.4 (2025040809)
 ==========================================
 1. Separate layout for 'incourse' to show activity navigation.  Ref: https://moodle.org/mod/forum/discuss.php?d=469954#p1890832.

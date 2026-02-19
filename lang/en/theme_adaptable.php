@@ -144,7 +144,7 @@ $string['settingsmaincolors'] = 'Main colours';
 $string['settingsmobilecolors'] = 'Mobile colours';
 $string['settingsinfoboxcolors'] = 'Info box colours';
 $string['settingssecondinfoboxcolors'] = 'Second info box colours';
-$string['settingsmarketingcolors'] = 'Marketing block colours';
+$string['settingsmarketingcolors'] = 'Marketing box colours';
 $string['settingscoventryoverlaycolors'] = 'Coventry / Overlay tiles colours';
 $string['settingsnavbarcolors'] = 'Navigation bar (navbar) colours';
 $string['settingsalertbox'] = 'Alert box';
@@ -168,12 +168,12 @@ $string['frontpagecoursesettings'] = 'Frontpage courses list';
 $string['frontpagesettingsheading'] = 'Frontpage rendering';
 $string['frontpagedesc'] = 'Configure the way that the course boxes are rendered on the frontpage.';
 $string['frontpagerenderer'] = 'Frontpage course boxes';
-$string['frontpagerendererdesc'] = 'Control the way that the course boxes on the front page are rendered.';
+$string['frontpagerendererdesc'] = 'Control the way that the course boxes on the frontpage are rendered.';
 $string['frontpagerendereroption1'] = 'Tiles';
 $string['frontpagerendereroption2'] = 'Tiles with overlay';
 $string['frontpagerendereroption3'] = 'Moodle default';
 $string['frontpagerendereroption4'] = 'Coventry tiles';
-$string['frontpageblocksettings'] = 'Marketing blocks';
+$string['frontpageboxessettings'] = 'Frontpage boxes';
 $string['settingspagegeneralsettings'] = 'General';
 $string['informationblocksettings'] = 'Information blocks';
 $string['newstickersettings'] = 'News ticker';
@@ -234,8 +234,8 @@ $string['ticker'] = 'Announcements';
 
 // Slideshow.
 $string['slideshowsettings'] = 'Slideshow';
-$string['slideshowsettingsheading'] = 'Customize the carousel on the front page.';
-$string['slideshowdesc'] = 'Upload the images, add the links and description for the carousel on the front page.';
+$string['slideshowsettingsheading'] = 'Customize the carousel on the frontpage.';
+$string['slideshowdesc'] = 'Upload the images, add the links and description for the carousel on the frontpage.';
 
 $string['sliderimage'] = 'Slider image';
 $string['sliderimagedesc'] = 'Add an image for your slide.  The recommended size is 1600px x 400px or higher.';
@@ -309,7 +309,7 @@ $string['sliderstyle2'] = 'Slider style two';
 
 // Block Regions.
 $string['blocklayoutbuilder'] = 'Frontpage block regions';
-$string['blocklayoutbuilderdesc'] = 'Below you can build your own layout for block regions on the front page.<br/>To add content these regions you will need to <strong> turn editing on on the front page of Moodle</strong>.<br/>Then you can begin to drag/drop blocks into the regions you create!';
+$string['blocklayoutbuilderdesc'] = 'Below you can build your own layout for block regions on the frontpage.<br/>To add content these regions you will need to <strong> turn editing on on the frontpage of Moodle</strong>.<br/>Then you can begin to drag/drop blocks into the regions you create!';
 
 $string['dashblocklayoutbuilder'] = 'Dashboard block regions';
 $string['dashblocklayoutbuilderdesc'] = 'Below you can build your own layout for block regions on the dashboard page.<br/>To add content these regions you will need to <strong> turn editing on, on the dashboard page of Moodle</strong>.<br/>Then you can begin to drag/drop blocks into the regions you create!';
@@ -320,13 +320,13 @@ $string['coursepagesidebarinfooterenabledsectiondesc'] = 'Common settings for mo
 $string['coursepageblocklayoutbuilder'] = 'Course page block regions';
 $string['coursepageblocklayoutbuilderdesc'] = 'Below you can build your own layout for block regions on the course page.<br/>To add content these regions you will need to <strong> turn editing on, on the course page of Moodle</strong>.<br/>Then you can begin to drag/drop blocks into the regions you create!';
 
-$string['blocklayoutlayoutcheck'] = 'Check your layout';
-$string['blocklayoutlayoutcheckdesc'] = 'Use the tool below to check the number of blocks you have used and see a representation of your new layout.';
-$string['blocklayoutlayoutcount1'] = 'You can set a maximum of ';
-$string['blocklayoutlayoutcount2'] = ' block regions. You are currently using: ';
+$string['blocklayoutcheck'] = 'Check your layout';
+$string['blocklayoutcheckdesc'] = 'Use the tool below to check the number of blocks you have used and see a representation of your new layout.';
+$string['blocklayoutcount1'] = 'You can set a maximum of ';
+$string['blocklayoutcount2'] = ' block regions. You are currently using: ';
 
 $string['blocklayoutlayoutrow'] = 'Block region row';
-$string['blocklayoutlayoutrowdesc'] = 'Add / set layout for block region row on front page.';
+$string['blocklayoutlayoutrowdesc'] = 'Add / set layout for block region row on frontpage.';
 
 $string['blockregioneditingtitleshown'] = 'Show the block region title when editing';
 $string['blockregioneditingtitleshowndesc'] = 'You can show / hide the block region title when editing.';
@@ -343,11 +343,11 @@ $string['coursepageblocklayouttoprowdesc'] = 'Add / set layout for block region 
 $string['coursepageblocklayoutbottomrow'] = 'Course page block bottom region row ';
 $string['coursepageblocklayoutbottomrowdesc'] = 'Add / set layout for block region row on the course page.';
 
-$string['frontpageblocksenabled'] = 'Enable custom block region on front page';
-$string['frontpageblocksenableddesc'] = 'You can enable / disable custom block regions on the front page.  You can then drag and drop blocks into the regions you created.';
+$string['frontpageblocksenabled'] = 'Enable custom block region on frontpage';
+$string['frontpageblocksenableddesc'] = 'You can enable / disable custom block regions on the frontpage.  You can then drag and drop blocks into the regions you created.';
 
-$string['frontpageuserblocksenabled'] = 'Enable side-post block region on front page for users';
-$string['frontpageuserblocksenableddesc'] = 'You can enable / disable the side-post block region on the front page for users.  Note: \'Users\' here means guest and authenticated users, Admins will always see the region.';
+$string['frontpageuserblocksenabled'] = 'Enable side-post block region on frontpage for users';
+$string['frontpageuserblocksenableddesc'] = 'You can enable / disable the side-post block region on the frontpage for users.  Note: \'Users\' here means guest and authenticated users, Admins will always see the region.';
 
 $string['dashblocksenabled'] = 'Enable custom block region on the \'Dashboard\' page';
 $string['dashblocksenableddesc'] = 'You can enable / disable custom block regions on the \'Dashboard\' page.  You can then drag and drop blocks into the regions you created.';
@@ -372,10 +372,8 @@ $string['coursepageactivitybottomblockregionheadingdesc'] = 'A custom block regi
 $string['coursepageblockactivitybottomenabled'] = 'Enable course activity bottom block region on course page';
 $string['coursepageblockactivitybottomenableddesc'] = 'Enable this region on all course pages.';
 
-$string['layoutcheck'] = 'Check your layout';
-$string['layoutcheckdesc'] = 'Use the tool below to check the number of blocks you have used and see a representation of your new layout.';
-$string['layoutcount1'] = 'You can set a maximum of ';
-$string['layoutcount2'] = ' block regions. You are currently using: ';
+$string['boxlayoutcheck'] = 'Check your layout';
+$string['boxlayoutcheckdesc'] = 'Use the tool below to check the number of boxes you have used and see a representation of your new layout.';
 
 $string['sidebaricon'] = 'Show / hide the sidebar';
 
@@ -383,7 +381,7 @@ $string['sidebaricon'] = 'Show / hide the sidebar';
 $string['flexibleblocksoverflow'] = 'Overflow';
 
 // Information Blocks.
-$string['informationsettingsheading'] = 'Customize the information block region that appears on the front page.';
+$string['informationsettingsheading'] = 'Customize the information block region that appears on the frontpage.';
 $string['informationsettingsdesc'] = 'There is a layout builder allowing you to decide how many blocks you need and define your own layout.<br>Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
 
 $string['informationblocksenabled'] = 'Enable information blocks';
@@ -398,47 +396,54 @@ $string['informationblocksbuilderheading'] = 'Information block layout builder';
 $string['informationblocksbuilderdesc'] = 'Use the tool below to setup your information blocks.  Once defined the blocks will follow the layout when editing is off and window width is greater than 575 px.  Overflow will always be four blocks per row.';
 
 $string['informationblockslayoutrow'] = 'Information block row';
-$string['informationblockslayoutrowdesc'] = 'Add / set the layout for this information block row on front page.';
+$string['informationblockslayoutrowdesc'] = 'Add / set the layout for this information block row on frontpage.';
 
-// Marketing Blocks & Info Box.
-$string['marketingsettings'] = 'Marketing blocks';
-$string['marketingsettingsheading'] = 'Customize the marketing blocks that appear on the front page.';
-$string['marketingdesc'] = 'There are two full width info boxes with differing styles you can use.<br>In addition to this there is a layout builder allowing you to decide how many blocks you need and define your own layout.<br>Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
+// Frontpage Marketing Boxes & Info Box.
+$string['frontpageboxessettingsdesc'] = 'Here you can define your information and marketing boxes.';
 
-$string['marketingvisible'] = 'Show the marketing blocks when';
-$string['marketingvisibledesc'] = 'Show the marketing blocks when \'Logged out\', \'Logged in\' or \'Logged in or out\'.';
+$string['infoboxessettingsheading'] = 'Customize the information boxes that appear on the frontpage.';
+$string['infoboxessettingsheadingdesc'] = 'These are two information boxes with differing styles you can use.';
+
+$string['marketingsettingsheading'] = 'Customize the marketing boxes that appear on the frontpage.';
+$string['marketingsettingsheadingdesc'] = 'This has a layout builder allowing you to decide how many boxes you need and define your own layout.';
+
+$string['marketingvisible'] = 'Show the marketing boxes when';
+$string['marketingvisibledesc'] = 'Show the marketing boxes when \'Logged out\', \'Logged in\' or \'Logged in or out\'.';
 $string['marketingvisibleloggedout'] = 'Logged out';
 $string['marketingvisibleloggedin'] = 'Logged in';
 $string['marketingvisibleloggedinout'] = 'Logged in or out';
 
-$string['marketingbuilderheading'] = 'Marketing block layout builder';
-$string['marketingbuilderdesc'] = 'Use the tool below to setup your marketing blocks.  Once defined the block settings will appear further down the page.';
+$string['marketingbuilderheading'] = 'Marketing box layout builder';
+$string['marketingbuilderdesc'] = 'Use the tool below to setup your marketing boxes.  Once defined the box settings will appear further down this page.';
 
-$string['marketlayoutrow'] = 'Marketing block row';
-$string['marketlayoutrowdesc'] = 'Add / set layout for marketing block row on front page';
+$string['marketlayoutrow'] = 'Marketing box row';
+$string['marketlayoutrowdesc'] = 'Add / set layout for marketing box row on the frontpage';
 
-$string['market'] = 'Marketing block {$a}';
-$string['marketdesc'] = 'Add html for marketing block.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
+$string['market'] = 'Marketing box {$a}';
+$string['marketdesc'] = 'Add html for marketing box.';
 
-$string['layoutaddcontent'] = 'Happy with your layout?  Now add content to your blocks:';
-$string['layoutaddcontentdesc1'] = 'You have configured ';
-$string['layoutaddcontentdesc2'] = ' blocks. If you are happy with this layout add content to the blocks below.<br>If you are not happy use the layout builder above to make changes.';
+$string['boxlayoutaddcontent'] = 'Happy with your layout?  Now add content to your boxes:';
+$string['boxlayoutaddcontentdesc1'] = 'You have configured ';
+$string['boxlayoutaddcontentdesc2'] = ' boxes.  If you are happy with this layout add content to the boxes below.<br>If you are not happy use the layout builder above to make changes.';
 
-$string['infobox'] = 'Frontpage info box';
-$string['infoboxdesc'] = 'Frontpage info block HTML.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
+$string['infobox'] = 'Infobox';
+$string['infoboxdesc'] = 'Primary infobox where you can place information for your users.';
+
+$string['infoboxtop'] = 'Infobox top';
+$string['infoboxtopdesc'] = 'Enable to have the infobox at the top of the frontpage but below the naviagtion instead of below the frontpage slider.';
+
+$string['infobox2'] = 'Secondary infobox';
+$string['infobox2desc'] = 'Secondary infobox where you can place information for your users.';
 
 $string['infoboxfullscreen'] = 'Make infobox full view';
 $string['infoboxfullscreendesc'] = 'Turning this option on will make the infobox full view.';
 
-$string['infobox2'] = 'Frontpage secondary info box';
-$string['infobox2desc'] = 'Frontpage secondary info box.  Please see the \'Readme\' section on the \'Information\' settings tab for additional information.';
+$string['frontpagemarketenabled'] = 'Enable marketing boxes';
+$string['frontpagemarketenableddesc'] = 'Set the marketing boxes in the frontpage.';
 
-$string['frontpagemarketenabled'] = 'Enable marketing blocks';
-$string['frontpagemarketenableddesc'] = 'Set the marketing blocks in the frontpage.';
-
-$string['frontpagemarketoption'] = 'Choose style for marketing blocks';
-$string['frontpagemarketoptiondesc'] = 'You can apply different styles to marketing blocks.
-Note: BCU style is designed to work with images at top of block.';
+$string['frontpagemarketoption'] = 'Choose style for marketing boxes';
+$string['frontpagemarketoptiondesc'] = 'You can apply different styles to marketing boxes.
+Note: BCU style is designed to work with images at top of boxes.';
 
 $string['bcustyle'] = 'BCU style';
 $string['coventrystyle'] = 'Coventry style';
@@ -455,20 +460,20 @@ $string['footerdesc'] = 'Control the content that appears in the 4 footer sectio
 
 $string['settingsfootercolours'] = 'Footer colours';
 
-$string['showfooterblocks'] = 'Show footer blocks';
-$string['showfooterblocksdesc'] = 'Show / hide the configurable footer blocks.';
+$string['showfooterboxes'] = 'Show footer boxes';
+$string['showfooterboxesdesc'] = 'Show / hide the configurable footer boxes.';
 
-$string['footerblocksplacement'] = 'Footer blocks placement ';
-$string['footerblocksplacementdesc'] = 'Control where the upper footer blocks are displayed. Sitewide is default.';
-$string['footerblocksplacement1'] = 'Sitewide';
-$string['footerblocksplacement2'] = 'Homepage only';
-$string['footerblocksplacement3'] = 'Never';
+$string['footerboxesplacement'] = 'Footer boxes placement ';
+$string['footerboxesplacementdesc'] = 'Control where the upper footer boxes are displayed.  Sitewide is default.';
+$string['footerboxesplacement1'] = 'Sitewide';
+$string['footerboxesplacement2'] = 'Homepage only';
+$string['footerboxesplacement3'] = 'Never';
 
 $string['footerlayoutrow'] = 'Footer layout builder';
-$string['footerlayoutrowdesc'] = 'Design your layout for footer block regions.';
+$string['footerlayoutrowdesc'] = 'Design your layout for footer box regions.';
 
-$string['footerbuilderheading'] = 'Footer block layout builder';
-$string['footerbuilderdesc'] = 'Use the tool below to setup your footer blocks.  Once defined the blocks will follow the layout when editing is off and window width is greater than 575 px.  Overflow will always be four blocks per row.';
+$string['footerbuilderheading'] = 'Footer box layout builder';
+$string['footerbuilderdesc'] = 'Use the tool below to setup your footer boxes.  Once defined the boxes will follow the layout when editing is off and window width is greater than 575 px.  Overflow will always be four boxes per row.';
 
 $string['footnote'] = 'Footnote';
 $string['footnotedesc'] = 'Add text to the footer.';
@@ -691,8 +696,8 @@ $string['footerbkcolordesc'] = 'Set the footer background colour.';
 $string['footertextcolor2'] = 'Lower footer text colour';
 $string['footertextcolor2desc'] = 'Lower footer text colour.';
 
-$string['footerlinkcolor'] = 'Footer blocks link colour';
-$string['footerlinkcolordesc'] = 'Footer blocks link colour.';
+$string['footerlinkcolor'] = 'Footer boxes link colour';
+$string['footerlinkcolordesc'] = 'Footer boxes link colour.';
 
 $string['notbadgecolour'] = 'Notifications badge colour';
 $string['notbadgecolourdesc'] = 'Set the colour for the notifications badge / bubble in the header (displays number of unread notifications)';
@@ -728,7 +733,7 @@ $string['blockbordercolor'] = 'Block border colour';
 $string['blockbordercolordesc'] = 'Set the block border colour.';
 
 $string['blockregionbackground'] = 'Block region backround colour';
-$string['blockregionbackgrounddesc'] = 'Background colour of the container holding custom block layouts on the front page.';
+$string['blockregionbackgrounddesc'] = 'Background colour of the container holding custom block layouts on the frontpage.';
 
 $string['blockheaderbordertop'] = 'Block header top border thickness';
 $string['blockheaderbordertopdesc'] = 'Set the thickness of the top border of block headers.';
@@ -772,11 +777,11 @@ $string['blockmaintopradiusdesc'] = 'Set the top radius of main block area to ac
 $string['blockmainbottomradius'] = 'Block main bottom radius';
 $string['blockmainbottomradiusdesc'] = 'Set the bottom radius of main block area to achieve a curved / rounded effect.';
 
-$string['marketblockbordercolor'] = 'Marketing block border line colour';
-$string['marketblockbordercolordesc'] = 'Set the marketing block border line colour.';
+$string['marketboxbordercolour'] = 'Marketing box border line colour';
+$string['marketboxbordercolourdesc'] = 'Set the marketing box border line colour.';
 
-$string['marketblocksbackgroundcolor'] = 'Marketing blocks region background colour';
-$string['marketblocksbackgroundcolordesc'] = 'Set the Marketing blocks region background colour.';
+$string['marketboxbackgroundcolour'] = 'Marketing box region background colour';
+$string['marketboxbackgroundcolourdesc'] = 'Set the Marketing box region background colour.';
 
 $string['sectionheadingcolor'] = 'Section heading text colour';
 $string['sectionheadingcolordesc'] = 'Set the colour for section headings text.';
@@ -1257,7 +1262,7 @@ $string['thiscourse'] = 'This course';
 $string['coursesections'] = 'Course sections';
 
 $string['sitetitle'] = 'Display site title';
-$string['sitetitledesc'] = 'Display the default Moodle site title from <a href="./../admin/settings.php?section=frontpagesettings" target="_blank">Front Page Settings</a> or enter a custom site title in the text box below.';
+$string['sitetitledesc'] = 'Display the default Moodle site title from <a href="./../admin/settings.php?section=frontpagesettings" target="_blank">Frontpage Settings</a> or enter a custom site title in the text box below.';
 
 $string['sitetitleoff'] = 'Disable site title';
 $string['sitetitledefault'] = 'Use Moodle site title (site name)';
@@ -1972,9 +1977,9 @@ $string['region-course-tab-two-a'] = 'Course page tab region two';
 $string['region-my-tab-one-a'] = 'Dashboard page tab region one';
 $string['region-my-tab-two-a'] = 'Dashboard page tab region two';
 
-// Number of course tiles in front page.
+// Number of course tiles in frontpage.
 $string['frontpagenumbertiles'] = 'Number of course tiles per row';
-$string['frontpagenumbertilesdesc'] = 'Number of course tiles to display per row in the front page courses list.';
+$string['frontpagenumbertilesdesc'] = 'Number of course tiles to display per row in the frontpage courses list.';
 $string['frontpagetiles1'] = 'One tile';
 $string['frontpagetiles2'] = 'Two tiles';
 $string['frontpagetiles3'] = 'Three tiles';
