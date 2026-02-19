@@ -192,10 +192,10 @@ function xmldb_theme_adaptable_upgrade($oldversion = 0) {
     }
 
     // Feature version for this version.
-    set_config('feature_version', 2026010800, 'theme_adaptable');
+    set_config('feature_version', 2026021700, 'theme_adaptable');
 
-    if ($oldversion < 2025092503) {
-        upgrade_plugin_savepoint(true, 2025092503, 'theme', 'adaptable');
+    if ($oldversion < 2025092505) {
+        upgrade_plugin_savepoint(true, 2025092505, 'theme', 'adaptable');
     }
 
     // Automatic 'Purge all caches'....

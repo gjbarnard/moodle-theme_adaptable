@@ -1,3 +1,10 @@
+Change log in version 501.1.0 (2025092505)
+==========================================
+1. Footer and Marketing 'blocks' are different to core 'Blocks', so call them 'Boxes' instead to make things clearer.
+2. Add 'infoboxtop' setting to state if you want the Frontpage information box to appear at the top but below the navigation.
+3. 'Marketing boxes' settings tab is now 'Frontpage boxes'.  This is to clarify things as the page contains both information
+   and marketing box settings.
+
 Change log in version 501.0.5 (2025092504)
 ==========================================
 1. Fix TinyMCE menu's broken when in full screen mode.

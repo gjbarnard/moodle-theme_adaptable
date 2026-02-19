@@ -487,6 +487,29 @@ class upgrade_toolbox {
             $changes[] = $change;
         }
 
+        if ($propsfeatureversion < 2026021700) {
+            // Changes in 2026021700.
+            $change = new stdClass();
+            $change->from = 'footerblocksplacement';
+            $change->to = 'footerboxesplacement';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'marketblocksbackgroundcolor';
+            $change->to = 'marketboxbackgroundcolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'marketblockbordercolor';
+            $change->to = 'marketboxbordercolour';
+            $changes[] = $change;
+
+            $change = new stdClass();
+            $change->from = 'showfooterblocks';
+            $change->to = 'showfooterboxes';
+            $changes[] = $change;
+        }
+
         if ((!empty($changes)) && ($upgrading)) {
             $props = toolbox::compile_properties($pluginfrankenstyle)[toolbox::PROPS];
         }
@@ -621,20 +644,20 @@ class upgrade_toolbox {
                 }
             }
 
-            // Footer blocks.  Ref: get_footer_blocks().
+            // Footer boxes.  Ref: get_footer_boxes().
             $helper = toolbox::admin_settings_layout_helper('footerlayoutrow', 3, $props);
             if ($helper['totalblocks'] > 0) {
-                $blockcount = 0;
+                $boxcount = 0;
                 foreach ($helper['rows'] as $row) {
                     foreach ($row as $block) {
-                        $blockcount++;
-                        $footercontent = 'footer' . $blockcount . 'content';
+                        $boxcount++;
+                        $footercontent = 'footer' . $boxcount . 'content';
                         if (!empty($props[$footercontent])) {
                             $change = new stdClass();
                             $change->name = $footercontent;
                             $change->from = 'adaptablemarkettingimages';
                             $change->to = 'shed_footercontent';
-                            $change->toitemid = $blockcount;
+                            $change->toitemid = $boxcount;
                             $changes[] = $change;
                         }
                     }

@@ -620,8 +620,8 @@ class toolbox {
             '[[setting:blockheaderbackgroundcolor]]' => '#FFFFFF',
             '[[setting:blockbordercolor]]' => '#59585D',
             '[[setting:blockregionbackgroundcolor]]' => 'transparent',
-            '[[setting:marketblockbordercolor]]' => '#e8eaeb',
-            '[[setting:marketblocksbackgroundcolor]]' => 'transparent',
+            '[[setting:marketboxbordercolor]]' => '#e8eaeb',
+            '[[setting:marketboxbackgroundcolour]]' => 'transparent',
             '[[setting:blockheaderbordertop]]' => 1,
             '[[setting:blockheaderborderleft]]' => 0,
             '[[setting:blockheaderborderright]]' => 0,
@@ -1077,6 +1077,7 @@ class toolbox {
             if ($ourprops['alertcount'] > $theirprops['alertcount']) {
                 // Schedule removal of excess.
                 for ($alertindex = $theirprops['alertcount'] + 1; $alertindex <= $ourprops['alertcount']; $alertindex++) {
+                    $alerttext = 'alert' . $alertindex;
                     $filepropremove[$alerttext] = [
                         self::FILEPROPERTYTYPE => self::CONFIGHTMLEDITORTYPE,
                         self::FILEPROPERTYFILEAREA => 'shed_alerttext',
@@ -1086,7 +1087,7 @@ class toolbox {
             }
         }
 
-        // Footer blocks.  Ref: get_footer_blocks().
+        // Footer boxes.  Ref: get_footer_boxes().
         $helper = self::admin_settings_layout_helper('footerlayoutrow', 3, $props);
         if ($helper['totalblocks'] > 0) {
             $blockcount = 0;

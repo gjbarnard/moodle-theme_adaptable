@@ -2,7 +2,7 @@ Adaptable - the most adaptable Moodle theme
 ===========================================
 Adaptable is a highly customisable responsive Moodle theme:
 
-- Additional customisable information / marketing blocks.
+- Additional customisable information / marketing boxes.
 - Additional header navigation.
 - Additional layout settings.
 - Alternative frontpage course styles.
@@ -15,7 +15,7 @@ Adaptable is a highly customisable responsive Moodle theme:
 - Customisable navigation bar.
 - Dashboard layout builder.
 - Dismissible bootstrap alerts (Sponsors only functionality).
-- Footer block layout builder.
+- Footer box layout builder.
 - Forum post email template override.
 - Frontpage layout builder.
 - Fully customisable colours.
