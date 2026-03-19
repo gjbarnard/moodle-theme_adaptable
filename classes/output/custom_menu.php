@@ -37,8 +37,8 @@ class custom_menu extends core_custom_menu {
     /**
      * Creates the custom menu
      *
-     * @param string $definition the menu items definition in syntax required by {@link convert_text_to_menu_nodes()}
-     * @param string $currentlanguage the current language code, null disables multilang support
+     * @param string $definition The menu items definition in syntax required by {@see convert_text_to_menu_nodes()}
+     * @param string $currentlanguage The current language code, null disables multilang support
      */
     public function __construct($definition = '', $currentlanguage = null) {
         $this->currentlanguage = $currentlanguage;
@@ -51,11 +51,15 @@ class custom_menu extends core_custom_menu {
     /**
      * Adds the custom menu items to this or another menu.
      *
-     * @param string $definition The menu items definition in syntax required by {@link convert_text_to_menu_nodes()}.
-     * @param string $currentlanguage The current language code, null disables multilang support.
-     * @param string $menu Other menu to add to (optional).
+     * @param string $definition The menu items definition in syntax required by {@see convert_text_to_menu_nodes()}.
+     * @param string|null $currentlanguage The current language code, null disables multilang support.
+     * @param custom_menu_item|null $menu Other menu to add to (optional).
      */
-    public function add_custom_menu_items($definition = '', ?string $currentlanguage = null, ?custom_menu_item $menu = null) {
+    public function add_custom_menu_items(
+        string $definition = '',
+        ?string $currentlanguage = null,
+        ?custom_menu_item $menu = null
+    ) {
         if (!empty($definition)) {
             $items = self::convert_text_to_menu_nodes($definition, $currentlanguage);
             $this->currentlanguage = $currentlanguage;

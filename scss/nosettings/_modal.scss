@@ -79,16 +79,16 @@
 .modal-footer {
     border-top: none;
 
-    .btn+.btn {
+    .btn + .btn {
         margin-left: 5px;
         margin-bottom: 0;
     }
 
-    .btn-group .btn+.btn {
+    .btn-group .btn + .btn {
         margin-left: -1px;
     }
 
-    .btn-block+.btn-block {
+    .btn-block + .btn-block {
         margin-left: 0;
     }
 }

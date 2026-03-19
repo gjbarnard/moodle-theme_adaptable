@@ -56,12 +56,12 @@ class admin_setting_getprops extends \admin_setting {
 
     /**
      * Not a setting, just properties.
+     *
      * @param string $name Unique ascii name, either 'mysetting' for settings that in config,
-     * or 'myplugin/mysetting' for ones in config_plugins.
+     *      or 'myplugin/mysetting' for ones in config_plugins.
      * @param string $heading Heading.
      * @param string $information Text in box.
      * @param string $pluginfrankenstyle Plugin frankenstyle.
-     * @param string $props Properties.
      * @param string $settingsectionname Setting section name.
      * @param string $returnbuttonname Return button name.
      * @param string $savepropsbuttonname Save properties button name.

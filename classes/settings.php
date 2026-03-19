@@ -1765,7 +1765,8 @@ class settings {
         }
         $dashblockcountmsg = '<span style="color: ' . $checkcountcolor . '">';
         $dashblockcountmsg .= get_string('blocklayoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
-        $dashblockcountmsg .= get_string('blocklayoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong>.';
+        $dashblockcountmsg .= get_string('blocklayoutcount2', 'theme_adaptable') .
+            '<strong>' . $totalblocks . '/' . $noregions . '</strong>.';
 
         $page->add(new admin_setting_heading('theme_adaptable_dashlayoutblockscount', '', $dashblockcountmsg));
 
@@ -2227,7 +2228,8 @@ class settings {
         }
         $frontblockcountmsg = '<span style="color: ' . $checkcountcolor . '">';
         $frontblockcountmsg .= get_string('blocklayoutcount1', 'theme_adaptable') . '<strong>' . $noregions . '</strong>';
-        $frontblockcountmsg .= get_string('blocklayoutcount2', 'theme_adaptable') . '<strong>' . $totalblocks . '/' . $noregions . '</strong>.';
+        $frontblockcountmsg .= get_string('blocklayoutcount2', 'theme_adaptable') .
+            '<strong>' . $totalblocks . '/' . $noregions . '</strong>.';
 
         $page->add(new admin_setting_heading('theme_adaptable_blockslayoutblockscount', '', $frontblockcountmsg));
 
@@ -3451,7 +3453,7 @@ class settings {
     /**
      * Import export settings.
      *
-     * @param $page The page to add the settings to.
+     * @param admin_settingpage $page The page to add the settings to.
      *
      * @return admin_settingpage The setting page.
      */
@@ -4571,7 +4573,7 @@ class settings {
     /**
      * Templates settings.
      *
-     * @param $settings array The list of settings.
+     * @param array $settings The list of settings.
      *
      * @return admin_settingpage The setting page.
      */

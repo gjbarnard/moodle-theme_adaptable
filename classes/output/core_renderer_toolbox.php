@@ -782,12 +782,15 @@ trait core_renderer_toolbox {
     /**
      * Gets the markup of the given frontpage infobox if logic determines so.
      *
-     * @param $name string Infobox setting name.
-     * @param $checktop bool or null Check top for 'infobox' setting.
+     * @param string $name Infobox setting name.
+     * @param bool|null $checktop Check top for 'infobox' setting.
      *
      * @return string Markup if any.
      */
-    protected function get_frontpage_infobox($name, $checktop = null) {
+    protected function get_frontpage_infobox(
+        string $name,
+        $checktop = null
+    ) {
         $output = '';
         $themesettings = \theme_adaptable\toolbox::get_settings();
         $infoboxsettingvalue = $themesettings->$name;
@@ -808,13 +811,17 @@ trait core_renderer_toolbox {
     /**
      * Gets the markup of the given frontpage infobox.
      *
-     * @param $name string Infobox setting name.
-     * @param $checktop bool Is the infobox to be full screen?
-     * @param $infoboxnumber int Infobox number.
+     * @param string $name The infobox setting name.
+     * @param bool $infoboxfullscreen Is the infobox to be full screen?
+     * @param int $infoboxnumber The infobox number.
      *
      * @return string Markup if any.
      */
-    protected function get_frontpage_infobox_markup($name, $infoboxfullscreen, $infoboxnumber) {
+    protected function get_frontpage_infobox_markup(
+        string $name,
+        bool $infoboxfullscreen,
+        int $infoboxnumber
+    ) {
         $output = '<div id="theinfo' . $infoboxnumber . '"';
         if (empty($infoboxfullscreen)) {
             $output .= ' class="container"';
@@ -1121,9 +1128,9 @@ trait core_renderer_toolbox {
      *
      * @param string $region
      * @param string $layoutrow
-     * @param string $settingname
      * @param array $classes
      * @param string $tag
+     *
      * @return string Markup.
      */
     public function get_flexible_blocks(
@@ -2113,8 +2120,6 @@ trait core_renderer_toolbox {
      * Returns html to render user favourites menu on the main navigation bar.
      * @deprecated Replaced by userfav_menu_items().
      *
-     * @param string $menuid The id to use when creating menu.  Used so this could be called for a nav drawer style display.
-     *
      * @return string Markup.
      */
     public function userfav_menu() {
@@ -2742,7 +2747,7 @@ trait core_renderer_toolbox {
     /**
      * Render custom menu.
      *
-     * @param custom_menu $menu
+     * @param core_custom_menu $menu
      * @param string $wrappre
      * @param string $wrappost
      * @param string $menuid

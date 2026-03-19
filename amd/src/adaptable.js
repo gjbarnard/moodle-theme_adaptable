@@ -42,7 +42,7 @@ const adaptable = () => {
     // Edit button keep position.  Needs session storage!
     try {
         $('.context-header-settings-menu .dropdown-menu .dropdown-item a[href*="edit"], #editingbutton a')
-            .click(function (event) {
+            .click(function(event) {
                 event.preventDefault();
 
                 var to = $(window).scrollTop();
@@ -72,7 +72,7 @@ const adaptable = () => {
     } else {
         bttOn = true;
     }
-    var bttScrollCheck = function () {
+    var bttScrollCheck = function() {
         st = $('#page').scrollTop();
         if (st > bttOffset) {
             if (bttOn == false) {
@@ -87,13 +87,13 @@ const adaptable = () => {
         }
     };
     bttScrollCheck();
-    $('#page').scroll(function () {
+    $('#page').scroll(function() {
         bttScrollCheck();
     });
 
     $('#back-to-top').click(function (event) {
         event.preventDefault();
-        $('#page').animate({ scrollTop: 0 }, scrollDuration);
+        $('#page').animate({scrollTop: 0}, scrollDuration);
         return false;
     });
 
@@ -101,7 +101,7 @@ const adaptable = () => {
     if (window.location.hash) {
         if ($("body").hasClass("pagelayout-course")) {
             var anchorTop = $(window.location.hash).offset().top;
-            $('html, body').animate({ scrollTop: anchorTop - 102 }, scrollDuration);
+            $('html, body').animate({scrollTop: anchorTop - 102}, scrollDuration);
         }
     }
 
@@ -186,7 +186,7 @@ const options = (data) => {
             body.removeClass("page-header-margin");
         }
 
-        var makeNavbarSticky = function (update = false) {
+        var makeNavbarSticky = function(update = false) {
             pageScrollTop = page.scrollTop;
 
             if (windowWidth < screenmd) {
@@ -262,9 +262,11 @@ const options = (data) => {
         }
 
         // When the user scrolls the page, execute makeNavbarSticky().
-        page.onscroll = function () { makeNavbarSticky(); };
+        page.onscroll = function() {
+            makeNavbarSticky();
+        };
 
-        window.addEventListener("resize", function () {
+        window.addEventListener("resize", function() {
             windowWidth = $(window).width();
             if (windowWidth < screensm) {
                 if (currentWindowSize != 1) {
@@ -299,7 +301,7 @@ const options = (data) => {
         });
     }
 
-    $('.moodlewidth').click(function () {
+    $('.moodlewidth').click(function() {
         if (body.hasClass('fullin')) {
             body.removeClass('fullin');
             AdaptableUtil.setUserPreference('theme_adaptable_full', 'nofull');
@@ -309,29 +311,29 @@ const options = (data) => {
         }
     });
 
-    $('#openoverlaymenu').click(function () {
+    $('#openoverlaymenu').click(function() {
         $('#conditionalmenu').toggleClass('open');
     });
-    $('#overlaymenuclose').click(function () {
+    $('#overlaymenuclose').click(function() {
         $('#conditionalmenu').toggleClass('open');
     });
 
     // Bootstrap sub-menu functionality.
     // See: https://bootstrapthemes.co/demo/resource/bootstrap-4-multi-dropdown-hover-navbar/.
 
-    $('.navbar .dropdown-menu a.dropdown-toggle').on('click keypress mouseover', function () {
+    $('.navbar .dropdown-menu a.dropdown-toggle').on('click keypress mouseover', function() {
         var $el = $(this);
         var $parent = $(this).offsetParent(".dropdown-menu");
 
-        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function () {
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function() {
             $('.dropdown-menu .show').removeClass("show");
         });
 
         if (!$parent.parent().hasClass('navbar-nav')) {
             if (data.rtl) {
-                $el.next().css({ "top": $el[0].offsetTop, "right": $parent.outerWidth() - 4 });
+                $el.next().css({"top": $el[0].offsetTop, "right": $parent.outerWidth() - 4});
             } else {
-                $el.next().css({ "top": $el[0].offsetTop, "left": $parent.outerWidth() - 4 });
+                $el.next().css({"top": $el[0].offsetTop, "left": $parent.outerWidth() - 4});
             }
 
             // Get the jQuery element and then get the DOM element to call getBoundingClientRect() on.
@@ -341,9 +343,9 @@ const options = (data) => {
                 (bounding.right > document.documentElement.clientWidth)) {
                 // Outside of the window, so flip sides.
                 if (data.rtl) {
-                    $el.next().css({ "right": "auto", "left": $parent.outerWidth() - 4 });
+                    $el.next().css({"right": "auto", "left": $parent.outerWidth() - 4});
                 } else {
-                    $el.next().css({ "left": "auto", "right": $parent.outerWidth() - 4 });
+                    $el.next().css({"left": "auto", "right": $parent.outerWidth() - 4});
                 }
             }
         }
@@ -359,7 +361,9 @@ export const init = (data) => {
        in old bootstrap version. Re: issue #919.
        Original issue / solution discussion here: https://github.com/twbs/bootstrap/issues/1768. */
     if (data.stickynavbar) {
-        var shiftWindow = function () { scrollBy(0, -50); };
+        var shiftWindow = function() {
+            scrollBy(0, -50);
+        };
         if (location.hash) {
             shiftWindow();
         }
@@ -371,7 +375,7 @@ export const init = (data) => {
         options(data);
     } else {
         log.debug("Adaptable ES6 init JS DOM content not loaded");
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             log.debug("Adaptable ES6 init JS DOM content loaded");
             adaptable();
             options(data);

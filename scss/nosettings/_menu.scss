@@ -114,8 +114,8 @@
 
 // The Overlay (background) */
 .overlaymenu {
-    background-color: rgb(0,0,0); // Black fallback color.
-    background-color: rgba(0,0,0, 0.9); // Black w/opacity.
+    background-color: rgb(0, 0, 0); // Black fallback color.
+    background-color: rgba(0, 0, 0, 0.9); // Black w/opacity.
     height: 0;
     left: 0;
     overflow-x: hidden; // Disable horizontal scroll.
@@ -175,9 +175,12 @@
     }
 }
 
-// When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap.
+// When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again,
+// so they don't overlap.
 @media (max-height: 450px) {
-    .overlaymenu a {font-size: 20px}
+    .overlaymenu a {
+        font-size: 20px;
+    }
     .overlaymenu .closebtn {
         font-size: 40px;
         right: 35px;
@@ -242,7 +245,8 @@
 
         .popover-region {
             .icon {
-                font-weight: 900; // https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight - override 'bolder' when body has <= 300 weight.
+                // https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight - override 'bolder' when body has <= 300 weight.
+                font-weight: 900;
             }
         }
     }
@@ -274,7 +278,7 @@
     #adaptable-page-header-wrapper {
         .btco-hover-menu {
             ul li {
-                position:relative;
+                position: relative;
             }
 
             ul {
