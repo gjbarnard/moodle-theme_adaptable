@@ -1,3 +1,7 @@
+Change log in version 501.1.1 (2025092506)
+==========================================
+1. 'shortcut' isn't used anymore for favicon.
+
 Change log in version 501.1.0 (2025092505)
 ==========================================
 1. Footer and Marketing 'blocks' are different to core 'Blocks', so call them 'Boxes' instead to make things clearer.

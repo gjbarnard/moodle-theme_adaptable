@@ -120,7 +120,7 @@ export default class IconSystemFontawesome extends IconSystem {
      * @private
      */
     async fetchMapFromServer() {
-        IconSystemFontawesome.fetchPromise = (async () => {
+        IconSystemFontawesome.fetchPromise = (async() => {
             const mapData = await this._fetchMapFromServer();
 
             IconSystemFontawesome.staticMap = new Map(Object.entries(mapData).map(([, value]) => ([

@@ -40,7 +40,7 @@ class admin_settingspage_tabs extends \theme_boost_admin_settingspage_tabs {
      * @param string $name The internal name for this external page. Must be unique amongst all part_of_admin_tree objects.
      * @param string $visiblename The displayed name for this external page. Usually obtained through get_string().
      * @param int $mbranch The branch this Adaptable is for.
-     * @param mixed $req_capability The role capability/permission a user must have to access this external page.
+     * @param string $reqcapability The role capability/permission a user must have to access this external page.
      *                              Defaults to 'moodle/site:config'.
      * @param boolean $hidden Is this external page hidden in admin tree block? Default false.
      * @param stdClass $context The context the page relates to.

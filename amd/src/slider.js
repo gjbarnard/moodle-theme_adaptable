@@ -25,7 +25,7 @@
 //
 
 import $ from 'jquery';
-import { flexslider } from 'theme_adaptable/flexslider';
+import {flexslider} from 'theme_adaptable/flexslider';
 import log from 'core/log';
 
 /**
@@ -104,7 +104,7 @@ export const init = () => {
         sliderInit();
     } else {
         log.debug("Adaptable ES6 Slider JS DOM content not loaded");
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             log.debug("Adaptable ES6 Slider JS DOM content loaded");
             sliderInit();
         });

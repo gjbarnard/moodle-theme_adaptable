@@ -43,12 +43,12 @@
     {{$drawercontent}}
         <div id="message-drawer-{{uniqid}}" class="message-app" data-region="message-drawer" role="region" tabindex="0">
             <div class="d-flex justify-content-between align-items-center py-1 px-2 border-bottom bg-messageheader">
-	            <h2 id="message-drawer-header-{{uniqid}}">{{#str}} messagingcategory,admin {{/str}}</h2>
-    	        <div class="closewidget pe-2">
-        	        <div role="button" data-action="closedrawer" title="{{#cleanstr}} closebuttontitle {{/cleanstr}}" aria-label="{{#cleanstr}} closebuttontitle {{/cleanstr}}">
-                    	{{#pix}} i/window_close, core {{/pix}}
-                	</div>
-	            </div>
+                <h2 id="message-drawer-header-{{uniqid}}">{{#str}} messagingcategory,admin {{/str}}</h2>
+                <div class="closewidget pe-2">
+                    <div role="button" data-action="closedrawer" title="{{#cleanstr}} closebuttontitle {{/cleanstr}}" aria-label="{{#cleanstr}} closebuttontitle {{/cleanstr}}">
+                        {{#pix}} i/window_close, core {{/pix}}
+                    </div>
+                </div>
             </div>
             <div class="header-container position-relative" data-region="header-container">
                 {{> core_message/message_drawer_view_contacts_header }}

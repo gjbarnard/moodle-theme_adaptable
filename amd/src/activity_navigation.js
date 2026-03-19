@@ -52,6 +52,7 @@ export default class Component extends BaseComponent {
     static init(target) {
         if (this.singleton) {
             log.debug("Adaptable activity navigation Inited");
+            return this;
         } else {
             log.debug("Adaptable activity navigation Init");
             this.singleton = true;
@@ -64,7 +65,7 @@ export default class Component extends BaseComponent {
 
     getWatchers() {
         return [
-            {watch: `cm.completionstate:updated`, handler: this._completionstateUpdated },
+            {watch: `cm.completionstate:updated`, handler: this._completionstateUpdated},
         ];
     }
 
@@ -84,7 +85,7 @@ export default class Component extends BaseComponent {
                 if (jsoncontextstring !== "") {
                     const context = JSON.parse(jsoncontextstring);
                     Templates.renderForPromise('theme_adaptable/core_course/activity_navigation', context)
-                        .then(({ html, js }) => {
+                        .then(({html, js}) => {
                             Templates.replaceNodeContents('#adaptable-activity-navigation', html, js);
                         })
                         .catch(error => Notification.exception(error));

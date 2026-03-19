@@ -1452,9 +1452,9 @@ class settings_toolbox {
     /**
      * Screen size.
      *
-     * @param string $displaytype.
+     * @param string $displaytype Display type.
      *
-     * @return array screen size strings.
+     * @return array Screen size strings.
      */
     public static function screensize($displaytype) {
         return [
