@@ -50,12 +50,12 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
     /**
      * Create new stored files setting.
      *
-     * @param string $name low level setting name.
-     * @param string $visiblename human readable setting name.
-     * @param string $description description of setting.
-     * @param mixed $filearea file area for file storage.
-     * @param array $options file area options.
-     * @param int $itemid itemid for file storage.
+     * @param string $name Low level setting name.
+     * @param string $visiblename Human readable setting name.
+     * @param string $description Description of setting.
+     * @param mixed $filearea File area for file storage.
+     * @param array|null $options File area options.
+     * @param int $itemid The item id for file storage.
      */
     public function __construct($name, $visiblename, $description, $filearea, ?array $options, $itemid = 0) {
         $this->oldhashes = [];
@@ -86,7 +86,7 @@ class admin_setting_configstoredfiles extends \admin_setting_configstoredfile {
     /**
      * Set the owner.
      *
-     * @param object The owner.
+     * @param object $owner The owner.
      */
     public function set_owner($owner) {
         $this->owner = $owner;

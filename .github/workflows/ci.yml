@@ -74,10 +74,9 @@ jobs:
 #        run: moodle-plugin-ci codechecker --max-warnings 0
         run: moodle-plugin-ci codechecker
 
-# Not ignoring node_modules for some reason.
-#      - name: Moodle PHPDoc Checker
-#        if: ${{ always() }}
-#        run: moodle-plugin-ci phpdoc
+      - name: Moodle PHPDoc Checker
+        if: ${{ always() }}
+        run: moodle-plugin-ci phpdoc
 
       - name: Validating
         if: ${{ always() }}

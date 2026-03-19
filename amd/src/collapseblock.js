@@ -63,7 +63,7 @@ export const collapseBlockInit = () => {
     if (document.readyState !== 'loading') {
         CollapseBlock.collapseBlock();
     } else {
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             CollapseBlock.collapseBlock();
         });
     }

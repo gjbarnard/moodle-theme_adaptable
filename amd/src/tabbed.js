@@ -38,7 +38,6 @@ import log from 'core/log';
 const tabbed = (currentpage, tabpersistencetime) => {
     if (currentpage == 'coursepage') {
         var hasStorage = ("sessionStorage" in window && window.sessionStorage);
-        var now, expiration;
         var currentUrl = document.location.toString();
 
         if ((hasStorage) && (currentUrl.indexOf('course/view.php?id=') != -1)) {
@@ -57,7 +56,7 @@ const tabbed = (currentpage, tabpersistencetime) => {
             // Check timestamp for session.
             if (tabTimestamp) {
                 // Calculate expiration time for content, to force periodic refresh after 'tabpersistencetime' minutes.
-                expiration = new Date(tabTimestamp);
+                var expiration = new Date(tabTimestamp);
                 expiration.setMinutes(expiration.getMinutes() + parseInt(tabpersistencetime));
                 if (now.getTime() > expiration.getTime()) {
                     log.debug('Adaptable ES6 Tabbled: Expired');
@@ -70,8 +69,8 @@ const tabbed = (currentpage, tabpersistencetime) => {
             var params = (new URL(document.location)).searchParams;
             var courseid = params.get("id");
 
-            $radiobuttons.on("change", function () {
-                $radiobuttons.each(function () {
+            $radiobuttons.on("change", function() {
+                $radiobuttons.each(function() {
                     if (this.checked) {
                         tabValues[courseid] = this.id;
                     }
@@ -80,7 +79,7 @@ const tabbed = (currentpage, tabpersistencetime) => {
             });
 
             var tabhasbeenset = false;
-            $.each(tabValues, function (key, value) {
+            $.each(tabValues, function(key, value) {
                 if (key == courseid) {
                     $("#" + value).prop('checked', true);
                     tabhasbeenset = true;
@@ -89,19 +88,17 @@ const tabbed = (currentpage, tabpersistencetime) => {
             if (tabhasbeenset == false) {
                 $("input:radio[name=tabs]:first").attr('checked', true);
             }
-
             $('label.coursetab').show();
         }
-
     }
 };
 
 /**
  * Init.
-  *
+ *
  * @param {string} currentpage The current page.
  * @param {string} tabpersistencetime The persistance time of the current set tab.
-*/
+ */
 export const init = (currentpage, tabpersistencetime) => {
     log.debug('Adaptable ES6 Tabbled init');
     if (document.readyState !== 'loading') {
@@ -109,7 +106,7 @@ export const init = (currentpage, tabpersistencetime) => {
         tabbed(currentpage, tabpersistencetime);
     } else {
         log.debug("Adaptable ES6 Tabbled init JS DOM content not loaded");
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             log.debug("Adaptable ES6 Tabbled init JS DOM content loaded");
             tabbed(currentpage, tabpersistencetime);
         });

@@ -23,8 +23,8 @@
 //
 
 .adaptable-block-area {
-    background: #EEE;
-    border: 2px dashed #BFBDBD;
+    background: #eee;
+    border: 2px dashed #bfbdbd;
     display: block;
     min-height: 50px;
 }
@@ -402,7 +402,7 @@
     .block_lp.block .header .title h2:before {
         content: "\f277"; // signs-post <- map-signs.
     }
-    
+
     .block_sitenews.block .header .title h2:before {
         content: "\f1ea"; // far newspaper <- newspaper-o.
         font-weight: 400; // fa-regular.

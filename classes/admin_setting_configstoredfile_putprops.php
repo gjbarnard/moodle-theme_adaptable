@@ -53,9 +53,9 @@ class admin_setting_configstoredfile_putprops extends \admin_setting_configstore
      * @param string $pluginname Name of the plugin.
      * @param string $pluginfrankenstyle Frankenstyle of the plugin.
      * @param string $callme Name of the 'callable' function to call with the name of the theme and the properties as an array.
-     * @param string $reportsettingname Setting name (same plugin) for the report to be written to
-     * @param array $options File area options.
-     * @param int $itemid itemid for file storage.
+     * @param string $reportsettingname Setting name (same plugin) for the report to be written to.
+     * @param array|null $options File area options.
+     * @param int $itemid The itemid for file storage.
      */
     public function __construct(
         $name,
@@ -95,6 +95,8 @@ class admin_setting_configstoredfile_putprops extends \admin_setting_configstore
 
     /**
      * Tell us the admin_setting_putprops instance.
+     *
+     * @param admin_setting_putprops $adminsettingputprops The admin_setting_putprops instance.
      */
     public function set_admin_setting_putprops($adminsettingputprops) {
         $this->adminsettingputprops = $adminsettingputprops;

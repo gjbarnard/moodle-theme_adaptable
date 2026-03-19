@@ -36,15 +36,15 @@ import log from 'core/log';
 const saveButton = () => {
     $("#savediscardsection").hide();
 
-    $('#adminsettings :input').on('change input', function () {
+    $('#adminsettings :input').on('change input', function() {
         $("#savediscardsection").fadeIn('slow');
     });
 
-    $("#adminsubmitbutton").click(function () {
+    $("#adminsubmitbutton").click(function() {
         window.onbeforeunload = null;
         $("#adminsettings").submit();
     });
-    $("#adminresetbutton").click(function () {
+    $("#adminresetbutton").click(function() {
         var confirmString = $(this).data('confirm'); // Saves an AJAX call for such a rare thing.
         var result = confirm(confirmString);
         if (result == true) {
@@ -53,7 +53,7 @@ const saveButton = () => {
         }
     });
 
-    $(".colourdialogue").click(function () {
+    $(".colourdialogue").click(function() {
         $("#savediscardsection").fadeIn('slow');
     });
 };
@@ -69,7 +69,7 @@ export const saveButtonInit = () => {
         saveButton();
     } else {
         log.debug("Adaptable ES6 Save button Init JS DOM content not loaded");
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             log.debug("Adaptable ES6 Save button Init JS DOM content loaded");
             saveButton();
         });

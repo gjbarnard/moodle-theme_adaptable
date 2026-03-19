@@ -36,8 +36,10 @@ use stdClass;
 trait core_renderer_layout {
     /**
      * Yes header.
+     *
+     * @param bool $sidepostdrawer Side post drawer?
      */
-    public function yesheader($sidepostdrawer) {
+    public function yesheader(bool $sidepostdrawer) {
         $themesettings = toolbox::get_settings();
 
         $bodyclasses = [];
@@ -406,7 +408,7 @@ trait core_renderer_layout {
     /**
      * Head.
      *
-     * @param array Of body classes.
+     * @param array $bodyclasses Of body classes.
      */
     protected function head($bodyclasses) {
         global $SITE;
@@ -1124,7 +1126,7 @@ trait core_renderer_layout {
         echo '<html ' . $this->htmlattributes() . '>';
         echo '<head>';
         echo '<title>' . $this->page_title() . '</title>';
-        echo '<link rel="shortcut icon" href="' . $this->favicon() . '" />';
+        echo '<link rel="icon" href="' . $this->favicon() . '" />';
         echo $this->standard_head_html();
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         echo '</head>';
@@ -1343,7 +1345,7 @@ trait core_renderer_layout {
         echo '<html ' . $this->htmlattributes() . '>';
         echo '<head>';
         echo '<title>' . $this->page_title() . '</title>';
-        echo '<link rel="shortcut icon" href="' . $this->favicon() . '">';
+        echo '<link rel="icon" href="' . $this->favicon() . '">';
         echo $this->standard_head_html();
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         echo '</head>';

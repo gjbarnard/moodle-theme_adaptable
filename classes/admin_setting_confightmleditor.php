@@ -64,7 +64,7 @@ class admin_setting_confightmleditor extends \admin_setting_configtext {
      * @param string $name
      * @param string $visiblename
      * @param string $description
-     * @param mixed $defaultsetting string or array
+     * @param mixed $defaultsetting string or array.
      * @param string $filearea
      * @param int $itemid The item id.
      * @param mixed $paramtype
@@ -94,17 +94,18 @@ class admin_setting_confightmleditor extends \admin_setting_configtext {
     /**
      * Set the item id.
      *
-     * @param int itemid.
+     * @param int $itemid Item id.
      */
-    public function setitemid($itemid) {
+    public function setitemid(int $itemid) {
         $this->itemid = $itemid;
     }
 
     /**
      * Gets the file area options.
      *
-     * @param $ctx
-     * @return array
+     * @param mixed[] $ctx Context.
+     *
+     * @return array Options.
      */
     private static function get_options($ctx) {
         $default = [];
