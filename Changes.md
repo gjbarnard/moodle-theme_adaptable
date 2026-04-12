@@ -1,3 +1,7 @@
+Change log in version 500.2.7 (2025040812)
+==========================================
+1. Fix 'Hangs on upgradesettings-Page' #50.
+
 Change log in version 500.2.6 (2025040811)
 ==========================================
 1. 'shortcut' isn't used anymore for favicon.
