@@ -2,11 +2,15 @@ Ref: https://docs.moodle.org/dev/PHPUnit
 
 composer install --dev
 
-php admin/tool/phpunit/cli/init.php
+php public/admin/tool/phpunit/cli/init.php
 
-vendor/bin/phpunit theme/adaptable/tests/theme_adaptable_toolbox_test.php
+vendor/bin/phpunit public/theme/adaptable/tests/toolbox_test.php
 or
-vendor\bin\phpunit theme/adaptable/tests/theme_adaptable_toolbox_test.php
+vendor\bin\phpunit public/theme/adaptable/tests/toolbox_test.php
+
+vendor/bin/phpunit public/theme/adaptable/tests/settings_toolbox_test.php
+or
+vendor\bin\phpunit public/theme/adaptable/tests/settings_toolbox_test.php
 
 vendor/bin/phpunit --group theme_adaptable
 or
