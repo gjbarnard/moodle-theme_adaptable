@@ -1493,7 +1493,7 @@ class settings_toolbox {
     private static function units($start, $end, $increment, $unit) {
         $units = [];
         $count = $start;
-        $end = ($end - $start) / $increment;
+        $end = $start + (($end - $start) / $increment);
 
         for ($i = $start; $i <= $end; $i++) {
             $units[$count . $unit] = $count . $unit;

@@ -1,3 +1,7 @@
+Change log in version 405.2.7 (2024100520)
+==========================================
+1. Fix 'Hangs on upgradesettings-Page' #50.
+
 Change log in version 405.2.6 (2024100519)
 ==========================================
 1. 'shortcut' isn't used anymore for favicon.
