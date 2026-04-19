@@ -165,6 +165,7 @@ $fa-var-cedi-sign: \e0df;
 $fa-var-chart-column: \e0e3;
 $fa-var-chart-gantt: \e0e4;
 $fa-var-clapperboard: \e131;
+$fa-var-closed-captioning-slash: \e135;
 $fa-var-clover: \e139;
 $fa-var-code-compare: \e13a;
 $fa-var-code-fork: \e13b;
@@ -485,12 +486,25 @@ $fa-var-square-binary: \e69b;
 $fa-var-pentagon: \e790;
 $fa-var-non-binary: \e807;
 $fa-var-spiral: \e80a;
+$fa-var-picture-in-picture: \e80b;
 $fa-var-mobile-vibrate: \e816;
 $fa-var-single-quote-left: \e81b;
 $fa-var-single-quote-right: \e81c;
 $fa-var-bus-side: \e81d;
 $fa-var-septagon: \e820;
 $fa-var-heptagon: \e820;
+$fa-var-aquarius: \e845;
+$fa-var-aries: \e846;
+$fa-var-cancer: \e847;
+$fa-var-capricorn: \e848;
+$fa-var-gemini: \e849;
+$fa-var-leo: \e84a;
+$fa-var-libra: \e84b;
+$fa-var-pisces: \e84c;
+$fa-var-sagittarius: \e84d;
+$fa-var-scorpio: \e84e;
+$fa-var-taurus: \e84f;
+$fa-var-virgo: \e850;
 $fa-var-martini-glass-empty: \f000;
 $fa-var-glass-martini: \f000;
 $fa-var-music: \f001;
@@ -1816,6 +1830,8 @@ $fa-var-scroll-torah: \f6a0;
 $fa-var-torah: \f6a0;
 $fa-var-torii-gate: \f6a1;
 $fa-var-vihara: \f6a7;
+$fa-var-volume: \f6a8;
+$fa-var-volume-medium: \f6a8;
 $fa-var-volume-xmark: \f6a9;
 $fa-var-volume-mute: \f6a9;
 $fa-var-volume-times: \f6a9;
@@ -2135,6 +2151,44 @@ $fa-var-lumon-drop: \e7e3;
 $fa-var-square-figma: \e7e4;
 $fa-var-tex: \e7ff;
 $fa-var-duolingo: \e812;
+$fa-var-supportnow: \e833;
+$fa-var-tor-browser: \e838;
+$fa-var-typescript: \e840;
+$fa-var-square-deskpro: \e844;
+$fa-var-circle-zulip: \e851;
+$fa-var-julia: \e852;
+$fa-var-zulip: \e853;
+$fa-var-unison: \e854;
+$fa-var-board-game-geek: \e855;
+$fa-var-bgg: \e855;
+$fa-var-ko-fi: \e856;
+$fa-var-kubernetes: \e857;
+$fa-var-postgresql: \e858;
+$fa-var-scaleway: \e859;
+$fa-var-venmo: \e85a;
+$fa-var-venmo-v: \e85b;
+$fa-var-unreal-engine: \e85c;
+$fa-var-globaleaks: \e85d;
+$fa-var-solana: \e85e;
+$fa-var-threema: \e85f;
+$fa-var-forgejo: \e860;
+$fa-var-claude: \e861;
+$fa-var-gitee: \e863;
+$fa-var-xmpp: \e864;
+$fa-var-fediverse: \e865;
+$fa-var-tailwind-css: \e866;
+$fa-var-arch-linux: \e867;
+$fa-var-svelte: \e868;
+$fa-var-hugging-face: \e869;
+$fa-var-leetcode: \e86a;
+$fa-var-openstreetmap: \e86b;
+$fa-var-ultralytics: \e86d;
+$fa-var-ultralytics-hub: \e86e;
+$fa-var-ultralytics-yolo: \e86f;
+$fa-var-obsidian: \e879;
+$fa-var-zoom: \e87b;
+$fa-var-vim: \e88a;
+$fa-var-symfonycasts: \e8ab;
 $fa-var-square-twitter: \f081;
 $fa-var-twitter-square: \f081;
 $fa-var-square-facebook: \f082;
@@ -2701,6 +2755,7 @@ $fa-icons: (
   "chart-column": $fa-var-chart-column,
   "chart-gantt": $fa-var-chart-gantt,
   "clapperboard": $fa-var-clapperboard,
+  "closed-captioning-slash": $fa-var-closed-captioning-slash,
   "clover": $fa-var-clover,
   "code-compare": $fa-var-code-compare,
   "code-fork": $fa-var-code-fork,
@@ -3021,12 +3076,25 @@ $fa-icons: (
   "pentagon": $fa-var-pentagon,
   "non-binary": $fa-var-non-binary,
   "spiral": $fa-var-spiral,
+  "picture-in-picture": $fa-var-picture-in-picture,
   "mobile-vibrate": $fa-var-mobile-vibrate,
   "single-quote-left": $fa-var-single-quote-left,
   "single-quote-right": $fa-var-single-quote-right,
   "bus-side": $fa-var-bus-side,
   "septagon": $fa-var-septagon,
   "heptagon": $fa-var-heptagon,
+  "aquarius": $fa-var-aquarius,
+  "aries": $fa-var-aries,
+  "cancer": $fa-var-cancer,
+  "capricorn": $fa-var-capricorn,
+  "gemini": $fa-var-gemini,
+  "leo": $fa-var-leo,
+  "libra": $fa-var-libra,
+  "pisces": $fa-var-pisces,
+  "sagittarius": $fa-var-sagittarius,
+  "scorpio": $fa-var-scorpio,
+  "taurus": $fa-var-taurus,
+  "virgo": $fa-var-virgo,
   "martini-glass-empty": $fa-var-martini-glass-empty,
   "glass-martini": $fa-var-glass-martini,
   "music": $fa-var-music,
@@ -4352,6 +4420,8 @@ $fa-icons: (
   "torah": $fa-var-torah,
   "torii-gate": $fa-var-torii-gate,
   "vihara": $fa-var-vihara,
+  "volume": $fa-var-volume,
+  "volume-medium": $fa-var-volume-medium,
   "volume-xmark": $fa-var-volume-xmark,
   "volume-mute": $fa-var-volume-mute,
   "volume-times": $fa-var-volume-times,
@@ -4673,6 +4743,44 @@ $fa-brand-icons: (
   "square-figma": $fa-var-square-figma,
   "tex": $fa-var-tex,
   "duolingo": $fa-var-duolingo,
+  "supportnow": $fa-var-supportnow,
+  "tor-browser": $fa-var-tor-browser,
+  "typescript": $fa-var-typescript,
+  "square-deskpro": $fa-var-square-deskpro,
+  "circle-zulip": $fa-var-circle-zulip,
+  "julia": $fa-var-julia,
+  "zulip": $fa-var-zulip,
+  "unison": $fa-var-unison,
+  "board-game-geek": $fa-var-board-game-geek,
+  "bgg": $fa-var-bgg,
+  "ko-fi": $fa-var-ko-fi,
+  "kubernetes": $fa-var-kubernetes,
+  "postgresql": $fa-var-postgresql,
+  "scaleway": $fa-var-scaleway,
+  "venmo": $fa-var-venmo,
+  "venmo-v": $fa-var-venmo-v,
+  "unreal-engine": $fa-var-unreal-engine,
+  "globaleaks": $fa-var-globaleaks,
+  "solana": $fa-var-solana,
+  "threema": $fa-var-threema,
+  "forgejo": $fa-var-forgejo,
+  "claude": $fa-var-claude,
+  "gitee": $fa-var-gitee,
+  "xmpp": $fa-var-xmpp,
+  "fediverse": $fa-var-fediverse,
+  "tailwind-css": $fa-var-tailwind-css,
+  "arch-linux": $fa-var-arch-linux,
+  "svelte": $fa-var-svelte,
+  "hugging-face": $fa-var-hugging-face,
+  "leetcode": $fa-var-leetcode,
+  "openstreetmap": $fa-var-openstreetmap,
+  "ultralytics": $fa-var-ultralytics,
+  "ultralytics-hub": $fa-var-ultralytics-hub,
+  "ultralytics-yolo": $fa-var-ultralytics-yolo,
+  "obsidian": $fa-var-obsidian,
+  "zoom": $fa-var-zoom,
+  "vim": $fa-var-vim,
+  "symfonycasts": $fa-var-symfonycasts,
   "square-twitter": $fa-var-square-twitter,
   "twitter-square": $fa-var-twitter-square,
   "square-facebook": $fa-var-square-facebook,

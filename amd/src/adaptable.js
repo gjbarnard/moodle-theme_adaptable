@@ -246,7 +246,7 @@ const options = (data) => {
                             }
                         } else {
                             for (let dt = 0; dt < drawerTogglers.length; dt++) {
-                                drawerTogglers[dt].style.top = (drawerPaddingTop + 22) + 'px';
+                                drawerTogglers[dt].style.top = (drawerPaddingTop + 14) + 'px';
                             }
                         }
                     }

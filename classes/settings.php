@@ -52,7 +52,7 @@ class settings {
         $asettings = new admin_settingspage_tabs(
             'themesettingadaptable',
             get_string('configtabtitle', 'theme_adaptable'),
-            501
+            502
         );
         $iesettings = new admin_settingpage('theme_adaptable_importexport', get_string('properties', 'theme_adaptable'));
 

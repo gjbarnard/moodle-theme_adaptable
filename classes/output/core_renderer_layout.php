@@ -26,6 +26,7 @@
 
 namespace theme_adaptable\output;
 
+use context_course;
 use core\url;
 use theme_adaptable\toolbox;
 use stdClass;
@@ -454,9 +455,18 @@ trait core_renderer_layout {
             $left = \theme_adaptable\toolbox::get_setting('blockside');
             $stickynavbar = \theme_adaptable\toolbox::get_setting('stickynavbar');
 
+            $coursefullname = ($this->page->course?->fullname) ? format_string(
+                $this->page->course->fullname,
+                true,
+                ['context' => context_course::instance($this->page->course->id), 'escape' => false],
+            ) : '';
+            $courseurl = $this->page->course ? new url('/course/view.php', ['id' => $this->page->course->id]) : null;
+
             $templatecontext = [
+                'coursefullname' => $coursefullname,
                 'courseindexopen' => $courseindexopen,
                 'courseindex' => $courseindex,
+                'courseurl' => $courseurl ? $courseurl->out(false) : null,
                 'left' => $left,
                 'stickynavbar' => $stickynavbar,
             ];

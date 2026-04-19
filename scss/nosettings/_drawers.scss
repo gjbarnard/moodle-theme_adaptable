@@ -25,6 +25,30 @@
 .drawer-toggles .drawer-toggler {
     top: calc(50% - 27px);
     z-index: 11;
+
+    .btn {
+        background-color: transparent;
+        border-radius: 0;
+        border-style: none;
+        box-shadow: none;
+        height: 32px;
+        padding: 0;
+        width: 32px;
+
+        .icon {
+            margin-bottom: 2px;
+        }
+    }
+}
+
+.drawerheader .draweractions {
+    .btn {
+        border-style: none;
+    }
+}
+
+.drawer.scrolled .drawerheader {
+    box-shadow: none;
 }
 
 @media (min-width: 768px) {

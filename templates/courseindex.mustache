@@ -26,8 +26,10 @@
 
     Example context (json):
     {
+        "coursefullname": "Full name of the course",
         "courseindex": true,
         "courseindexopen": true,
+        "courseurl": "http://example.com/course/view.php?id=2",
         "left": false
     }
 }}
@@ -35,6 +37,10 @@
     {{< theme_boost/drawer }}
         {{$id}}theme_adaptable-drawers-courseindex{{/id}}
         {{$drawerclasses}}drawer drawer-{{#left}}right{{/left}}{{^left}}left{{/left}}{{#courseindexopen}} show{{/courseindexopen}}{{#stickynavbar}} d-none{{/stickynavbar}}{{/drawerclasses}}
+        {{$drawerheadercontent}}
+            {{> theme_boost/courseindexdrawercontrols}}
+        {{/drawerheadercontent}}
+        {{$drawerheading}}{{> theme_boost/courseindexdrawerheading}}{{/drawerheading}}
         {{$drawercontent}}
             {{{courseindex}}}
         {{/drawercontent}}

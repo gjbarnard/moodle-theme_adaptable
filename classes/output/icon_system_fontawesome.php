@@ -397,8 +397,6 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:t/block' => 'fas fa-ban',
             'core:t/block_to_dock_rtl' => 'fas fa-chevron-right',
             'core:t/block_to_dock' => 'fas fa-chevron-left',
-            'core:t/blocks_drawer_rtl' => 'fas fa-chevron-right',
-            'core:t/blocks_drawer' => 'fas fa-chevron-left',
             // Todo: Change to better icon once we have stacked icon support or more icons.
             'core:t/calc_off' => 'fas fa-calculator',
             'core:t/calc' => 'fas fa-calculator',
@@ -441,7 +439,6 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:t/groups' => 'fas fa-user-circle',
             'core:t/groupv' => 'far fa-user-circle',
             'core:t/hide' => 'fas fa-eye',
-            'core:t/index_drawer' => 'fas fa-list',
             'core:t/left' => 'fas fa-arrow-left',
             'core:t/less' => 'fas fa-caret-up',
             'core:t/life-ring' => 'far fa-life-ring',

@@ -1,3 +1,10 @@
+Change log in version 502.1.0 (2026041200)
+==========================================
+1. Change draw toggle icons, [MDL-88085](https://tracker.moodle.org/browse/MDL-88085).
+2. Add 'courseindexdrawercontrols'.
+3. Course index title and expand / collapse.
+4. Upgrade theme version ('fav' setting) of Font Awesome to 7.2.0.
+
 Change log in version 501.1.2 (2025092507)
 ==========================================
 1. Fix 'Hangs on upgradesettings-Page' #50.
