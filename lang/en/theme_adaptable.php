@@ -185,6 +185,11 @@ $string['themeinformation'] = 'Information';
 $string['themechanges'] = 'Changes';
 $string['themereadme'] = 'Readme';
 
+// Generic.
+$string['visibleloggedout'] = 'Logged out';
+$string['visibleloggedin'] = 'Logged in';
+$string['visibleloggedinout'] = 'Logged in or out';
+
 // Ticker.
 $string['tickersettings'] = 'News ticker';
 $string['tickersettingsheading'] = 'Setup news ticker';
@@ -205,8 +210,8 @@ $string['enabletickerdesc'] = 'Check to enable the homepage ticker.';
 $string['enabletickermy'] = 'Enable the news ticker?';
 $string['enabletickermydesc'] = 'Check to enable the ticker on the \'My Home\' / \'Dashboard\' pages.';
 
-$string['enabletickerc'] = 'Enable the news ticker on internal pages?';
-$string['enabletickercdesc'] = 'Check to enable the ticker on internal pages.';
+$string['tickervisible'] = 'Show the news ticker when';
+$string['tickervisibledesc'] = 'Show the news ticker when \'Logged out\', \'Logged in\' or \'Logged in or out\'.';
 
 $string['tickerheaderbackgroundcolour'] = 'News ticker header background colour';
 $string['tickerheaderbackgroundcolourdesc'] = 'Set the backgound colour of the ticker header.';
@@ -258,9 +263,6 @@ $string['sliderenableddesc'] = 'Enable a slider at the top of your home page.';
 
 $string['slidervisible'] = 'Show the slider when';
 $string['slidervisibledesc'] = 'Show the slider when \'Logged out\', \'Logged in\' or \'Logged in or out\'.';
-$string['slidervisibleloggedout'] = 'Logged out';
-$string['slidervisibleloggedin'] = 'Logged in';
-$string['slidervisibleloggedinout'] = 'Logged in or out';
 
 $string['sliderfullscreen'] = 'Slider full view';
 $string['sliderfullscreendesc'] = 'Check this box to make the slider full view (100% width).';
@@ -388,9 +390,6 @@ $string['informationblocksenabled'] = 'Enable information blocks';
 $string['informationblocksenableddesc'] = 'Set the information blocks in the frontpage.';
 $string['informationblocksvisible'] = 'Show the information blocks when';
 $string['informationblocksvisibledesc'] = 'Show the information blocks when \'Logged out\', \'Logged in\' or \'Logged in or out\'.';
-$string['informationblocksvisibleloggedout'] = 'Logged out';
-$string['informationblocksvisibleloggedin'] = 'Logged in';
-$string['informationblocksvisibleloggedinout'] = 'Logged in or out';
 
 $string['informationblocksbuilderheading'] = 'Information block layout builder';
 $string['informationblocksbuilderdesc'] = 'Use the tool below to setup your information blocks.  Once defined the blocks will follow the layout when editing is off and window width is greater than 575 px.  Overflow will always be four blocks per row.';
@@ -409,9 +408,6 @@ $string['marketingsettingsheadingdesc'] = 'This has a layout builder allowing yo
 
 $string['marketingvisible'] = 'Show the marketing boxes when';
 $string['marketingvisibledesc'] = 'Show the marketing boxes when \'Logged out\', \'Logged in\' or \'Logged in or out\'.';
-$string['marketingvisibleloggedout'] = 'Logged out';
-$string['marketingvisibleloggedin'] = 'Logged in';
-$string['marketingvisibleloggedinout'] = 'Logged in or out';
 
 $string['marketingbuilderheading'] = 'Marketing box layout builder';
 $string['marketingbuilderdesc'] = 'Use the tool below to setup your marketing boxes.  Once defined the box settings will appear further down this page.';
