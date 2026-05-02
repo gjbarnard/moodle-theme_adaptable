@@ -1,3 +1,8 @@
+Change log in version 500.2.8 (2025040814)
+==========================================
+1. Add new setting 'tickervisible' to show the news ticker when 'Logged out', 'Logged in' or 'Logged in or out'.  Note: Sponsors only.
+2. Refactor logged in / out strings.
+
 Change log in version 500.2.7 (2025040812)
 ==========================================
 1. Fix 'Hangs on upgradesettings-Page' #50.
