@@ -101,15 +101,15 @@ a#adaptable-message-user-button,
 
 .btn-primary:hover {
     background-color: [[setting:buttonhovercolor]];
-    text-decoration: none;
     color: [[setting:buttontexthovercolor]];
+    text-decoration: none;
 }
 
 .btn-primary:focus {
     background-color: [[setting:buttonfocuscolour]];
     box-shadow: $input-btn-focus-box-shadow;
-    text-decoration: none;
     color: [[setting:buttontextfocuscolour]];
+    text-decoration: none;
 }
 
 // Secondary button.
@@ -132,8 +132,8 @@ a.btn-secondary {
 .btn-secondary:focus {
     background-color: [[setting:buttonfocuscolour]];
     box-shadow: $input-btn-focus-box-shadow;
-    text-decoration: none;
     color: [[setting:buttontextfocuscolour]];
+    text-decoration: none;
 }
 
 .btn-sm {
@@ -225,16 +225,11 @@ a#adaptable-message-user-button:focus,
         display: inline-block;
     }
 
-    #coursesearchnavbar .form-group .btn {
-        margin: 0 5px 0 5px;
-        padding: 4px 12px;
-    }
-
     .helptooltip a {
         background-color: transparent !important;
-        box-shadow: none !important;
         border: none !important;
         border-radius: 0 !important;
+        box-shadow: none !important;
     }
 }
 
@@ -259,8 +254,8 @@ td.submit input[disabled],
 #editingbuttonmobile {
     .btn,
     input[type="submit"] {
-        background-image: none;
         background-color: [[setting:editonbk]];
+        background-image: none;
         box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
         color: [[setting:editfont]];
         height: 32px;
@@ -300,16 +295,16 @@ td.submit input[disabled],
 #id_cancel,
 input[name="addcancel"],
 button[name="resetbutton"] {
+    background-color: [[setting:buttoncolorcancel]] !important;
+    background-image: none !important;
+    border: none;
+    box-shadow: none;
+    color: [[setting:buttontextcolorcancel]] !important;
+    cursor: pointer;
     font-family: [[setting:fontname]];
     font-size: 14px;
     line-height: 20px;
     height: 36px;
-    cursor: pointer;
-    color: [[setting:buttontextcolorcancel]] !important;
-    background-image: none !important;
-    background-color: [[setting:buttoncolorcancel]] !important;
-    box-shadow: none;
-    border: none;
 }
 
 // Set Cancel hover to a link with the same colour that Cancel but underlined.
@@ -319,31 +314,31 @@ button[name="resetbutton"] {
 input[name="addcancel"]:hover,
 button[name="resetbutton"]:hover,
 #id_cancel:hover {
-    color: [[setting:buttontextcolorcancel]] !important;
     background-color: [[setting:buttonhovercolorcancel]] !important;
+    color: [[setting:buttontextcolorcancel]] !important;
     text-decoration: none !important;
 }
 
 // Disabled button hardcoded to grey.
 .btn-primary.disabled,
 .btn-primary[disabled] {
-    background-image: none;
     background-color: #e0e0e0;
+    background-image: none;
     color: #bdbdbd;
 }
 
 #notice .singlebutton + .singlebutton input,
 .submit.buttons input[name="cancel"] {
     color: [[setting:editfont]] !important;
-    background-image: none;
     background-color: [[setting:editoffbk]] !important;
+    background-image: none;
     text-shadow: none;
 }
 
 // Login.
 .btn-login {
-    background-image: none;
     background-color: [[setting:buttonlogincolor]];
+    background-image: none;
     border: none;
     box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
     color: [[setting:buttonlogintextcolor]];
@@ -357,8 +352,8 @@ button[name="resetbutton"]:hover,
 }
 
 .btn-login:hover {
-    background-image: none;
     background-color: [[setting:buttonloginhovercolor]];
+    background-image: none;
     color: [[setting:buttonlogintextcolor]];
     text-decoration: none;
 }
@@ -371,8 +366,8 @@ button[name="resetbutton"]:hover,
 .path-course-view li.activity span.autocompletion img,
 .path-course-view li.activity form.togglecompletion .btn {
     background-color: transparent;
-    box-shadow: none;
     border: none;
+    box-shadow: none;
 }
 
 // Message Drawer styles (moodle 3.6 and higher).
@@ -382,25 +377,20 @@ button[name="resetbutton"]:hover,
     display: none !important;
 }
 
-// Display buttons with same height than the rest.
-.message-drawer .btn-block {
-    min-height: 36px;
-}
-
 // Set action buttons to action colour.
 .message-drawer button[data-action="confirm-delete-conversation"],
 .message-drawer button[data-action="confirm-block"] {
     background-color: [[setting:editoffbk]] !important;
+    color: #fff !important;
     text-shadow: none !important;
-    color: #ffffff !important;
 }
 
 // Remove border from progress icon button styling that is present due to previous styles
 // defined for a links used with button styling.
 a.btn[data-bs-toggle="popover"] {
-    margin-left: 5px;
-    border: none;
     background-color: transparent !important;
+    border: none;
+    margin-left: 5px;
 }
 
 // btn-group.

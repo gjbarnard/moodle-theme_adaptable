@@ -24,21 +24,21 @@
 
 .navbar {
     min-height: 40px;
-}
 
-.navbar .nav-collapse.in {
-    border-top: none;
-}
+    .navbar .nav-collapse.in {
+        border-top: none;
+    }
 
-.navbar .nav {
-    display: block;
-    float: left;
-    left: 0;
-    margin: 0 0 0 4px;
-    position: relative;
+    .nav {
+        display: block;
+        float: left;
+        left: 0;
+        margin: 0 0 0 4px;
+        position: relative;
 
-    > li > a {
-        margin: 0 0 0 0 !important;
+        > li > a {
+            margin: 0 0 0 0 !important;
+        }
     }
 }
 
@@ -68,18 +68,19 @@
     }
 }
 
-.navbar .singlebutton input {
-    padding: 4px 15px;
-    margin-left: 5px;
-}
+.navbar {
+    .singlebutton input {
+        padding: 4px 15px;
+        margin-left: 5px;
+    }
 
-.navbar #coursesearchnavbar,
-.navbar .wikisearch {
-    margin-top: 3px;
-}
+    .wikisearch {
+        margin-top: 3px;
+    }
 
-.navbar .forumsearch input[type=text] {
-    padding: 0;
+    .forumsearch input[type=text] {
+        padding: 0;
+    }
 }
 
 header .nav-item {

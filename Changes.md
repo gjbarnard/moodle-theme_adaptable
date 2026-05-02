@@ -1,3 +1,11 @@
+Change log in version 502.1.1 (2026041201)
+==========================================
+1. Fix deprecation of 'file_encode_url'.
+2. Add new setting 'tickervisible' to show the news ticker when 'Logged out', 'Logged in' or 'Logged in or out'.  Note: Sponsors only.
+3. Refactor logged in / out strings.
+4. Refactor deprecated CSS classes ml, mr, form-group and btn-block.
+5. Remove redundant CSS class 'coursesearchnavbar'.
+
 Change log in version 502.1.0 (2026041200)
 ==========================================
 1. Change draw toggle icons, [MDL-88085](https://tracker.moodle.org/browse/MDL-88085).

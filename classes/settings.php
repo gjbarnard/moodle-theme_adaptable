@@ -2416,9 +2416,9 @@ class settings {
         $title = get_string('slidervisible', 'theme_adaptable');
         $description = get_string('slidervisibledesc', 'theme_adaptable');
         $options = [
-            1 => get_string('slidervisibleloggedout', 'theme_adaptable'),
-            2 => get_string('slidervisibleloggedin', 'theme_adaptable'),
-            3 => get_string('slidervisibleloggedinout', 'theme_adaptable'),
+            1 => get_string('visibleloggedout', 'theme_adaptable'),
+            2 => get_string('visibleloggedin', 'theme_adaptable'),
+            3 => get_string('visibleloggedinout', 'theme_adaptable'),
         ];
         $setting = new admin_setting_configselect($name, $title, $description, 3, $options);
         $page->add($setting);
@@ -3551,9 +3551,9 @@ class settings {
         $title = get_string('informationblocksvisible', 'theme_adaptable');
         $description = get_string('informationblocksvisibledesc', 'theme_adaptable');
         $options = [
-            1 => get_string('informationblocksvisibleloggedout', 'theme_adaptable'),
-            2 => get_string('informationblocksvisibleloggedin', 'theme_adaptable'),
-            3 => get_string('informationblocksvisibleloggedinout', 'theme_adaptable'),
+            1 => get_string('visibleloggedout', 'theme_adaptable'),
+            2 => get_string('visibleloggedin', 'theme_adaptable'),
+            3 => get_string('visibleloggedinout', 'theme_adaptable'),
         ];
         $setting = new admin_setting_configselect($name, $title, $description, 3, $options);
         $page->add($setting);
@@ -4040,9 +4040,9 @@ class settings {
         $title = get_string('marketingvisible', 'theme_adaptable');
         $description = get_string('marketingvisibledesc', 'theme_adaptable');
         $options = [
-            1 => get_string('marketingvisibleloggedout', 'theme_adaptable'),
-            2 => get_string('marketingvisibleloggedin', 'theme_adaptable'),
-            3 => get_string('marketingvisibleloggedinout', 'theme_adaptable'),
+            1 => get_string('visibleloggedout', 'theme_adaptable'),
+            2 => get_string('visibleloggedin', 'theme_adaptable'),
+            3 => get_string('visibleloggedinout', 'theme_adaptable'),
         ];
         $setting = new admin_setting_configselect($name, $title, $description, 3, $options);
         $page->add($setting);

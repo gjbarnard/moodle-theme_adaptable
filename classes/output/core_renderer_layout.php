@@ -221,7 +221,7 @@ trait core_renderer_layout {
             // Only used when user is logged in and not on the secure layout.
             if ((isloggedin()) && ($this->page->pagelayout != 'secure')) {
                 $headercontext['loginoruser'] =
-                    '<li class="nav-item mr-1 mr-lg-0 dropdown">' . $this->user_menu() . '</li>';
+                    '<li class="nav-item me-1 me-lg-0 dropdown">' . $this->user_menu() . '</li>';
             } else {
                 $headercontext['loginoruser'] = '';
             }

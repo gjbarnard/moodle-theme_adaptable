@@ -276,12 +276,15 @@ class course_renderer extends \core_course_renderer {
         $contentfiles = '';
         foreach ($course->get_course_overviewfiles() as $file) {
             $isimage = $file->is_valid_image();
-            $url = file_encode_url(
-                "$CFG->wwwroot/pluginfile.php",
-                '/' . $file->get_contextid() . '/' . $file->get_component() . '/' .
-                $file->get_filearea() . $file->get_filepath() . $file->get_filename(),
-                !$isimage
-            );
+            $url = url::make_pluginfile_url(
+                contextid: $file->get_contextid(),
+                component: $file->get_component(),
+                area: $file->get_filearea(),
+                itemid: null,
+                pathname: $file->get_filepath(),
+                filename: $file->get_filename(),
+                forcedownload: !$isimage
+            )->out();
             if ($isimage) {
                 if ($type == 1) {
                     $contentimages .= html_writer::start_tag('div', ['class' => 'courseimage']);
