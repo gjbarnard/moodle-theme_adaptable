@@ -1,3 +1,11 @@
+Change log in version 501.1.3 (2025092508)
+==========================================
+1. Fix deprecation of 'file_encode_url'.
+2. Add new setting 'tickervisible' to show the news ticker when 'Logged out', 'Logged in' or 'Logged in or out'.  Note: Sponsors only.
+3. Refactor logged in / out strings.
+4. Refactor deprecated CSS classes ml, mr, form-group and btn-block.
+5. Remove redundant CSS class 'coursesearchnavbar'.
+
 Change log in version 501.1.2 (2025092507)
 ==========================================
 1. Fix 'Hangs on upgradesettings-Page' #50.
