@@ -77,7 +77,7 @@ trait core_renderer_toolbox {
             $additionalclasses[] = (isguestuser()) ? 'userguest' : 'notguest';
         } else {
             $additionalclasses .= ' ' . (isloggedin()) ? 'loggedin' : 'loggedout';
-            $additionalclasses .= ' ' . (isguestuser) ? 'userguest' : 'notguest';
+            $additionalclasses .= ' ' . (isguestuser()) ? 'userguest' : 'notguest';
         }
 
         return parent::body_attributes($additionalclasses);
