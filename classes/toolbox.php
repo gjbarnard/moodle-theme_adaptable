@@ -1405,10 +1405,10 @@ class toolbox {
             }
         }
         // If there are any current properties left, then they are unchanged.
-        foreach ($currentprops[self::PROPS] as $currentpropkey => $currentpropkey) {
+        foreach ($currentprops[self::PROPS] as $currentpropkey => $currentpropvalue) {
             // Todo: Need to discover any orphaned file properties and delete them.
             $settinglog = '\'' . $currentpropkey . '\' ' .
-                get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' . $currentpropkey . '\'';
+                get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' . $currentpropvalue . '\'';
             $unchanged .= $settinglog . '.' . PHP_EOL;
         }
 

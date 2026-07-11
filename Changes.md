@@ -1,3 +1,10 @@
+Change log in version 502.1.2 (2026041202)
+==========================================
+1. Fix 'isguestuser instead of isguestuser()' - #56.
+2. Fix 'Adaptable theme colors missing after upgrade to Moodle 5.2' - #53.
+3. Fix 'Put properties report showing setting values as their names'.
+4. Upgrade theme version ('fav' setting) of Font Awesome to 7.3.0.
+
 Change log in version 502.1.1 (2026041201)
 ==========================================
 1. Fix deprecation of 'file_encode_url'.
