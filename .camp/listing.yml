@@ -1,0 +1,16 @@
+name: theme_adaptable
+summary: Adaptable is a highly customisable responsive Moodle theme.
+description: |
+  Moodle theme with lots of functionality.
+labels:
+  - freemium
+  - donation-supported
+  - commercial-support-available
+screenshots:
+  - path: .camp/screenshots/screenshot.png
+    caption: Logo
+links:
+  docs: https://github.com/gjbarnard/moodle-theme_adaptable/blob/main/Readme.md
+  changelog: https://github.com/gjbarnard/moodle-theme_adaptable/blob/main/Changes.md
+  issues: https://github.com/gjbarnard/moodle-theme_adaptable/issues
+  donate: https://github.com/gjbarnard/moodle-theme_adaptable/blob/main/Information.md
