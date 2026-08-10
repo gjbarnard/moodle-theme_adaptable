@@ -123,7 +123,7 @@ trait core_renderer_toolbox {
     /**
      * Returns user profile menu items.
      *
-     * returns array of objects suitable for adding to an action_menu as items.
+     * @return array of objects suitable for adding to an action_menu as items.
      */
     protected function user_profile_menu_items() {
         global $CFG, $COURSE;
@@ -3408,6 +3408,11 @@ trait core_renderer_toolbox {
      */
     public function search_box($id = false) {
         global $CFG;
+
+        if ($this->page->pagelayout == 'login') {
+            // Don't show search on login page!
+            return '';
+        }
 
         /* Accessing $CFG directly as using \core_search::is_global_search_enabled would
            result in an extra included file for each site, even the ones where global search

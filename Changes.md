@@ -1,3 +1,9 @@
+Change log in version 502.1.3 (2026041203)
+==========================================
+1. Improve login page to be more like M5.1 version.  Related to 'Login screen too large' - #58.
+2. Don't show search on login page.
+3. Fix missing auth instructions on login page.
+
 Change log in version 502.1.2 (2026041202)
 ==========================================
 1. Fix 'isguestuser instead of isguestuser()' - #56.

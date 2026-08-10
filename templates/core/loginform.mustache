@@ -28,7 +28,6 @@
     * error - Any errors in the form?,
     * forgotpasswordurl - Forgot password url,
     * hasidentityproviders - Flag, set to true to hide identity providers,
-    * hasinstructions - Flag, set to true to show instructions,
     * identityproviders - List of identity providers,
     * instructions - Instructions,
     * instructionsformat - Format of instructions,
@@ -77,7 +76,6 @@
         "error": "",
         "forgotpasswordurl": "http://localhost/stable_master/login/forgot_password.php",
         "hasidentityproviders": false,
-        "hasinstructions": true,
         "identityproviders": [],
         "instructions": "For full access to this site, you first need to create an account.",
         "instructionsformat": "1",
@@ -127,13 +125,13 @@
     {{^hasoidc}}
         {{> theme_adaptable/corepartials/loginup }}
     {{/hasoidc}}
-    {{#hasinstructions}}
+    {{#instructions}}
         <div class="login-divider"></div>
         <div class="login-instructions {{#cansignup}}mb-3{{/cansignup}}">
             <h2 class="login-heading">{{#str}}firsttime{{/str}}</h2>
             {{{instructions}}}
         </div>
-    {{/hasinstructions}}
+    {{/instructions}}
     {{#cansignup}}
         <div class="login-signup">
             <a class="btn btn-secondary" href="{{signupurl}}">{{#str}}startsignup{{/str}}</a>

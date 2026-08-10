@@ -274,6 +274,19 @@
     }
 }
 
+.pagelayout-login {
+    #adaptable-page-header-wrapper {
+        .btco-hover-menu {
+            ul {
+                ul.dropdown-menu {
+                    position: absolute;
+                    right: 0;
+                }
+            }
+        }
+    }
+}
+
 @media (min-width: 991px) {
     #adaptable-page-header-wrapper {
         .btco-hover-menu {
