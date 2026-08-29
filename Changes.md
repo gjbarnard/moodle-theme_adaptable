@@ -1,3 +1,9 @@
+Change log in version 502.1.4 (2026041204)
+==========================================
+1. Fix 'header menus / problem displaying icons' - #59.
+2. Fix missing array indexes when upgrading.
+3. Have to have 'icon' class because of JS!  Otherwise it can't find icons, i.e. mod_quiz editing and adding / removing page breaks.
+
 Change log in version 502.1.3 (2026041203)
 ==========================================
 1. Improve login page to be more like M5.1 version.  Related to 'Login screen too large' - #58.
