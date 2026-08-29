@@ -24,3 +24,8 @@
 *.ttf binary 
 *.woff binary
 *.woff2 binary
+
+# Keep development files out of distribution ZIPs (git archive semantics).
+.github export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore

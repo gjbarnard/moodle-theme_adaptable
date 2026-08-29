@@ -77,7 +77,7 @@ trait core_renderer_toolbox {
             $additionalclasses[] = (isguestuser()) ? 'userguest' : 'notguest';
         } else {
             $additionalclasses .= ' ' . (isloggedin()) ? 'loggedin' : 'loggedout';
-            $additionalclasses .= ' ' . (isguestuser) ? 'userguest' : 'notguest';
+            $additionalclasses .= ' ' . (isguestuser()) ? 'userguest' : 'notguest';
         }
 
         return parent::body_attributes($additionalclasses);
@@ -793,15 +793,17 @@ trait core_renderer_toolbox {
     ) {
         $output = '';
         $themesettings = \theme_adaptable\toolbox::get_settings();
-        $infoboxsettingvalue = $themesettings->$name;
+        if (!empty($themesettings->$name)) {
+            $infoboxsettingvalue = $themesettings->$name;
 
-        if (!empty($infoboxsettingvalue)) {
-            if ($name == 'infobox') {
-                if ($checktop == $themesettings->infoboxtop) {
-                    $output = $this->get_frontpage_infobox_markup($name, $themesettings->infoboxfullscreen, 1);
+            if (!empty($infoboxsettingvalue)) {
+                if ($name == 'infobox') {
+                    if ($checktop == $themesettings->infoboxtop) {
+                        $output = $this->get_frontpage_infobox_markup($name, $themesettings->infoboxfullscreen, 1);
+                    }
+                } else {
+                    $output = $this->get_frontpage_infobox_markup($name, $themesettings->infoboxfullscreen, 2);
                 }
-            } else {
-                $output = $this->get_frontpage_infobox_markup($name, $themesettings->infoboxfullscreen, 2);
             }
         }
 
