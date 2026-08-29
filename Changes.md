@@ -1,3 +1,12 @@
+Change log in version 501.1.4 (2025092509)
+==========================================
+1. Fix 'isguestuser instead of isguestuser()' - #56.
+2. Fix 'Put properties report showing setting values as their names'.
+3. Upgrade theme version ('fav' setting) of Font Awesome to 7.3.0.
+4. Fix 'header menus / problem displaying icons' - #59.
+5. Fix missing array indexes when upgrading.
+6. Have to have 'icon' class because of JS!  Otherwise it can't find icons, i.e. mod_quiz editing and adding / removing page breaks.
+
 Change log in version 501.1.3 (2025092508)
 ==========================================
 1. Fix deprecation of 'file_encode_url'.
