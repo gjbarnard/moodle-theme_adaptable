@@ -1063,7 +1063,7 @@ class toolbox {
 
         // Config html editor based.  Sort of as some functionalty uses both.
         // Alerts.
-        $alertcount = $props['alertcount'];
+        $alertcount = (!empty($props['alertcount'])) ? $props['alertcount'] : 0;
         for ($alertindex = 1; $alertindex <= $alertcount; $alertindex++) {
             $alerttext = 'alert' . $alertindex;
             $ourfileprops[$alerttext] = [
@@ -1166,7 +1166,7 @@ class toolbox {
         }
 
         // News ticker.
-        $newstickercount = $props['newstickercount'];
+        $newstickercount = (!empty($props['newstickercount'])) ? $props['newstickercount'] : 0;
         for ($newstickerindex = 1; $newstickerindex <= $newstickercount; $newstickerindex++) {
             $tickertext = 'tickertext' . $newstickerindex;
             $ourfileprops[$tickertext] = [
@@ -1405,10 +1405,10 @@ class toolbox {
             }
         }
         // If there are any current properties left, then they are unchanged.
-        foreach ($currentprops[self::PROPS] as $currentpropkey => $currentpropkey) {
+        foreach ($currentprops[self::PROPS] as $currentpropkey => $currentpropvalue) {
             // Todo: Need to discover any orphaned file properties and delete them.
             $settinglog = '\'' . $currentpropkey . '\' ' .
-                get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' . $currentpropkey . '\'';
+                get_string('putpropertiesvalue', $pluginfrankenstyle) . ' \'' . $currentpropvalue . '\'';
             $unchanged .= $settinglog . '.' . PHP_EOL;
         }
 
@@ -1781,6 +1781,7 @@ class toolbox {
             }
             $attributes['aria-hidden'] = 'true';
             $classes[] = 'afaicon';
+            $classes[] = 'icon';
             $classes[] = 'fa-fw';
             $attributes['class'] = implode(' ', $classes);
             if (!empty($title)) {

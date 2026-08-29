@@ -43,7 +43,6 @@ class behat_theme_adaptable_behat_navigation extends behat_navigation {
      *
      * @param string $assettitle
      * @throws ExpectationException
-     * @Given /^I follow asset link "(?P<assettitle>(?:[^"]|\\")*)"$/
      */
     public function i_follow_asset_link($assettitle) {
         $xpath = '//a/span[contains(.,"' . $assettitle . '")]';
@@ -70,14 +69,12 @@ class behat_theme_adaptable_behat_navigation extends behat_navigation {
     }
 
     /**
-     * Go to current page setting item
+     * Go to current page setting item.
      *
      * This can be used on front page, course, category or modules pages.
      *
-     * @Given /^I navigate to "(?P<nodetext_string>(?:[^"]|\\")*)" in current page administration$/
-     *
      * @throws ExpectationException
-     * @param string $nodetext navigation node to click, may contain path, for example "Reports > Overview"
+     * @param string $nodetext navigation node to click.
      * @return void
      */
     public function i_navigate_to_in_current_page_administration($nodetext) {
@@ -170,7 +167,6 @@ class behat_theme_adaptable_behat_navigation extends behat_navigation {
 
     /**
      * Click on an entry in the user menu.
-     * @Given /^I follow "(?P<nodetext_string>(?:[^"]|\\")*)" in the user menu$/
      *
      * @param string $nodetext
      */

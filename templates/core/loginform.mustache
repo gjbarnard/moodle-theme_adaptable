@@ -113,7 +113,7 @@
             <h2 class="login-heading">{{#str}} potentialidps, auth {{/str}}</h2>
             {{#identityproviders}}
                 <a href="{{url}}" title="{{name}}">
-                    <button class="loginbtn btn login-identityprovider-btn btn-block">
+                    <button class="loginbtn btn login-identityprovider-btn d-block w-100">
                         {{#iconurl}}
                             <img src="{{iconurl}}" alt="{{name}}" width="24" height="24"/>
                         {{/iconurl}}
@@ -144,7 +144,7 @@
         {{> theme_adaptable/corepartials/loginguest }}
     {{/canloginasguest}}
     {{#hasoidc}}
-    <button class="loginbtn btn btn-secondary btn-block mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#loginmanual"
+    <button class="loginbtn btn btn-secondary d-block w-100 mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#loginmanual"
         aria-expanded="false" aria-controls="loginmanual">
         {{#str}} logintextmanualbutton, theme_adaptable {{/str}}
     </button>
@@ -159,7 +159,7 @@
             <h2 class="login-heading">{{#str}} potentialidps, auth {{/str}}</h2>
             {{#identityproviders}}
                 <a href="{{url}}" title="{{name}}">
-                    <button class="loginbtn btn login-identityprovider-btn btn-block">
+                    <button class="loginbtn btn login-identityprovider-btn d-block w-100">
                         {{#iconurl}}
                             <img src="{{iconurl}}" alt="{{name}}" width="24" height="24"/>
                         {{/iconurl}}
