@@ -24,6 +24,6 @@
 //
 
 .navbar .count-container {
-    background-color: [[setting:notbadgebackgroundcolour]];
-    color: [[setting:notbadgecolour]];
+    background-color: var(--ad-notifications-badge-background-colour);
+    color: var(--ad-notifications-badge-colour);
 }

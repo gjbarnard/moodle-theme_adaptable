@@ -24,13 +24,13 @@
 
 .courseindex .courseindex-item {
     .courseindex-link {
-        color: var(--ad-link-colour);
+        color: var(--ad-light-link-colour);
         margin-bottom: auto;
         margin-top: auto;
 
         &:hover,
         &:focus {
-            color: var(--ad-linkhover-colour);
+            color: var(--ad-light-linkhover-colour);
         }
     }
 

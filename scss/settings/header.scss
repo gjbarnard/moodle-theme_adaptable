@@ -45,7 +45,7 @@
 #headertitle h4,
 #headertitle h5,
 #headertitle h6 {
-    color: [[setting:fonttitlecolor]];
+    color: var(--ad-font-title-colour);
 
     font-family: [[setting:fonttitlename]];
     font-size: [[setting:fonttitlesize]]px;
@@ -61,7 +61,7 @@
 }
 
 .headerbgimage {
-    color: [[setting:headerbgimagetextcolour]];
+    color: var(--ad-header-background-image-text-colour);
 
     .headersearch .btn,
     #headertitle,
@@ -73,7 +73,7 @@
     #headertitle h4,
     #headertitle h5,
     #headertitle h6 {
-        color: [[setting:headerbgimagetextcolour]];
+        color: var(--ad-header-background-image-text-colour);
     }
 }
 

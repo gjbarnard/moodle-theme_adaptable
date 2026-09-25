@@ -298,7 +298,7 @@ $string['slider2h4bgcolor'] = 'Slider two H4 bg colour';
 $string['slider2h4bgcolordesc'] = 'Choose the background colour you want for the slider two H4 tag.';
 
 $string['slideroption2submitcolor'] = 'Slider two submit text';
-$string['slideroption2submitcolordesc'] = 'Set a background colour for the submit text in slider style option two colour.';
+$string['slideroption2submitcolordesc'] = 'Set a colour for the submit text in slider style option two colour.';
 
 $string['slideroption2color'] = 'Slider two submit bg';
 $string['slideroption2colordesc'] = 'Set a background colour for the submit text in slider style option.';
@@ -309,7 +309,7 @@ $string['slideroption2adesc'] = 'Set the slider style option two arrow backgroun
 $string['sliderstyle1'] = 'Slider style one';
 $string['sliderstyle2'] = 'Slider style two';
 
-// Block Regions.
+// Block regions.
 $string['blocklayoutbuilder'] = 'Frontpage block regions';
 $string['blocklayoutbuilderdesc'] = 'Below you can build your own layout for block regions on the frontpage.<br/>To add content these regions you will need to <strong> turn editing on on the frontpage of Moodle</strong>.<br/>Then you can begin to drag/drop blocks into the regions you create!';
 
@@ -329,6 +329,13 @@ $string['blocklayoutcount2'] = ' block regions. You are currently using: ';
 
 $string['blocklayoutlayoutrow'] = 'Block region row';
 $string['blocklayoutlayoutrowdesc'] = 'Add / set layout for block region row on frontpage.';
+
+$string['drawertoggletype'] = 'Drawer toggle type';
+$string['drawertoggletypedesc'] = 'Choose the toggle type or \'all\' to see what they all look like.';
+$string['drawertoggletypeall'] = 'All';
+$string['drawertoggletypecore'] = 'Core';
+$string['drawertoggletypenavbar'] = 'Navbar';
+$string['drawertoggletypesidebar'] = 'Sidebar';
 
 $string['blockregioneditingtitleshown'] = 'Show the block region title when editing';
 $string['blockregioneditingtitleshowndesc'] = 'You can show / hide the block region title when editing.';
@@ -900,6 +907,11 @@ $string['coursesectionactivityleftborderwidthdesc'] = 'Set the width of the box 
 
 $string['coursesectionactivitycolors'] = 'Course section activity options';
 
+$string['coursesectionactivityleftbordercolor'] = 'Activity left border display colour';
+$string['coursesectionactivityleftbordercolordesc'] = 'Set the colour of the left border.  Similar specific activity settings will override.';
+$string['coursesectionactivitybgcolor'] = 'Activity background colour';
+$string['coursesectionactivitybgcolordesc'] = 'Set the Activity background colour.  Type <strong>transparent</strong> in the box for transparency.  Similar specific activity settings will override.';
+
 $string['coursesectionactivityassignleftbordercolor'] = 'Assignment activity left border display colour';
 $string['coursesectionactivityassignleftbordercolordesc'] = 'Set the colour of the left border.';
 $string['coursesectionactivityassignbgcolor'] = 'Assignment activity background colour';
@@ -946,6 +958,8 @@ $string['onetopicactivetabtextcolordesc'] = 'The text colour of the active tab o
 // Blocks General.
 $string['shownavigationblockoncoursepage'] = 'Show navigation block on course page';
 $string['shownavigationblockoncoursepagedesc'] = 'Set this to show the navigation block on the course page.';
+$string['toggleblockdrawer'] = 'Toggle block drawer';
+$string['togglecourseindex'] = 'Toggle course index';
 
 // Fonts.
 $string['fontsettings'] = 'Fonts';

@@ -1,3 +1,20 @@
+Change log in version 502.1.5 (2026041205)
+==========================================
+1. Adapt improved core login form.
+2. Added two new types of block drawer toggle, on the navbar and side of the drawers.  A new setting 'drawertoggletype' on the
+   'Block' tab allows you to choose which one or show all for comparison purposes.
+4. Adjust message drawer colours.
+5. Fix dropdown three vertical dots horizontal position.
+6. Fix navbar cog vertical position.
+7. Fix navbar message and notification icon vertical position.
+8. Fix assign, forum and quiz left border, and background settings.
+9. Correct 'slideroption2submitcolor' description.
+10. Fix login block icons.
+11. Fix, panels are now cards since BS4!
+12. Add new settings of 'coursesectionactivityleftbordercolor' and 'coursesectionactivitybgcolor' for activities that do not
+    have a specific setting to set the left border and background.
+14. Move the settings floating 'Save' / 'Cancel' bar to avoid drawer open functionality.
+
 Change log in version 502.1.4 (2026041204)
 ==========================================
 1. Fix 'header menus / problem displaying icons' - #59.

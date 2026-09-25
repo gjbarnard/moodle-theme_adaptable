@@ -79,6 +79,7 @@
 
         .navbar .popover-region-toggle i {
             font-size: 1.2em;
+            vertical-align: -0.2rem;
         }
 
         .navbar > li {
@@ -259,8 +260,9 @@
     }
 
     #main-navbar .action-menu a.dropdown-toggle .afaicon {
-        @extend .fa-lg;
+        font-size: 1.25rem;
         padding: 0;
+        vertical-align: -0.2rem;
     }
 }
 

@@ -138,7 +138,14 @@ trait core_renderer_layout {
             case 'mydashboard':
             case 'mypublic':
             case 'report':
-                [$courseindexopen, $courseindex, $courseindexmarkup, $courseindextogglemarkup] = $this->courseindexheader();
+                [
+                    $courseindexopen,
+                    $courseindex,
+                    $courseindexmarkup,
+                    $courseindexnavbartogglemarkup,
+                    $courseindexsidebartogglemarkup,
+                    $courseindexdrawertogglemarkup
+                ] = $this->courseindexheader();
                 $courseindexheader = true;
                 break;
             default:
@@ -146,7 +153,13 @@ trait core_renderer_layout {
         }
 
         if ($sidepostdrawer) {
-            [$hassidepost, $sidepostmarkup, $sideposttogglemarkup] = $this->sidepostheader();
+            [
+                $hassidepost,
+                $sidepostmarkup,
+                $sidepostnavbartogglemarkup,
+                $sidepostsidebartogglemarkup,
+                $sidepostdrawertogglemarkup
+            ] = $this->sidepostheader();
         } else {
             $hassidepost = false;
         }
@@ -181,6 +194,8 @@ trait core_renderer_layout {
         $headercontext = [
             'output' => $this,
             'responsiveheader' => $themesettings->responsiveheader,
+            'courseindexnavbartogglemarkup' => $courseindexnavbartogglemarkup,
+            'sidepostnavbartogglemarkup' => $sidepostnavbartogglemarkup,
         ];
 
         if (!empty($themesettings->mobileprimarynav)) {
@@ -370,11 +385,17 @@ trait core_renderer_layout {
         if ($optionsdata['data']['stickynavbar']) {
             echo '<div id="page" class="' . implode(' ', $pageclasses) . '">';
         }
-        if (!empty($courseindextogglemarkup)) {
-            echo $courseindextogglemarkup;
+        if (!empty($courseindexsidebartogglemarkup)) {
+            echo $courseindexsidebartogglemarkup;
         }
-        if (!empty($sideposttogglemarkup)) {
-            echo $sideposttogglemarkup;
+        if (!empty($courseindexdrawertogglemarkup)) {
+            echo $courseindexdrawertogglemarkup;
+        }
+        if (!empty($sidepostsidebartogglemarkup)) {
+            echo $sidepostsidebartogglemarkup;
+        }
+        if (!empty($sidepostdrawertogglemarkup)) {
+            echo $sidepostdrawertogglemarkup;
         }
     }
 
@@ -435,6 +456,10 @@ trait core_renderer_layout {
     protected function courseindexheader() {
         global $CFG;
         $courseindex = \theme_adaptable\toolbox::get_setting('courseindexenabled');
+        $courseindexmarkup = '';
+        $courseindexnavbartogglemarkup = '';
+        $courseindexsidebartogglemarkup = '';
+        $courseindexdrawertogglemarkup = '';
 
         if ($courseindex) {
             require_once($CFG->dirroot . '/course/lib.php');
@@ -462,65 +487,129 @@ trait core_renderer_layout {
             ) : '';
             $courseurl = $this->page->course ? new url('/course/view.php', ['id' => $this->page->course->id]) : null;
 
-            $templatecontext = [
+            $courseindexcontext = [
                 'coursefullname' => $coursefullname,
                 'courseindexopen' => $courseindexopen,
                 'courseindex' => $courseindex,
                 'courseurl' => $courseurl ? $courseurl->out(false) : null,
-                'left' => $left,
+                'position' => ($left) ? 'right' : 'left',
                 'stickynavbar' => $stickynavbar,
+                'tooltipposition' => ($left) ? 'left' : 'right',
             ];
 
-            $courseindexmarkup = $this->render_from_template('theme_adaptable/courseindex', $templatecontext);
-            $courseindextogglemarkup = $this->render_from_template('theme_adaptable/courseindextoggle', $templatecontext);
+            $courseindexmarkup = $this->render_from_template('theme_adaptable/courseindex', $courseindexcontext);
+
+            $courseindextogglecontext = [
+                'position' => ($left) ? 'right' : 'left',
+                'target' => 'theme_adaptable-drawers-courseindex',
+                'title' => get_string('togglecourseindex', 'theme_adaptable'),
+            ];
+
+            $drawertoggletype = \theme_adaptable\toolbox::get_setting('drawertoggletype');
+            if (empty($drawertoggletype)) {
+                $drawertoggletype = 'core';
+            }
+
+            if (($drawertoggletype == 'navbar') || ($drawertoggletype == 'all')) {
+                $courseindextogglecontext['class'] = 'navbartoggle';
+                $courseindexnavbartogglemarkup = $this->render_from_template('theme_adaptable/blockdrawertoggle', $courseindextogglecontext);
+            }
+
+            if (($drawertoggletype == 'sidebar') || ($drawertoggletype == 'all')) {
+                $courseindextogglecontext['class'] = 'sidebar';
+                $courseindexsidebartogglemarkup = $this->render_from_template('theme_adaptable/blockdrawertoggle', $courseindextogglecontext);
+            }
+
+            if (($drawertoggletype == 'core') || ($drawertoggletype == 'all')) {
+                $corelefticon = !$left;
+                if (right_to_left()) {
+                    $corelefticon = !$corelefticon;
+                }
+                $courseindextogglecontext['coretoggle'] = true;
+                $courseindextogglecontext['corelefticon'] = $corelefticon;
+                $courseindextogglecontext['class'] = 'drawer';
+                $courseindexdrawertogglemarkup = $this->render_from_template('theme_adaptable/blockdrawertoggle', $courseindextogglecontext);
+            }
         }
 
-        return [$courseindexopen, $courseindex, $courseindexmarkup, $courseindextogglemarkup];
+        return [
+            $courseindexopen,
+            $courseindex,
+            $courseindexmarkup,
+            $courseindexnavbartogglemarkup,
+            $courseindexsidebartogglemarkup,
+            $courseindexdrawertogglemarkup,
+        ];
     }
 
     /**
      * Side post header.
      */
     protected function sidepostheader() {
-        $left = \theme_adaptable\toolbox::get_setting('blockside');
-        $stickynavbar = \theme_adaptable\toolbox::get_setting('stickynavbar');
-
-        if (isloggedin()) {
-            $sidepostopen = (get_user_preferences('drawer-open-block', true) == true);
-        } else {
-            $sidepostopen = false;
-        }
 
         $sideposthtml = $this->blocks('side-post');
         // Blocks or add block button.
         $hassidepost =
             ((strpos($sideposthtml, 'data-block=') !== false) || (strpos($sideposthtml, 'data-key="addblock"') !== false));
-        if (!$hassidepost) {
-            $sidepostopen = false;
+        $sidepostmarkup = '';
+        $sidepostnavbartogglemarkup = '';
+        $sidepostsidebartogglemarkup = '';
+        $sidepostdrawertogglemarkup = '';
+
+        if ($hassidepost) {
+            $left = \theme_adaptable\toolbox::get_setting('blockside');
+            $stickynavbar = \theme_adaptable\toolbox::get_setting('stickynavbar');
+
+            if (defined('BEHAT_SITE_RUNNING')) {
+                $sidepostopen = true;
+            } else if (isloggedin()) {
+                $sidepostopen = (get_user_preferences('drawer-open-block', true) == true);
+            } else {
+                $sidepostopen = false;
+            }
+
+            $sidepostcontext = [
+                'position' => ($left) ? 'left' : 'right',
+                'sidepostopen' => $sidepostopen,
+                'sidepost' => $sideposthtml,
+                'stickynavbar' => $stickynavbar,
+                'tooltipposition' => ($left) ? 'right' : 'left',
+            ];
+            $sidepostmarkup = $this->render_from_template('theme_adaptable/sidepost', $sidepostcontext);
+
+            $sideposttogglecontext = [
+                'position' => ($left) ? 'left' : 'right',
+                'target' => 'theme_adaptable-drawers-sidepost',
+                'title' => get_string('toggleblockdrawer', 'theme_adaptable'),
+            ];
+            $drawertoggletype = \theme_adaptable\toolbox::get_setting('drawertoggletype');
+            if (empty($drawertoggletype)) {
+                $drawertoggletype = 'core';
+            }
+
+            if (($drawertoggletype == 'navbar') || ($drawertoggletype == 'all')) {
+                $sideposttogglecontext['class'] = 'navbartoggle';
+                $sidepostnavbartogglemarkup = $this->render_from_template('theme_adaptable/blockdrawertoggle', $sideposttogglecontext);
+            }
+
+            if (($drawertoggletype == 'sidebar') || ($drawertoggletype == 'all')) {
+                $sideposttogglecontext['class'] = 'sidebar';
+                $sidepostsidebartogglemarkup = $this->render_from_template('theme_adaptable/blockdrawertoggle', $sideposttogglecontext);
+            }
+
+            if (($drawertoggletype == 'core') || ($drawertoggletype == 'all')) {
+                $corelefticon = $left;
+                if (right_to_left()) {
+                    $corelefticon = !$corelefticon;
+                }
+                $sideposttogglecontext['coretoggle'] = true;
+                $sideposttogglecontext['corelefticon'] = $corelefticon;
+                $sideposttogglecontext['class'] = 'drawer';
+                $sidepostdrawertogglemarkup = $this->render_from_template('theme_adaptable/blockdrawertoggle', $sideposttogglecontext);
+            }
         }
 
-        if (defined('BEHAT_SITE_RUNNING')) {
-            $sidepostopen = true;
-        }
-
-        $sidepostcontext = [
-            'hassidepost' => $hassidepost,
-            'left' => $left,
-            'sidepostopen' => $sidepostopen,
-            'sidepost' => $sideposthtml,
-            'stickynavbar' => $stickynavbar,
-        ];
-
-        $sideposttogglecontext = [
-            'hassidepost' => $hassidepost,
-            'left' => $left,
-            'sidepostopen' => $sidepostopen,
-        ];
-
-        $sidepostmarkup = $this->render_from_template('theme_adaptable/sidepost', $sidepostcontext);
-        $sideposttogglemarkup = $this->render_from_template('theme_adaptable/sideposttoggle', $sideposttogglecontext);
-
-        return [$hassidepost, $sidepostmarkup, $sideposttogglemarkup];
+        return [$hassidepost, $sidepostmarkup, $sidepostnavbartogglemarkup, $sidepostsidebartogglemarkup, $sidepostdrawertogglemarkup];
     }
 
     /**
@@ -574,8 +663,7 @@ trait core_renderer_layout {
         // If admin settings page, show template for floating save / discard buttons.
         if (strstr($this->page->pagetype, 'admin-setting')) {
             if ($themesettings->enablesavecanceloverlay) {
-                $savediscardcontext = ['topmargin' => ($themesettings->stickynavbar ? '35px' : '0')];
-                $context->savediscard = $this->render_from_template('theme_adaptable/savediscard', $savediscardcontext);
+                $context->savediscard = $this->render_from_template('theme_adaptable/savediscard', []);
             }
         }
 

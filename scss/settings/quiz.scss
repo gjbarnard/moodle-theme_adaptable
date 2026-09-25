@@ -32,13 +32,13 @@
 .que {
     .formulation {
         background-color: transparent !important;
-        border: 1px solid var(--ad-main-colour) !important;
-        color: var(--ad-font-colour);
+        border: 1px solid var(--ad-light-main-colour) !important;
+        color: var(--ad-light-font-colour);
     }
 
     .info {
         background-color: transparent !important;
-        border: 1px solid var(--ad-main-colour) !important;
+        border: 1px solid var(--ad-light-main-colour) !important;
     }
 }
 
@@ -49,10 +49,10 @@
 
     .qnbutton {
         background: none;
-        background-color: var(--ad-main-colour);
+        background-color: var(--ad-light-main-colour);
         border: 0;
         border-radius: 4px;
-        color: var(--ad-link-colour) !important;
+        color: var(--ad-light-link-colour) !important;
         font-size: 14px;
         font-weight: bold;
         height: 45px;

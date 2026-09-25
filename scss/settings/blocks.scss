@@ -28,7 +28,7 @@
 // Reset border values.
 [class^="block-side-"] .card-body,
 .block {
-    background-color: [[setting:blockbackgroundcolor]];
+    background-color: var(--ad-light-block-background-colour);
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -48,7 +48,7 @@
 // Block titles.
 .block .header,
 .block > .card-body {
-    border-color: [[setting:blockbordercolor]];
+    border-color: var(--ad-light-block-border-colour);
     border-radius: [[setting:blockheadertopradius]]px [[setting:blockheadertopradius]]px [[setting:blockheaderbottomradius]]px [[setting:blockheaderbottomradius]]px;
     border-style: [[setting:blockheaderbordertopstyle]];
     border-width: [[setting:blockheaderbordertop]]px [[setting:blockheaderborderright]]px [[setting:blockheaderborderbottom]]px [[setting:blockheaderborderleft]]px;
@@ -57,7 +57,7 @@
 
 // Block header.
 .block .header {
-    background-color: [[setting:blockheaderbackgroundcolor]];
+    background-color: var(--ad-light-block-header-background-colour);
     padding-right: 0;
     .action-menu {
         .menubar {
@@ -65,14 +65,14 @@
         }
         .dropdown-toggle,
         .action-menu-item {
-            color: [[setting:fontblockheadercolor]];
+            color: var(--ad-light-font-block-header-colour);
         }
     }
 }
 
 // Block title.
 .block .title h2 {
-    color: [[setting:fontblockheadercolor]];
+    color: var(--ad-light-font-block-header-colour);
     font-size: [[setting:fontblockheadersize]]px;
     font-weight: [[setting:fontblockheaderweight]] !important;
     margin-bottom: 0;
@@ -82,7 +82,7 @@
 
 // Block content.
 .block > .content {
-    border-color: [[setting:blockbordercolor]];
+    border-color: var(--ad-light-block-border-colour);
     border-radius: [[setting:blockmaintopradius]]px [[setting:blockmaintopradius]]px [[setting:blockmainbottomradius]]px [[setting:blockmainbottomradius]]px;
     border-style: [[setting:blockmainbordertopstyle]];
     border-width: [[setting:blockmainbordertop]]px [[setting:blockmainborderright]]px [[setting:blockmainborderbottom]]px [[setting:blockmainborderleft]]px;
@@ -94,13 +94,13 @@
 // Navigation block.
 .jsenabled .block_settings .block_tree .tree_item.branch,
 .block_navigation .block_tree .tree_item.branch {
-    color: var(--ad-link-colour) !important;
+    color: var(--ad-light-link-colour) !important;
 }
 
 // Course Timeline block.
 .block .content .block-timeline a:hover {
-    background-color: [[setting:navbardropdownhovercolor]] !important;
-    color: [[setting:navbardropdowntexthovercolor]] !important;
+    background-color: var(--ad-light-navbar-dropdown-hover-colour) !important;
+    color: var(--ad-light-navbar-dropdown-text-hover-colour) !important;
 }
 
 // Admin block.
@@ -114,21 +114,13 @@
 }
 
 .btn.coursemenubtn {
-    background-color: transparent !important;
     border: none !important;
     border-radius: 0% !important;
-    color: #000000 !important;
 
     &:hover {
-        background-color: #f0f0f0 !important;
         border-radius: 100% !important;
     }
 }
-
-.coursemenubtn .fa {
-    color: #000000 !important;
-}
-
 
 // Calendar block.
 .block_calendar_month table.minicalendar {
@@ -199,7 +191,7 @@
 
 // Site Info block.
 .site-info-container {
-    background-color: var(--ad-main-colour);
+    background-color: var(--ad-light-main-colour);
     padding: 5px 10px;
     height: 120px
 }
@@ -278,13 +270,13 @@ main.tabcontentcontainer {
 }
 
 #dashboardtabcontainer section.adaptable-tab-section {
-    border-top: 4px solid [[setting:tabbedlayoutdashboardcolorselected]];
+    border-top: 4px solid var(--ad-light-tabbed-layout-dashboard-colour-selected);
     display: none;
     padding: 20px 0 0;
 }
 
 #coursetabcontainer section.adaptable-tab-section {
-    border-top: 4px solid [[setting:tabbedlayoutcoursepagetabcolorselected]];
+    border-top: 4px solid var(--ad-light-tabbed-layout-course-page-tab-colour-selected);
     display: none;
     padding: 20px 0 0;
 }
@@ -309,12 +301,12 @@ main.tabcontentcontainer {
     }
 
     label.dashboardtab {
-        background-color: [[setting:tabbedlayoutdashboardcolorunselected]];
+        background-color: var(--ad-light-tabbed-layout-dashboard-colour-unselected);
     }
 
     div.linktab,
     label.coursetab {
-        background-color: [[setting:tabbedlayoutcoursepagetabcolorunselected]];
+        background-color: var(--ad-light-tabbed-layout-course-page-tab-colour-unselected);
     }
 
     div.linktab {
@@ -329,27 +321,27 @@ main.tabcontentcontainer {
     > dashboardtab.label:hover::after,
     > dashboardtab.input:focus + label::after,
     > dashboardtab.input:checked + label::after {
-        background-color: [[setting:tabbedlayoutdashboardcolorselected]];
+        background-color: var(--ad-light-tabbed-layout-course-page-tab-colour-selected);
     }
 
     > coursetab.label:hover::after,
     > coursetab.input:focus + label::after,
     > coursetab.input:checked + label::after {
-        background-color: [[setting:tabbedlayoutcoursepagetabcolorselected]];
+        background-color: var(--ad-light-tabbed-layout-course-page-tab-colour-selected);
     }
 
     div.linktab,
     input.dashboardtab:checked + label {
-        background-color: [[setting:tabbedlayoutdashboardcolorselected]];
-        border-color: [[setting:tabbedlayoutdashboardcolorselected]];
-        border-top: 4px solid [[setting:tabbedlayoutdashboardcolorselected]];  // Override this in custom css to change the selected tab colour.
+        background-color: var(--ad-light-tabbed-layout-dashboard-colour-selected);
+        border-color: var(--ad-light-tabbed-layout-dashboard-colour-selected);
+        border-top: 4px solid var(--ad-light-tabbed-layout-dashboard-colour-selected);  // Override this in custom css to change the selected tab colour.
         color: #FFF;
     }
 
     input.coursetab:checked + label {
-        background-color: [[setting:tabbedlayoutcoursepagetabcolorselected]];
-        border-color: [[setting:tabbedlayoutcoursepagetabcolorselected]];
-        border-top: 4px solid [[setting:tabbedlayoutcoursepagetabcolorselected]];  // Override this in custom css to change the selected tab colour.
+        background-color: var(--ad-light-tabbed-layout-course-page-tab-colour-selected);
+        border-color: var(--ad-light-tabbed-layout-course-page-tab-colour-selected);
+        border-top: 4px solid var(--ad-light-tabbed-layout-course-page-tab-colour-selected);  // Override this in custom css to change the selected tab colour.
         color: #FFF;
     }
 

@@ -29,8 +29,8 @@
 html,
 body,
 .body {
-    background-color: var(--ad-main-colour);
-    color: var(--ad-font-colour);
+    background-color: var(--ad-light-main-colour);
+    color: var(--ad-light-font-colour);
     font-family: [[setting:fontname]];
     font-weight: [[setting:fontweight]];
 }
@@ -49,7 +49,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: [[setting:fontheadercolor]];
+    color: var(--ad-light-font-header-colour);
     font-family: [[setting:fontheadername]];
     font-weight: [[setting:fontheaderweight]];
 }
@@ -58,7 +58,7 @@ h6 {
 a:not(.btn, .dropdown-item, .quickeditlink),
 a:not(.btn, .dropdown-item, .quickeditlink):visited,
 .tabtree .tabrow0 li a {
-    color: var(--ad-link-colour);
+    color: var(--ad-light-link-colour);
     text-decoration: none;
 }
 
@@ -76,8 +76,8 @@ a:focus {
 // Text Selection.
 ::selection,
 ::-moz-selection {
-    background-color: var(--ad-selectionbackground-colour);
-    color: var(--ad-selectiontext-colour);
+    background-color: var(--ad-light-selection-background-colour);
+    color: var(--ad-light-selection-text-colour);
 }
 
 // Main headings.
@@ -88,7 +88,7 @@ a:focus {
 #frontpage-category-combo h2,
 .course_category_tree .category > .info > .categoryname {
     border-bottom: 0 solid #eee;
-    color: [[setting:fontheadercolor]];
+    color: var(--ad-light-font-header-colour);
     font-family: [[setting:fontheadername]] !important;
     font-size: 24px;
     font-weight: [[setting:fontheaderweight]] !important;
@@ -111,9 +111,9 @@ div.signuppanel h2 {
 }
 
 #region-main {
-    background-color: $body-bg;
+    background-color: var(--ad-light-regionmain-colour);
     border: none;
-    color: var(--ad-regionmaintext-colour);
+    color: var(--ad-light-regionmaintext-colour);
     transition: all .5s ease-in-out;
 }
 
@@ -135,7 +135,7 @@ a.dimmed_text:visited,
 .usersuspended a:visited,
 .dimmed_category,
 .dimmed_category a {
-    color: var(--ad-dimmedtext-colour) !important;
+    color: var(--ad-light-dimmedtext-colour) !important;
 }
 
 // Ref: install_print_header().
@@ -165,15 +165,19 @@ a.dimmed_text:visited,
     margin-top: [[setting:slidermargintop]]px;
 }
 
+#frontblockregion,
+.block-region {
+    background-color: var(--ad-light-block-region-background-colour);
+}
+
 #frontblockregion {
-    background-color: [[setting:blockregionbackgroundcolor]];
     margin-bottom: 20px;
     margin-top: 20px;
 }
 
 .flexibleblocks,
 #marketblocks {
-    background-color: [[setting:marketboxbackgroundcolour]];
+    background-color: var(--ad-light-market-box-background-colour);
     padding-bottom: 10px;
 
     h3 {
@@ -185,7 +189,7 @@ a.dimmed_text:visited,
 }
 
 #marketblocks .internalmarket {
-    border-color: [[setting:marketboxbordercolor]];
+    border-color: var(--ad-light-market-box-border-colour);
     border-style: solid;
     border-width: 0 1px 1px 1px;
     padding: 10px 15px 30px;
@@ -411,12 +415,13 @@ div.redirectmessage {
 
 #savediscardsection {
     background-color: #eee;
+    bottom: 0;
+    display: none; // Start off hidden on page load.
     filter: alpha(opacity=80);
     min-height: 30px;
     opacity: 0.8;
     padding: 10px;
-    position: fixed; // For IE8 and earlier.
-    top: 10px;
+    position: fixed;
     width: 100%;
 
     .form-reset,

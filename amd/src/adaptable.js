@@ -31,6 +31,7 @@ import $ from 'jquery';
 import jqueryeasingInit from 'theme_adaptable/jqueryeasing';
 import * as AdaptableUtil from 'theme_adaptable/util';
 import log from 'core/log';
+import Drawers from 'theme_boost/drawers';
 
 const adaptable = () => {
     log.debug('Adaptable ES6 adaptable');
@@ -108,6 +109,28 @@ const adaptable = () => {
     // New for every three.
     if ($('header').css("position") == "fixed") {
         $('.outercont').css('padding-top', $('header').height());
+    }
+
+    // Drawers.
+    const courseindex = document.getElementById('theme_adaptable-drawers-courseindex');
+    const sidepost = document.getElementById('theme_adaptable-drawers-sidepost');
+    if ((sidepost) || (courseindex)) {
+        if (courseindex) {
+            if (courseindex.classList.contains('show')) {
+                document.body.classList.add(courseindex.dataset.state);
+            }
+        }
+        if (sidepost) {
+            if (sidepost.classList.contains('show')) {
+                document.body.classList.add(sidepost.dataset.state);
+            }
+        }
+        document.addEventListener(Drawers.eventTypes.drawerShown, e => {
+            document.body.classList.add(e.detail.drawerInstance.drawerNode.dataset.state);
+        });
+        document.addEventListener(Drawers.eventTypes.drawerHidden, e => {
+            document.body.classList.remove(e.detail.drawerInstance.drawerNode.dataset.state);
+        });
     }
 };
 

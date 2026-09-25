@@ -25,10 +25,9 @@
 
 // Navwrap.
 #adaptable-page-header-wrapper #main-navbar {
-    background-color: [[setting:menubkcolor]];
-    border-bottom: 3px solid [[setting:menubordercolor]];
+    background-color: var(--ad-light-menu-background-colour);
+    border-bottom: 3px solid var(--ad-menu-border-colour);
     clear: both;
-    z-index: 100;
 
     .navbar .navbar-nav > {
         li:first-child > a.dropdown-toggle {
@@ -67,8 +66,8 @@
         .context-header-settings-menu .action-menu-trigger a.dropdown-toggle:hover,
         .region-main-settings-menu .action-menu-trigger a.dropdown-toggle,
         .region-main-settings-menu .action-menu-trigger a.dropdown-toggle:hover {
-            background-color: transparent;
-            color: [[setting:menufontcolor]];
+            background-color: #fff;
+            color: var(--ad-light-menu-font-colour);
             font-size: [[setting:menufontsize]]px;
             font-weight: 400;
             line-height: 42px;
@@ -87,8 +86,8 @@
     ul.navbar-nav > li > a.nav-link:hover,
     li div.nav-link:hover,
     li #editingbutton input[type="submit"]:hover {
-        background-color: [[setting:menubkhovercolor]];
-        color: [[setting:menufonthovercolor]];
+        background-color: var(--ad-light-menu-background-hover-colour);
+        color: var(--ad-light-menu-font-hover-colour);
     }
 }
 
@@ -124,12 +123,12 @@
     color: var(--ad-linkhover-colour);
 }
 
-// Add dropdown menu items styles for each theme color (mantainning default hover colour for contrast).
+// Add dropdown menu items styles for each theme color (mantainning default hover colour for contrast?).
 @each $color, $value in $theme-colors {
     #adaptable-page-header-wrapper .dropdown-item.text-#{$color} {
         color: $value;
         &:hover {
-            color: [[setting:navbardropdowntexthovercolor]] !important; /* stylelint-disable-line declaration-no-important */
+            color: var(--ad-light-navbar-dropdown-text-hover-colour) !important; /* stylelint-disable-line declaration-no-important */
         }
     }
 }
@@ -153,7 +152,7 @@
 
     .nav .dropdown-menu li a {
         background-color: none;
-        color: var(--ad-link-colour);
+        color: var(--ad-light-link-colour);
     }
 
     .dropdown-menu a,
@@ -164,7 +163,7 @@
     .dropdown-menu > .active > a:visited,
     .dropdown-submenu > a,
     .dropdown-submenu > a:visited {
-        color: [[setting:navbardropdowntextcolor]];
+        color: var(--ad-light-navbar-dropdown-text-colour);
     }
 
     .dropdown-menu a:hover,
@@ -182,12 +181,12 @@
     .dropdown-item.active,
     .dropdown-submenu:hover > a,
     .dropdown-submenu:focus > a {
-        background-color: [[setting:navbardropdownhovercolor]];
-        color: [[setting:navbardropdowntexthovercolor]];
+        background-color: var(--ad-light-navbar-dropdown-hover-colour);
+        color: var(--ad-light-navbar-dropdown-text-hover-colour);
     }
 
     .dropdown-item:focus-within a {
-        color: [[setting:navbardropdowntexthovercolor]];
+        color: var(--ad-light-navbar-dropdown-text-hover-colour);
     }
 
     .dropdown-submenu>.dropdown-menu {
@@ -196,7 +195,7 @@
 
     #main-navbar .navbar-nav > .nav-item .dropdown-menu .dropdown-toggle:after {
         border-color: transparent;
-        border-left-color: var(--ad-link-colour);
+        border-left-color: var(--ad-light-link-colour);
         border-style: solid;
         border-width: 5px 0 5px 5px;
         display: block;

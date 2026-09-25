@@ -22,10 +22,6 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
-.bg-messageheader {
-    background-color: $white !important;
-}
-
 @media screen and (min-width: 768px) {
     // M3.7+
     .message-app.drawer,
@@ -79,12 +75,6 @@
 [data-region='message-drawer'] [data-region='body-container'] {
     [data-region='last-message-date'] {
         padding-top: 0.1rem !important;
-    }
-
-    .btn-link {
-        background-color: #fff;
-        border-radius: 0;
-        color: inherit !important;
     }
 }
 

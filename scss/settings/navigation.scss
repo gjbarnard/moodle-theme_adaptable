@@ -24,10 +24,10 @@
 //
 
 .breadcrumb {
-    background-color: [[setting:breadcrumb]];
+    background-color: var(--ad-light-breadcrumb-colour);
 
     ul i,
     li.lastli span {
-        color: [[setting:breadcrumbtextcolor]];
+        color: var(--ad-light-breadcrumb-text-colour);
     }
 }

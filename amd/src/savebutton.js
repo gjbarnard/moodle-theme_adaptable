@@ -34,8 +34,6 @@ import log from 'core/log';
  * Save button.
  */
 const saveButton = () => {
-    $("#savediscardsection").hide();
-
     $('#adminsettings :input').on('change input', function() {
         $("#savediscardsection").fadeIn('slow');
     });
@@ -44,6 +42,7 @@ const saveButton = () => {
         window.onbeforeunload = null;
         $("#adminsettings").submit();
     });
+
     $("#adminresetbutton").click(function() {
         var confirmString = $(this).data('confirm'); // Saves an AJAX call for such a rare thing.
         var result = confirm(confirmString);

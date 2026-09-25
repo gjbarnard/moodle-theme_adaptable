@@ -68,6 +68,24 @@
     }
 }
 
+#adaptable-user-nav {
+    .navbarcolourmode {
+        .btn {
+            border-width: 0;
+            box-shadow: none;
+            color: inherit;
+
+            &:after {
+                margin-left: -.25rem !important;
+            }
+
+            .icon {
+                width: 1.25em
+            }
+        }
+    }
+}
+
 .navbar {
     .singlebutton input {
         padding: 4px 15px;

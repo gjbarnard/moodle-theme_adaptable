@@ -166,7 +166,7 @@
         padding: 5px;
     }
 
-    .coursebox .panel-body p {
+    .coursebox .card-body p {
         font-size: 90%;
         line-height: 130%;
     }
@@ -204,11 +204,11 @@
     }
 
     .nav .dropdown-menu li a {
-        color: [[setting:menufontcolor]];
+        color: var(--ad-light-menu-font-colour);
     }
 
     .nav-collapse.active {
-        background-color: [[setting:mobilemenubkcolor]];
+        background-color: var(--ad-light-mobile-menu-background-colour);
         height: auto;
         padding-bottom: 4px;
         top: 6px;

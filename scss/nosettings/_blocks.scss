@@ -23,7 +23,6 @@
 //
 
 .adaptable-block-area {
-    background: #eee;
     border: 2px dashed #bfbdbd;
     display: block;
     min-height: 50px;
@@ -154,26 +153,30 @@
 }
 
 // Login block.
-.block_login label {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 5px;
-    margin-top: 5px;
-    font-weight: 400;
-}
+.block_login {
+    label {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        font-weight: 400;
+    }
 
-.block_login .username label:before {
-    content: "\f007"; // user <- user.
-    font-family: "Font Awesome 6 Free";
-    margin-right: 5px;
-    color: #999;
-}
+    label[for="login_username"]:before {
+        content: "\f007"; // user <- user.
+    }
 
-.block_login .password label:before {
-    content: "\f084"; // key <- key.
-    font-family: "Font Awesome 6 Free";
-    margin-right: 5px;
-    color: #999;
+    label[for="login_password"]:before {
+        content: "\f084"; // key <- key.
+    }
+
+    label[for="login_username"]:before,
+    label[for="login_password"]:before {
+        font-family: "Font Awesome 7 Free", "Font Awesome 6 Free";
+        font-weight: 900;
+        margin-right: 5px;
+        color: #999;
+    }
 }
 
 .loginbox .loginpanel .desc {
@@ -247,7 +250,7 @@
     .block .header .title h2:before {
         content: "\f0c9"; // navicon <- navicon.
         display: inline-block;
-        font-family: "Font Awesome 6 Free";
+        font-family: "Font Awesome 7 Free", "Font Awesome 6 Free";
         font-style: normal;
         font-variant: normal;
         font-weight: 900; // fa-solid.

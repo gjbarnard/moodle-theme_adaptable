@@ -23,10 +23,10 @@
 //
 
 .navbar .popover-region-container {
-    background-color: $body-bg;
-    border: 1px solid $body-color; // Possibly make a setting!
-    box-shadow: 5px 5px 15px 1px $body-color;
-    color: $body-color;
+    background-color: var(--ad-light-regionmain-colour);
+    border: 1px solid var(--ad-light-font-colour);
+    box-shadow: 5px 5px 15px 1px var(--ad-light-font-colour);
+    color: var(--ad-light-font-colour);
     height: 500px;
     opacity: 1;
     position: absolute;

@@ -65,26 +65,26 @@
     &.hover {
         &:hover,
         &:focus {
-            .panel-body .coursebox-content h3 {
-                color: [[setting:rendereroverlayfontcolor]];
+            .card-body .coursebox-content h3 {
+                color: var(--ad-light-renderer-overlay-font-colour);
             }
         }
 
         .teachers li a,
         .summary > a:link,
         .summary > a:visited {
-            color: [[setting:rendereroverlayfontcolor]];
+            color: var(--ad-light-renderer-overlay-font-colour);
         }
 
         .teachers {
-            color: [[setting:rendereroverlayfontcolor]];
+            color: var(--ad-light-renderer-overlay-font-colour);
             padding-left: 2px;
             padding-top: 2px;
             text-align: left;
         }
 
         .summary {
-            color: [[setting:rendereroverlayfontcolor]];
+            color: var(--ad-light-renderer-overlay-font-colour);
             display: none;
             left: 0;
             min-height: 50px;
@@ -95,7 +95,7 @@
             top: 0;
 
             p {
-                color: [[setting:rendereroverlayfontcolor]];
+                color: var(--ad-light-renderer-overlay-font-colour);
             }
         }
     }
@@ -108,14 +108,14 @@
         }
     }
 
-    &.panel,
-    &.panel .panel-body {
+    &.card,
+    &.card .card-body {
         position: relative;
     }
 
-    &.panel {
-        .panel-body {
-            border: 4px solid [[setting:tilesbordercolor]];
+    &.card {
+        .card-body {
+            border: 4px solid var(--ad-light-tiles-border-colour);
             margin: 2px;
         }
 
@@ -128,11 +128,11 @@
                 display: block;
             }
         }
-        
+
         &.hover {
             height: 100%;
 
-            .panel-body .coursebox-content h3 {
+            .card-body .coursebox-content h3 {
                 font-size: 20px;
                 font-weight: normal;
                 line-height: normal;
@@ -143,8 +143,8 @@
             }
 
             &:hover {
-                .panel-body {
-                    background-color: [[setting:rendereroverlaycolor]];
+                .card-body {
+                    background-color: var(--ad-light-renderer-overlay-colour);
                     transition: all .5s ease-in-out;
 
                     .cimbox {
@@ -163,7 +163,7 @@
         }
     }
 
-    .panel-heading {
+    .card-heading {
         padding: 12px 10px 10px;
 
         a {
@@ -279,7 +279,7 @@
 }
 
 .cimbox {
-    background-color: [[setting:blockbackgroundcolor]];
+    background-color: var(--ad-light-block-background-colour);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -295,7 +295,7 @@ a.cimbox {
 
 .covtiles {
     .coursebox-content {
-        background-color: [[setting:covbkcolor]];
+        background-color: var(--ad-light-cov-background-colour);
         bottom: 5px;
         height: 38px;
         left: 5px;
@@ -308,19 +308,19 @@ a.cimbox {
         z-index: 9; // Override .cimbox class. */
     }
 
-    .panel-body .coursebox-content {
+    .card-body .coursebox-content {
         &:hover,
         &:focus {
             height: calc(100% - 5px);
         }
     }
 
-    &.panel {
+    &.card {
         background: transparent !important;
         border: 0;
         position: relative;
 
-        .panel-body {
+        .card-body {
             border: 1px solid #e4e4e4;
             border-radius: 2px;
             box-shadow: 0 1px 2px #c1c1c1;
@@ -328,7 +328,7 @@ a.cimbox {
             position: relative;
         }
 
-        &:hover .panel-body {
+        &:hover .card-body {
             background-color: transparent !important;
         }
 
@@ -347,14 +347,14 @@ a.cimbox {
     }
 }
 
-.covtiles.coursebox.panel.hover .panel-body .coursebox-content h3,
+.covtiles.coursebox.card.hover .card-body .coursebox-content h3,
 #marketblocks.covtiles h4 {
-    background: [[setting:covbkcolor]];
+    background: var(--ad-light-cov-background-colour);
     border: 5px solid #fff;
     border-left: 0;
     border-right: 0;
     border-bottom: 0;
-    color: [[setting:covfontcolor]] !important;
+    color: var(--ad-light-cov-font-colour) !important;
     font-size: 18px;
     font-weight: 800;
     left: -5px;
@@ -365,21 +365,21 @@ a.cimbox {
     max-width: 100%;
 }
 
-.covtiles.coursebox.panel.hover .panel-body .coursebox-content h3 a,
+.covtiles.coursebox.card.hover .card-body .coursebox-content h3 a,
 #marketblocks.covtiles h4 a,
-.covtiles.coursebox.panel.hover .panel-body .coursebox-content h3 a:hover,
+.covtiles.coursebox.card.hover .card-body .coursebox-content h3 a:hover,
 #marketblocks.covtiles h4 a:hover {
-    color: [[setting:covfontcolor]] !important;
+    color: var(--ad-light-cov-font-colour) !important;
 }
 
-.covtiles.panel.hover .coursebtn.submit.btn {
+.covtiles.card.hover .coursebtn.submit.btn {
     display: block;
     margin: 5px auto;
 }
 
 .coursebox.hover.covtiles .summary {
-    background: [[setting:covbkcolor]];
-    color: [[setting:covfontcolor]] !important;
+    background: var(--ad-light-cov-background-colour);
+    color: var(--ad-light-cov-font-colour) !important;
     display: block;
     position: relative;
     text-align: left;
@@ -391,8 +391,8 @@ a.cimbox {
 }
 
 .course-section .section-item {
-    background-color: [[setting:coursesectionbgcolor]];
-    border: [[setting:coursesectionborderwidth]]px [[setting:coursesectionborderstyle]] [[setting:coursesectionbordercolor]];
+    background-color: var(--ad-light-course-section-bg-colour);
+    border: [[setting:coursesectionborderwidth]]px [[setting:coursesectionborderstyle]] var(--ad-light-course-section-border-colour);
     border-radius: [[setting:coursesectionborderradius]]px;
 }
 
@@ -423,7 +423,7 @@ body:not(.editing) .sitetopic ul.section,
     margin: 5px 0 5px 5px;
 }
 
-.panel-body {
+.card-body {
     overflow: hidden;
 
     .courseimage img {
@@ -492,10 +492,10 @@ body:not(.editing) .sitetopic ul.section,
 }
 
 body:not(.single-section-page) .course-section-header {
-    background-color: [[setting:coursesectionheaderbg]];
-    border-bottom: [[setting:coursesectionheaderborderstyle]] [[setting:coursesectionheaderbordercolor]] [[setting:coursesectionheaderborderwidth]]px;
+    background-color: var(--ad-light-course-section-header-bg-colour);
+    border-bottom: [[setting:coursesectionheaderborderstyle]] var(--ad-light-course-section-header-border-colour) [[setting:coursesectionheaderborderwidth]]px;
     border-radius: [[setting:coursesectionheaderborderradiustop]]px [[setting:coursesectionheaderborderradiustop]]px [[setting:coursesectionheaderborderradiusbottom]]px [[setting:coursesectionheaderborderradiusbottom]]px;
-    color: [[setting:sectionheadingcolor]];
+    color: var(--ad-light-selection-heading-colour);
     padding: 0.5rem;
 
     .sectionname,
@@ -542,7 +542,7 @@ body:not(.single-section-page) .course-section-header {
 
 // Current section.
 .course-section.current > .section-item::before {
-    border-left-color: [[setting:currentcolor]];
+    border-left-color: var(--ad-light-current-colour);
 }
 
 .course-content ul li.section.hidden .sectionname,
@@ -554,8 +554,8 @@ body:not(.single-section-page) .course-section-header {
 // CSS for the one topic format tabs.
 .format-onetopic .onetopic {
     .tab_content {
-        background-color: var(--ad-regionmain-colour);
-        color: var(--ad-regionmaintext-colour);
+        background-color: var(--ad-light-regionmain-colour);
+        color: var(--ad-light-regionmaintext-colour);
     }
 
     .nav-tabs {
@@ -579,8 +579,8 @@ body:not(.single-section-page) .course-section-header {
         .nav-link.active {
             .tab_content,
             .tab_content .sectionname {
-                background-color: [[setting:onetopicactivetabbackgroundcolor]] !important;
-                color: [[setting:onetopicactivetabtextcolor]] !important;
+                background-color: var(--ad-light-onetopic-active-tab-background-colour) !important;
+                color: var(--ad-light-onetopic-active-tab-text-colour) !important;
             }
         }
     }
@@ -713,23 +713,26 @@ body:not(.single-section-page) .course-section-header {
 }
 
 .section li {
-    .ad-activity-wrapper {
-        border-bottom: [[setting:coursesectionactivitybottomborderwidth]]px [[setting:coursesectionactivityborderstyle]] [[setting:coursesectionactivitybordercolor]];
-        box-shadow: -[[setting:coursesectionactivityleftborderwidth]]px 0 0 0 [[setting:coursesectionactivityassignleftbordercolor]];
+    .activity-item {
+        background-color: var(--ad-light-course-section-activity-background-colour);
+        border-bottom: [[setting:coursesectionactivitybottomborderwidth]]px [[setting:coursesectionactivityborderstyle]] var(--ad-light-course-section-activity-border-colour);
+        box-shadow: -[[setting:coursesectionactivityleftborderwidth]]px 0 0 0 var(--ad-course-section-activity-left-border-colour);
     }
 
-    &.modtype_assign .ad-activity-wrapper {
-        background-color: [[setting:coursesectionactivityassignbgcolor]];
+    &.modtype_assign .activity-item {
+        background-color: var(--ad-light-course-section-activity-assign-background-colour);
+        box-shadow: -[[setting:coursesectionactivityleftborderwidth]]px 0 0 0 var(--ad-course-section-activity-assign-left-border-colour);
     }
 
-    &.modtype_forum .ad-activity-wrapper {
-        background-color: [[setting:coursesectionactivityforumbgcolor]];
+    &.modtype_forum .activity-item {
+        background-color: var(--ad-light-course-section-activity-forum-background-colour);
+        box-shadow: -[[setting:coursesectionactivityleftborderwidth]]px 0 0 0 var(--ad-course-section-activity-forum-left-border-colour);
     }
 
-    &.modtype_quiz .ad-activity-wrapper {
-        background-color: [[setting:coursesectionactivityquizbgcolor]];
+    &.modtype_quiz .activity-item {
+        background-color: var(--ad-light-course-section-activity-quiz-background-colour);
+        box-shadow: -[[setting:coursesectionactivityleftborderwidth]]px 0 0 0 var(--ad-course-section-activity-quiz-left-border-colour);
     }
-    
 }
 
 .activity img.activityicon {
@@ -845,7 +848,7 @@ li.activity div.actions-right {
     .activityinstance > a,
     .contentwithoutlink .inplaceeditable > a,
     .activityinstance .inplaceeditable > a {
-        color: [[setting:coursesectionactivityheadingcolour]];
+        color: var(--ad-light-course-section-activity-heading-colour);
     }
 
     .contentwithoutlink > a > span,

@@ -22,21 +22,89 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
-.drawer-toggles .drawer-toggler {
-    top: calc(50% - 27px);
-    z-index: 11;
+.drawer-toggles {
+    .drawer-toggler {
+        top: 175px;
+        z-index: 11;
 
-    .btn {
-        background-color: transparent;
-        border-radius: 0;
-        border-style: none;
-        box-shadow: none;
-        height: 32px;
-        padding: 0;
-        width: 32px;
+        .btn {
+            background-color: transparent;
+            border-radius: 0;
+            border-style: none;
+            box-shadow: none;
+            height: 32px;
+            padding: 0;
+            width: 32px;
 
-        .icon {
-            margin-bottom: 2px;
+            .icon {
+                margin-bottom: 2px;
+            }
+        }
+    }
+
+    &.navbartoggle {
+        border-color: var(--ad-menu-font-colour);
+        border-style: dotted;
+        border-width: 1px;
+        height: calc(var(--ad-menu-font-size) + 8px);
+        width: calc(var(--ad-menu-font-size) + 8px);
+    }
+
+    &.navbartoggle-right {
+        border-right-style: solid;
+    }
+
+    &.navbartoggle-left {
+        border-left-style: solid;
+    }
+
+    &.sidebar {
+        border-color: color-mix(in srgb, var(--bs-primary), transparent 50%);
+        border-style: solid;
+        border-width: 1px;
+        bottom: 0;
+        height: 8.4rem;
+        margin: auto;
+        position: fixed;
+        top: 0;
+        width: .8rem;
+        z-index: 11;
+    }
+
+    &.sidebar-left {
+        border-bottom-right-radius: 2rem;
+        border-left-width: 0;
+        border-top-right-radius: 2rem;
+        left: 0;
+        transition: left 0.2s ease,top 0.2s ease,bottom 0.2s ease,visibility 0.2s ease,transform 0.5s ease;
+    }
+
+    &.sidebar-right {
+        border-bottom-left-radius: 2rem;
+        border-right-width: 0;
+        border-top-left-radius: 2rem;
+        right: 0;
+        transition: right 0.2s ease,top 0.2s ease,bottom 0.2s ease,visibility 0.2s ease,transform 0.5s ease;
+    }
+}
+
+body {
+    &.show-drawer-left {
+        .navbartoggle-left {
+            background-image: linear-gradient(to right, color-mix(in srgb, var(--bs-primary), transparent 50%), transparent);
+            border-style: solid;
+        }
+        .sidebar-left {
+            left: $drawer-left-width;
+        }
+    }
+    &.show-drawer-right {
+        .navbartoggle-right {
+            background-image: linear-gradient(to left, color-mix(in srgb, var(--bs-primary), transparent 50%), transparent);
+            border-style: solid;
+        }
+        .sidebar-right {
+            right: $drawer-right-width;
         }
     }
 }

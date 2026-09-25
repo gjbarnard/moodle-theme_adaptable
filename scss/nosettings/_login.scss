@@ -30,9 +30,9 @@ $login-identity-provider-btn-border: $border-color !default;
 
 .login-container {
     background-color: $logincontainer-bg;
-    padding: $logincontainer-padding;
     box-shadow: $logincontainer-shadow;
     margin-bottom: 2rem;
+    padding: $logincontainer-padding;
     @include border-radius();
     .login-languagemenu {
         display: flex;

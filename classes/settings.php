@@ -183,6 +183,23 @@ class settings {
         $setting = new admin_setting_heading($name, $heading, '');
         $page->add($setting);
 
+        $name = 'theme_adaptable/drawertoggletype';
+        $title = get_string('drawertoggletype', 'theme_adaptable');
+        $description = get_string('drawertoggletypedesc', 'theme_adaptable');
+        $setting = new admin_setting_configselect(
+            $name,
+            $title,
+            $description,
+            'core',
+            [
+                'core' => get_string('drawertoggletypecore', 'theme_adaptable'),
+                'navbar' => get_string('drawertoggletypenavbar', 'theme_adaptable'),
+                'sidebar' => get_string('drawertoggletypesidebar', 'theme_adaptable'),
+                'all' => get_string('drawertoggletypeall', 'theme_adaptable'),
+            ]
+        );
+        $page->add($setting);
+
         $name = 'theme_adaptable/blockregioneditingtitleshown';
         $title = get_string('blockregioneditingtitleshown', 'theme_adaptable');
         $description = get_string('blockregioneditingtitleshowndesc', 'theme_adaptable');
@@ -1429,7 +1446,25 @@ class settings {
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
 
-        // Assign Activity display colours.
+        // Activity left border display colour.
+        $name = 'theme_adaptable/coursesectionactivityleftbordercolor';
+        $title = get_string('coursesectionactivityleftbordercolor', 'theme_adaptable');
+        $description = get_string('coursesectionactivityleftbordercolordesc', 'theme_adaptable');
+        $previewconfig = null;
+        $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ff9933', $previewconfig);
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $page->add($setting);
+
+        // Activity background colour.
+        $name = 'theme_adaptable/coursesectionactivitybgcolor';
+        $title = get_string('coursesectionactivitybgcolor', 'theme_adaptable');
+        $description = get_string('coursesectionactivitybgcolordesc', 'theme_adaptable');
+        $previewconfig = null;
+        $setting = new admin_setting_configcolourpicker($name, $title, $description, '#FFFFFF', $previewconfig);
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $page->add($setting);
+
+        // Assign Activity left border colour.
         $name = 'theme_adaptable/coursesectionactivityassignleftbordercolor';
         $title = get_string('coursesectionactivityassignleftbordercolor', 'theme_adaptable');
         $description = get_string('coursesectionactivityassignleftbordercolordesc', 'theme_adaptable');
@@ -1447,7 +1482,7 @@ class settings {
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
 
-        // Forum Activity display colours.
+        // Forum Activity left border colour.
         $name = 'theme_adaptable/coursesectionactivityforumleftbordercolor';
         $title = get_string('coursesectionactivityforumleftbordercolor', 'theme_adaptable');
         $description = get_string('coursesectionactivityforumleftbordercolordesc', 'theme_adaptable');
@@ -1465,7 +1500,7 @@ class settings {
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
 
-        // Quiz Activity display colours.
+        // Quiz Activity left border colour.
         $name = 'theme_adaptable/coursesectionactivityquizleftbordercolor';
         $title = get_string('coursesectionactivityquizleftbordercolor', 'theme_adaptable');
         $description = get_string('coursesectionactivityquizleftbordercolordesc', 'theme_adaptable');
@@ -2509,7 +2544,7 @@ class settings {
             $title = get_string('slider2h3color', 'theme_adaptable');
             $description = get_string('slider2h3colordesc', 'theme_adaptable');
             $previewconfig = null;
-            $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
+            $setting = new admin_setting_configcolourpicker($name, $title, $description, '#000000', $previewconfig);
             $setting->set_updatedcallback('theme_reset_all_caches');
             $page->add($setting);
 
@@ -2517,7 +2552,7 @@ class settings {
             $title = get_string('slider2h3bgcolor', 'theme_adaptable');
             $description = get_string('slider2h3bgcolordesc', 'theme_adaptable');
             $previewconfig = null;
-            $setting = new admin_setting_configcolourpicker($name, $title, $description, '#000000', $previewconfig);
+            $setting = new admin_setting_configcolourpicker($name, $title, $description, '#ffffff', $previewconfig);
             $setting->set_updatedcallback('theme_reset_all_caches');
             $page->add($setting);
 

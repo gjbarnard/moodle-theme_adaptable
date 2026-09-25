@@ -36,7 +36,7 @@
 {{#courseindex}}
     {{< theme_boost/drawer }}
         {{$id}}theme_adaptable-drawers-courseindex{{/id}}
-        {{$drawerclasses}}drawer drawer-{{#left}}right{{/left}}{{^left}}left{{/left}}{{#courseindexopen}} show{{/courseindexopen}}{{#stickynavbar}} d-none{{/stickynavbar}}{{/drawerclasses}}
+        {{$drawerclasses}}drawer drawer-{{position}}{{#courseindexopen}} show{{/courseindexopen}}{{#stickynavbar}} d-none{{/stickynavbar}}{{/drawerclasses}}
         {{$drawerheadercontent}}
             {{> theme_boost/courseindexdrawercontrols}}
         {{/drawerheadercontent}}
@@ -45,8 +45,8 @@
             {{{courseindex}}}
         {{/drawercontent}}
         {{$drawerpreferencename}}drawer-open-index{{/drawerpreferencename}}
-        {{$drawerstate}}show-drawer-{{#left}}right{{/left}}{{^left}}left{{/left}}{{/drawerstate}}
-        {{$tooltipplacement}}{{#left}}left{{/left}}{{^left}}right{{/left}}{{/tooltipplacement}}
+        {{$drawerstate}}show-drawer-{{position}}{{/drawerstate}}
+        {{$tooltipplacement}}{{tooltipposition}}{{/tooltipplacement}}
         {{$closebuttontext}}{{#str}}closecourseindex, core{{/str}}{{/closebuttontext}}
     {{/ theme_boost/drawer}}
 {{/courseindex}}

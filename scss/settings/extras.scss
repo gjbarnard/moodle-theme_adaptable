@@ -59,12 +59,12 @@
     width: 100%;
 }
 
-.panel-heading {
-    border-bottom: 1px solid #000;
-    padding: 12px 15px 10px;
+.card-heading {
     background-color: #f3f3f3;
+    border-bottom: 1px solid #000;
     border-color: #e8eaeb;
     color: #555;
+    padding: 12px 15px 10px;
     a {
         display: inline-block;
         font-size: 110%;
@@ -76,7 +76,7 @@
     }
 }
 
-.panel-body {
+.card-body {
     padding: 15px;
 }
 
@@ -108,8 +108,7 @@ ul.teachers {
 }
 
 .messaging-area-container .messaging-area .contacts-area .tabs .tab.selected {
-    color: var(--ad-link-colour) !important;
-
+    color: var(--ad-light-link-colour) !important;
 }
 
 .messaging-area-container .messaging-area .contacts-area .tabs .tab {
@@ -146,7 +145,7 @@ ul.teachers {
 }
 
 .messaging-area-container .messaging-area .messages-area .messages {
-    background-color: [[setting:messagingbackgroundcolor]];
+    background-color: var(--ad-light-messaging-background-colour);
 }
 
 .messaging-area-container .messaging-area .messages-area .response {
@@ -161,8 +160,8 @@ ul.teachers {
 .msg-title,
 .msg-sender,
 .msg-time {
-    background-color: var(--ad-main-colour);
-    color: var(--ad-font-colour);
+    background-color: var(--ad-light-main-colour);
+    color: var(--ad-light-font-colour);
 }
 
 .msg-time {
@@ -177,15 +176,15 @@ ul.teachers {
 }
 
 .messaging-area-container .messaging-area .messages-area .messages-header .btn {
+    background: none !important;
+    border: 0;
+    box-shadow: none;
+    color: var(--ad-light-link-colour) !important;
+    font-size: 18px;
     height: 25px;
     line-height: 25px;
     padding: 0 5px;
     width: auto;
-    color: var(--ad-link-colour) !important;
-    background: none !important;
-    border: 0;
-    box-shadow: none;
-    font-size: 18px;
 }
 
 .messaging-area-container .messaging-area .messages-area .messages-header .btn .messages-delete,
@@ -208,11 +207,10 @@ ul.teachers {
 }
 
 .messaging-area-container .messaging-area .contacts-area .tabs .tab {
-    color: var(--ad-link-colour);
-}
-
-.messaging-area-container .messaging-area .contacts-area .tabs .tab:hover {
-    color: var(--ad-linkhover-colour);
+    color: var(--ad-light-link-colour);
+    &:hover {
+        color: var(--ad-light-linkhover-colour);
+    }
 }
 
 .messaging-area-container .messaging-area .messages-area .messages-header .actions {
@@ -234,8 +232,8 @@ ul.teachers {
 // Messages Pop-Up (moodle 3.2+).
 #newmessageoverlay {
     background-clip: padding-box;
-    background-color: #ffffff;
-    border: 3px solid [[setting:messagepopupbackground]];
+    background-color: #fff;
+    border: 3px solid var(--ad-light-message-popup-background-colour);
     border-radius: 6px;
     bottom: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -252,9 +250,9 @@ ul.teachers {
     z-index: 1010;
 
     #newmessagetext {
-        background-color: [[setting:messagepopupbackground]];
+        background-color: var(--ad-light-message-popup-background-colour);
         border-radius: 5px 5px 0 0;
-        color: [[setting:messagepopupcolor]];
+        color: var(-ad-light-message-popup-colour);
     }
 
     &.top {
@@ -309,7 +307,7 @@ ul.teachers {
             left: 50%;
             margin-left: -11px;
             top: -11px;
-            
+
             &:after {
                 border-bottom-color: #fff;
                 border-top-width: 0;
@@ -441,12 +439,12 @@ ul.teachers {
 }
 
 #intro.generalbox {
-    background-color: [[setting:introboxbackgroundcolor]];
+    background-color: var(--ad-light-introbox-background-colour);
 }
 
 // Forum.
 .forumpost {
-    background-color: [[setting:forumbodybackgroundcolor]];
+    background-color: var(--ad-light-forum-body-background-colour);
 
     .maincontent .left {
         padding: 0 10px 0 10px;
@@ -489,7 +487,7 @@ ul.teachers {
     }
 
     .header {
-        background-color: [[setting:forumheaderbackgroundcolor]];
+        background-color: var(--ad-light-forum-header-background-colour);
         border-radius: 0 0 0 0;
         padding: 10px 0 10px 0;
 
@@ -522,10 +520,10 @@ ul.teachers {
 }
 
 .lessonbutton a {
-    background-color: [[setting:buttoncolor]];
+    background-color: var(--ad-light-button-colour);
     border: none;
     box-shadow: 0 -2px 0 0 rgba(0, 0, 0, 0.5) inset;
-    color: [[setting:buttontextcolor]] !important;
+    color: var(--ad-light-button-text-colour) !important;
     cursor: pointer;
     padding: 8px 15px 8px;
     margin: 10px;
@@ -533,9 +531,9 @@ ul.teachers {
 
     &:hover {
         background-image: none;
-        background-color: [[setting:buttonhovercolor]];
+        background-color: var(--ad-light-button-hover-colour);
         box-shadow: 0 -2px 0 0 rgba(0, 0, 0, 0.5) inset;
-        color: [[setting:buttontexthovercolor]] !important;
+        color: var(--ad-light-button-text-hover-colour) !important;
     }
 }
 
@@ -965,7 +963,7 @@ html[xmlns] .slides {
     width: 50%;
 
     h3 {
-        color: [[setting:sliderh3color]];
+        color: var(--ad-light-slider-h3-colour);
         font-size: 1.5em;
         letter-spacing: 1px;
         margin-bottom: 0;
@@ -973,7 +971,7 @@ html[xmlns] .slides {
     }
 
     h4 {
-        color: [[setting:sliderh4color]];
+        color: var(--ad-light-slider-h4-colour);
         font-size: 1em;
         letter-spacing: 1px;
         margin-bottom: 20px;
@@ -984,8 +982,8 @@ html[xmlns] .slides {
     }
 
     .submit {
-        background: [[setting:slidersubmitbgcolor]];
-        color: [[setting:slidersubmitcolor]] !important;
+        background: var(--ad-light-slider-submit-background-colour);
+        color: var(--ad-light-slider-submit-colour) !important;
         float: right;
         margin-right: 10px;
     }
@@ -1018,7 +1016,7 @@ html[xmlns] .slides {
         }
 
         .flex-next {
-            background: [[setting:slideroption2a]] url([[pix:theme|next]]) no-repeat 50% 50%;
+            background: var(--ad-light-slider-option-two-arrow-colour) url([[pix:theme|next]]) no-repeat 50% 50%;
             background-size: auto 24px;
             height: 35px;
             opacity: 1;
@@ -1028,7 +1026,7 @@ html[xmlns] .slides {
         }
 
          .flex-prev {
-            background: [[setting:slideroption2a]] url([[pix:theme|previous]]) no-repeat 50% 50%;
+            background: var(--ad-light-slider-option-two-arrow-colour) url([[pix:theme|previous]]) no-repeat 50% 50%;
             background-size: auto 24px;
             height: 35px;
             left: 15px;
@@ -1059,9 +1057,9 @@ html[xmlns] .slides {
         width: 100%;
 
         h3 {
-            background: [[setting:slider2h3bgcolor]];
+            background: var(--ad-light-slider-two-h3-background-colour);
             clear: both;
-            color: [[setting:slider2h3color]];
+            color: var(--ad-light-slider-two-h3-colour);
             display: block;
             float: left;
             font-size: 16px;
@@ -1074,9 +1072,9 @@ html[xmlns] .slides {
         }
 
         h4 {
-            background-color: [[setting:slider2h4bgcolor]];
+            background-color: var(--ad-light-slider-two-h4-background-colour);
             clear: both;
-            color: [[setting:slider2h4color]];
+            color: var(--ad-light-slider-two-h4-colour);
             font-size: 22px;
             font-weight: normal;
             line-height: 32px;
@@ -1092,11 +1090,9 @@ html[xmlns] .slides {
         }
 
         a.submit {
-            border: 0 solid #ab3423;
-            background: [[setting:slideroption2color]] !important;
-            border-radius: 0;
+            background: var(--ad-light-slider-option-two-colour) !important;
             box-shadow: none;
-            color: [[setting:slideroption2submitcolor]] !important;
+            color: var(--ad-light-slider-option-two-submit-colour) !important;
             display: block;
             font-size: 16px;
             float: right;

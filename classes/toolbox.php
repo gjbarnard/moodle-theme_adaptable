@@ -320,17 +320,14 @@ class toolbox {
      * @return string SCSS.
      */
     public static function pre_scss($theme) {
+        $prescss = '';
         $regionmaincolour = self::get_setting('regionmaincolour', false, $theme->name, '#ffffff');
-        $fontcolour = self::get_setting('fontcolour', false, $theme->name, '#333333');
-        $fontcolorrgba = self::hex2rgba($fontcolour, 0.25);
-        $prescss = '$body-bg: ' . $regionmaincolour . ';' . PHP_EOL;
-        $prescss = '$body-color: ' . $fontcolour . ';' . PHP_EOL;
+        $prescss .= '$dialogue-base-bg: ' . $regionmaincolour . ';' . PHP_EOL;
+
         $prescss .= '$primary: ' .
             self::get_setting('primarycolour', false, $theme->name, '#00796b') . ';' . PHP_EOL;
         $prescss .= '$secondary: ' .
             self::get_setting('secondarycolour', false, $theme->name, '#009688') . ';' . PHP_EOL;
-        $prescss .= '$ad-secondary-text: ' .
-            self::get_setting('secondarycolourtext', false, $theme->name, '#fafafa') . ';' . PHP_EOL;
         $prescss .= '$loadingcolor: ' .
             self::get_setting('loadingcolor', false, $theme->name, '#00B3A1') . ';' . PHP_EOL;
         $loadingcolor = self::get_setting('loadingcolor', false, $theme->name, '#00B3A1');
@@ -338,9 +335,6 @@ class toolbox {
         $prescss .= '$loadingcolor: ' . $loadingcolor . ';' . PHP_EOL;
         $prescss .= '$loadingcolorrgba: ' . $loadingcolorrgba . ';' . PHP_EOL;
         $prescss .= '$nav-tabs-border-color: $secondary;' . PHP_EOL;
-        $prescss .= '$dialogue-base-bg: ' . $regionmaincolour . ';' . PHP_EOL;
-        $prescss .= '$nav-tabs-link-active-border-color: ' . $fontcolorrgba . ' ' . $fontcolorrgba . ' transparent;' . PHP_EOL;
-        $prescss .= '$nav-tabs-link-hover-border-color: transparent transparent ' . $fontcolour . ';' . PHP_EOL;
         $prescss .= '$courseindex-link-color: ' .
             self::get_setting('courseindexitemcolor', false, $theme->name, '#495057') . ';' . PHP_EOL;
         $prescss .= '$courseindex-link-hover-color: ' .
@@ -349,7 +343,6 @@ class toolbox {
             self::get_setting('courseindexpageitemcolor', false, $theme->name, '#ffffff') . ';' . PHP_EOL;
         $prescss .= '$courseindex-item-page-bg: ' .
             self::get_setting('courseindexpageitembgcolor', false, $theme->name, '#0f6cbf') . ';' . PHP_EOL;
-        $prescss .= '$drawer-bg-color: #fff;';  // Currently no setting for 'block region' background.
         $prescss .= '$input-btn-focus-color: rgba(' .
             self::get_setting('inputbuttonfocuscolour', false, $theme->name, '#0f6cc0') . ', ' .
             self::get_setting('inputbuttonfocuscolouropacity', false, $theme->name, '0.75') . ');' . PHP_EOL;
@@ -357,22 +350,392 @@ class toolbox {
             self::get_setting('sidepostdrawerwidth', false, $theme->name, '315px') . ';' . PHP_EOL;
 
         // Adaptable specific settings.
-        $prescss .= '$ad-main-colour: ' .
-            self::get_setting('maincolour', false, $theme->name, '#fff') . ';' . PHP_EOL;
-        $prescss .= '$ad-regionmain-colour: ' . $regionmaincolour . ';' . PHP_EOL;
-        $prescss .= '$ad-regionmaintext-colour: ' .
-            self::get_setting('regionmaintextcolour', false, $theme->name, '#000') . ';' . PHP_EOL;
-        $prescss .= '$ad-font-colour: ' . $fontcolour . ';' . PHP_EOL;
-        $prescss .= '$ad-link-colour: ' .
-            self::get_setting('linkcolour', false, $theme->name, '#51666C') . ';' . PHP_EOL;
-        $prescss .= '$ad-linkhover-colour: ' .
-            self::get_setting('linkhover', false, $theme->name, '#009688') . ';' . PHP_EOL;
-        $prescss .= '$ad-dimmedtext-colour: ' .
-            self::get_setting('dimmedtextcolour', false, $theme->name, '#6A737B') . ';' . PHP_EOL;
-        $prescss .= '$ad-selectiontext-colour: ' .
-            self::get_setting('selectiontext', false, $theme->name, '#000') . ';' . PHP_EOL;
-        $prescss .= '$ad-selectionbackground-colour: ' .
-            self::get_setting('selectionbackground', false, $theme->name, '#00B3A1') . ';' . PHP_EOL;
+        $prescss .= ':root {' . PHP_EOL;
+
+        $blockbackgroundcolor = self::get_setting('blockbackgroundcolor', false, $theme->name, '#fff');
+        $prescss .= '--ad-light-block-background-colour: ' . $blockbackgroundcolor . ';' . PHP_EOL;
+
+        $blockbordercolor = self::get_setting('blockbordercolor', false, $theme->name, '#59585D');
+        $prescss .= '--ad-light-block-border-colour: ' . $blockbordercolor . ';' . PHP_EOL;
+
+        $blockheaderbackgroundcolor = self::get_setting('blockheaderbackgroundcolor', false, $theme->name, '#fff');
+        $prescss .= '--ad-light-block-header-background-colour: ' . $blockheaderbackgroundcolor . ';' . PHP_EOL;
+
+        $blockregionbackgroundcolor = self::get_setting('blockregionbackgroundcolor', false, $theme->name, 'transparent');
+        $prescss .= '--ad-light-block-region-background-colour: ' . $blockregionbackgroundcolor . ';' . PHP_EOL;
+
+        $breadcrumb = self::get_setting('breadcrumb', false, $theme->name, '#b4bbbf');
+        $prescss .= '--ad-light-breadcrumb-colour: ' . $breadcrumb . ';' . PHP_EOL;
+
+        $breadcrumbtextcolor = self::get_setting('breadcrumbtextcolor', false, $theme->name, '#b4bbbf');
+        $prescss .= '--ad-light-breadcrumb-text-colour: ' . $breadcrumbtextcolor . ';' . PHP_EOL;
+
+        $buttoncolor = self::get_setting('buttoncolor', false, $theme->name, '#51666C');
+        $prescss .= '--ad-light-button-colour: ' . $buttoncolor . ';' . PHP_EOL;
+
+        $buttoncolorcancel = self::get_setting('buttoncolorcancel', false, $theme->name, '#c64543');
+        $prescss .= '--ad-light-button-colour-cancel: ' . $buttoncolorcancel . ';' . PHP_EOL;
+
+        $buttoncolorscnd = self::get_setting('buttoncolorscnd', false, $theme->name, '#51666C');
+        $prescss .= '--ad-light-button-colour-scnd: ' . $buttoncolorscnd . ';' . PHP_EOL;
+
+        $buttonfocuscolour = self::get_setting('buttonfocuscolour', false, $theme->name, '#0f6cc0');
+        $prescss .= '--ad-light-button-focus-colour: ' . $buttonfocuscolour . ';' . PHP_EOL;
+
+        $buttonhovercolor = self::get_setting('buttonhovercolor', false, $theme->name, '#009688');
+        $prescss .= '--ad-light-button-hover-colour: ' . $buttonhovercolor . ';' . PHP_EOL;
+
+        $buttonhovercolorcancel = self::get_setting('buttonhovercolorcancel', false, $theme->name, '#e53935');
+        $prescss .= '--ad-light-button-hover-colour-cancel: ' . $buttonhovercolorcancel . ';' . PHP_EOL;
+
+        $buttonhovercolorscnd = self::get_setting('buttonhovercolorscnd', false, $theme->name, '#009688');
+        $prescss .= '--ad-light-button-hover-colour-scnd: ' . $buttonhovercolorscnd . ';' . PHP_EOL;
+
+        $buttonlogincolor = self::get_setting('buttonlogincolor', false, $theme->name, '#c64543');
+        $prescss .= '--ad-light-button-login-colour: ' . $buttonlogincolor . ';' . PHP_EOL;
+
+        $buttonloginhovercolor = self::get_setting('buttonloginhovercolor', false, $theme->name, '#e53935');
+        $prescss .= '--ad-light-button-login-hover-colour: ' . $buttonloginhovercolor . ';' . PHP_EOL;
+
+        $buttonlogintextcolor = self::get_setting('buttonlogintextcolor', false, $theme->name, '#0084c2');
+        $prescss .= '--ad-light-button-login-text-colour: ' . $buttonlogintextcolor . ';' . PHP_EOL;
+
+        $buttontextcolor = self::get_setting('buttontextcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-button-text-colour: ' . $buttontextcolor . ';' . PHP_EOL;
+
+        $buttontextcolorcancel = self::get_setting('buttontextcolorcancel', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-button-text-colour-cancel: ' . $buttontextcolorcancel . ';' . PHP_EOL;
+
+        $buttontextcolorscnd = self::get_setting('buttontextcolorscnd', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-button-text-colour-scnd: ' . $buttontextcolorscnd . ';' . PHP_EOL;
+
+        $buttontextfocuscolour = self::get_setting('buttontextfocuscolour', false, $theme->name, '#eeeeee');
+        $prescss .= '--ad-light-button-text-focus-colour: ' . $buttontextfocuscolour . ';' . PHP_EOL;
+
+        $buttontexthovercolor = self::get_setting('buttontexthovercolor', false, $theme->name, '#eeeeee');
+        $prescss .= '--ad-light-button-text-hover-colour: ' . $buttontexthovercolor . ';' . PHP_EOL;
+
+        $coursesectionactivityheadingcolour = self::get_setting(
+            'coursesectionactivityheadingcolour',
+            false,
+            $theme->name,
+            '#0066cc'
+        );
+        $prescss .= '--ad-light-course-section-activity-heading-colour: ' . $coursesectionactivityheadingcolour . ';' . PHP_EOL;
+
+        $coursesectionactivitybordercolor = self::get_setting('coursesectionactivitybordercolor', false, $theme->name, '#eeeeee');
+        $prescss .= '--ad-light-course-section-activity-border-colour: ' . $coursesectionactivitybordercolor . ';' . PHP_EOL;
+
+        $coursesectionactivitybgcolor = self::get_setting(
+            'coursesectionactivitybgcolor',
+            false,
+            $theme->name,
+            '#ffffff'
+        );
+        $prescss .= '--ad-light-course-section-activity-background-colour: ' .
+            $coursesectionactivitybgcolor . ';' . PHP_EOL;
+
+        $coursesectionactivityleftbordercolor = self::get_setting(
+            'coursesectionactivityleftbordercolor',
+            false,
+            $theme->name,
+            '#ff9933'
+        );
+        $prescss .= '--ad-course-section-activity-left-border-colour: ' .
+            $coursesectionactivityleftbordercolor . ';' . PHP_EOL;
+
+        $coursesectionactivityassignbgcolor = self::get_setting(
+            'coursesectionactivityassignbgcolor',
+            false,
+            $theme->name,
+            '#ffffff'
+        );
+        $prescss .= '--ad-light-course-section-activity-assign-background-colour: ' .
+            $coursesectionactivityassignbgcolor . ';' . PHP_EOL;
+
+        $coursesectionactivityassignleftbordercolor = self::get_setting(
+            'coursesectionactivityassignleftbordercolor',
+            false,
+            $theme->name,
+            '#0066cc'
+        );
+        $prescss .= '--ad-course-section-activity-assign-left-border-colour: ' .
+            $coursesectionactivityassignleftbordercolor . ';' . PHP_EOL;
+
+        $coursesectionactivityforumbgcolor = self::get_setting(
+            'coursesectionactivityforumbgcolor',
+            false,
+            $theme->name,
+            '#ffffff'
+        );
+        $prescss .= '--ad-light-course-section-activity-forum-background-colour: ' .
+            $coursesectionactivityforumbgcolor . ';' . PHP_EOL;
+
+        $coursesectionactivityforumleftbordercolor = self::get_setting(
+            'coursesectionactivityforumleftbordercolor',
+            false,
+            $theme->name,
+            '#990099'
+        );
+        $prescss .= '--ad-course-section-activity-forum-left-border-colour: ' .
+            $coursesectionactivityforumleftbordercolor . ';' . PHP_EOL;
+
+        $coursesectionactivityquizbgcolor = self::get_setting(
+            'coursesectionactivityquizbgcolor',
+            false,
+            $theme->name,
+            '#ffffff'
+        );
+        $prescss .= '--ad-light-course-section-activity-quiz-background-colour: ' .
+            $coursesectionactivityquizbgcolor . ';' . PHP_EOL;
+
+        $coursesectionactivityquizleftbordercolor = self::get_setting(
+            'coursesectionactivityquizleftbordercolor',
+            false,
+            $theme->name,
+            '#FF3333'
+        );
+        $prescss .= '--ad-course-section-activity-quiz-left-border-colour: ' .
+            $coursesectionactivityquizleftbordercolor . ';' . PHP_EOL;
+
+        $coursesectionbgcolor = self::get_setting('coursesectionbgcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-course-section-bg-colour: ' . $coursesectionbgcolor . ';' . PHP_EOL;
+
+        $coursesectionbordercolor = self::get_setting('coursesectionbgcolor', false, $theme->name, '#e8eaeb');
+        $prescss .= '--ad-light-course-section-border-colour: ' . $coursesectionbordercolor . ';' . PHP_EOL;
+
+        $coursesectionheaderbg = self::get_setting('coursesectionheaderbg', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-course-section-header-bg-colour: ' . $coursesectionheaderbg . ';' . PHP_EOL;
+
+        $coursesectionheaderbordercolor = self::get_setting('coursesectionheaderbordercolor', false, $theme->name, '#f3f3f3');
+        $prescss .= '--ad-light-course-section-header-border-colour: ' . $coursesectionheaderbg . ';' . PHP_EOL;
+
+        $covbkcolor = self::get_setting('covbkcolor', false, $theme->name, '#3A454b');
+        $prescss .= '--ad-light-cov-background-colour: ' . $covbkcolor . ';' . PHP_EOL;
+
+        $covfontcolor = self::get_setting('covfontcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-cov-font-colour: ' . $covfontcolor . ';' . PHP_EOL;
+
+        $currentcolor = self::get_setting('currentcolor', false, $theme->name, '#d9edf7');
+        $prescss .= '--ad-light-current-colour: ' . $currentcolor . ';' . PHP_EOL;
+
+        $dimmedtextcolour = self::get_setting('dimmedtextcolour', false, $theme->name, '#6A737B');
+        $prescss .= '--ad-light-dimmedtext-colour: ' . $dimmedtextcolour . ';' . PHP_EOL;
+
+        $editfont = self::get_setting('editfont', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-edit-font-colour: ' . $editfont . ';' . PHP_EOL;
+
+        $editoffbk = self::get_setting('editoffbk', false, $theme->name, '#f44336');
+        $prescss .= '--ad-light-edit-off-background-colour: ' . $editoffbk . ';' . PHP_EOL;
+
+        $editonbk = self::get_setting('editonbk', false, $theme->name, '#4caf50');
+        $prescss .= '--ad-light-edit-on-background-colour: ' . $editonbk . ';' . PHP_EOL;
+
+        $fontcolour = self::get_setting('fontcolour', false, $theme->name, '#333333');
+        $prescss .= '--ad-light-font-colour: ' . $fontcolour . ';' . PHP_EOL;
+
+        $fontblockheadercolor = self::get_setting('fontblockheadercolor', false, $theme->name, '#3A454B');
+        $prescss .= '--ad-light-font-block-header-colour: ' . $fontblockheadercolor . ';' . PHP_EOL;
+
+        $fontheadercolor = self::get_setting('fontheadercolor', false, $theme->name, '#333333');
+        $prescss .= '--ad-light-font-header-colour: ' . $fontheadercolor . ';' . PHP_EOL;
+
+        $fonttitlecolor = self::get_setting('fonttitlecolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-font-title-colour: ' . $fonttitlecolor . ';' . PHP_EOL;
+
+        $footerbkcolor = self::get_setting('footerbkcolor', false, $theme->name, '#424242');
+        $prescss .= '--ad-light-footer-background-colour: ' . $footerbkcolor . ';' . PHP_EOL;
+
+        $footerdividingline = self::get_setting('footerdividingline', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-footer-dividing-line-colour: ' . $footerdividingline . ';' . PHP_EOL;
+
+        $footerlinkcolor = self::get_setting('footerlinkcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-footer-link-colour: ' . $footerlinkcolor . ';' . PHP_EOL;
+
+        $footertextcolor = self::get_setting('footertextcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-footer-text-colour: ' . $footertextcolor . ';' . PHP_EOL;
+
+        $footertextcolor2 = self::get_setting('footertextcolor2', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-footer-text-colour-two: ' . $footertextcolor2 . ';' . PHP_EOL;
+
+        $forumbodybackgroundcolor = self::get_setting('forumbodybackgroundcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-forum-body-background-colour: ' . $forumbodybackgroundcolor . ';' . PHP_EOL;
+
+        $forumheaderbackgroundcolor = self::get_setting('forumheaderbackgroundcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-forum-header-background-colour: ' . $forumheaderbackgroundcolor . ';' . PHP_EOL;
+
+        $headerbgimagetextcolour = self::get_setting('headerbgimagetextcolour', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-header-background-image-text-colour: ' . $headerbgimagetextcolour . ';' . PHP_EOL;
+
+        $introboxbackgroundcolor = self::get_setting('introboxbackgroundcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-introbox-background-colour: ' . $introboxbackgroundcolor . ';' . PHP_EOL;
+
+        $linkcolour = self::get_setting('linkcolour', false, $theme->name, '#51666C');
+        $prescss .= '--ad-light-link-colour: ' . $linkcolour . ';' . PHP_EOL;
+
+        $linkhovercolour = self::get_setting('linkhovercolour', false, $theme->name, '#009688');
+        $prescss .= '--ad-light-linkhover-colour: ' . $linkhovercolour . ';' . PHP_EOL;
+
+        $maincolour = self::get_setting('maincolour', false, $theme->name, '#fff');
+        $prescss .= '--ad-light-main-colour: ' . $maincolour . ';' . PHP_EOL;
+
+        $marketboxbackgroundcolour = self::get_setting('marketboxbackgroundcolour', false, $theme->name, 'transparent');
+        $prescss .= '--ad-light-market-box-background-colour: ' . $marketboxbackgroundcolour . ';' . PHP_EOL;
+
+        $marketboxbordercolour = self::get_setting('marketboxbordercolour', false, $theme->name, '#e8eaeb');
+        $prescss .= '--ad-light-market-box-border-colour: ' . $marketboxbordercolour . ';' . PHP_EOL;
+
+        $menubkcolor = self::get_setting('menubkcolor', false, $theme->name, '#fff');
+        $prescss .= '--ad-light-menu-background-colour: ' . $menubkcolor . ';' . PHP_EOL;
+
+        $menubkhovercolor = self::get_setting('menubkhovercolor', false, $theme->name, '#00B3A1');
+        $prescss .= '--ad-light-menu-background-hover-colour: ' . $menubkhovercolor . ';' . PHP_EOL;
+
+        $menubordercolor = self::get_setting('menubordercolor', false, $theme->name, '#00B3A1');
+        $prescss .= '--ad-menu-border-colour: ' . $menubordercolor . ';' . PHP_EOL;
+
+        $menufontcolor = self::get_setting('menufontcolor', false, $theme->name, '#222222');
+        $prescss .= '--ad-light-menu-font-colour: ' . $menufontcolor . ';' . PHP_EOL;
+
+        $menufonthovercolor = self::get_setting('menufonthovercolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-menu-font-hover-colour: ' . $menufonthovercolor . ';' . PHP_EOL;
+
+        $prescss .= '--ad-menu-font-size: ' .
+            self::get_setting('menufontsize', false, $theme->name, '14') . 'px;' . PHP_EOL;
+
+        $messagingbackgroundcolor = self::get_setting('messagingbackgroundcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-messaging-background-colour: ' . $messagingbackgroundcolor . ';' . PHP_EOL;
+
+        $messagepopupbackground = self::get_setting('messagepopupbackground', false, $theme->name, '#fff000');
+        $prescss .= '--ad-light-message-popup-background-colour: ' . $messagepopupbackground . ';' . PHP_EOL;
+
+        $messagepopupcolor = self::get_setting('messagepopupcolor', false, $theme->name, '#333333');
+        $prescss .= '--ad-light-message-popup-colour: ' . $messagepopupcolor . ';' . PHP_EOL;
+
+        $mobilemenubkcolor = self::get_setting('mobilemenubkcolor', false, $theme->name, '#f9f9f9');
+        $prescss .= '--ad-light-mobile-menu-background-colour: ' . $mobilemenubkcolor . ';' . PHP_EOL;
+
+        $navbardropdownhovercolor = self::get_setting('navbardropdownhovercolor', false, $theme->name, '#eee');
+        $prescss .= '--ad-light-navbar-dropdown-hover-colour: ' . $navbardropdownhovercolor . ';' . PHP_EOL;
+
+        $navbardropdowntextcolor = self::get_setting('navbardropdowntextcolor', false, $theme->name, '#007');
+        $prescss .= '--ad-light-navbar-dropdown-text-colour: ' . $navbardropdowntextcolor . ';' . PHP_EOL;
+
+        $navbardropdowntexthovercolor = self::get_setting('navbardropdowntexthovercolor', false, $theme->name, '#000');
+        $prescss .= '--ad-light-navbar-dropdown-text-hover-colour: ' . $navbardropdowntexthovercolor . ';' . PHP_EOL;
+
+        $notbadgecolour = self::get_setting('notbadgecolour', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-notifications-badge-colour: ' . $notbadgecolour . ';' . PHP_EOL;
+
+        $notbadgebackgroundcolour = self::get_setting('notbadgebackgroundcolour', false, $theme->name, '#e53935');
+        $prescss .= '--ad-notifications-badge-background-colour: ' . $notbadgebackgroundcolour . ';' . PHP_EOL;
+
+        $onetopicactivetabbackgroundcolor = self::get_setting(
+            'onetopicactivetabbackgroundcolor',
+            false,
+            $theme->name,
+            '#d9edf7'
+        );
+        $prescss .= '--ad-light-onetopic-active-tab-background-colour: ' . $onetopicactivetabbackgroundcolor . ';' . PHP_EOL;
+
+        $onetopicactivetabtextcolor = self::get_setting('onetopicactivetabtextcolor', false, $theme->name, '#000000');
+        $prescss .= '--ad-light-onetopic-active-tab-text-colour: ' . $onetopicactivetabtextcolor . ';' . PHP_EOL;
+
+        $prescss .= '--ad-light-regionmain-colour: ' . $regionmaincolour . ';' . PHP_EOL;
+
+        $regionmaintextcolour = self::get_setting('regionmaintextcolour', false, $theme->name, '#000');
+        $prescss .= '--ad-light-regionmaintext-colour: ' . $regionmaintextcolour . ';' . PHP_EOL;
+
+        $rendereroverlaycolor = self::get_setting('rendereroverlaycolor', false, $theme->name, '#3A454B');
+        $prescss .= '--ad-light-renderer-overlay-colour: ' . $rendereroverlaycolor . ';' . PHP_EOL;
+
+        $rendereroverlayfontcolor = self::get_setting('rendereroverlayfontcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-renderer-overlay-font-colour: ' . $rendereroverlayfontcolor . ';' . PHP_EOL;
+
+        $secondarycolourtext = self::get_setting('secondarycolourtext', false, $theme->name, '#fafafa');
+        $prescss .= '--ad-light-secondary-text: ' . $secondarycolourtext . ';' . PHP_EOL;
+
+        $selectionbackground = self::get_setting('selectionbackground', false, $theme->name, '#00B3A1');
+        $prescss .= '--ad-light-selection-background-colour: ' . $selectionbackground . ';' . PHP_EOL;
+
+        $sectionheadingcolor = self::get_setting('sectionheadingcolor', false, $theme->name, '#3a454b');
+        $prescss .= '--ad-light-selection-heading-colour: ' . $sectionheadingcolor . ';' . PHP_EOL;
+
+        $selectiontext = self::get_setting('selectiontext', false, $theme->name, '#000');
+        $prescss .= '--ad-light-selection-text-colour: ' . $selectiontext . ';' . PHP_EOL;
+
+        $sliderh3color = self::get_setting('sliderh3color', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-slider-h3-colour: ' . $sliderh3color . ';' . PHP_EOL;
+
+        $slider2h3color = self::get_setting('slider2h3color', false, $theme->name, '#000000');
+        $prescss .= '--ad-light-slider-two-h3-colour: ' . $slider2h3color . ';' . PHP_EOL;
+
+        $slider2h3bgcolor = self::get_setting('slider2h3bgcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-slider-two-h3-background-colour: ' . $slider2h3bgcolor . ';' . PHP_EOL;
+
+        $sliderh4color = self::get_setting('sliderh4color', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-slider-h4-colour: ' . $sliderh4color . ';' . PHP_EOL;
+
+        $slider2h4color = self::get_setting('slider2h4color', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-slider-two-h4-colour: ' . $slider2h4color . ';' . PHP_EOL;
+
+        $slider2h4bgcolor = self::get_setting('slider2h4bgcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-slider-two-h4-background-colour: ' . $slider2h4bgcolor . ';' . PHP_EOL;
+
+        $slideroption2a = self::get_setting('slideroption2a', false, $theme->name, '#51666C');
+        $prescss .= '--ad-light-slider-option-two-arrow-colour: ' . $slideroption2a . ';' . PHP_EOL;
+
+        $slideroption2color = self::get_setting('slideroption2color', false, $theme->name, '#51666C');
+        $prescss .= '--ad-light-slider-option-two-colour: ' . $slideroption2color . ';' . PHP_EOL;
+
+        $slideroption2submitcolor = self::get_setting('slideroption2submitcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-slider-option-two-submit-colour: ' . $slideroption2submitcolor . ';' . PHP_EOL;
+
+        $slidersubmitcolor = self::get_setting('slidersubmitcolor', false, $theme->name, '#ffffff');
+        $prescss .= '--ad-light-slider-submit-colour: ' . $slidersubmitcolor . ';' . PHP_EOL;
+
+        $slidersubmitbgcolor = self::get_setting('slidersubmitbgcolor', false, $theme->name, '#51666C');
+        $prescss .= '--ad-light-slider-submit-background-colour: ' . $slidersubmitbgcolor . ';' . PHP_EOL;
+
+        $tabbedlayoutcoursepagetabcolorselected = self::get_setting(
+            'tabbedlayoutcoursepagetabcolorselected',
+            false,
+            $theme->name,
+            '#06c'
+        );
+        $prescss .= '--ad-light-tabbed-layout-course-page-tab-colour-selected: ' . $tabbedlayoutcoursepagetabcolorselected .
+            ';' . PHP_EOL;
+
+        $tabbedlayoutcoursepagetabcolorunselected = self::get_setting(
+            'tabbedlayoutcoursepagetabcolorunselected',
+            false,
+            $theme->name,
+            '#eee'
+        );
+        $prescss .= '--ad-light-tabbed-layout-course-page-tab-colour-unselected: ' . $tabbedlayoutcoursepagetabcolorunselected .
+            ';' . PHP_EOL;
+
+        $tabbedlayoutdashboardcolorselected  = self::get_setting(
+            'tabbedlayoutdashboardcolorselected',
+            false,
+            $theme->name,
+            '#06c'
+        );
+        $prescss .= '--ad-light-tabbed-layout-dashboard-colour-selected: ' . $tabbedlayoutdashboardcolorselected . ';' . PHP_EOL;
+
+        $tabbedlayoutdashboardcolorunselected = self::get_setting(
+            'tabbedlayoutdashboardcolorunselected',
+            false,
+            $theme->name,
+            '#eee'
+        );
+        $prescss .= '--ad-light-tabbed-layout-dashboard-colour-unselected: ' . $tabbedlayoutdashboardcolorunselected .
+            ';' . PHP_EOL;
+
+        $tilesbordercolor = self::get_setting('tilesbordercolor', false, $theme->name, '#3A454b');
+        $prescss .= '--ad-light-tiles-border-colour: ' . $tilesbordercolor . ';' . PHP_EOL;
+
+        $prescss .= '}' . PHP_EOL;
 
         // Font sizes.
         $fontsize = self::get_setting('fontsize', false, $theme->name, '95%');
@@ -691,7 +1054,7 @@ class toolbox {
             '[[setting:slidersubmitcolor]]' => '#ffffff',
             '[[setting:slider2h3color]]' => '#000000',
             '[[setting:slider2h4color]]' => '#000000',
-            '[[setting:slider2h3bgcolor]]' => '#000000',
+            '[[setting:slider2h3bgcolor]]' => '#ffffff',
             '[[setting:slider2h4bgcolor]]' => '#ffffff',
             '[[setting:slideroption2color]]' => '#51666C',
             '[[setting:slideroption2submitcolor]]' => '#ffffff',

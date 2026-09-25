@@ -1,0 +1,68 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_adaptable/blockdrawertoggle
+
+    Adaptable block drawer toggle template.
+
+    Context variables required for this template:
+    * class - class to use.
+    * corelefticon - use core left or right icon.
+    * coretoggle - if using core toggle style.
+    * position - left or right.
+    * target - target element id of the toggle.
+    * title - title of the toggle.
+
+    Example context (json):
+    {
+        "class": "sidebar",
+        "corelefticon": false,
+        "coretoggle": false,
+        "position": "right",
+        "target": "theme_adaptable-drawers-sidepost",
+        "title": "Toggle block drawer"
+    }
+}}
+{{#coretoggle}}
+<div class="drawer-toggles d-flex">
+{{/coretoggle}}
+<div
+    class="drawer-toggle{{#coretoggle}}r{{/coretoggle}}{{^coretoggle}}s {{class}}{{/coretoggle}} {{class}}-{{position}}{{#coretoggle}}-toggle ms-auto d-print-none{{/coretoggle}}"
+    {{#coretoggle}}
+    ><button class="btn icon-no-margin"
+    {{/coretoggle}}
+    data-toggler="drawers"
+    data-action="toggle"
+    data-target="{{target}}"
+    data-bs-toggle="tooltip"
+    data-bs-placement="{{position}}"
+    title="{{title}}"
+>
+    <span class="visually-hidden">{{title}}</span>
+    {{#coretoggle}}
+    {{#corelefticon}}
+    <span>{{#pix}}e/sidebar_left, core{{/pix}}</span>
+    {{/corelefticon}}
+    {{^corelefticon}}
+    <span>{{#pix}}e/sidebar_right, core{{/pix}}</span>
+    {{/corelefticon}}
+    </button>
+    {{/coretoggle}}
+</div>
+{{#coretoggle}}
+</div>
+{{/coretoggle}}

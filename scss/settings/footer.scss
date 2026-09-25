@@ -23,23 +23,23 @@
 //
 
 #page-footer {
-    background-color: [[setting:footerbkcolor]];
-    color: [[setting:footertextcolor]] !important;
+    background-color: var(--ad-light-footer-background-colour);
+    color: var(--ad-light-footer-text-colour) !important;
 
     h3 {
-        color: [[setting:footertextcolor]] !important;
+        color: var(--ad-light-footer-text-colour) !important;
     }
 
     a {
-        color: [[setting:footerlinkcolor]] !important;
+        color: var(--ad-light-footer-link-colour) !important;
     }
 
     .info {
-        border-top: 1px solid [[setting:footerdividingline]];
-        color: [[setting:footertextcolor2]];
+        border-top: 1px solid var(--ad-light-footer-dividing-line-colour);
+        color: var(--ad-light-footer-text-colour-two);
 
         a {
-            color: [[setting:footerlinkcolor]] !important;
+            color: var(--ad-light-footer-link-colour) !important;
         }
     }
 }

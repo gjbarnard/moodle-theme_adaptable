@@ -41,13 +41,13 @@
 
     &.btn-icon {
         @include hover-focus {
-            background-color: [[setting:buttonhovercolor]];
-            color: [[setting:buttontexthovercolor]];
+            background-color: var(--ad-light-button-hover-colour);
+            color: var(--ad-light-button-text-hover-colour);
         }
     }
     // Caret.
     .caret {
-        border-top-color: [[setting:buttontextcolor]] !important;
+        border-top-color: var(--ad-light-button-text-colour) !important;
     }
 }
 
@@ -86,12 +86,12 @@ a#adaptable-message-user-button,
 #availability_addrestriction_profile.btn.btn-secondary,
 #availability_addrestriction_list_.btn.btn-secondary,
 #availability_addrestriction_completion.btn.btn-secondary {
-    background-color: [[setting:buttoncolor]];
+    background-color: var(--ad-light-button-colour);
     background-image: none;
     background-size: 100% 200%;
     border: none;
     box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
-    color: [[setting:buttontextcolor]];
+    color: var(--ad-light-button-text-colour);
     cursor: pointer;
     font-family: [[setting:fontname]];
     padding: .4rem 1rem;
@@ -100,40 +100,36 @@ a#adaptable-message-user-button,
 }
 
 .btn-primary:hover {
-    background-color: [[setting:buttonhovercolor]];
-    color: [[setting:buttontexthovercolor]];
+    background-color: var(--ad-light-button-hover-colour);
+    color: var(--ad-light-button-text-hover-colour);
     text-decoration: none;
 }
 
-.btn-primary:focus {
-    background-color: [[setting:buttonfocuscolour]];
-    box-shadow: $input-btn-focus-box-shadow;
-    color: [[setting:buttontextfocuscolour]];
-    text-decoration: none;
+.btn-primary,
+.btn-secondary {
+    &:focus {
+        background-color: var(--ad-light-button-focus-colour);
+        box-shadow: $input-btn-focus-box-shadow;
+        color: var(--ad-light-button-text-focus-colour);
+        text-decoration: none;
+    }
 }
 
 // Secondary button.
 .btn-secondary {
-    background-color: [[setting:buttoncolorscnd]];
-    color: [[setting:buttontextcolorscnd]];
+    background-color: var(--ad-light-button-colour-scnd);
+    color: var(--ad-light-button-text-colour-scnd);
     text-decoration: none;
+
+    &:hover {
+        background-color: var(--ad-light-button-hover-colour-scnd);
+        color: var(--ad-light-button-text-colour-scnd);
+        text-decoration: none;
+    }
 }
 
 a.btn-secondary {
-    color: [[setting:buttontextcolorscnd]];
-}
-
-.btn-secondary:hover {
-    background-color: [[setting:buttonhovercolorscnd]];
-    color: [[setting:buttontextcolorscnd]];
-    text-decoration: none;
-}
-
-.btn-secondary:focus {
-    background-color: [[setting:buttonfocuscolour]];
-    box-shadow: $input-btn-focus-box-shadow;
-    color: [[setting:buttontextfocuscolour]];
-    text-decoration: none;
+    color: var(--ad-light-button-text-colour-scnd);
 }
 
 .btn-sm {
@@ -143,7 +139,7 @@ a.btn-secondary {
 // Action buttons.
 #notice .singlebutton + .singlebutton input,
 submit.buttons input[name="cancel"] {
-    background-color: [[setting:editoffbk]] !important;
+    background-color: var(--ad-light-edit-off-background-colour) !important;
     text-shadow: none;
 }
 
@@ -179,41 +175,43 @@ a#adaptable-message-user-button:hover,
 #availability_addrestriction_profile.btn.btn-secondary:hover,
 #availability_addrestriction_list_.btn.btn-secondary:hover,
 #availability_addrestriction_completion.btn.btn-secondary:hover {
-    background-color: [[setting:buttonhovercolor]];
+    background-color: var(--ad-light-button-hover-colour);
     background-image: none;
     background-position: 0 -100%;
-    color: [[setting:buttontexthovercolor]];
+    color: var(--ad-light-button-text-hover-colour);
     text-decoration: none !important;
 }
 
-.path-mod-workshop .assessment-summary.graded .singlebutton input[type="submit"]:focus,
-.path-mod-workshop .example-summary.graded .singlebutton input[type="submit"]:focus,
-input.form-submit:focus,
-input#id_submitbutton:focus,
-input#id_submitbutton2:focus,
-.path-admin .buttons input[type="submit"]:focus,
-td.submit input:focus,
-input[type="submit"]:focus,
-input[type="button"]:focus,
-#searchform_button:focus,
-a.submit:focus,
-#notice .singlebutton + .singlebutton input:focus,
-.submit.buttons input[name="cancel"]:focus,
-.submitbutton:focus,
-.nav-pills > .active > a:focus,
-.btn-outline-secondary:focus,
-div.discussionsubscription > a.discussiontoggle:focus,
-a#adaptable-message-user-button:focus,
-#availability_addrestriction_date.btn.btn-secondary:focus,
-#availability_addrestriction_grade.btn.btn-secondary:focus,
-#availability_addrestriction_profile.btn.btn-secondary:focus,
-#availability_addrestriction_list_.btn.btn-secondary:focus,
-#availability_addrestriction_completion.btn.btn-secondary:focus{
-    background-color: [[setting:buttonfocuscolour]];
-    background-image: none;
-    background-position: 0 -100%;
-    color: [[setting:buttontextfocuscolour]];
-    text-decoration: none !important;
+.path-mod-workshop .assessment-summary.graded .singlebutton input[type="submit"],
+.path-mod-workshop .example-summary.graded .singlebutton input[type="submit"],
+input.form-submit,
+input#id_submitbutton,
+input#id_submitbutton2,
+.path-admin .buttons input[type="submit"],
+td.submit input,
+input[type="submit"],
+input[type="button"],
+#searchform_button,
+a.submit,
+#notice .singlebutton + .singlebutton input,
+.submit.buttons input[name="cancel"],
+.submitbutton,
+.nav-pills > .active > a,
+.btn-outline-secondary,
+div.discussionsubscription > a.discussiontoggle,
+a#adaptable-message-user-button,
+#availability_addrestriction_date.btn.btn-secondary,
+#availability_addrestriction_grade.btn.btn-secondary,
+#availability_addrestriction_profile.btn.btn-secondary,
+#availability_addrestriction_list_.btn.btn-secondary,
+#availability_addrestriction_completion.btn.btn-secondary {
+    &:focus {
+        background-color: var(--ad-light-button-focus-colour);
+        background-image: none;
+        background-position: 0 -100%;
+        color: var(--ad-light-button-text-focus-colour);
+        text-decoration: none !important;
+    }
 }
 
 .navbar #editingbutton .singlebutton {
@@ -244,20 +242,20 @@ input#id_submitbutton2[disabled],
 .path-admin .buttons input[type="submit"][disabled],
 td.submit input[disabled],
 .btn-outline-secondary[disabled] {
-    background-color: [[setting:buttonhovercolor]];
+    background-color: var(--ad-light-button-hover-colour);
     background-image: none;
     box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
-    color: [[setting:buttontexthovercolor]];
+    color: var(--ad-light-button-text-hover-colour);
 }
 
 #editingbutton,
 #editingbuttonmobile {
     .btn,
     input[type="submit"] {
-        background-color: [[setting:editonbk]];
+        background-color: var(--ad-light-edit-on-background-colour);
         background-image: none;
         box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
-        color: [[setting:editfont]];
+        color: var(--ad-light-edit-font-colour);
         height: 32px;
         line-height: 28px;
         padding: 0 [[setting:edithorizontalpadding]]px;
@@ -270,10 +268,10 @@ td.submit input[disabled],
 .editing #editingbuttonmobile .btn,
 .purgecaches a,
 .tool_dataprivacy a {
-    background-color: [[setting:editoffbk]];
+    background-color: var(--ad-light-edit-off-background-colour);
     background-image: none;
     box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
-    color: [[setting:editfont]];
+    color: var(--ad-light-edit-font-colour);
     padding: 0 [[setting:edithorizontalpadding]]px;
     text-decoration: none !important;
 }
@@ -295,11 +293,11 @@ td.submit input[disabled],
 #id_cancel,
 input[name="addcancel"],
 button[name="resetbutton"] {
-    background-color: [[setting:buttoncolorcancel]] !important;
+    background-color: var(--ad-light-button-colour-cancel) !important;
     background-image: none !important;
     border: none;
     box-shadow: none;
-    color: [[setting:buttontextcolorcancel]] !important;
+    color: var(--ad-light-button-text-colour-cancel) !important;
     cursor: pointer;
     font-family: [[setting:fontname]];
     font-size: 14px;
@@ -308,15 +306,17 @@ button[name="resetbutton"] {
 }
 
 // Set Cancel hover to a link with the same colour that Cancel but underlined.
-.cancel a:hover,
-[data-role="end"]:hover,
-[data-role="cancel"]:hover,
-input[name="addcancel"]:hover,
-button[name="resetbutton"]:hover,
-#id_cancel:hover {
-    background-color: [[setting:buttonhovercolorcancel]] !important;
-    color: [[setting:buttontextcolorcancel]] !important;
-    text-decoration: none !important;
+.cancel a,
+[data-role="end"],
+[data-role="cancel"],
+input[name="addcancel"],
+button[name="resetbutton"],
+#id_cancel {
+    &:hover {
+        background-color: var(--ad-light-button-hover-colour-cancel) !important;
+        color: var(--ad-light-button-text-colour-cancel) !important;
+        text-decoration: none !important;
+    }
 }
 
 // Disabled button hardcoded to grey.
@@ -329,19 +329,19 @@ button[name="resetbutton"]:hover,
 
 #notice .singlebutton + .singlebutton input,
 .submit.buttons input[name="cancel"] {
-    color: [[setting:editfont]] !important;
-    background-color: [[setting:editoffbk]] !important;
+    background-color: var(--ad-light-edit-off-background-colour) !important;
     background-image: none;
+    color: var(--ad-light-edit-font-colour) !important;
     text-shadow: none;
 }
 
 // Login.
 .btn-login {
-    background-color: [[setting:buttonlogincolor]];
+    background-color: var(--ad-light-button-login-colour);
     background-image: none;
     border: none;
     box-shadow: 0 [[setting:buttondropshadow]] 0 0 rgba(0, 0, 0, 0.5) inset;
-    color: [[setting:buttonlogintextcolor]];
+    color: var(--ad-light-button-login-text-colour);
     cursor: pointer;
     height: [[setting:buttonloginheight]]px;
     margin-right: 2px;
@@ -349,13 +349,13 @@ button[name="resetbutton"]:hover,
     padding: [[setting:buttonloginpadding]]px 15px;
     text-shadow: none;
     transition: background 0.2s ease-out 0s;
-}
 
-.btn-login:hover {
-    background-color: [[setting:buttonloginhovercolor]];
-    background-image: none;
-    color: [[setting:buttonlogintextcolor]];
-    text-decoration: none;
+    &:hover {
+        background-color: var(--ad-light-button-login-hover-colour);
+        background-image: none;
+        color: var(--ad-light-button-login-text-colour);
+        text-decoration: none;
+    }
 }
 
 .continuebutton {
@@ -380,7 +380,7 @@ button[name="resetbutton"]:hover,
 // Set action buttons to action colour.
 .message-drawer button[data-action="confirm-delete-conversation"],
 .message-drawer button[data-action="confirm-block"] {
-    background-color: [[setting:editoffbk]] !important;
+    background-color: var(--ad-light-edit-off-background-colour) !important;
     color: #fff !important;
     text-shadow: none !important;
 }
@@ -405,33 +405,33 @@ a.btn[data-bs-toggle="popover"] {
 // .btn-link styles.
 .btn-link,
 a.btn-link {
-    background-color: [[setting:buttoncolor]];
+    background-color: var(--ad-light-button-colour);
     box-shadow: none;
-    color: [[setting:buttontextcolor]] !important;
+    color: var(--ad-light-button-text-colour) !important;
     a {
-        color: [[setting:buttontextcolor]] !important;
+        color: var(--ad-light-button-text-colour) !important;
     }
 
     &:hover,
-    :focus {
-        background-color: [[setting:buttonhovercolor]];
-        color: [[setting:buttontexthovercolor]] !important;
+    &:focus {
+        background-color: var(--ad-light-button-hover-colour);
+        color: var(--ad-light-button-text-hover-colour) !important;
     }
 
     &.add-sections,
     &.section-modchooser-link {
         background-color: transparent;
-        color: var(--ad-link-colour) !important;
+        color: var(--ad-light-link-colour) !important;
 
         &:hover,
         :focus {
             background-color: transparent;
-            color: var(--ad-linkhover-colour) !important;
+            color: var(--ad-light-linkhover-colour) !important;
         }
     }
 
     &.text-reset {
-        color: [[setting:buttontextcolor]] !important;
+        color: var(--ad-light-button-text-colour) !important;
     }
 
     .icon {

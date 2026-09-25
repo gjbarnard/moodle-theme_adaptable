@@ -2951,17 +2951,6 @@ trait core_renderer_toolbox {
             ['context' => context_course::instance(SITEID), "escape" => false]
         );
 
-        if ($context->hasidentityproviders) {
-            $authsequence = get_enabled_auth_plugins(); // Get all auths.
-            if (in_array('oidc', $authsequence)) {
-                $authplugin = get_auth_plugin('oidc');
-                $oidc = $authplugin->loginpage_idp_list($this->page->url->out(false));
-                if (!empty($oidc)) {
-                    $context->hasoidc = true;
-                }
-            }
-        }
-
         return $this->render_from_template('theme_adaptable/core/loginform', $context);
     }
 

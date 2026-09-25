@@ -38,7 +38,7 @@
 .form-label {
     label,
     > p {
-        color: [[setting:fontheadercolor]];
+        color: var(--ad-light-font-header-colour);
         font-family: [[setting:fontheadername]] !important;
         font-size: 18px;
         font-weight: [[setting:fontheaderweight]] !important;

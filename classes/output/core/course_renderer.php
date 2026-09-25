@@ -151,13 +151,13 @@ class course_renderer extends \core_course_renderer {
         // Display course tiles depending the number per row.
         $content .= html_writer::start_tag(
             'div',
-            ['class' => 'col-12 col-md-' . $colclass . ' panel panel-default coursebox box-' . $colclass . ' ' . $additionalcss]
+            ['class' => 'col-12 col-md-' . $colclass . ' card coursebox box-' . $colclass . ' ' . $additionalcss]
         );
 
         // Add the course name.
         $coursename = $chelper->get_course_formatted_name($course);
         if (($type == 1) || ($showcourses < self::COURSECAT_SHOW_COURSES_EXPANDED)) {
-            $content .= html_writer::start_tag('div', ['class' => 'panel-heading']);
+            $content .= html_writer::start_tag('div', ['class' => 'card-heading']);
             $content .= html_writer::link(
                 new url('/course/view.php', ['id' => $course->id]),
                 $coursename,
@@ -181,15 +181,15 @@ class course_renderer extends \core_course_renderer {
         }
 
         if (($type == 1) || ($showcourses < self::COURSECAT_SHOW_COURSES_EXPANDED)) {
-            $content .= html_writer::end_tag('div'); // End .panel-heading.
+            $content .= html_writer::end_tag('div'); // End .card-heading.
         }
 
         if ($showcourses < self::COURSECAT_SHOW_COURSES_EXPANDED) {
             $content .= html_writer::start_tag('div', ['id' => 'coursecollapse' . $course->id,
-                'class' => 'panel-collapse collapse', ]);
+                'class' => 'card-collapse collapse', ]);
         }
 
-        $content .= html_writer::start_tag('div', ['class' => 'panel-body clearfix']);
+        $content .= html_writer::start_tag('div', ['class' => 'card-body clearfix']);
 
         // This gets the course image or files.
         $content .= $this->coursecat_coursebox_content($chelper, $course, $type);
@@ -218,13 +218,13 @@ class course_renderer extends \core_course_renderer {
             }
         }
 
-        $content .= html_writer::end_tag('div'); // End .panel-body.
+        $content .= html_writer::end_tag('div'); // End .card-body.
 
         if ($showcourses < self::COURSECAT_SHOW_COURSES_EXPANDED) {
             $content .= html_writer::end_tag('div'); // End .collapse.
         }
 
-        $content .= html_writer::end_tag('div'); // End .panel.
+        $content .= html_writer::end_tag('div'); // End .card.
 
         return $content;
     }
