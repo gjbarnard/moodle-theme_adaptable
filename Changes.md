@@ -1,3 +1,9 @@
+Change log in version 502.2.0 (2026041206)
+==========================================
+1. Fix navbar block drawer toggle border not showing.
+2. Tidy 'thirdpartylibs.xml'.
+3. V502.1.5 should have been a minor not patch release.
+
 Change log in version 502.1.5 (2026041205)
 ==========================================
 1. Adapt improved core login form.
