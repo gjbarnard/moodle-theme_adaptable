@@ -1,3 +1,7 @@
+Change log in version 501.1.4-1 (2025092509)
+============================================
+1. Same as version 501.1.4 but for publish to CAMP.
+
 Change log in version 501.1.4 (2025092509)
 ==========================================
 1. Fix 'isguestuser instead of isguestuser()' - #56.

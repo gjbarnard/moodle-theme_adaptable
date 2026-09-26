@@ -40,7 +40,7 @@ $plugin->requires = 2025100600.00; // 5.1 (Build: 20251006).  phpcs:ignore Squiz
 $plugin->supported = [501, 501];
 
 // Adaptable version using SemVer (https://semver.org).
-$plugin->release = '501.1.4';
+$plugin->release = '501.1.4-1';
 
 // Adaptable maturity (do not use ALPHA or BETA versions in production sites).
 $plugin->maturity = MATURITY_STABLE;

@@ -1,56 +1,6 @@
 <?xml version="1.0"?>
 <libraries>
   <library>
-    <location>../boost/scss/bootstrap</location>
-    <name>Twitter Bootstrap</name>
-    <description>HTML, CSS, and JavaScript framework for developing responsive, mobile-first projects on the web.</description>
-    <version>5.3.3</version>
-    <license>MIT</license>
-    <repository>https://github.com/twbs/bootstrap</repository>
-    <copyrights>
-      <copyright>2011-2021 Twitter, Inc</copyright>
-      <copyright>2011-2021 The Bootstrap Authors</copyright>
-    </copyrights>
-    <customised/>
-  </library>
-  <library>
-    <location>../boost/amd/src/bootstrap/</location>
-    <name>Twitter Bootstrap</name>
-    <description>HTML, CSS, and JavaScript framework for developing responsive, mobile-first projects on the web.</description>
-    <version>5.3.3</version>
-    <license>MIT</license>
-    <repository>https://github.com/twbs/bootstrap</repository>
-    <copyrights>
-      <copyright>2011-2021 Twitter, Inc</copyright>
-      <copyright>2011-2021 The Bootstrap Authors</copyright>
-    </copyrights>
-    <customised/>
-  </library>
-  <library>
-    <location>../boost/amd/src/index.js</location>
-    <name>Twitter Bootstrap</name>
-    <description>HTML, CSS, and JavaScript framework for developing responsive, mobile-first projects on the web.</description>
-    <version>5.3.3</version>
-    <license>MIT</license>
-    <repository>https://github.com/twbs/bootstrap</repository>
-    <copyrights>
-      <copyright>2011-2021 Twitter, Inc</copyright>
-      <copyright>2011-2021 The Bootstrap Authors</copyright>
-    </copyrights>
-    <customised/>
-  </library>
-  <library>
-    <location>../boost/scss/fontawesome</location>
-    <name>Font Awesome - http://fontawesome.com</name>
-    <description>Font Awesome CSS, LESS, and Sass files. Font Awesome is the Internet's icon library and toolkit, used by millions of designers, developers, and content creators.</description>
-    <version>6.7.2</version>
-    <license>(MIT)</license>
-    <repository>https://github.com/FortAwesome/Font-Awesome</repository>
-    <copyrights>
-      <copyright>2023 Fonticons, Inc</copyright>
-    </copyrights>
-  </library>
-  <library>
     <location>scss/fontawesome</location>
     <name>Font Awesome - http://fontawesome.com</name>
     <description>Font Awesome is the Internet's icon library and toolkit, used by millions of designers, developers, and content creators.</description>
@@ -62,21 +12,21 @@
     </copyrights>
   </library>
   <library>
-    <location>./amd/src/jqueryeasing.js</location>
+    <location>amd/src/jqueryeasing.js</location>
     <name>jQuery Easing - http://gsgd.co.uk/sandbox/jquery/easing/</name>
     <license>Open source under the BSD License.  Copyright  2008 George McGinley Smith.</license>
     <version>1.4.1</version>
     <licenseversion></licenseversion>
   </library>
   <library>
-    <location>./amd/src/flexslider.js</location>
+    <location>amd/src/flexslider.js</location>
     <name>jQuery FlexSlider - https://github.com/woocommerce/FlexSlider</name>
     <license>GPL.  Copyright 2012 WooThemes.  Contributing Author: Tyler Smith.</license>
     <version>2.7.2</version>
     <licenseversion>2.0</licenseversion>
   </library>
   <library>
-    <location>./amd/src/pace.js</location>
+    <location>amd/src/pace.js</location>
     <name>Pace - https://github.com/CodeByZach/pace</name>
     <license>MIT</license>
     <version>1.2.4</version>
