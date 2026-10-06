@@ -27,6 +27,7 @@
 #adaptable-page-header-wrapper #main-navbar {
     background-color: var(--ad-light-menu-background-colour);
     border-bottom: 3px solid var(--ad-menu-border-colour);
+    color: var(--ad-light-menu-font-colour);
     clear: both;
 
     .navbar .navbar-nav > {
@@ -66,7 +67,7 @@
         .context-header-settings-menu .action-menu-trigger a.dropdown-toggle:hover,
         .region-main-settings-menu .action-menu-trigger a.dropdown-toggle,
         .region-main-settings-menu .action-menu-trigger a.dropdown-toggle:hover {
-            background-color: #fff;
+            background-color: var(--ad-light-menu-background-colour);
             color: var(--ad-light-menu-font-colour);
             font-size: [[setting:menufontsize]]px;
             font-weight: 400;

@@ -1,3 +1,7 @@
+Change log in version 502.2.1 (2026041207)
+==========================================
+1. Fix navbar elements cannot be seen when the background colour is not white.
+
 Change log in version 502.2.0 (2026041206)
 ==========================================
 1. Fix navbar block drawer toggle border not showing.

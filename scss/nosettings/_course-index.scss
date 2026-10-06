@@ -22,23 +22,42 @@
 // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 //
 
+.drawerheader .drawerheading #courseindexdrawerheading,
 .courseindex .courseindex-item {
+    .courseindex-chevron,
     .courseindex-link {
-        color: var(--ad-light-link-colour);
+        color: var(--ad-light-courseindex-link-colour);
         margin-bottom: auto;
         margin-top: auto;
-
-        &:hover,
-        &:focus {
-            color: var(--ad-light-linkhover-colour);
-        }
     }
 
-    &.pageitem {
-        .courseindex-link {
-            &:hover,
-            &:focus {
-                color: inherit;
+    &:hover,
+    &:focus {
+        color: var(--ad-light-courseindex-link-hover-colour);
+
+        .courseindex-link,
+        .courseindex-chevron {
+            color: var(--ad-light-courseindex-link-hover-colour);
+        }
+        &.dimmed {
+            color: var(--ad-light-courseindex-link-hover-colour);
+
+            .courseindex-link,
+            .courseindex-chevron {
+                color: var(--ad-light-courseindex-link-hover-colour);
+            }
+        }
+
+        &.pageitem,
+        .pageitem {
+            background-color: var(--ad-light-courseindex-item-page-bg);
+            color: var(--ad-light-courseindex-link-colour-selected);
+            .courseindex-link,
+            .courseindex-chevron {
+                color: var(--ad-light-courseindex-link-colour-selected);
+                a {
+                    color: var(--ad-light-courseindex-link-colour-selected);
+                }
             }
         }
     }

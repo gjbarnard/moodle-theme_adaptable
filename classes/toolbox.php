@@ -335,14 +335,14 @@ class toolbox {
         $prescss .= '$loadingcolor: ' . $loadingcolor . ';' . PHP_EOL;
         $prescss .= '$loadingcolorrgba: ' . $loadingcolorrgba . ';' . PHP_EOL;
         $prescss .= '$nav-tabs-border-color: $secondary;' . PHP_EOL;
-        $prescss .= '$courseindex-link-color: ' .
-            self::get_setting('courseindexitemcolor', false, $theme->name, '#495057') . ';' . PHP_EOL;
-        $prescss .= '$courseindex-link-hover-color: ' .
-            self::get_setting('courseindexitemhovercolor', false, $theme->name, '#e6e6e6') . ';' . PHP_EOL;
-        $prescss .= '$courseindex-link-color-selected: ' .
-            self::get_setting('courseindexpageitemcolor', false, $theme->name, '#ffffff') . ';' . PHP_EOL;
-        $prescss .= '$courseindex-item-page-bg: ' .
-            self::get_setting('courseindexpageitembgcolor', false, $theme->name, '#0f6cbf') . ';' . PHP_EOL;
+        $courseindexlinkcolor = self::get_setting('courseindexitemcolor', false, $theme->name, '#495057');
+        $prescss .= '$courseindex-link-color: ' . $courseindexlinkcolor . ';' . PHP_EOL;
+        $courseindexlinkhovercolor = self::get_setting('courseindexitemhovercolor', false, $theme->name, '#e6e6e6');
+        $prescss .= '$courseindex-link-hover-color: ' . $courseindexlinkhovercolor . ';' . PHP_EOL;
+        $courseindexpageitemcolor = self::get_setting('courseindexpageitemcolor', false, $theme->name, '#ffffff');
+        $prescss .= '$courseindex-link-color-selected: ' . $courseindexpageitemcolor . ';' . PHP_EOL;
+        $courseindexpageitembgcolor = self::get_setting('courseindexpageitembgcolor', false, $theme->name, '#0f6cbf');
+        $prescss .= '$courseindex-item-page-bg: ' . $courseindexpageitembgcolor . ';' . PHP_EOL;
         $prescss .= '$input-btn-focus-color: rgba(' .
             self::get_setting('inputbuttonfocuscolour', false, $theme->name, '#0f6cc0') . ', ' .
             self::get_setting('inputbuttonfocuscolouropacity', false, $theme->name, '0.75') . ');' . PHP_EOL;
@@ -414,6 +414,14 @@ class toolbox {
 
         $buttontexthovercolor = self::get_setting('buttontexthovercolor', false, $theme->name, '#eeeeee');
         $prescss .= '--ad-light-button-text-hover-colour: ' . $buttontexthovercolor . ';' . PHP_EOL;
+
+        $prescss .= '--ad-light-courseindex-link-colour: ' . $courseindexlinkcolor . ';' . PHP_EOL;
+
+        $prescss .= '--ad-light-courseindex-link-hover-colour: ' . $courseindexlinkhovercolor . ';' . PHP_EOL;
+
+        $prescss .= '--ad-light-courseindex-link-colour-selected: ' . $courseindexpageitemcolor . ';' . PHP_EOL;
+
+        $prescss .= '--ad-light-courseindex-item-page-bg: ' . $courseindexpageitembgcolor . ';' . PHP_EOL;
 
         $coursesectionactivityheadingcolour = self::get_setting(
             'coursesectionactivityheadingcolour',
